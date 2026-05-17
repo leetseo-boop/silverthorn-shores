@@ -18,7 +18,6 @@ import {
   UserCheck,
 } from "lucide-react";
 import heroImg from "@/assets/rental-policy-hero.jpg";
-import { Nav, Footer } from "@/components/SilverthornHomePage";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -381,7 +380,6 @@ function PolicyPage() {
   return (
     <div className="min-h-screen bg-white"
       style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
-      <Nav />
 
       {/* Hero */}
       <section className="relative">
@@ -534,7 +532,6 @@ function PolicyPage() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }
