@@ -110,15 +110,34 @@ function FaqPage() {
   return (
     <main className="bg-background">
       {/* Header */}
-      <section className="px-4 pt-20 pb-10 md:pt-28 md:pb-14">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-display text-4xl md:text-6xl font-bold text-secondary tracking-tight">
-            Frequently Asked Questions
-          </h1>
-          <div className="mx-auto mt-5 h-1 w-16 rounded bg-primary" />
-          <p className="mt-6 text-base md:text-lg text-muted-foreground">
-            Everything you need to know about your Shasta Lake vacation.
-          </p>
+      <section className="px-4 pt-16 md:pt-24 pb-12 md:pb-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-14">
+          <div className="text-center md:text-left">
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-secondary tracking-tight">
+              Frequently Asked Questions
+            </h1>
+            <div className="mt-5 h-1 w-16 rounded bg-primary mx-auto md:mx-0" />
+            <p className="mt-6 text-base md:text-lg text-muted-foreground">
+              Everything you need to know about your Shasta Lake vacation.
+            </p>
+          </div>
+          <div className="relative mx-auto w-full max-w-xl md:max-w-none">
+            <div
+              aria-hidden
+              className="absolute -bottom-3 -right-3 h-full w-full rounded-2xl bg-primary/15"
+            />
+            <div className="relative aspect-[3/2] overflow-hidden rounded-2xl shadow-2xl ring-1 ring-border rotate-1 md:rotate-2">
+              <img
+                src={faqHero}
+                alt="Couple planning their Shasta Lake houseboat trip on silverthornresort.com"
+                width={1536}
+                height={1024}
+                loading="eager"
+                fetchPriority="high"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
