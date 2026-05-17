@@ -16,6 +16,10 @@ import {
   Mail,
   Clock,
   UserCheck,
+  Ship,
+  Anchor,
+  Store,
+  ArrowRight,
 } from "lucide-react";
 import heroImg from "@/assets/rental-policy-hero.jpg";
 
@@ -35,11 +39,11 @@ type Section = {
 };
 
 const DEPOSITS = [
-  { boat: "Queen, Queen I, Queen II", standard: "$1,000", holiday: "$5,000 (cash)" },
-  { boat: "Presidential, Senator, Executive", standard: "$500", holiday: "$3,000 (cash)" },
-  { boat: "Wakeboard Boats", standard: "$500", holiday: "—" },
-  { boat: "Patio Boats & Fishing Boats", standard: "$200", holiday: "—" },
-  { boat: "Cabins", standard: "$100", holiday: "—" },
+  { boat: "Queen, Queen I, Queen II", standard: "$1,000", holiday: "$5,000 (cash)", to: "/houseboats" },
+  { boat: "Presidential, Senator, Executive", standard: "$500", holiday: "$3,000 (cash)", to: "/houseboats" },
+  { boat: "Wakeboard Boats", standard: "$500", holiday: "—", to: "/small-boats" },
+  { boat: "Patio Boats & Fishing Boats", standard: "$200", holiday: "—", to: "/small-boats" },
+  { boat: "Cabins", standard: "$100", holiday: "—", to: "/cabins" },
 ];
 
 const CANCELLATION_TIERS = [
@@ -51,9 +55,9 @@ const CANCELLATION_TIERS = [
 ] as const;
 
 const PERMITS = [
-  { boat: "Queen / Queen I", count: 5 },
-  { boat: "Queen II / Presidential / Senator", count: 4 },
-  { boat: "Executive", count: 3 },
+  { boat: "Queen / Queen I", count: 5, to: "/houseboats" },
+  { boat: "Queen II / Presidential / Senator", count: 4, to: "/houseboats" },
+  { boat: "Executive", count: 3, to: "/houseboats" },
 ];
 
 const SECTIONS: Section[] = [
@@ -98,7 +102,11 @@ const SECTIONS: Section[] = [
             <div key={d.boat}
               className="grid grid-cols-3 text-sm bg-white"
               style={{ borderTop: i === 0 ? "none" : "1px solid rgba(27,43,58,0.08)" }}>
-              <div className="px-3 sm:px-5 py-3 font-medium">{d.boat}</div>
+              <div className="px-3 sm:px-5 py-3 font-medium">
+                <Link to={d.to} className="underline underline-offset-2 hover:no-underline" style={{ color: "var(--lake)" }}>
+                  {d.boat}
+                </Link>
+              </div>
               <div className="px-3 sm:px-5 py-3">{d.standard}</div>
               <div className="px-3 sm:px-5 py-3 font-semibold" style={{ color: ORANGE }}>{d.holiday}</div>
             </div>
@@ -297,7 +305,11 @@ const SECTIONS: Section[] = [
           {PERMITS.map((p, i) => (
             <div key={p.boat} className="grid grid-cols-2 text-sm bg-white"
               style={{ borderTop: i === 0 ? "none" : "1px solid rgba(27,43,58,0.08)" }}>
-              <div className="px-3 sm:px-5 py-3 font-medium">{p.boat}</div>
+              <div className="px-3 sm:px-5 py-3 font-medium">
+                <Link to={p.to} className="underline underline-offset-2 hover:no-underline" style={{ color: "var(--lake)" }}>
+                  {p.boat}
+                </Link>
+              </div>
               <div className="px-3 sm:px-5 py-3 font-bold" style={{ color: ORANGE }}>{p.count}</div>
             </div>
           ))}
@@ -505,6 +517,40 @@ function PolicyPage() {
                   {body}
                 </div>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Related pages */}
+      <section className="py-14" style={{ backgroundColor: SAND }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center" style={{ fontFamily: DISPLAY, color: NAVY }}>
+            Plan the rest of your trip
+          </h2>
+          <p className="text-center text-gray-700 mb-8">Explore the rest of Silverthorn Resort.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { to: "/houseboats", icon: Ship, title: "Luxury Houseboats", desc: "Browse our fleet of Queen, Presidential, Senator & Executive houseboats." },
+              { to: "/small-boats", icon: Anchor, title: "Patio & Wakeboard Boats", desc: "Add a patio boat, fishing boat, or wakeboard boat to your stay." },
+              { to: "/pro-shop", icon: Store, title: "Silverthorn Pro Shop", desc: "Fuel, tackle, snacks, gear, and last-minute essentials on the main dock." },
+            ].map(({ to, icon: Icon, title, desc }) => (
+              <Link
+                key={to}
+                to={to}
+                className="group rounded-2xl border bg-white p-6 transition-shadow hover:shadow-lg flex flex-col"
+                style={{ borderColor: "rgba(27,43,58,0.1)" }}
+              >
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: `${ORANGE}1A`, color: ORANGE }}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold mb-1" style={{ fontFamily: DISPLAY, color: NAVY }}>{title}</h3>
+                <p className="text-sm text-gray-700 leading-relaxed flex-1">{desc}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: "var(--lake)" }}>
+                  Learn more <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
             ))}
           </div>
         </div>
