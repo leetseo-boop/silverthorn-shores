@@ -37,7 +37,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "Can I bring my pet?",
-    a: "Some cabins are pet friendly. Please call 800-332-3044 to confirm availability for your specific cabin and dates. Houseboats are not pet friendly.",
+    a: "All of our houseboats are pet friendly. Please call 800-332-3044 with any questions about traveling with your pet.",
   },
   {
     q: "What is the cancellation and rental policy?",
@@ -110,8 +110,8 @@ function FaqPage() {
   return (
     <main className="bg-background">
       {/* Header */}
-      <section className="px-4 pt-16 md:pt-24 pb-12 md:pb-16">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-14">
+      <section className="px-4 pt-16 md:pt-24 pb-10 md:pb-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-2 md:gap-14">
           <div className="text-center md:text-left">
             <h1 className="font-display text-4xl md:text-6xl font-bold text-secondary tracking-tight">
               Frequently Asked Questions
@@ -121,12 +121,12 @@ function FaqPage() {
               Everything you need to know about your Shasta Lake vacation.
             </p>
           </div>
-          <div className="relative mx-auto w-full max-w-xl md:max-w-none">
+          <div className="relative mx-auto w-full max-w-md sm:max-w-lg md:max-w-none">
             <div
               aria-hidden
-              className="absolute -bottom-3 -right-3 h-full w-full rounded-2xl bg-primary/15"
+              className="absolute -bottom-2 -right-2 md:-bottom-3 md:-right-3 h-full w-full rounded-2xl bg-primary/15"
             />
-            <div className="relative aspect-[3/2] overflow-hidden rounded-2xl shadow-2xl ring-1 ring-border rotate-1 md:rotate-2">
+            <div className="relative aspect-[3/2] overflow-hidden rounded-2xl shadow-2xl ring-1 ring-border md:rotate-2">
               <img
                 src={faqHero}
                 alt="Couple planning their Shasta Lake houseboat trip on silverthornresort.com"

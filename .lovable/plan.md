@@ -1,25 +1,26 @@
-## Add framed hero image to FAQ page
+## Three small FAQ updates
 
-Update `src/routes/faq.tsx` header section to feature the new `couple-planning-shasta.webp` hero image alongside the existing headline.
+### 1. FAQPage JSON-LD — already in place, verify only
+`src/routes/faq.tsx` already emits a valid `FAQPage` JSON-LD via the route's `head().scripts`, built from the `FAQS` array (single source of truth, so it stays in sync with the visible content). No code change needed — I'll just confirm it's present after the other edits. If you'd also like a `BreadcrumbList` schema (Home › FAQ) on top of `FAQPage`, say the word and I'll add it.
 
-### Layout
-Convert the centered text-only header into a two-column hero on desktop, stacked on mobile:
+### 2. Mobile spacing / alignment of the FAQ hero image
+Current issues on small screens:
+- The `rotate-1 md:rotate-2` tilt is applied on mobile too, which clips corners against the small viewport edges and unbalances the layout.
+- The orange offset accent block (`-bottom-3 -right-3`) plus the tilt push content past the section padding.
+- The image wrapper has `max-w-xl` but no horizontal breathing room from the page edge on narrow phones.
 
-- **Left (md:6 cols)**: existing copy — H1 "Frequently Asked Questions", orange divider, subtext — left-aligned on desktop, centered on mobile.
-- **Right (md:6 cols)**: the hero image, nicely framed.
+Fix in `src/routes/faq.tsx`:
+- Remove tilt on mobile, keep it only on desktop: change `rotate-1 md:rotate-2` → `md:rotate-2` (no rotation under md).
+- Constrain the wrapper on mobile and add a small inner gutter: `max-w-md sm:max-w-lg md:max-w-none`.
+- Reduce the accent offset on mobile: `-bottom-2 -right-2 md:-bottom-3 md:-right-3`.
+- Tighten vertical rhythm between the copy and image on mobile: bump the grid gap from `gap-10` → `gap-8 md:gap-14`.
+- Bottom padding of the hero section: `pb-10 md:pb-16` so the image isn't crowding the accordion.
 
-### Image framing
-- `<img>` with `src` imported from `@/assets/couple-planning-shasta.webp`, `width={1536} height={1024}`, `loading="eager"` + `fetchPriority="high"` (it's the LCP for this page).
-- Wrapper: `aspect-[3/2] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-border` with a subtle rotate (`rotate-1 md:rotate-2`) for a polaroid-ish feel.
-- Behind it, a decorative offset block: an absolutely positioned `bg-primary/10` (orange tint) rounded panel offset `-bottom-3 -right-3` to give depth.
-- Optional small `bg-sand` (`#F4EFE6`) corner sticker badge "Plan your Shasta Lake trip" — skip if it feels busy.
+### 3. Pet policy answer
+In the `FAQS` array, update Q7 ("Can I bring my pet?") answer.
+- Before: "Some cabins are pet friendly. Please call 800-332-3044 to confirm availability for your specific cabin and dates. Houseboats are not pet friendly."
+- After: "All of our houseboats are pet friendly. Please call 800-332-3044 with any questions about traveling with your pet."
 
-### Spacing
-- Section padding tightened: `pt-16 md:pt-24 pb-12 md:pb-16`.
-- Two-column grid: `grid md:grid-cols-2 gap-10 md:gap-14 items-center max-w-6xl mx-auto`.
+Because the JSON-LD is generated from `FAQS`, the schema updates automatically — no separate edit.
 
-### Preload
-Add a `<link rel="preload" as="image" href={heroImg}>` entry to the route's `head().links` so the LCP loads fast (same pattern as `src/routes/index.tsx`).
-
-### Tokens / styling
-Reuse existing tokens (`--secondary`, `--primary`, `--border`, `--muted-foreground`). No new dependencies. Single file touched: `src/routes/faq.tsx`.
+Single file touched: `src/routes/faq.tsx`.
