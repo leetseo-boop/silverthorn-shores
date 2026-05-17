@@ -675,9 +675,16 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
         )}
 
         {unavailable && (
-          <span className="absolute top-3 right-3 inline-flex items-center rounded-full bg-foreground/80 px-2.5 py-1 text-xs font-bold text-background shadow">
-            Currently unavailable
-          </span>
+          <>
+            <div className="absolute inset-0 bg-black/45 pointer-events-none" aria-hidden="true" />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[140%] -rotate-12 bg-destructive/95 py-2.5 text-center text-white shadow-lg ring-2 ring-white/70">
+                <span className="block text-lg sm:text-2xl font-extrabold uppercase tracking-[0.2em]">
+                  Currently Unavailable
+                </span>
+              </div>
+            </div>
+          </>
         )}
 
         {cabin.accessible && (
