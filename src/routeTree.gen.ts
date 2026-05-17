@@ -14,6 +14,7 @@ import { Route as ProShopRouteImport } from './routes/pro-shop'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DirectionsRouteImport } from './routes/directions'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CabinsRouteImport } from './routes/cabins'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HouseboatsIndexRouteImport } from './routes/houseboats.index'
 import { Route as SmallBoatsSlugRouteImport } from './routes/small-boats_.$slug'
@@ -46,6 +47,11 @@ const DirectionsRoute = DirectionsRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CabinsRoute = CabinsRouteImport.update({
+  id: '/cabins',
+  path: '/cabins',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -91,6 +97,7 @@ const HouseboatsPolicyRoute = HouseboatsPolicyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
   '/faq': typeof FaqRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
   '/faq': typeof FaqRoute
@@ -122,6 +130,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
   '/faq': typeof FaqRoute
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cabins'
     | '/contact'
     | '/directions'
     | '/faq'
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cabins'
     | '/contact'
     | '/directions'
     | '/faq'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/cabins'
     | '/contact'
     | '/directions'
     | '/faq'
@@ -185,6 +197,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CabinsRoute: typeof CabinsRoute
   ContactRoute: typeof ContactRoute
   DirectionsRoute: typeof DirectionsRoute
   FaqRoute: typeof FaqRoute
@@ -234,6 +247,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cabins': {
+      id: '/cabins'
+      path: '/cabins'
+      fullPath: '/cabins'
+      preLoaderRoute: typeof CabinsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -297,6 +317,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CabinsRoute: CabinsRoute,
   ContactRoute: ContactRoute,
   DirectionsRoute: DirectionsRoute,
   FaqRoute: FaqRoute,
