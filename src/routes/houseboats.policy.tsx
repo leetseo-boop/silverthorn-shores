@@ -35,11 +35,11 @@ type Section = {
 };
 
 const DEPOSITS = [
-  { boat: "Queen, Queen I, Queen II", standard: "$1,000", holiday: "$5,000 (cash)" },
-  { boat: "Presidential, Senator, Executive", standard: "$500", holiday: "$3,000 (cash)" },
-  { boat: "Wakeboard Boats", standard: "$500", holiday: "—" },
-  { boat: "Patio Boats & Fishing Boats", standard: "$200", holiday: "—" },
-  { boat: "Cabins", standard: "$100", holiday: "—" },
+  { boat: "Queen, Queen I, Queen II", standard: "$1,000", holiday: "$5,000 (cash)", to: "/houseboats" },
+  { boat: "Presidential, Senator, Executive", standard: "$500", holiday: "$3,000 (cash)", to: "/houseboats" },
+  { boat: "Wakeboard Boats", standard: "$500", holiday: "—", to: "/small-boats" },
+  { boat: "Patio Boats & Fishing Boats", standard: "$200", holiday: "—", to: "/small-boats" },
+  { boat: "Cabins", standard: "$100", holiday: "—", to: "/cabins" },
 ];
 
 const CANCELLATION_TIERS = [
@@ -51,9 +51,9 @@ const CANCELLATION_TIERS = [
 ] as const;
 
 const PERMITS = [
-  { boat: "Queen / Queen I", count: 5 },
-  { boat: "Queen II / Presidential / Senator", count: 4 },
-  { boat: "Executive", count: 3 },
+  { boat: "Queen / Queen I", count: 5, to: "/houseboats" },
+  { boat: "Queen II / Presidential / Senator", count: 4, to: "/houseboats" },
+  { boat: "Executive", count: 3, to: "/houseboats" },
 ];
 
 const SECTIONS: Section[] = [
