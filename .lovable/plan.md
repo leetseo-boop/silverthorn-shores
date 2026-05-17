@@ -1,26 +1,48 @@
-## Three small FAQ updates
+## Contact page at `/contact`
 
-### 1. FAQPage JSON-LD — already in place, verify only
-`src/routes/faq.tsx` already emits a valid `FAQPage` JSON-LD via the route's `head().scripts`, built from the `FAQS` array (single source of truth, so it stays in sync with the visible content). No code change needed — I'll just confirm it's present after the other edits. If you'd also like a `BreadcrumbList` schema (Home › FAQ) on top of `FAQPage`, say the word and I'll add it.
+Single new file `src/routes/contact.tsx` (Nav/Footer global via `__root.tsx`, same pattern as `/faq` and `/pro-shop`).
 
-### 2. Mobile spacing / alignment of the FAQ hero image
-Current issues on small screens:
-- The `rotate-1 md:rotate-2` tilt is applied on mobile too, which clips corners against the small viewport edges and unbalances the layout.
-- The orange offset accent block (`-bottom-3 -right-3`) plus the tilt push content past the section padding.
-- The image wrapper has `max-w-xl` but no horizontal breathing room from the page edge on narrow phones.
+### `head()`
+- `title`, `description`, `og:title`, `og:description`, `og:url`, `og:image` (reuse marina/resort image already in `src/assets`).
+- `canonical` `/contact`.
+- `scripts`: `LocalBusiness` JSON-LD with name, telephone `+1-800-332-3044`, email `reservations@silverthornresort.com`, full postal address, geo, openingHours (Mo-Su 08:00-18:30), sameAs (Facebook/Twitter/Instagram/YouTube URLs), url, image.
 
-Fix in `src/routes/faq.tsx`:
-- Remove tilt on mobile, keep it only on desktop: change `rotate-1 md:rotate-2` → `md:rotate-2` (no rotation under md).
-- Constrain the wrapper on mobile and add a small inner gutter: `max-w-md sm:max-w-lg md:max-w-none`.
-- Reduce the accent offset on mobile: `-bottom-2 -right-2 md:-bottom-3 md:-right-3`.
-- Tighten vertical rhythm between the copy and image on mobile: bump the grid gap from `gap-10` → `gap-8 md:gap-14`.
-- Bottom padding of the hero section: `pb-10 md:pb-16` so the image isn't crowding the accordion.
+### Sections (top → bottom)
 
-### 3. Pet policy answer
-In the `FAQS` array, update Q7 ("Can I bring my pet?") answer.
-- Before: "Some cabins are pet friendly. Please call 800-332-3044 to confirm availability for your specific cabin and dates. Houseboats are not pet friendly."
-- After: "All of our houseboats are pet friendly. Please call 800-332-3044 with any questions about traveling with your pet."
+1. **Header** — centered. Playfair H1 "Get in Touch" (navy `--secondary`), orange divider, DM Sans subtext "Our team is here to help you plan the perfect Shasta Lake vacation."
 
-Because the JSON-LD is generated from `FAQS`, the schema updates automatically — no separate edit.
+2. **Two-column grid** (`md:grid-cols-2 gap-10`, `max-w-6xl mx-auto`):
+   - **Left — Contact details** (vertical stack of cards / blocks):
+     - Big phone display: `tel:+18003323044`, Playfair, `text-primary` (#E8640A), large size. Primary orange "Call Now" button below.
+     - Email block: `reservations@silverthornresort.com` (mailto link).
+     - Address block: 16250 Silverthorn Road, Redding, CA 96003.
+     - Navy card (`bg-secondary text-secondary-foreground` / white text on navy): "Marina Store Hours — Mon–Sun 8:00 AM – 6:30 PM" with small note "Seasonal — hours may vary, call to confirm".
+     - Social icons row: lucide `Facebook`, `Twitter`, `Instagram`, `Youtube` — links to facebook.com/silverthornresort, twitter.com/SilverthornDock, instagram.com/silverthornresortandmarina, youtube.com (search). Icons are orange on hover, circular hover bg.
+   - **Right — Contact form**:
+     - Fields using shadcn `Input`, `Textarea`, `Label`: Name (required), Email (required, type=email), Phone (tel), Dates interested in (text, placeholder "e.g. Jul 12–19, 2026"), Message (required textarea).
+     - Client-side validation with **zod** (already in deps): `name 1-100`, `email valid 1-255`, `phone optional max 30`, `dates optional max 100`, `message 1-1000`. Show inline errors and a toast.
+     - Submit: since there is no backend endpoint and Lovable Cloud isn't enabled, on submit build a `mailto:reservations@silverthornresort.com` with subject "Website inquiry — {name}" and the message body, then `window.location.href = mailtoUrl`. Also show a success toast: "Opening your email client…". This avoids spinning up backend work for a contact form; if you'd rather store submissions in Lovable Cloud, say the word and I'll wire a server function + table after this page is in.
+     - Primary orange "Send Message" button.
+     - Small note below: "For fastest response, call us at 800-332-3044".
 
-Single file touched: `src/routes/faq.tsx`.
+3. **Google Maps embed** — full-width section, `iframe` with `src="https://www.google.com/maps?q=Silverthorn+Resort,+16250+Silverthorn+Road,+Redding,+CA+96003&output=embed"`, `height={350}`, rounded-2xl, ring border, `loading="lazy"`, `title="Map to Silverthorn Resort"`, `referrerPolicy="no-referrer-when-downgrade"`.
+
+4. **Directions strip** — 3-col grid (stacks on mobile), each a small card with a route icon:
+   - From Redding: I-5 N → Exit Gilman Road → follow signs (~15 mi, 20 min).
+   - From Sacramento: 3 hours via I-5 N.
+   - From Bay Area: 4 hours via I-80 E → I-5 N.
+
+5. **Sister marina note** — narrow centered card with `bg-sand`: "Looking for Jones Valley Resort? Visit houseboats.com or call us — same team, same lake." with a small outline link to `https://www.houseboats.com`.
+
+### Styling / tokens
+- Reuse existing tokens (`--primary` #E8640A, `--secondary` #1B2B3A, `--sand`, `--border`, `--muted-foreground`).
+- Playfair via `font-display`, DM Sans via default sans.
+- shadcn `Button`, `Input`, `Textarea`, `Label`, `Card` already in the project.
+- Use `sonner`/existing toast for form feedback (already present per `src/components/ui/sonner.tsx`).
+
+### Files
+- **Created**: `src/routes/contact.tsx`.
+- No edits to `__root.tsx`, no new dependencies. `routeTree.gen.ts` is auto-regenerated by the TanStack router plugin.
+
+### Open question
+- The brief says the form should "submit" but no backend is configured. Default plan: open `mailto:` (no backend, instant). Reply "store submissions" if you'd prefer Lovable Cloud + a `contact_submissions` table + server function instead — I'll add it as a follow-up.
