@@ -23,6 +23,7 @@ import { Route as HouseboatsQueenIiRouteImport } from './routes/houseboats.queen
 import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
 import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy'
+import { Route as CabinsPolicyRouteImport } from './routes/cabins.policy'
 
 const SmallBoatsRoute = SmallBoatsRouteImport.update({
   id: '/small-boats',
@@ -94,15 +95,21 @@ const HouseboatsPolicyRoute = HouseboatsPolicyRouteImport.update({
   path: '/houseboats/policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CabinsPolicyRoute = CabinsPolicyRouteImport.update({
+  id: '/policy',
+  path: '/policy',
+  getParentRoute: () => CabinsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cabins': typeof CabinsRoute
+  '/cabins': typeof CabinsRouteWithChildren
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/cabins/policy': typeof CabinsPolicyRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -113,12 +120,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cabins': typeof CabinsRoute
+  '/cabins': typeof CabinsRouteWithChildren
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/cabins/policy': typeof CabinsPolicyRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -130,12 +138,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/cabins': typeof CabinsRoute
+  '/cabins': typeof CabinsRouteWithChildren
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/cabins/policy': typeof CabinsPolicyRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/cabins/policy'
     | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/cabins/policy'
     | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/cabins/policy'
     | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -197,7 +209,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CabinsRoute: typeof CabinsRoute
+  CabinsRoute: typeof CabinsRouteWithChildren
   ContactRoute: typeof ContactRoute
   DirectionsRoute: typeof DirectionsRoute
   FaqRoute: typeof FaqRoute
@@ -312,12 +324,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HouseboatsPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cabins/policy': {
+      id: '/cabins/policy'
+      path: '/policy'
+      fullPath: '/cabins/policy'
+      preLoaderRoute: typeof CabinsPolicyRouteImport
+      parentRoute: typeof CabinsRoute
+    }
   }
 }
 
+interface CabinsRouteChildren {
+  CabinsPolicyRoute: typeof CabinsPolicyRoute
+}
+
+const CabinsRouteChildren: CabinsRouteChildren = {
+  CabinsPolicyRoute: CabinsPolicyRoute,
+}
+
+const CabinsRouteWithChildren =
+  CabinsRoute._addFileChildren(CabinsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CabinsRoute: CabinsRoute,
+  CabinsRoute: CabinsRouteWithChildren,
   ContactRoute: ContactRoute,
   DirectionsRoute: DirectionsRoute,
   FaqRoute: FaqRoute,
@@ -334,3 +364,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
