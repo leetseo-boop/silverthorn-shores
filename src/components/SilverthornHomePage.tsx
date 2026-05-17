@@ -8,7 +8,7 @@
  *   fontFamily: { display: ['Playfair Display', 'Georgia', 'serif'], body: ['DM Sans', 'system-ui', 'sans-serif'] }
  */
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import silverthornLogo from "@/assets/silverthorn-logo.webp";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -149,6 +149,17 @@ const NAV_LINKS = [
 export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openMenu = (label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenDropdown(label);
+  };
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 180);
+  };
 
   return (
     <nav
@@ -172,46 +183,54 @@ export function Nav() {
               <div
                 key={item.label}
                 className="relative"
-                onMouseEnter={() => setOpenDropdown(item.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                onMouseEnter={() => openMenu(item.label)}
+                onMouseLeave={scheduleClose}
               >
                 <button
-                  className="text-sm flex items-center gap-1 transition-colors font-medium"
-                  style={{ color: "#1B2B3A" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#1B2B3A")}
+                  className="text-sm flex items-center gap-1 transition-colors font-medium py-2"
+                  style={{ color: openDropdown === item.label ? "#E8640A" : "#1B2B3A" }}
+                  aria-haspopup="true"
+                  aria-expanded={openDropdown === item.label}
+                  onClick={() =>
+                    setOpenDropdown(openDropdown === item.label ? null : item.label)
+                  }
                 >
                   {item.label} <span className="text-xs opacity-60">▾</span>
                 </button>
                 {openDropdown === item.label && (
                   <div
-                    className="absolute top-full left-0 mt-2 w-44 rounded-xl overflow-hidden shadow-lg z-50 border"
-                    style={{
-                      backgroundColor: "#ffffff",
-                      borderColor: "rgba(27,43,58,0.12)",
-                    }}
+                    className="absolute top-full left-0 pt-3 z-50"
+                    style={{ minWidth: "16rem" }}
                   >
-                    {item.children.map((child) => (
-                      <a
-                        key={child.label}
-                        href={child.href}
-                        target={child.external ? "_blank" : undefined}
-                        rel={child.external ? "noopener noreferrer" : undefined}
-                        className="block px-4 py-2.5 text-xs transition-colors"
-                        style={{ color: "#1B2B3A" }}
-                        onMouseEnter={(e) => {
-                          (e.target as HTMLElement).style.color = "#E8640A";
-                          (e.target as HTMLElement).style.backgroundColor = "rgba(27,43,58,0.05)";
-                        }}
-                        onMouseLeave={(e) => {
-                          (e.target as HTMLElement).style.color = "#1B2B3A";
-                          (e.target as HTMLElement).style.backgroundColor = "transparent";
-                        }}
-                      >
-                        {child.label}
-                        {child.external && " ↗"}
-                      </a>
-                    ))}
+                    <div
+                      className="rounded-xl overflow-hidden shadow-xl border py-1"
+                      style={{
+                        backgroundColor: "#ffffff",
+                        borderColor: "rgba(27,43,58,0.12)",
+                      }}
+                    >
+                      {item.children.map((child) => (
+                        <a
+                          key={child.label}
+                          href={child.href}
+                          target={child.external ? "_blank" : undefined}
+                          rel={child.external ? "noopener noreferrer" : undefined}
+                          className="block px-4 py-2 text-sm whitespace-nowrap transition-colors"
+                          style={{ color: "#1B2B3A" }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLElement).style.color = "#E8640A";
+                            (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(232,100,10,0.08)";
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLElement).style.color = "#1B2B3A";
+                            (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                          }}
+                        >
+                          {child.label}
+                          {child.external && " ↗"}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -219,10 +238,10 @@ export function Nav() {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm transition-colors font-medium"
+                className="text-sm transition-colors font-medium py-2"
                 style={{ color: "#1B2B3A" }}
-                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
-                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#1B2B3A")}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#E8640A")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#1B2B3A")}
               >
                 {item.label}
               </a>
@@ -257,27 +276,69 @@ export function Nav() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div
-          className="md:hidden border-t px-6 py-4 flex flex-col gap-3"
+          className="md:hidden border-t px-6 py-4 flex flex-col gap-1 max-h-[80vh] overflow-y-auto"
           style={{
             backgroundColor: "#ffffff",
             borderColor: "rgba(27,43,58,0.1)",
           }}
         >
-          {NAV_LINKS.map((item) => (
-            <a
-              key={item.label}
-              href={item.href || (item.children && item.children[0].href)}
-              className="text-sm py-1 font-medium"
-              style={{ color: "#1B2B3A" }}
-            >
-              {item.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((item) =>
+            item.children ? (
+              <div key={item.label} className="border-b last:border-b-0" style={{ borderColor: "rgba(27,43,58,0.08)" }}>
+                <button
+                  className="w-full flex items-center justify-between py-3 text-sm font-medium"
+                  style={{ color: "#1B2B3A" }}
+                  onClick={() =>
+                    setMobileSubmenu(mobileSubmenu === item.label ? null : item.label)
+                  }
+                  aria-expanded={mobileSubmenu === item.label}
+                >
+                  <span>{item.label}</span>
+                  <span
+                    className="text-xs transition-transform"
+                    style={{
+                      transform: mobileSubmenu === item.label ? "rotate(180deg)" : "none",
+                    }}
+                  >
+                    ▾
+                  </span>
+                </button>
+                {mobileSubmenu === item.label && (
+                  <div className="pb-3 pl-3 flex flex-col gap-1">
+                    {item.children.map((child) => (
+                      <a
+                        key={child.label}
+                        href={child.href}
+                        target={child.external ? "_blank" : undefined}
+                        rel={child.external ? "noopener noreferrer" : undefined}
+                        className="block py-1.5 text-sm"
+                        style={{ color: "rgba(27,43,58,0.75)" }}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {child.label}
+                        {child.external && " ↗"}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <a
+                key={item.label}
+                href={item.href}
+                className="block py-3 text-sm font-medium border-b last:border-b-0"
+                style={{ color: "#1B2B3A", borderColor: "rgba(27,43,58,0.08)" }}
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.label}
+              </a>
+            )
+          )}
           <a
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 text-center py-3 rounded-lg text-white text-sm font-medium"
+            className="mt-3 text-center py-3 rounded-lg text-white text-sm font-medium"
             style={{ backgroundColor: "#E8640A" }}
           >
             Book Now →
