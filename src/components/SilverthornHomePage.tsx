@@ -8,7 +8,7 @@
  *   fontFamily: { display: ['Playfair Display', 'Georgia', 'serif'], body: ['DM Sans', 'system-ui', 'sans-serif'] }
  */
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import silverthornLogo from "@/assets/silverthorn-logo.webp";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
