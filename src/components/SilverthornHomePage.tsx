@@ -904,7 +904,7 @@ export default function SilverthornHomePage() {
       <AboutSection />
       <Testimonials />
       <SisterMarina />
-      <Footer />
+      
     </main>
   );
 }
