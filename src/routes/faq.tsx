@@ -6,6 +6,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Phone } from "lucide-react";
+import faqHero from "@/assets/couple-planning-shasta.webp";
 
 type Faq = { q: string; a: string; render?: () => React.ReactNode };
 
