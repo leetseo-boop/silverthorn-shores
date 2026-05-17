@@ -343,7 +343,7 @@ function SmallBoatsPage() {
         </div>
       </section>
 
-      <Footer />
+      
     </div>
   );
 }
