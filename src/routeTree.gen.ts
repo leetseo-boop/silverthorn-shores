@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SmallBoatsRouteImport } from './routes/small-boats'
+import { Route as DirectionsRouteImport } from './routes/directions'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HouseboatsIndexRouteImport } from './routes/houseboats.index'
 import { Route as SmallBoatsSlugRouteImport } from './routes/small-boats_.$slug'
@@ -21,6 +22,11 @@ import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 const SmallBoatsRoute = SmallBoatsRouteImport.update({
   id: '/small-boats',
   path: '/small-boats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DirectionsRoute = DirectionsRouteImport.update({
+  id: '/directions',
+  path: '/directions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -61,6 +67,7 @@ const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/directions': typeof DirectionsRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/directions': typeof DirectionsRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -82,6 +90,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/directions': typeof DirectionsRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/directions'
     | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/directions'
     | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/directions'
     | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -125,6 +137,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DirectionsRoute: typeof DirectionsRoute
   SmallBoatsRoute: typeof SmallBoatsRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
   HouseboatsQueenIRoute: typeof HouseboatsQueenIRoute
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/small-boats'
       fullPath: '/small-boats'
       preLoaderRoute: typeof SmallBoatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/directions': {
+      id: '/directions'
+      path: '/directions'
+      fullPath: '/directions'
+      preLoaderRoute: typeof DirectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -197,6 +217,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DirectionsRoute: DirectionsRoute,
   SmallBoatsRoute: SmallBoatsRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
   HouseboatsQueenIRoute: HouseboatsQueenIRoute,
