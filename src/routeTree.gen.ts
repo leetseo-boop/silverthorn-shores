@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SmallBoatsRouteImport } from './routes/small-boats'
+import { Route as ProShopRouteImport } from './routes/pro-shop'
 import { Route as DirectionsRouteImport } from './routes/directions'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HouseboatsIndexRouteImport } from './routes/houseboats.index'
@@ -22,6 +23,11 @@ import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 const SmallBoatsRoute = SmallBoatsRouteImport.update({
   id: '/small-boats',
   path: '/small-boats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProShopRoute = ProShopRouteImport.update({
+  id: '/pro-shop',
+  path: '/pro-shop',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DirectionsRoute = DirectionsRouteImport.update({
@@ -68,6 +74,7 @@ const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/directions': typeof DirectionsRoute
+  '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/directions': typeof DirectionsRoute
+  '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/directions': typeof DirectionsRoute
+  '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/directions'
+    | '/pro-shop'
     | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/directions'
+    | '/pro-shop'
     | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/directions'
+    | '/pro-shop'
     | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DirectionsRoute: typeof DirectionsRoute
+  ProShopRoute: typeof ProShopRoute
   SmallBoatsRoute: typeof SmallBoatsRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
   HouseboatsQueenIRoute: typeof HouseboatsQueenIRoute
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/small-boats'
       fullPath: '/small-boats'
       preLoaderRoute: typeof SmallBoatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pro-shop': {
+      id: '/pro-shop'
+      path: '/pro-shop'
+      fullPath: '/pro-shop'
+      preLoaderRoute: typeof ProShopRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/directions': {
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DirectionsRoute: DirectionsRoute,
+  ProShopRoute: ProShopRoute,
   SmallBoatsRoute: SmallBoatsRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
   HouseboatsQueenIRoute: HouseboatsQueenIRoute,
@@ -229,3 +250,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
