@@ -522,6 +522,40 @@ function PolicyPage() {
         </div>
       </section>
 
+      {/* Related pages */}
+      <section className="py-14" style={{ backgroundColor: SAND }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center" style={{ fontFamily: DISPLAY, color: NAVY }}>
+            Plan the rest of your trip
+          </h2>
+          <p className="text-center text-gray-700 mb-8">Explore the rest of Silverthorn Resort.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { to: "/houseboats", icon: Ship, title: "Luxury Houseboats", desc: "Browse our fleet of Queen, Presidential, Senator & Executive houseboats." },
+              { to: "/small-boats", icon: Anchor, title: "Patio & Wakeboard Boats", desc: "Add a patio boat, fishing boat, or wakeboard boat to your stay." },
+              { to: "/pro-shop", icon: Store, title: "Silverthorn Pro Shop", desc: "Fuel, tackle, snacks, gear, and last-minute essentials on the main dock." },
+            ].map(({ to, icon: Icon, title, desc }) => (
+              <Link
+                key={to}
+                to={to}
+                className="group rounded-2xl border bg-white p-6 transition-shadow hover:shadow-lg flex flex-col"
+                style={{ borderColor: "rgba(27,43,58,0.1)" }}
+              >
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: `${ORANGE}1A`, color: ORANGE }}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold mb-1" style={{ fontFamily: DISPLAY, color: NAVY }}>{title}</h3>
+                <p className="text-sm text-gray-700 leading-relaxed flex-1">{desc}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: "var(--lake)" }}>
+                  Learn more <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-14" style={{ backgroundColor: ORANGE, color: "white" }}>
         <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
