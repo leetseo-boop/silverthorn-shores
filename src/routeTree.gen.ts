@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
 import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseboatsQueenIRoute = HouseboatsQueenIRouteImport.update({
+  id: '/houseboats/queen-i',
+  path: '/houseboats/queen-i',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
@@ -26,27 +32,31 @@ const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
+  '/houseboats/queen-i': typeof HouseboatsQueenIRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
+  '/houseboats/queen-i': typeof HouseboatsQueenIRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
+  '/houseboats/queen-i': typeof HouseboatsQueenIRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/houseboats/queen'
+  fullPaths: '/' | '/houseboats/queen' | '/houseboats/queen-i'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/houseboats/queen'
-  id: '__root__' | '/' | '/houseboats/queen'
+  to: '/' | '/houseboats/queen' | '/houseboats/queen-i'
+  id: '__root__' | '/' | '/houseboats/queen' | '/houseboats/queen-i'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
+  HouseboatsQueenIRoute: typeof HouseboatsQueenIRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/queen-i': {
+      id: '/houseboats/queen-i'
+      path: '/houseboats/queen-i'
+      fullPath: '/houseboats/queen-i'
+      preLoaderRoute: typeof HouseboatsQueenIRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/houseboats/queen': {
@@ -71,7 +88,18 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
+  HouseboatsQueenIRoute: HouseboatsQueenIRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
