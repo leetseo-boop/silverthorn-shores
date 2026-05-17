@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SmallBoatsRouteImport } from './routes/small-boats'
 import { Route as ProShopRouteImport } from './routes/pro-shop'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DirectionsRouteImport } from './routes/directions'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HouseboatsIndexRouteImport } from './routes/houseboats.index'
@@ -28,6 +29,11 @@ const SmallBoatsRoute = SmallBoatsRouteImport.update({
 const ProShopRoute = ProShopRouteImport.update({
   id: '/pro-shop',
   path: '/pro-shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DirectionsRoute = DirectionsRouteImport.update({
@@ -74,6 +80,7 @@ const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/directions': typeof DirectionsRoute
+  '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/directions': typeof DirectionsRoute
+  '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/directions': typeof DirectionsRoute
+  '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/directions'
+    | '/faq'
     | '/pro-shop'
     | '/small-boats'
     | '/houseboats/queen'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/directions'
+    | '/faq'
     | '/pro-shop'
     | '/small-boats'
     | '/houseboats/queen'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/directions'
+    | '/faq'
     | '/pro-shop'
     | '/small-boats'
     | '/houseboats/queen'
@@ -150,6 +162,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DirectionsRoute: typeof DirectionsRoute
+  FaqRoute: typeof FaqRoute
   ProShopRoute: typeof ProShopRoute
   SmallBoatsRoute: typeof SmallBoatsRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
@@ -174,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/pro-shop'
       fullPath: '/pro-shop'
       preLoaderRoute: typeof ProShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/directions': {
@@ -238,6 +258,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DirectionsRoute: DirectionsRoute,
+  FaqRoute: FaqRoute,
   ProShopRoute: ProShopRoute,
   SmallBoatsRoute: SmallBoatsRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
@@ -250,3 +271,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
