@@ -1,8 +1,15 @@
-Remove duplicate Nav/Footer from `src/routes/houseboats.policy.tsx`:
+Edit the rental policy hero image to swap two embedded scenes while keeping the rest of the composition (desk, printer, coffee, paper, oar, plant, mug) identical.
 
-- Drop the `import { Nav, Footer } from "@/components/SilverthornHomePage"` line.
-- Remove the `<Nav />` element at the top of `PolicyPage` and the `<Footer />` element at the bottom.
+## Steps
+1. Copy the two uploaded images into the project so they're addressable by path:
+   - `user-uploads://672615599_1403441485161098_483838650387925477_n.jpg` → `src/assets/_tmp-hero-laptop.jpg` (lake + pontoon boat)
+   - `user-uploads://queengroup-proshop-2.jfif` → `src/assets/_tmp-hero-wall.jpg` (group floating on the lake)
+2. Call `imagegen--edit_image` with all three images as inputs:
+   - existing `src/assets/rental-policy-hero.jpg`
+   - the two temp images
+   - prompt: replace the content shown on the laptop screen with the lake/pontoon photo, replace the framed photo on the wall (currently a houseboat image) with the group-floating photo, keep everything else (desk, printer, coffee mug, paper, oar, plant, lighting, framing, shadows) exactly the same.
+   - target: overwrite `src/assets/rental-policy-hero.jpg`
+   - aspect ratio `3:2` (matches current 1536×1024)
+3. Delete the two temp asset files (`src/assets/_tmp-hero-laptop.jpg`, `src/assets/_tmp-hero-wall.jpg`).
 
-The root route (`src/routes/__root.tsx`) already wraps every page with `<Nav />` and `<Footer />`, so the page should not render its own.
-
-No other files affected.
+No code changes — the route already imports `rental-policy-hero.jpg`.
