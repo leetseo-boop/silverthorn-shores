@@ -272,7 +272,7 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
         </div>
       </section>
 
-      <Footer />
+      
 
       {/* Lightbox */}
       {lightbox !== null && (
