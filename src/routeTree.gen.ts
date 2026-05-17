@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SmallBoatsRouteImport } from './routes/small-boats'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HouseboatsSenatorRouteImport } from './routes/houseboats.senator'
 import { Route as HouseboatsQueenIiRouteImport } from './routes/houseboats.queen-ii'
 import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
 import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 
+const SmallBoatsRoute = SmallBoatsRouteImport.update({
+  id: '/small-boats',
+  path: '/small-boats',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/small-boats': typeof SmallBoatsRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
@@ -67,6 +76,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
@@ -74,6 +84,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
@@ -81,6 +92,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/small-boats'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
@@ -89,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SmallBoatsRoute: typeof SmallBoatsRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
   HouseboatsQueenIRoute: typeof HouseboatsQueenIRoute
   HouseboatsQueenIiRoute: typeof HouseboatsQueenIiRoute
@@ -97,6 +110,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/small-boats': {
+      id: '/small-boats'
+      path: '/small-boats'
+      fullPath: '/small-boats'
+      preLoaderRoute: typeof SmallBoatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -137,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SmallBoatsRoute: SmallBoatsRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
   HouseboatsQueenIRoute: HouseboatsQueenIRoute,
   HouseboatsQueenIiRoute: HouseboatsQueenIiRoute,
@@ -145,3 +166,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
