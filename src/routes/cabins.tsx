@@ -17,6 +17,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import resortMap from "@/assets/silverthorn-resort-map.png";
+import cabin1Img from "@/assets/cabin-1.jpg";
 
 const BOOKING_ALL = "https://rentals.silverthornresort.com/category/9";
 const PHONE = "800-332-3044";
