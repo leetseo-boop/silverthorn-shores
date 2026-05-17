@@ -124,18 +124,8 @@ const NAV_LINKS = [
   {
     label: "Small Boats",
     children: [
-      { label: "All Rentals",              href: "/small-boats" },
-      { label: "SeaDoo Jet Ski",           href: "/small-boats/jet-ski" },
-      { label: "Axis T220-R Wakeboard",    href: "/small-boats/axis-t220r" },
-      { label: "Centurion T-5 Wakeboard",  href: "/small-boats/centurion-t5" },
-      { label: "Tahoe Deck Boat 150",      href: "/small-boats/tahoe-deck" },
-      { label: "Patio Boat",               href: "/small-boats/patio-boat" },
-      { label: "Sun Tracker Pontoon",      href: "/small-boats/sun-tracker" },
-      { label: "Party Cruiser I",          href: "/small-boats/party-cruiser-i" },
-      { label: "Fishing Boat",             href: "/small-boats/fishing-boat" },
-      { label: "Kayak",                    href: "/small-boats/kayak" },
-      { label: "Stand Up Paddle Board",    href: "/small-boats/sup" },
-      { label: "Pro Shop",                 href: "/small-boats/pro-shop" },
+      { label: "All Rentals", href: "/small-boats" },
+      { label: "ProShop",     href: "/small-boats/pro-shop" },
     ],
   },
   {
@@ -815,18 +805,8 @@ export function Footer() {
               {
                 title: "Small Boats",
                 links: [
-                  { label: "All Rentals",        href: "/small-boats" },
-                  { label: "Jet Ski",            href: "/small-boats/jet-ski" },
-                  { label: "Axis Wakeboard",     href: "/small-boats/axis-t220r" },
-                  { label: "Centurion Wakeboard",href: "/small-boats/centurion-t5" },
-                  { label: "Tahoe Deck Boat",    href: "/small-boats/tahoe-deck" },
-                  { label: "Patio Boat",         href: "/small-boats/patio-boat" },
-                  { label: "Sun Tracker Pontoon",href: "/small-boats/sun-tracker" },
-                  { label: "Party Cruiser I",    href: "/small-boats/party-cruiser-i" },
-                  { label: "Fishing Boat",       href: "/small-boats/fishing-boat" },
-                  { label: "Kayak",              href: "/small-boats/kayak" },
-                  { label: "Paddle Board",       href: "/small-boats/sup" },
-                  { label: "Pro Shop",           href: "/small-boats/pro-shop" },
+                  { label: "All Rentals", href: "/small-boats" },
+                  { label: "ProShop",     href: "/small-boats/pro-shop" },
                 ],
               },
               {
