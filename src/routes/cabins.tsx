@@ -22,6 +22,7 @@ import cabin2Img from "@/assets/cabin-2.jpg";
 import cabin3Img from "@/assets/cabin-3.jpg";
 import cabin4Img from "@/assets/cabin-4.jpg";
 import cabin5Img from "@/assets/cabin-5.jpg";
+import cabin6Img from "@/assets/cabin-6.jpg";
 import cabin7Img from "@/assets/cabin-7.jpg";
 import cabin8Img from "@/assets/cabin-8.jpg";
 
