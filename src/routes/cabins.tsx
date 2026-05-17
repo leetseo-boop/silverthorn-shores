@@ -36,6 +36,7 @@ type Cabin = {
   unavailable?: boolean;
   accessible?: boolean;
   badge?: string;
+  image?: string;
 };
 
 const CABINS: Cabin[] = [
@@ -51,6 +52,7 @@ const CABINS: Cabin[] = [
     weekly: "$1,514.84",
     threeNight: "$649.22",
     url: "https://rentals.silverthornresort.com/details/30",
+    image: cabin1Img,
   },
   {
     id: 2,
