@@ -2,7 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SilverthornBoatDetail, buildBoatHeadConfig } from "@/components/SilverthornBoatDetail";
 import { BOATS_BY_SLUG, BOATS } from "@/data/silverthorn-boats";
 
-export const Route = createFileRoute("/small-boats/$slug")({
+export const Route = createFileRoute("/small-boats_/$slug")({
   beforeLoad: ({ params }) => {
     if (!BOATS_BY_SLUG[params.slug]) throw notFound();
   },
