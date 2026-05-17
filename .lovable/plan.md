@@ -1,24 +1,17 @@
-# Replace site-wide contact email with `reserve1@houseboats.com`
+# Remove contact form, restructure /contact around a "call us" CTA
 
-Three different addresses currently appear across the site. All become `reserve1@houseboats.com`.
+## Changes to `src/routes/contact.tsx`
 
-## Files to update
+1. **Remove the form entirely** — delete the right-column `<form>` card (lines ~267–323), the `useState` for `form`/`errors`/`submitted`, the `contactSchema`/zod imports, `onSubmit`, `update`, and the now-unused `Input`/`Textarea`/`Label` imports.
 
-1. **`src/components/SilverthornHomePage.tsx`** (line 25)
-   `EMAIL = "reservations@silverthornresort.com"` → `"reserve1@houseboats.com"` (drives the global footer/nav).
+2. **Convert the two-column section into a single centered layout** that puts contact info front and center:
+   - Large "Call us" hero panel: headline "Have questions? Give us a call.", subtext "Our reservation team is happy to help you plan your trip, answer questions about boats, or recommend dates.", the existing big orange `800-332-3044` link, and the existing "Call Now" button. Add a secondary "Email us" button right next to it (`mailto:reserve1@houseboats.com`).
+   - Below it, a 3-card row: **Email** (reserve1@houseboats.com), **Address** (16250 Silverthorn Road, Redding CA 96003), **Marina Store Hours** (Mon–Sun 8:00 AM – 6:30 PM, seasonal note). Reuses the existing icons/styling.
+   - **Follow us** social row stays, centered below the cards.
 
-2. **`src/components/DirectionsPage.tsx`** (line 15)
-   `EMAIL = "reserve@silverthornresort.com"` → `"reserve1@houseboats.com"` (constant used in 2 mailto links).
+3. **Keep untouched**: page header ("Get in Touch"), JSON-LD schema, the Google Map iframe section, the Directions strip, and the sister-marina note.
 
-3. **`src/routes/directions.tsx`** (line 32)
-   JSON-LD `email: "reserve@silverthornresort.com"` → `"reserve1@houseboats.com"`.
+## Files touched
+- `src/routes/contact.tsx` only.
 
-4. **`src/routes/contact.tsx`** — 5 spots (lines 37, 159, 208, 211, 309–310)
-   LocalBusiness JSON-LD email, mailto subject target, contact-card link href + visible text, and the fallback line under the submit button. All → `reserve1@houseboats.com`.
-
-## Out of scope (not changed)
-- `rentals.silverthornresort.com` booking URLs — that's the booking platform domain, not an email.
-- `silverthornresort.com` mentioned in FAQ copy/alt text — descriptive site reference, not an email.
-- The contact form's `mailto:` behavior stays as-is for now (we agreed the real server-side send waits on email-domain re-setup).
-
-Total: 5 files, ~9 line edits, single-pass.
+No new dependencies, no routing changes.
