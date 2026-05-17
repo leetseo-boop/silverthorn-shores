@@ -142,16 +142,16 @@ export function Nav() {
 
   return (
     <nav
-      className="sticky top-0 z-50 w-full"
-      style={{ backgroundColor: "#1B2B3A" }}
+      className="sticky top-0 z-50 w-full border-b"
+      style={{ backgroundColor: "#ffffff", borderColor: "rgba(27,43,58,0.1)" }}
     >
-      <div className="mx-auto max-w-7xl px-6 flex items-center h-16 gap-6">
+      <div className="mx-auto max-w-7xl px-6 flex items-center h-20 gap-6">
         {/* Logo */}
         <a href="/" className="flex items-center flex-shrink-0" aria-label="Silverthorn Resort Marina — Home">
           <img
             src={silverthornLogo}
             alt="Silverthorn Resort Marina"
-            className="h-10 w-auto bg-white rounded-md px-2 py-1"
+            className="h-16 w-auto"
           />
         </a>
 
@@ -166,10 +166,10 @@ export function Nav() {
                 onMouseLeave={() => setOpenDropdown(null)}
               >
                 <button
-                  className="text-sm flex items-center gap-1 transition-colors"
-                  style={{ color: "rgba(255,255,255,0.72)" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#fff")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(255,255,255,0.72)")}
+                  className="text-sm flex items-center gap-1 transition-colors font-medium"
+                  style={{ color: "#1B2B3A" }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#1B2B3A")}
                 >
                   {item.label} <span className="text-xs opacity-60">▾</span>
                 </button>
@@ -177,8 +177,8 @@ export function Nav() {
                   <div
                     className="absolute top-full left-0 mt-2 w-44 rounded-xl overflow-hidden shadow-lg z-50 border"
                     style={{
-                      backgroundColor: "#1B2B3A",
-                      borderColor: "rgba(255,255,255,0.1)",
+                      backgroundColor: "#ffffff",
+                      borderColor: "rgba(27,43,58,0.12)",
                     }}
                   >
                     {item.children.map((child) => (
@@ -188,13 +188,13 @@ export function Nav() {
                         target={child.external ? "_blank" : undefined}
                         rel={child.external ? "noopener noreferrer" : undefined}
                         className="block px-4 py-2.5 text-xs transition-colors"
-                        style={{ color: "rgba(255,255,255,0.65)" }}
+                        style={{ color: "#1B2B3A" }}
                         onMouseEnter={(e) => {
-                          (e.target as HTMLElement).style.color = "#fff";
-                          (e.target as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.08)";
+                          (e.target as HTMLElement).style.color = "#E8640A";
+                          (e.target as HTMLElement).style.backgroundColor = "rgba(27,43,58,0.05)";
                         }}
                         onMouseLeave={(e) => {
-                          (e.target as HTMLElement).style.color = "rgba(255,255,255,0.65)";
+                          (e.target as HTMLElement).style.color = "#1B2B3A";
                           (e.target as HTMLElement).style.backgroundColor = "transparent";
                         }}
                       >
@@ -209,10 +209,10 @@ export function Nav() {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm transition-colors"
-                style={{ color: "rgba(255,255,255,0.72)" }}
-                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#fff")}
-                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(255,255,255,0.72)")}
+                className="text-sm transition-colors font-medium"
+                style={{ color: "#1B2B3A" }}
+                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
+                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#1B2B3A")}
               >
                 {item.label}
               </a>
@@ -235,7 +235,8 @@ export function Nav() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden ml-auto text-white text-xl"
+          className="md:hidden ml-auto text-xl"
+          style={{ color: "#1B2B3A" }}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
@@ -248,16 +249,16 @@ export function Nav() {
         <div
           className="md:hidden border-t px-6 py-4 flex flex-col gap-3"
           style={{
-            backgroundColor: "#1B2B3A",
-            borderColor: "rgba(255,255,255,0.1)",
+            backgroundColor: "#ffffff",
+            borderColor: "rgba(27,43,58,0.1)",
           }}
         >
           {NAV_LINKS.map((item) => (
             <a
               key={item.label}
               href={item.href || (item.children && item.children[0].href)}
-              className="text-sm py-1"
-              style={{ color: "rgba(255,255,255,0.75)" }}
+              className="text-sm py-1 font-medium"
+              style={{ color: "#1B2B3A" }}
             >
               {item.label}
             </a>
@@ -701,7 +702,7 @@ function SisterMarina() {
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: "#0D1E2B" }} className="px-8 pt-12 pb-6">
+    <footer style={{ backgroundColor: "#ffffff", borderTop: "1px solid rgba(27,43,58,0.1)" }} className="px-8 pt-14 pb-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row gap-10 mb-10">
           {/* Brand */}
@@ -709,9 +710,9 @@ export function Footer() {
             <img
               src={silverthornLogo}
               alt="Silverthorn Resort Marina"
-              className="h-12 w-auto mb-3 bg-white rounded-md px-2 py-1"
+              className="h-24 w-auto mb-4"
             />
-            <div className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+            <div className="text-xs leading-relaxed" style={{ color: "rgba(27,43,58,0.7)" }}>
               {ADDRESS}<br /><br />
               📞 {PHONE}<br />
               ✉️ {EMAIL}
@@ -721,35 +722,35 @@ export function Footer() {
           {/* Links */}
           <div className="flex gap-10 flex-1 justify-start md:justify-end flex-wrap">
             <div>
-              <div className="text-xs font-medium uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "#1B2B3A" }}>
                 Houseboats
               </div>
               {["Queen", "Queen I", "Queen II", "Senator", "Rental Policy", "Guest Info"].map((l) => (
-                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#fff")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(255,255,255,0.4)")}
+                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(27,43,58,0.65)" }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(27,43,58,0.65)")}
                 >{l}</a>
               ))}
             </div>
             <div>
-              <div className="text-xs font-medium uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "#1B2B3A" }}>
                 Stay
               </div>
               {["Lake Cabins", "Small Boats", "Marina", "Moorage"].map((l) => (
-                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#fff")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(255,255,255,0.4)")}
+                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(27,43,58,0.65)" }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(27,43,58,0.65)")}
                 >{l}</a>
               ))}
             </div>
             <div>
-              <div className="text-xs font-medium uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "#1B2B3A" }}>
                 Resort
               </div>
               {["About Us", "Shasta Lake", "Planning Guide", "FAQ", "Contact", "Employment"].map((l) => (
-                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#fff")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(255,255,255,0.4)")}
+                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(27,43,58,0.65)" }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(27,43,58,0.65)")}
                 >{l}</a>
               ))}
             </div>
@@ -759,9 +760,9 @@ export function Footer() {
         {/* Bottom bar */}
         <div
           className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-5 border-t"
-          style={{ borderColor: "rgba(255,255,255,0.1)" }}
+          style={{ borderColor: "rgba(27,43,58,0.1)" }}
         >
-          <div className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <div className="text-xs" style={{ color: "rgba(27,43,58,0.55)" }}>
             Silverthorn Resort ™ 2026 · All rights reserved
           </div>
           <div className="flex gap-2">
@@ -770,11 +771,11 @@ export function Footer() {
                 key={i}
                 className="w-7 h-7 rounded-full flex items-center justify-center text-xs transition-all"
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.08)",
-                  color: "rgba(255,255,255,0.55)",
+                  backgroundColor: "rgba(27,43,58,0.08)",
+                  color: "#1B2B3A",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.18)")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)")}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(27,43,58,0.16)")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(27,43,58,0.08)")}
               >
                 {icon}
               </button>
