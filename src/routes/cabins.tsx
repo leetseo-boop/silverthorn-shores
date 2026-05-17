@@ -20,6 +20,7 @@ import resortMap from "@/assets/silverthorn-resort-map.png";
 import cabin1Img from "@/assets/cabin-1.jpg";
 import cabin2Img from "@/assets/cabin-2.jpg";
 import cabin3Img from "@/assets/cabin-3.jpg";
+import cabin4Img from "@/assets/cabin-4.jpg";
 
 const BOOKING_ALL = "https://rentals.silverthornresort.com/category/9";
 const PHONE = "800-332-3044";
@@ -98,6 +99,7 @@ const CABINS: Cabin[] = [
     weekly: "$1,755.29",
     threeNight: "$752.27",
     url: "https://rentals.silverthornresort.com/details/33",
+    image: cabin4Img,
   },
   {
     id: 5,
