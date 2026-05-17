@@ -29,7 +29,7 @@ export const Route = createFileRoute("/directions")({
           "@type": "LodgingBusiness",
           name: "Silverthorn Resort",
           telephone: "+1-800-332-3044",
-          email: "reserve@silverthornresort.com",
+          email: "reserve1@houseboats.com",
           address: {
             "@type": "PostalAddress",
             streetAddress: "16250 Silverthorn Road",

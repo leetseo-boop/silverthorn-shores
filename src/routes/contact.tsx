@@ -34,7 +34,7 @@ const LOCAL_BUSINESS_JSONLD = {
   "@type": "LocalBusiness",
   name: "Silverthorn Resort",
   telephone: "+1-800-332-3044",
-  email: "reservations@silverthornresort.com",
+  email: "reserve1@houseboats.com",
   address: {
     "@type": "PostalAddress",
     streetAddress: "16250 Silverthorn Road",
@@ -156,7 +156,7 @@ function ContactPage() {
     ]
       .filter(Boolean)
       .join("\n");
-    const mailto = `mailto:reservations@silverthornresort.com?subject=${encodeURIComponent(
+    const mailto = `mailto:reserve1@houseboats.com?subject=${encodeURIComponent(
       `Website inquiry — ${name}`,
     )}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
@@ -205,10 +205,10 @@ function ContactPage() {
               <div>
                 <p className="font-semibold text-secondary">Email</p>
                 <a
-                  href="mailto:reservations@silverthornresort.com"
+                  href="mailto:reserve1@houseboats.com"
                   className="text-muted-foreground hover:text-primary"
                 >
-                  reservations@silverthornresort.com
+                  reserve1@houseboats.com
                 </a>
               </div>
             </div>
@@ -306,8 +306,8 @@ function ContactPage() {
               {submitted && (
                 <p className="text-sm text-secondary">
                   Opening your email client… if nothing happens, please email us directly at{" "}
-                  <a href="mailto:reservations@silverthornresort.com" className="text-primary underline">
-                    reservations@silverthornresort.com
+                  <a href="mailto:reserve1@houseboats.com" className="text-primary underline">
+                    reserve1@houseboats.com
                   </a>
                   .
                 </p>
