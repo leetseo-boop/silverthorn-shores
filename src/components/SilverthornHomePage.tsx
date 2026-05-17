@@ -8,11 +8,15 @@
  *   fontFamily: { display: ['Playfair Display', 'Georgia', 'serif'], body: ['DM Sans', 'system-ui', 'sans-serif'] }
  */
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import silverthornLogo from "@/assets/silverthorn-logo.webp";
 import heroMarina from "@/assets/home-hero-marina.webp";
 import cabinImg from "@/assets/home-cabin.webp";
 import smallBoatsImg from "@/assets/home-small-boats.webp";
+import fleetQueen from "@/assets/fleet-queen.webp";
+import fleetQueenI from "@/assets/fleet-queen-i.webp";
+import fleetQueenII from "@/assets/fleet-queen-ii.webp";
+import fleetSenator from "@/assets/fleet-senator.webp";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
@@ -32,7 +36,7 @@ const FLEET = [
     feature: "Hot tub + waterslide",
     slug: "/houseboats/queen",
     imgBg: "#0D3A52",
-    image: "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg",
+    image: fleetQueen,
   },
   {
     id: "queen-i",
@@ -44,7 +48,7 @@ const FLEET = [
     feature: "Hot tub + sundeck",
     slug: "/houseboats/queen-i",
     imgBg: "#1A4A6A",
-    image: "/images/queen-i-houseboat-shasta-lake-01.jpg",
+    image: fleetQueenI,
   },
   {
     id: "queen-ii",
@@ -56,7 +60,7 @@ const FLEET = [
     feature: "Waterslide + fireplace",
     slug: "/houseboats/queen-ii",
     imgBg: "#1A5A7A",
-    image: "/images/queen-ii-houseboat-silverthorn-resort-shasta-lake-exterior.jpg",
+    image: fleetQueenII,
   },
   {
     id: "senator",
@@ -68,7 +72,7 @@ const FLEET = [
     feature: "Sun deck + BBQ",
     slug: "/houseboats/senator",
     imgBg: "#2F4A38",
-    image: "/images/senator-houseboat-exterior-running-shasta-lake.jpg",
+    image: fleetSenator,
   },
 ];
 
@@ -170,6 +174,8 @@ export function Nav() {
           <img
             src={silverthornLogo}
             alt="Silverthorn Resort Marina"
+            width={200}
+            height={64}
             className="h-16 w-auto"
           />
         </a>
@@ -356,6 +362,11 @@ function Hero() {
       <img
         src={heroMarina}
         alt="Silverthorn Resort houseboat marina on Shasta Lake"
+        width={1600}
+        height={900}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover opacity-55"
       />
 
@@ -441,8 +452,11 @@ function FleetCard({ boat }: { boat: any }) {
         <img
           src={boat.image}
           alt={`${boat.name} houseboat at Silverthorn Resort on Shasta Lake`}
-          className="absolute inset-0 w-full h-full object-cover"
+          width={1200}
+          height={800}
           loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
         />
         <span
           className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded"
@@ -527,75 +541,77 @@ function FleetSection() {
           ))}
         </div>
 
-        {/* Cabins + Small Boats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div
-            className="rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1"
-            style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
-          >
-            <div className="h-32 relative overflow-hidden" style={{ backgroundColor: "#4A3A28" }}>
-              <img
-                src={cabinImg}
-                alt="Lake cabin interior at Silverthorn Resort, Shasta Lake"
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
-              />
-              <span
-                className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded z-10"
-                style={{ backgroundColor: "#2F4A38", fontSize: "10px" }}
-              >
-                Cabins
-              </span>
-            </div>
-            <div className="p-4">
-              <h3 className="text-lg font-bold mb-0.5" style={{ fontFamily: "'Playfair Display', Georgia, serif", color: "#1B2B3A" }}>
-                Lake Cabins
-              </h3>
-              <p className="text-xs mb-3" style={{ color: "#7a8a9a" }}>Nestled in the Pines · 7 cabins · Studio to Family</p>
-              <div className="flex items-center gap-3">
-                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-md text-white text-xs font-medium"
-                  style={{ backgroundColor: "#E8640A" }}>
-                  View Cabins
+        {/* Cabins + Small Boats — image-led showcase */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {[
+            {
+              src: cabinImg,
+              alt: "Lake cabin nestled in the pines at Silverthorn Resort, Shasta Lake",
+              chip: "Cabins",
+              chipBg: "#2F4A38",
+              title: "Lake Cabins",
+              tagline: "Nestled in the pines · 7 cabins · Studio to Family",
+              cta: "View Cabins",
+              learn: "/cabins",
+            },
+            {
+              src: smallBoatsImg,
+              alt: "Axis wakeboard boat rental on Shasta Lake at sunset",
+              chip: "Day Boats",
+              chipBg: "#1A6FA8",
+              title: "Small Boat Rentals",
+              tagline: "Half or full day · Fishing gear · Pro Shop",
+              cta: "Rent a Boat",
+              learn: "/small-boats",
+            },
+          ].map((c) => (
+            <div
+              key={c.title}
+              className="group rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-xl transition-shadow duration-300"
+              style={{ borderColor: "#E2DED6" }}
+            >
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={c.src}
+                  alt={c.alt}
+                  width={1200}
+                  height={900}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span
+                  className="absolute top-3 left-3 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded backdrop-blur-sm z-10"
+                  style={{ backgroundColor: c.chipBg + "E6" }}
+                >
+                  {c.chip}
+                </span>
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-5 pt-16">
+                  <h3
+                    className="text-2xl font-bold text-white mb-1"
+                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                  >
+                    {c.title}
+                  </h3>
+                  <p className="text-xs text-white/85">{c.tagline}</p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between px-5 py-4">
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-md text-white text-xs font-semibold tracking-wide"
+                  style={{ backgroundColor: "#E8640A" }}
+                >
+                  {c.cta}
                 </a>
-                <a href="/cabins" className="text-xs font-medium" style={{ color: "#1A6FA8" }}>Learn more →</a>
+                <a href={c.learn} className="text-xs font-semibold" style={{ color: "#1A6FA8" }}>
+                  Learn more →
+                </a>
               </div>
             </div>
-          </div>
-
-          <div
-            className="rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1"
-            style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
-          >
-            <div className="h-32 relative overflow-hidden" style={{ backgroundColor: "#1A3A6A" }}>
-              <img
-                src={smallBoatsImg}
-                alt="Axis wakeboard boat rental on Shasta Lake at sunset"
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
-              />
-              <span
-                className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded z-10"
-                style={{ backgroundColor: "#1A6FA8", fontSize: "10px" }}
-              >
-                Day Boats
-              </span>
-            </div>
-            <div className="p-4">
-              <h3 className="text-lg font-bold mb-0.5" style={{ fontFamily: "'Playfair Display', Georgia, serif", color: "#1B2B3A" }}>
-                Small Boat Rentals
-              </h3>
-              <p className="text-xs mb-3" style={{ color: "#7a8a9a" }}>Half or full day · Fishing gear · Pro Shop</p>
-              <div className="flex items-center gap-3">
-                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-md text-white text-xs font-medium"
-                  style={{ backgroundColor: "#E8640A" }}>
-                  Rent a Boat
-                </a>
-                <a href="/small-boats" className="text-xs font-medium" style={{ color: "#1A6FA8" }}>Learn more →</a>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -643,6 +659,8 @@ function AboutSection() {
           <img
             src="/images/shasta-lake-about.jpg"
             alt="Shasta Lake aerial view with mountains"
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
           <span
@@ -780,6 +798,10 @@ export function Footer() {
             <img
               src={silverthornLogo}
               alt="Silverthorn Resort Marina"
+              width={200}
+              height={96}
+              loading="lazy"
+              decoding="async"
               className="h-24 w-auto mb-4"
             />
             <div className="text-xs leading-relaxed" style={{ color: "rgba(27,43,58,0.7)" }}>
