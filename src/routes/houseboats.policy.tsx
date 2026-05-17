@@ -98,7 +98,11 @@ const SECTIONS: Section[] = [
             <div key={d.boat}
               className="grid grid-cols-3 text-sm bg-white"
               style={{ borderTop: i === 0 ? "none" : "1px solid rgba(27,43,58,0.08)" }}>
-              <div className="px-3 sm:px-5 py-3 font-medium">{d.boat}</div>
+              <div className="px-3 sm:px-5 py-3 font-medium">
+                <Link to={d.to} className="underline underline-offset-2 hover:no-underline" style={{ color: "var(--lake)" }}>
+                  {d.boat}
+                </Link>
+              </div>
               <div className="px-3 sm:px-5 py-3">{d.standard}</div>
               <div className="px-3 sm:px-5 py-3 font-semibold" style={{ color: ORANGE }}>{d.holiday}</div>
             </div>
