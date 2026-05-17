@@ -1,15 +1,32 @@
-Edit the rental policy hero image to swap two embedded scenes while keeping the rest of the composition (desk, printer, coffee, paper, oar, plant, mug) identical.
+## Goal
+Shrink the policy hero image, make sure it preloads correctly, and verify the hero scales well on mobile, tablet, and desktop.
 
-## Steps
-1. Copy the two uploaded images into the project so they're addressable by path:
-   - `user-uploads://672615599_1403441485161098_483838650387925477_n.jpg` → `src/assets/_tmp-hero-laptop.jpg` (lake + pontoon boat)
-   - `user-uploads://queengroup-proshop-2.jfif` → `src/assets/_tmp-hero-wall.jpg` (group floating on the lake)
-2. Call `imagegen--edit_image` with all three images as inputs:
-   - existing `src/assets/rental-policy-hero.jpg`
-   - the two temp images
-   - prompt: replace the content shown on the laptop screen with the lake/pontoon photo, replace the framed photo on the wall (currently a houseboat image) with the group-floating photo, keep everything else (desk, printer, coffee mug, paper, oar, plant, lighting, framing, shadows) exactly the same.
-   - target: overwrite `src/assets/rental-policy-hero.jpg`
-   - aspect ratio `3:2` (matches current 1536×1024)
-3. Delete the two temp asset files (`src/assets/_tmp-hero-laptop.jpg`, `src/assets/_tmp-hero-wall.jpg`).
+## Findings
+- `src/assets/rental-policy-hero.jpg` is actually a **PNG** (1264×848, **1.65 MB**) saved with a `.jpg` extension. That's the main weight problem and also breaks browser/CDN content negotiation.
+- The route already declares `<link rel="preload" as="image" href={heroImg} fetchpriority="high">` in `head().links` plus `loading="eager"` and `fetchPriority="high"` on the `<img>`. The preload mechanism is correct — only the asset needs to get lighter.
+- Hero `<img>` already has explicit `width={1536} height={1024}` to prevent CLS.
 
-No code changes — the route already imports `rental-policy-hero.jpg`.
+## Plan
+
+1. **Re-encode the hero as a real optimized JPEG**
+   - Use ImageMagick to convert the existing file in place to true JPEG at 1600px wide, quality 82, progressive, stripped metadata, 4:2:0 chroma.
+   - Target: under ~250 KB while keeping crisp detail at desktop sizes.
+   - Keep the filename `src/assets/rental-policy-hero.jpg` so no import changes are needed.
+
+2. **Confirm preload + decoding hints are optimal**
+   - Keep existing `rel="preload" as="image" fetchpriority="high"` in `head().links`.
+   - Add `decoding="async"` to the `<img>` (eager + async decode is the recommended combo for LCP images).
+   - Leave `loading="eager"` and `fetchPriority="high"` on the `<img>` as-is.
+
+3. **Responsive QA on /houseboats/policy**
+   - Navigate the in-app browser to the page at three viewports:
+     - Mobile: 390×844
+     - Tablet: 820×1180
+     - Desktop: 1440×900
+   - Screenshot the hero in each, verify framing, text legibility against the gradient overlay, and that the image fully covers without distortion.
+   - If the overlay is too weak/strong on any size, adjust the gradient stops only (no layout changes).
+
+## Out of scope
+- No layout, copy, or section changes.
+- No new dependencies (skipping `vite-imagetools` — single hero doesn't justify the plugin; in-place re-encode is enough).
+- No changes to other pages.
