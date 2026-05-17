@@ -129,7 +129,7 @@ const NAV_LINKS = [
     label: "Small Boats",
     children: [
       { label: "All Rentals", href: "/small-boats" },
-      { label: "ProShop",     href: "/small-boats/pro-shop" },
+      { label: "Pro Shop",    href: "/pro-shop" },
     ],
   },
   {
