@@ -365,7 +365,7 @@ function Hero() {
         width={1600}
         height={900}
         loading="eager"
-        fetchpriority="high"
+        fetchPriority="high"
         decoding="async"
         className="absolute inset-0 w-full h-full object-cover opacity-55"
       />
