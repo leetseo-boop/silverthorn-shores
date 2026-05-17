@@ -17,6 +17,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import resortMap from "@/assets/silverthorn-resort-map.png";
+import cabin1Img from "@/assets/cabin-1.jpg";
 
 const BOOKING_ALL = "https://rentals.silverthornresort.com/category/9";
 const PHONE = "800-332-3044";
@@ -35,6 +36,7 @@ type Cabin = {
   unavailable?: boolean;
   accessible?: boolean;
   badge?: string;
+  image?: string;
 };
 
 const CABINS: Cabin[] = [
@@ -50,6 +52,7 @@ const CABINS: Cabin[] = [
     weekly: "$1,514.84",
     threeNight: "$649.22",
     url: "https://rentals.silverthornresort.com/details/30",
+    image: cabin1Img,
   },
   {
     id: 2,
@@ -610,18 +613,30 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
         unavailable ? "opacity-75" : "hover:shadow-lg"
       }`}
     >
-      {/* Image slot — placeholder until photo uploaded */}
+      {/* Image slot */}
       <div
         className={`relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-[var(--lake)]/15 to-[var(--navy)]/25 flex items-center justify-center ${
           unavailable ? "grayscale" : ""
         }`}
       >
-        <div className="text-center text-[var(--navy)]/40 px-4">
-          <BedDouble className="h-10 w-10 mx-auto mb-2" />
-          <div className="text-xs font-semibold uppercase tracking-wider">
-            {cabin.name} photo
+        {cabin.image ? (
+          <img
+            src={cabin.image}
+            alt={`${cabin.name} — ${cabin.type} at Silverthorn Resort on Shasta Lake`}
+            loading="lazy"
+            decoding="async"
+            width={1600}
+            height={1200}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <div className="text-center text-[var(--navy)]/40 px-4">
+            <BedDouble className="h-10 w-10 mx-auto mb-2" />
+            <div className="text-xs font-semibold uppercase tracking-wider">
+              {cabin.name} photo
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Location pin badge */}
         <span className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-xs font-bold text-[var(--navy)] shadow">
