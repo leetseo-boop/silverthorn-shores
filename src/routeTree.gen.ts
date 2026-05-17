@@ -10,12 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HouseboatsSenatorRouteImport } from './routes/houseboats.senator'
+import { Route as HouseboatsQueenIiRouteImport } from './routes/houseboats.queen-ii'
 import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
 import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseboatsSenatorRoute = HouseboatsSenatorRouteImport.update({
+  id: '/houseboats/senator',
+  path: '/houseboats/senator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseboatsQueenIiRoute = HouseboatsQueenIiRouteImport.update({
+  id: '/houseboats/queen-ii',
+  path: '/houseboats/queen-ii',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HouseboatsQueenIRoute = HouseboatsQueenIRouteImport.update({
@@ -33,30 +45,54 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
+  '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
+  '/houseboats/senator': typeof HouseboatsSenatorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
+  '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
+  '/houseboats/senator': typeof HouseboatsSenatorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
+  '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
+  '/houseboats/senator': typeof HouseboatsSenatorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/houseboats/queen' | '/houseboats/queen-i'
+  fullPaths:
+    | '/'
+    | '/houseboats/queen'
+    | '/houseboats/queen-i'
+    | '/houseboats/queen-ii'
+    | '/houseboats/senator'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/houseboats/queen' | '/houseboats/queen-i'
-  id: '__root__' | '/' | '/houseboats/queen' | '/houseboats/queen-i'
+  to:
+    | '/'
+    | '/houseboats/queen'
+    | '/houseboats/queen-i'
+    | '/houseboats/queen-ii'
+    | '/houseboats/senator'
+  id:
+    | '__root__'
+    | '/'
+    | '/houseboats/queen'
+    | '/houseboats/queen-i'
+    | '/houseboats/queen-ii'
+    | '/houseboats/senator'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
   HouseboatsQueenIRoute: typeof HouseboatsQueenIRoute
+  HouseboatsQueenIiRoute: typeof HouseboatsQueenIiRoute
+  HouseboatsSenatorRoute: typeof HouseboatsSenatorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +102,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/senator': {
+      id: '/houseboats/senator'
+      path: '/houseboats/senator'
+      fullPath: '/houseboats/senator'
+      preLoaderRoute: typeof HouseboatsSenatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/queen-ii': {
+      id: '/houseboats/queen-ii'
+      path: '/houseboats/queen-ii'
+      fullPath: '/houseboats/queen-ii'
+      preLoaderRoute: typeof HouseboatsQueenIiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/houseboats/queen-i': {
@@ -89,7 +139,19 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
   HouseboatsQueenIRoute: HouseboatsQueenIRoute,
+  HouseboatsQueenIiRoute: HouseboatsQueenIiRoute,
+  HouseboatsSenatorRoute: HouseboatsSenatorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

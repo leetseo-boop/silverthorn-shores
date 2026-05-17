@@ -2,16 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { HouseboatDetail } from "@/components/HouseboatDetail";
 import { getHouseboatBySlug } from "@/data/houseboats";
 
-const boat = getHouseboatBySlug("queen-i")!;
-const path = "/houseboats/queen-i";
+const boat = getHouseboatBySlug("senator")!;
+const path = "/houseboats/senator";
 
-export const Route = createFileRoute("/houseboats/queen-i")({
+export const Route = createFileRoute("/houseboats/senator")({
   head: () => ({
     meta: [
-      { title: `Queen I Houseboat Rental on Shasta Lake | Silverthorn Resort` },
-      { name: "description", content: "Rent the Queen I luxury houseboat at Silverthorn Resort on Shasta Lake. Sleeps 20 with 4 staterooms, hot tub, waterslide, 2 BBQs, fireplace & 3D tour." },
-      { property: "og:title", content: "Queen I Houseboat Rental on Shasta Lake | Silverthorn Resort" },
-      { property: "og:description", content: "Ultimate luxury for large groups — sleeps 20 with hot tub, waterslide, wet bar & 4 private staterooms at Silverthorn Resort." },
+      { title: `Senator Houseboat Rental on Shasta Lake | Silverthorn Resort` },
+      { name: "description", content: "Rent the Senator houseboat at Silverthorn Resort on Shasta Lake. Sleeps 16 with waterslide, wet bar, fly bridge & full kitchen. Affordable Shasta Lake getaway." },
+      { property: "og:title", content: "Senator Houseboat Rental on Shasta Lake | Silverthorn Resort" },
+      { property: "og:description", content: "Comfort & convenience on Shasta Lake — sleeps 16 with waterslide, wet bar, captain's fly bridge & full kitchen at Silverthorn Resort." },
       { property: "og:type", content: "product" },
       { property: "og:url", content: path },
       { property: "og:image", content: boat.heroImages[0] },
