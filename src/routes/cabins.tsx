@@ -43,6 +43,7 @@ type Cabin = {
   accessible?: boolean;
   badge?: string;
   image?: string;
+  imageAlt?: string;
 };
 
 const CABINS: Cabin[] = [
@@ -634,7 +635,8 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
         {cabin.image ? (
           <img
             src={cabin.image}
-            alt={`${cabin.name} — ${cabin.type} at Silverthorn Resort on Shasta Lake`}
+            alt={cabin.imageAlt ?? `${cabin.name} — ${cabin.type} cabin at Silverthorn Resort on Shasta Lake`}
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             loading="lazy"
             decoding="async"
             width={1600}
