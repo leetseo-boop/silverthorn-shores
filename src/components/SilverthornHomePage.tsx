@@ -135,7 +135,7 @@ const NAV_LINKS = [
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function Nav() {
+export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
