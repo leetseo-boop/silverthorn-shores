@@ -8,7 +8,7 @@
  *   fontFamily: { display: ['Playfair Display', 'Georgia', 'serif'], body: ['DM Sans', 'system-ui', 'sans-serif'] }
  */
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import silverthornLogo from "@/assets/silverthorn-logo.webp";
 import heroMarina from "@/assets/home-hero-marina.webp";
 import cabinImg from "@/assets/home-cabin.webp";
