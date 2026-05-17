@@ -135,7 +135,7 @@ const NAV_LINKS = [
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function Nav() {
+export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -705,7 +705,7 @@ function SisterMarina() {
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <footer style={{ backgroundColor: "#0D1E2B" }} className="px-8 pt-12 pb-6">
       <div className="max-w-6xl mx-auto">
