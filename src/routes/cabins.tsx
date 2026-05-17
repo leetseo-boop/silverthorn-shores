@@ -613,18 +613,30 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
         unavailable ? "opacity-75" : "hover:shadow-lg"
       }`}
     >
-      {/* Image slot — placeholder until photo uploaded */}
+      {/* Image slot */}
       <div
         className={`relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-[var(--lake)]/15 to-[var(--navy)]/25 flex items-center justify-center ${
           unavailable ? "grayscale" : ""
         }`}
       >
-        <div className="text-center text-[var(--navy)]/40 px-4">
-          <BedDouble className="h-10 w-10 mx-auto mb-2" />
-          <div className="text-xs font-semibold uppercase tracking-wider">
-            {cabin.name} photo
+        {cabin.image ? (
+          <img
+            src={cabin.image}
+            alt={`${cabin.name} — ${cabin.type} at Silverthorn Resort on Shasta Lake`}
+            loading="lazy"
+            decoding="async"
+            width={1600}
+            height={1200}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <div className="text-center text-[var(--navy)]/40 px-4">
+            <BedDouble className="h-10 w-10 mx-auto mb-2" />
+            <div className="text-xs font-semibold uppercase tracking-wider">
+              {cabin.name} photo
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Location pin badge */}
         <span className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-xs font-bold text-[var(--navy)] shadow">
