@@ -36,7 +36,7 @@ const FLEET = [
     feature: "Hot tub + waterslide",
     slug: "/houseboats/queen",
     imgBg: "#0D3A52",
-    image: "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg",
+    image: fleetQueen,
   },
   {
     id: "queen-i",
@@ -48,7 +48,7 @@ const FLEET = [
     feature: "Hot tub + sundeck",
     slug: "/houseboats/queen-i",
     imgBg: "#1A4A6A",
-    image: "/images/queen-i-houseboat-shasta-lake-01.jpg",
+    image: fleetQueenI,
   },
   {
     id: "queen-ii",
@@ -60,7 +60,7 @@ const FLEET = [
     feature: "Waterslide + fireplace",
     slug: "/houseboats/queen-ii",
     imgBg: "#1A5A7A",
-    image: "/images/queen-ii-houseboat-silverthorn-resort-shasta-lake-exterior.jpg",
+    image: fleetQueenII,
   },
   {
     id: "senator",
