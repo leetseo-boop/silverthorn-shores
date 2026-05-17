@@ -174,6 +174,8 @@ export function Nav() {
           <img
             src={silverthornLogo}
             alt="Silverthorn Resort Marina"
+            width={200}
+            height={64}
             className="h-16 w-auto"
           />
         </a>
@@ -360,6 +362,11 @@ function Hero() {
       <img
         src={heroMarina}
         alt="Silverthorn Resort houseboat marina on Shasta Lake"
+        width={1600}
+        height={900}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover opacity-55"
       />
 
@@ -445,8 +452,11 @@ function FleetCard({ boat }: { boat: any }) {
         <img
           src={boat.image}
           alt={`${boat.name} houseboat at Silverthorn Resort on Shasta Lake`}
-          className="absolute inset-0 w-full h-full object-cover"
+          width={1200}
+          height={800}
           loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
         />
         <span
           className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded"
