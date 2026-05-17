@@ -16,6 +16,10 @@ import {
   Mail,
   Clock,
   UserCheck,
+  Ship,
+  Anchor,
+  Store,
+  ArrowRight,
 } from "lucide-react";
 import heroImg from "@/assets/rental-policy-hero.jpg";
 
