@@ -614,8 +614,9 @@ function PolicyPage() {
             Plan the rest of your trip
           </h2>
           <p className="text-center text-gray-700 mb-8">Explore the rest of Silverthorn Resort.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
+              { to: "/cabins" as const, icon: Home, title: "Lake Cabins", desc: "See all 8 lakeside cabins, photos, amenities, and the resort map." },
               { to: "/houseboats" as const, icon: Ship, title: "Luxury Houseboats", desc: "Browse our fleet of Queen, Presidential, Senator & Executive houseboats." },
               { to: "/small-boats" as const, icon: Anchor, title: "Patio & Wakeboard Boats", desc: "Add a patio boat, fishing boat, or wakeboard boat to your stay." },
               { to: "/pro-shop" as const, icon: Store, title: "Silverthorn Pro Shop", desc: "Fuel, tackle, snacks, gear, and last-minute essentials on the main dock." },
