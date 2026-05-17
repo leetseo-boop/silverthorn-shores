@@ -10,6 +10,9 @@
 
 import { useState, useRef } from "react";
 import silverthornLogo from "@/assets/silverthorn-logo.webp";
+import heroMarina from "@/assets/home-hero-marina.webp";
+import cabinImg from "@/assets/home-cabin.webp";
+import smallBoatsImg from "@/assets/home-small-boats.webp";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
@@ -29,6 +32,7 @@ const FLEET = [
     feature: "Hot tub + waterslide",
     slug: "/houseboats/queen",
     imgBg: "#0D3A52",
+    image: "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg",
   },
   {
     id: "queen-i",
@@ -40,6 +44,7 @@ const FLEET = [
     feature: "Hot tub + sundeck",
     slug: "/houseboats/queen-i",
     imgBg: "#1A4A6A",
+    image: "/images/queen-i-houseboat-shasta-lake-01.jpg",
   },
   {
     id: "queen-ii",
@@ -51,6 +56,7 @@ const FLEET = [
     feature: "Waterslide + fireplace",
     slug: "/houseboats/queen-ii",
     imgBg: "#1A5A7A",
+    image: "/images/queen-ii-houseboat-silverthorn-resort-shasta-lake-exterior.jpg",
   },
   {
     id: "senator",
@@ -62,6 +68,7 @@ const FLEET = [
     feature: "Sun deck + BBQ",
     slug: "/houseboats/senator",
     imgBg: "#2F4A38",
+    image: "/images/senator-houseboat-exterior-running-shasta-lake.jpg",
   },
 ];
 
@@ -355,12 +362,10 @@ function Hero() {
       className="relative flex flex-col items-center justify-center text-center px-6 py-24 md:py-32 overflow-hidden"
       style={{ backgroundColor: "#0D2030", minHeight: "85vh" }}
     >
-      {/* Background image — replace src with actual hero photo */}
       <img
-        src="/images/hero-shasta-lake.jpg"
-        alt="Shasta Lake aerial view"
-        className="absolute inset-0 w-full h-full object-cover opacity-40"
-        aria-hidden="true"
+        src={heroMarina}
+        alt="Silverthorn Resort houseboat marina on Shasta Lake"
+        className="absolute inset-0 w-full h-full object-cover opacity-55"
       />
 
       {/* Content */}
@@ -438,16 +443,15 @@ function FleetCard({ boat }: { boat: any }) {
       className="rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1"
       style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
     >
-      {/* Image placeholder — replace with <img src={boat.image} alt={boat.name} /> */}
       <div
-        className="h-40 relative flex items-center justify-center text-white text-3xl"
+        className="h-40 relative overflow-hidden"
         style={{ backgroundColor: boat.imgBg }}
       >
-        ⛵
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{ backgroundColor: "#0D1E2B" }}
-          aria-hidden="true"
+        <img
+          src={boat.image}
+          alt={`${boat.name} houseboat at Silverthorn Resort on Shasta Lake`}
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
         />
         <span
           className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded"
@@ -538,13 +542,15 @@ function FleetSection() {
             className="rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1"
             style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
           >
-            <div
-              className="h-32 relative flex items-center justify-center text-white text-3xl"
-              style={{ backgroundColor: "#4A3A28" }}
-            >
-              🏡
+            <div className="h-32 relative overflow-hidden" style={{ backgroundColor: "#4A3A28" }}>
+              <img
+                src={cabinImg}
+                alt="Lake cabin interior at Silverthorn Resort, Shasta Lake"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
               <span
-                className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded"
+                className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded z-10"
                 style={{ backgroundColor: "#2F4A38", fontSize: "10px" }}
               >
                 Cabins
@@ -570,13 +576,15 @@ function FleetSection() {
             className="rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1"
             style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
           >
-            <div
-              className="h-32 relative flex items-center justify-center text-white text-3xl"
-              style={{ backgroundColor: "#1A3A6A" }}
-            >
-              ⛵
+            <div className="h-32 relative overflow-hidden" style={{ backgroundColor: "#1A3A6A" }}>
+              <img
+                src={smallBoatsImg}
+                alt="Axis wakeboard boat rental on Shasta Lake at sunset"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
               <span
-                className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded"
+                className="absolute top-2.5 left-2.5 text-white text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded z-10"
                 style={{ backgroundColor: "#1A6FA8", fontSize: "10px" }}
               >
                 Day Boats
