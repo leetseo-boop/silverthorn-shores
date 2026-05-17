@@ -1,56 +1,33 @@
-## 1. Redesign the Cabins + Small Boats cards
+## Pro Shop Rentals Page
 
-Current cards squeeze each photo into a fixed 128 px-tall strip, so guests barely see the cabin or the boat. Replace with a bolder, image-first layout.
+Create a new route `/pro-shop` matching the visual language of the existing Silverthorn pages (Playfair Display headings, navy `#1B2B3A` + orange `#E8640A` + sand `#F4EFE6` palette, shared `Nav` and `Footer`).
 
-**File:** `src/components/SilverthornHomePage.tsx` (lines ~530–599)
+### Files
 
-New design — "image-led showcase cards":
+- **New**: `src/routes/pro-shop.tsx` — TanStack route with full SEO `head()` (title, description, og tags, canonical, JSON-LD Store + ItemList + BreadcrumbList) and the page component.
+- **New assets** (copy uploads → `src/assets/`, optimize to ≤1600px webp):
+  - `proshop-hero.webp` ← `IMG_3332.jpg` (wakeboarder at sunset → hero)
+  - `proshop-tubing.webp` ← `valentines2026-4.png` (couple tubing → "Tubes & Towables" card)
+  - `proshop-group.webp` ← `queengroup-proshop.jfif` (group floats/SUPs → "Floats & SUPs" card / lifestyle band)
+- **Edit**: `src/components/SilverthornHomePage.tsx` — add "Pro Shop" link to the `Nav` items.
 
-- 2-up grid on desktop (1-up on mobile), `gap-6`.
-- Each card uses an `aspect-[4/3]` image area (was `h-32` ≈ 1.5× taller, full bleed, `object-cover`, `object-center`).
-- Image sits inside a `rounded-2xl` card with a soft inner shadow ring; on hover the image scales `1.04` over 500 ms (no card translate).
-- Category chip ("Cabins" / "Day Boats") floats top-left over the image with a translucent dark backdrop (`bg-black/55 backdrop-blur`).
-- A gradient scrim (`from-black/70 via-black/20 to-transparent`) covers the bottom third of the image and holds the title + one-liner in white, so the photo is the frame — not a separate text block stacked below.
-- Below the image: a slim white footer band with the two CTAs (primary orange "View Cabins" / "Rent a Boat" + secondary "Learn more →") so the action area stays scannable without stealing space from the photo.
-- Keep existing copy, links, BOOKING_URL, and the orange/blue tokens already in use. No new colors.
-- Both `<img>` get `loading="lazy"`, `decoding="async"`, explicit `width`/`height` to prevent CLS.
+### Page sections
 
-## 2. Optimize home page load speed
+1. **Hero** — full-width wakeboarder sunset image, dark scrim, headline "Pro Shop & Rentals", subhead about apparel + brand-name wakeboards/skis, CTAs "Reserve Gear" (booking URL) and "Call 1-800-332-3044".
+2. **Intro** — short paragraph from source: apparel & pro shop summary (swim suits, cover-ups, shorts, tees, shoes, accessories; wakeboards/skis for purchase or rent).
+3. **Rental Price Table** — modern card-style table replacing the screenshot. Columns: Equipment / Daily / Weekly. Rows: Large Tube $80/$480, Wakeboard $100/$600, Water Ski $50/$300, Kayak $75/$450, Paddleboard $75/$450, Wake Surf $80/$480. Each row with a Lucide icon, hover lift, alternating sand background. Mobile: stacked cards.
+4. **Gear categories grid** (3 visual cards using uploaded photos) — Wakeboards & Skis, Tubes & Towables (tubing image), Floats, SUPs & Kayaks (group image). Each links to booking.
+5. **Apparel callout** — small band: "Swim suits · Cover-ups · Shorts · Tees · Shoes · Accessories" with shop-now CTA.
+6. **CTA band** — orange band: "Rent your gear, hit the lake" with Book / Call buttons (matches small-boats page pattern).
 
-Biggest wins, in order of impact:
+### Technical details
 
-**a) Shrink the fleet card photos (largest payload by far).**
-Currently the homepage loads 4 full-resolution JPGs from `/public/images/`:
-- queen-i-…-01.jpg — **2.7 MB**
-- senator-…-running-shasta-lake.jpg — **2.2 MB**
-- queen-…-exterior-lifestyle…jpg — **824 KB**
-- queen-ii-…-exterior.jpg — **506 KB**
-
-These render at ~600 px wide on desktop and ~400 px on mobile. Generate resized `.webp` variants (max 1200 px wide, quality 80) into `src/assets/` and import them, replacing the `/images/...` strings in the `FLEET` array. Expected drop: ~6 MB → ~400 KB total for the fleet row.
-
-Use `sharp` via a one-off `code--exec` script (no new runtime deps): read each source, resize, write to `src/assets/fleet-<id>.webp`.
-
-**b) Mark the LCP image as high-priority and preload it.**
-The hero marina image (`home-hero-marina.webp`, 510 KB) is the LCP. On its `<img>` add `fetchpriority="high"` and `loading="eager"` (already in markup? — verify). Then in `src/routes/index.tsx`'s `head()` add `links: [{ rel: "preload", as: "image", href: heroMarina, fetchpriority: "high" }]`.
-
-**c) Lazy-load everything below the fold.**
-Audit the 7 other `<img>` tags in `SilverthornHomePage.tsx` (lines 170, 356, 441, 537, 571, 643, 780). Each must have `loading="lazy"` and `decoding="async"`. Add `width`/`height` attributes to all `<img>` to reserve space and eliminate layout shift.
-
-**d) Slim the existing home WebPs.**
-Re-encode `home-hero-marina.webp` (510 KB), `home-cabin.webp` (379 KB), `home-small-boats.webp` (226 KB) to max 1600 / 900 / 900 px wide at quality 78. Target: <180 KB each.
-
-**e) Remove unused state.**
-`useRef` is imported on line 11 but only `useState` is used by the nav dropdown. Drop the unused import (micro, but free).
+- Reuse `Nav`/`Footer` from `SilverthornHomePage` (already exported).
+- All images: explicit `width`/`height`, `loading="lazy"` except hero (`fetchPriority="high"`, `loading="eager"`), `decoding="async"`. Preload hero in route `head().links`.
+- JSON-LD `@graph`: `Store` (Silverthorn Pro Shop with address/phone/geo), `ItemList` of 6 rental products with Offer price/USD, `BreadcrumbList` Home → Pro Shop.
+- Canonical only on this leaf route; relative path `/pro-shop`.
+- Booking links → `https://rentals.silverthornresort.com` (existing `BOOKING_URL` constant pattern).
 
 ### Out of scope
 
-- No layout changes anywhere else on the homepage.
-- No new images, no copy changes, no nav/footer edits.
-- No build-tool changes (vite-imagetools, etc.) — single-shot sharp script only.
-- No interior pages (`/cabins`, `/small-boats`) touched.
-
-### Technical notes
-
-- Sharp script writes to `src/assets/`, then we update imports in `SilverthornHomePage.tsx` only. Original files in `public/images/` stay (other pages still use them at full size).
-- After replacing card markup, verify viewport at 1067 px (current preview) — the 2-up grid should look balanced; mobile <640 px stacks 1-up.
-- Verify with `browser--performance_profile` after the change: target LCP < 2.5 s and total page weight < 1.5 MB on the homepage.
+- No backend changes, no new shared components, no edits beyond adding the nav link.
