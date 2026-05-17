@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { createFileRoute } from "@tanstack/react-router";
-import { Nav, Footer } from "@/components/SilverthornHomePage";
+
 import {
   Calendar, Phone, MapPin, ShoppingBag, Waves, Anchor, Wind,
   Circle, LifeBuoy, Sailboat, Shirt,
@@ -13,7 +13,7 @@ const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
 const SAND = "#F4EFE6";
 const DISPLAY = "'Playfair Display', Georgia, serif";
-const BOOKING_URL = "https://rentals.silverthornresort.com";
+const BOOKING_URL = "https://rentals.silverthornresort.com/category/14";
 const PATH = "/pro-shop";
 
 const RENTALS = [
@@ -104,7 +104,6 @@ export const Route = createFileRoute("/pro-shop")({
 function ProShopPage() {
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
-      <Nav />
 
       {/* Breadcrumb */}
       <div style={{ backgroundColor: SAND }} className="border-b">
@@ -327,7 +326,6 @@ function ProShopPage() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }
