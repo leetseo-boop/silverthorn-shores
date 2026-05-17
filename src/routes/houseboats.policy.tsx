@@ -301,7 +301,11 @@ const SECTIONS: Section[] = [
           {PERMITS.map((p, i) => (
             <div key={p.boat} className="grid grid-cols-2 text-sm bg-white"
               style={{ borderTop: i === 0 ? "none" : "1px solid rgba(27,43,58,0.08)" }}>
-              <div className="px-3 sm:px-5 py-3 font-medium">{p.boat}</div>
+              <div className="px-3 sm:px-5 py-3 font-medium">
+                <Link to={p.to} className="underline underline-offset-2 hover:no-underline" style={{ color: "var(--lake)" }}>
+                  {p.boat}
+                </Link>
+              </div>
               <div className="px-3 sm:px-5 py-3 font-bold" style={{ color: ORANGE }}>{p.count}</div>
             </div>
           ))}
