@@ -43,6 +43,7 @@ type Cabin = {
   accessible?: boolean;
   badge?: string;
   image?: string;
+  imageAlt?: string;
 };
 
 const CABINS: Cabin[] = [
@@ -59,6 +60,7 @@ const CABINS: Cabin[] = [
     threeNight: "$649.22",
     url: "https://rentals.silverthornresort.com/details/30",
     image: cabin1Img,
+    imageAlt: "Cabin 1 interior at Silverthorn Resort — knotty pine walls, dining table with chairs, futon sofa, and full kitchen counter in a cozy Shasta Lake studio cabin",
   },
   {
     id: 2,
@@ -74,6 +76,7 @@ const CABINS: Cabin[] = [
     url: "https://rentals.silverthornresort.com/details/31",
     badge: "Family Favorite",
     image: cabin2Img,
+    imageAlt: "Cabin 2 bedroom at Silverthorn Resort — wood-beam ceiling, bunk bed with bear-print quilts and a double bed in a two-bedroom Shasta Lake family cabin",
   },
   {
     id: 3,
@@ -89,6 +92,7 @@ const CABINS: Cabin[] = [
     url: "https://rentals.silverthornresort.com/details/32",
     accessible: true,
     image: cabin3Img,
+    imageAlt: "Cabin 3 kitchen and dining area at Silverthorn Resort — full-size refrigerator, electric range, microwave and round dining table in an ADA-accessible Shasta Lake studio cabin",
   },
   {
     id: 4,
@@ -103,6 +107,7 @@ const CABINS: Cabin[] = [
     threeNight: "$752.27",
     url: "https://rentals.silverthornresort.com/details/33",
     image: cabin4Img,
+    imageAlt: "Cabin 4 living area at Silverthorn Resort — wood-beam ceiling, double bed, green futon sofa, dining set and forest views in a one-bedroom Shasta Lake cabin",
   },
   {
     id: 5,
@@ -117,6 +122,7 @@ const CABINS: Cabin[] = [
     threeNight: "$649.22",
     url: "https://rentals.silverthornresort.com/details/34",
     image: cabin5Img,
+    imageAlt: "Cabin 5 studio interior at Silverthorn Resort — bright open layout with double bed, futon sofa and dining table in a Shasta Lake lakeside studio cabin",
   },
   {
     id: 6,
@@ -143,6 +149,7 @@ const CABINS: Cabin[] = [
     url: "https://rentals.silverthornresort.com/details/36",
     badge: "Best View",
     image: cabin7Img,
+    imageAlt: "Cabin 7 second-deck living room at Silverthorn Resort — daybed with trundle, pine paneling and sliding glass door opening to a private balcony with Shasta Lake and Trinity Forest views",
   },
   {
     id: 8,
@@ -158,6 +165,7 @@ const CABINS: Cabin[] = [
     url: "https://rentals.silverthornresort.com/details/37",
     badge: "Largest · Sleeps 8",
     image: cabin8Img,
+    imageAlt: "Cabin 8 great room at Silverthorn Resort — wood-burning stove with brick hearth, daybed, futon, dining table and full kitchen in a spacious two-bedroom Shasta Lake family cabin sleeping 8",
   },
 ];
 
@@ -634,7 +642,8 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
         {cabin.image ? (
           <img
             src={cabin.image}
-            alt={`${cabin.name} — ${cabin.type} at Silverthorn Resort on Shasta Lake`}
+            alt={cabin.imageAlt ?? `${cabin.name} — ${cabin.type} cabin at Silverthorn Resort on Shasta Lake`}
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             loading="lazy"
             decoding="async"
             width={1600}
