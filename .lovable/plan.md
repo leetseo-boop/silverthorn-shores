@@ -1,13 +1,25 @@
-## Update hero image: swap laptop screen to actual Queen photo
+## Add framed hero image to FAQ page
 
-Use `imagegen--edit_image` to merge two existing images:
-- `src/assets/couple-planning-shasta.webp` (the current hero scene)
-- `src/assets/fleet-queen.webp` (the real Queen houseboat hero photo used on `/houseboats/queen`)
+Update `src/routes/faq.tsx` header section to feature the new `couple-planning-shasta.webp` hero image alongside the existing headline.
 
-**Prompt direction**: Replace the photo currently shown on the laptop screen with the supplied Queen houseboat image, fitted naturally to the laptop display with correct screen perspective/glare. Keep the "silverthornresort.com" URL text below the photo. Keep everything else identical — same couple, same expressions, same framed family lake photo on the wall, same Shasta Lake map, paddle, rope, sun hat, lighting, depth of field, and composition.
+### Layout
+Convert the centered text-only header into a two-column hero on desktop, stacked on mobile:
 
-**Output**: overwrite `src/assets/couple-planning-shasta.webp` (3:2, same dimensions).
+- **Left (md:6 cols)**: existing copy — H1 "Frequently Asked Questions", orange divider, subtext — left-aligned on desktop, centered on mobile.
+- **Right (md:6 cols)**: the hero image, nicely framed.
 
-**Tier**: default edit model (one call). If the URL text or screen integration looks off after the edit, I'll do one targeted re-edit rather than regenerating from scratch — keeps credit cost low.
+### Image framing
+- `<img>` with `src` imported from `@/assets/couple-planning-shasta.webp`, `width={1536} height={1024}`, `loading="eager"` + `fetchPriority="high"` (it's the LCP for this page).
+- Wrapper: `aspect-[3/2] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-border` with a subtle rotate (`rotate-1 md:rotate-2`) for a polaroid-ish feel.
+- Behind it, a decorative offset block: an absolutely positioned `bg-primary/10` (orange tint) rounded panel offset `-bottom-3 -right-3` to give depth.
+- Optional small `bg-sand` (`#F4EFE6`) corner sticker badge "Plan your Shasta Lake trip" — skip if it feels busy.
 
-No code changes — asset-only update.
+### Spacing
+- Section padding tightened: `pt-16 md:pt-24 pb-12 md:pb-16`.
+- Two-column grid: `grid md:grid-cols-2 gap-10 md:gap-14 items-center max-w-6xl mx-auto`.
+
+### Preload
+Add a `<link rel="preload" as="image" href={heroImg}>` entry to the route's `head().links` so the LCP loads fast (same pattern as `src/routes/index.tsx`).
+
+### Tokens / styling
+Reuse existing tokens (`--secondary`, `--primary`, `--border`, `--muted-foreground`). No new dependencies. Single file touched: `src/routes/faq.tsx`.
