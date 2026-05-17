@@ -9,6 +9,7 @@
  */
 
 import { useState } from "react";
+import silverthornLogo from "@/assets/silverthorn-logo.webp";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
@@ -146,19 +147,12 @@ export function Nav() {
     >
       <div className="mx-auto max-w-7xl px-6 flex items-center h-16 gap-6">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm"
-            style={{ backgroundColor: "#E8640A" }}
-          >
-            ⚓
-          </div>
-          <span
-            className="text-white font-bold text-base tracking-wide"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            Silverthorn Resort
-          </span>
+        <a href="/" className="flex items-center flex-shrink-0" aria-label="Silverthorn Resort Marina — Home">
+          <img
+            src={silverthornLogo}
+            alt="Silverthorn Resort Marina"
+            className="h-10 w-auto bg-white rounded-md px-2 py-1"
+          />
         </a>
 
         {/* Desktop Nav */}
@@ -712,12 +706,11 @@ export function Footer() {
         <div className="flex flex-col md:flex-row gap-10 mb-10">
           {/* Brand */}
           <div className="flex-shrink-0">
-            <div
-              className="text-white font-bold text-lg mb-2"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              Silverthorn Resort
-            </div>
+            <img
+              src={silverthornLogo}
+              alt="Silverthorn Resort Marina"
+              className="h-12 w-auto mb-3 bg-white rounded-md px-2 py-1"
+            />
             <div className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
               {ADDRESS}<br /><br />
               📞 {PHONE}<br />
