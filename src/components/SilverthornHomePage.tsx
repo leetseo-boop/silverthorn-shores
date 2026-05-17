@@ -117,8 +117,18 @@ const NAV_LINKS = [
   {
     label: "Small Boats",
     children: [
-      { label: "Rentals",   href: "/small-boats" },
-      { label: "Pro Shop",  href: "/small-boats/pro-shop" },
+      { label: "All Rentals",              href: "/small-boats" },
+      { label: "SeaDoo Jet Ski",           href: "/small-boats/jet-ski" },
+      { label: "Axis T220-R Wakeboard",    href: "/small-boats/axis-t220r" },
+      { label: "Centurion T-5 Wakeboard",  href: "/small-boats/centurion-t5" },
+      { label: "Tahoe Deck Boat 150",      href: "/small-boats/tahoe-deck" },
+      { label: "Patio Boat",               href: "/small-boats/patio-boat" },
+      { label: "Sun Tracker Pontoon",      href: "/small-boats/sun-tracker" },
+      { label: "Party Cruiser I",          href: "/small-boats/party-cruiser-i" },
+      { label: "Fishing Boat",             href: "/small-boats/fishing-boat" },
+      { label: "Kayak",                    href: "/small-boats/kayak" },
+      { label: "Stand Up Paddle Board",    href: "/small-boats/sup" },
+      { label: "Pro Shop",                 href: "/small-boats/pro-shop" },
     ],
   },
   {
@@ -721,39 +731,74 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex gap-10 flex-1 justify-start md:justify-end flex-wrap">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "#1B2B3A" }}>
-                Houseboats
+            {[
+              {
+                title: "Houseboats",
+                links: [
+                  { label: "Queen",         href: "/houseboats/queen" },
+                  { label: "Queen I",       href: "/houseboats/queen-i" },
+                  { label: "Queen II",      href: "/houseboats/queen-ii" },
+                  { label: "Senator",       href: "/houseboats/senator" },
+                  { label: "Rental Policy", href: "/houseboats/policy" },
+                  { label: "Guest Info",    href: "/houseboats/guest-info" },
+                ],
+              },
+              {
+                title: "Small Boats",
+                links: [
+                  { label: "All Rentals",        href: "/small-boats" },
+                  { label: "Jet Ski",            href: "/small-boats/jet-ski" },
+                  { label: "Axis Wakeboard",     href: "/small-boats/axis-t220r" },
+                  { label: "Centurion Wakeboard",href: "/small-boats/centurion-t5" },
+                  { label: "Tahoe Deck Boat",    href: "/small-boats/tahoe-deck" },
+                  { label: "Patio Boat",         href: "/small-boats/patio-boat" },
+                  { label: "Sun Tracker Pontoon",href: "/small-boats/sun-tracker" },
+                  { label: "Party Cruiser I",    href: "/small-boats/party-cruiser-i" },
+                  { label: "Fishing Boat",       href: "/small-boats/fishing-boat" },
+                  { label: "Kayak",              href: "/small-boats/kayak" },
+                  { label: "Paddle Board",       href: "/small-boats/sup" },
+                  { label: "Pro Shop",           href: "/small-boats/pro-shop" },
+                ],
+              },
+              {
+                title: "Stay",
+                links: [
+                  { label: "Lake Cabins",   href: "/cabins" },
+                  { label: "Cabin Policy",  href: "/cabins/policy" },
+                  { label: "Book a Cabin",  href: BOOKING_URL, external: true },
+                ],
+              },
+              {
+                title: "Resort",
+                links: [
+                  { label: "Our History",    href: "/about/history" },
+                  { label: "Shasta Lake",    href: "/shasta-lake" },
+                  { label: "Planning Guide", href: "/planning" },
+                  { label: "FAQ",            href: "/faq" },
+                  { label: "Contact",        href: "/contact" },
+                  { label: "Employment",     href: "/employment" },
+                ],
+              },
+            ].map((col) => (
+              <div key={col.title}>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "#1B2B3A" }}>
+                  {col.title}
+                </div>
+                {col.links.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    {...((l as any).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="block text-xs mb-1.5 transition-colors"
+                    style={{ color: "rgba(27,43,58,0.65)" }}
+                    onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
+                    onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(27,43,58,0.65)")}
+                  >
+                    {l.label}
+                  </a>
+                ))}
               </div>
-              {["Queen", "Queen I", "Queen II", "Senator", "Rental Policy", "Guest Info"].map((l) => (
-                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(27,43,58,0.65)" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(27,43,58,0.65)")}
-                >{l}</a>
-              ))}
-            </div>
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "#1B2B3A" }}>
-                Stay
-              </div>
-              {["Lake Cabins", "Small Boats", "Marina", "Moorage"].map((l) => (
-                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(27,43,58,0.65)" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(27,43,58,0.65)")}
-                >{l}</a>
-              ))}
-            </div>
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "#1B2B3A" }}>
-                Resort
-              </div>
-              {["About Us", "Shasta Lake", "Planning Guide", "FAQ", "Contact", "Employment"].map((l) => (
-                <a key={l} href="#" className="block text-xs mb-1.5 transition-colors" style={{ color: "rgba(27,43,58,0.65)" }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(27,43,58,0.65)")}
-                >{l}</a>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
 
