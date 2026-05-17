@@ -392,6 +392,7 @@ function PolicyPage() {
             height={1024}
             loading="eager"
             fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0"
             style={{ background: "linear-gradient(to right, rgba(13,32,48,0.85), rgba(13,32,48,0.5) 60%, rgba(13,32,48,0.25))" }} />
