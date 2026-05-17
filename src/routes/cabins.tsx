@@ -468,7 +468,7 @@ function CabinsPage() {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
             {CABINS.map((cabin) => (
               <CabinCard key={cabin.id} cabin={cabin} />
             ))}
@@ -635,7 +635,7 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
     >
       {/* Image slot */}
       <div
-        className={`relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-[var(--lake)]/15 to-[var(--navy)]/25 flex items-center justify-center ${
+        className={`relative aspect-[3/2] w-full overflow-hidden bg-gradient-to-br from-[var(--lake)]/15 to-[var(--navy)]/25 flex items-center justify-center ${
           unavailable ? "grayscale" : ""
         }`}
       >
@@ -647,8 +647,8 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
             loading="lazy"
             decoding="async"
             width={1600}
-            height={1200}
-            className="absolute inset-0 w-full h-full object-cover"
+            height={1067}
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
         ) : (
           <div className="text-center text-[var(--navy)]/40 px-4">
@@ -695,9 +695,9 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
         </div>
         <div className="text-sm font-medium text-[var(--lake)] mt-0.5">{cabin.type}</div>
 
-        <p className="text-sm text-foreground/80 mt-3 leading-relaxed">{cabin.description}</p>
+        <p className="text-sm text-foreground/80 mt-3 leading-relaxed line-clamp-3 min-h-[60px]">{cabin.description}</p>
 
-        <ul className="mt-4 space-y-1.5 text-xs text-muted-foreground">
+        <ul className="mt-4 space-y-1.5 text-xs text-muted-foreground min-h-[60px]">
           <li className="flex items-start gap-2">
             <BedDouble className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
             <span>{cabin.beds}</span>
@@ -708,50 +708,56 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
           </li>
         </ul>
 
-        {!unavailable && (cabin.weekly || cabin.threeNight) && (
-          <div className="mt-5 grid grid-cols-2 gap-3 rounded-lg bg-[var(--sand)] p-3">
-            {cabin.weekly && (
-              <div>
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
-                  Starting weekly
+        <div className="mt-auto pt-5">
+          {!unavailable && (cabin.weekly || cabin.threeNight) ? (
+            <div className="grid grid-cols-2 gap-3 rounded-lg bg-[var(--sand)] p-3">
+              {cabin.weekly && (
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
+                    Starting weekly
+                  </div>
+                  <div className="text-sm font-bold" style={{ color: "var(--navy)" }}>
+                    {cabin.weekly}
+                  </div>
                 </div>
-                <div className="text-sm font-bold" style={{ color: "var(--navy)" }}>
-                  {cabin.weekly}
+              )}
+              {cabin.threeNight && (
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
+                    3-night min
+                  </div>
+                  <div className="text-sm font-bold" style={{ color: "var(--navy)" }}>
+                    {cabin.threeNight}
+                  </div>
                 </div>
-              </div>
-            )}
-            {cabin.threeNight && (
-              <div>
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
-                  3-night min
-                </div>
-                <div className="text-sm font-bold" style={{ color: "var(--navy)" }}>
-                  {cabin.threeNight}
-                </div>
-              </div>
+              )}
+            </div>
+          ) : (
+            <div className="rounded-lg bg-muted/50 p-3 text-center text-xs font-medium text-muted-foreground">
+              Rates unavailable
+            </div>
+          )}
+
+          <div className="mt-5 pt-4 border-t border-border">
+            {unavailable ? (
+              <button
+                type="button"
+                disabled
+                className="w-full inline-flex items-center justify-center rounded-md bg-muted px-4 py-2.5 text-sm font-semibold text-muted-foreground cursor-not-allowed"
+              >
+                Currently unavailable
+              </button>
+            ) : (
+              <a
+                href={cabin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+              >
+                Book Cabin #{cabin.id} <ExternalLink className="h-3.5 w-3.5" />
+              </a>
             )}
           </div>
-        )}
-
-        <div className="mt-5 pt-4 border-t border-border">
-          {unavailable ? (
-            <button
-              type="button"
-              disabled
-              className="w-full inline-flex items-center justify-center rounded-md bg-muted px-4 py-2.5 text-sm font-semibold text-muted-foreground cursor-not-allowed"
-            >
-              Currently unavailable
-            </button>
-          ) : (
-            <a
-              href={cabin.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-            >
-              Book Cabin #{cabin.id} <ExternalLink className="h-3.5 w-3.5" />
-            </a>
-          )}
         </div>
       </div>
     </article>
