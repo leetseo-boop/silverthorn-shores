@@ -37,7 +37,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "Can I bring my pet?",
-    a: "Some cabins are pet friendly. Please call 800-332-3044 to confirm availability for your specific cabin and dates. Houseboats are not pet friendly.",
+    a: "All of our houseboats are pet friendly. Please call 800-332-3044 with any questions about traveling with your pet.",
   },
   {
     q: "What is the cancellation and rental policy?",
