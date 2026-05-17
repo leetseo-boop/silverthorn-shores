@@ -343,7 +343,7 @@ function CabinsPage() {
           <figure className="rounded-xl overflow-hidden border border-border bg-white">
             <img
               src={resortMap}
-              alt="Silverthorn Resort area map showing cabin locations C1 through C8, main dock, boat ramp, helicopter pad, and parking on Shasta Lake"
+              alt="Silverthorn Resort map 2026 Shasta Lake"
               loading="lazy"
               decoding="async"
               width={1740}
