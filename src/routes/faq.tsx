@@ -92,7 +92,10 @@ export const Route = createFileRoute("/faq")({
       },
       { property: "og:url", content: "/faq" },
     ],
-    links: [{ rel: "canonical", href: "/faq" }],
+    links: [
+      { rel: "canonical", href: "/faq" },
+      { rel: "preload", as: "image", href: faqHero, fetchPriority: "high" } as any,
+    ],
     scripts: [
       {
         type: "application/ld+json",
