@@ -22,6 +22,7 @@ import cabin2Img from "@/assets/cabin-2.jpg";
 import cabin3Img from "@/assets/cabin-3.jpg";
 import cabin4Img from "@/assets/cabin-4.jpg";
 import cabin5Img from "@/assets/cabin-5.jpg";
+import cabin7Img from "@/assets/cabin-7.jpg";
 
 const BOOKING_ALL = "https://rentals.silverthornresort.com/category/9";
 const PHONE = "800-332-3044";
@@ -140,6 +141,7 @@ const CABINS: Cabin[] = [
     threeNight: "$786.62",
     url: "https://rentals.silverthornresort.com/details/36",
     badge: "Best View",
+    image: cabin7Img,
   },
   {
     id: 8,
