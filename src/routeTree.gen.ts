@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SmallBoatsRouteImport } from './routes/small-boats'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SmallBoatsSlugRouteImport } from './routes/small-boats.$slug'
 import { Route as HouseboatsSenatorRouteImport } from './routes/houseboats.senator'
 import { Route as HouseboatsQueenIiRouteImport } from './routes/houseboats.queen-ii'
 import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SmallBoatsSlugRoute = SmallBoatsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => SmallBoatsRoute,
 } as any)
 const HouseboatsSenatorRoute = HouseboatsSenatorRouteImport.update({
   id: '/houseboats/senator',
@@ -49,28 +55,31 @@ const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/small-boats': typeof SmallBoatsRoute
+  '/small-boats': typeof SmallBoatsRouteWithChildren
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
   '/houseboats/senator': typeof HouseboatsSenatorRoute
+  '/small-boats/$slug': typeof SmallBoatsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/small-boats': typeof SmallBoatsRoute
+  '/small-boats': typeof SmallBoatsRouteWithChildren
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
   '/houseboats/senator': typeof HouseboatsSenatorRoute
+  '/small-boats/$slug': typeof SmallBoatsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/small-boats': typeof SmallBoatsRoute
+  '/small-boats': typeof SmallBoatsRouteWithChildren
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
   '/houseboats/senator': typeof HouseboatsSenatorRoute
+  '/small-boats/$slug': typeof SmallBoatsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
     | '/houseboats/senator'
+    | '/small-boats/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
     | '/houseboats/senator'
+    | '/small-boats/$slug'
   id:
     | '__root__'
     | '/'
@@ -97,11 +108,12 @@ export interface FileRouteTypes {
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
     | '/houseboats/senator'
+    | '/small-boats/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SmallBoatsRoute: typeof SmallBoatsRoute
+  SmallBoatsRoute: typeof SmallBoatsRouteWithChildren
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
   HouseboatsQueenIRoute: typeof HouseboatsQueenIRoute
   HouseboatsQueenIiRoute: typeof HouseboatsQueenIiRoute
@@ -123,6 +135,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/small-boats/$slug': {
+      id: '/small-boats/$slug'
+      path: '/$slug'
+      fullPath: '/small-boats/$slug'
+      preLoaderRoute: typeof SmallBoatsSlugRouteImport
+      parentRoute: typeof SmallBoatsRoute
     }
     '/houseboats/senator': {
       id: '/houseboats/senator'
@@ -155,9 +174,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface SmallBoatsRouteChildren {
+  SmallBoatsSlugRoute: typeof SmallBoatsSlugRoute
+}
+
+const SmallBoatsRouteChildren: SmallBoatsRouteChildren = {
+  SmallBoatsSlugRoute: SmallBoatsSlugRoute,
+}
+
+const SmallBoatsRouteWithChildren = SmallBoatsRoute._addFileChildren(
+  SmallBoatsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SmallBoatsRoute: SmallBoatsRoute,
+  SmallBoatsRoute: SmallBoatsRouteWithChildren,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
   HouseboatsQueenIRoute: HouseboatsQueenIRoute,
   HouseboatsQueenIiRoute: HouseboatsQueenIiRoute,
