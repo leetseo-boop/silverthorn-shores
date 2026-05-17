@@ -659,6 +659,8 @@ function AboutSection() {
           <img
             src="/images/shasta-lake-about.jpg"
             alt="Shasta Lake aerial view with mountains"
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
           <span
@@ -796,6 +798,10 @@ export function Footer() {
             <img
               src={silverthornLogo}
               alt="Silverthorn Resort Marina"
+              width={200}
+              height={96}
+              loading="lazy"
+              decoding="async"
               className="h-24 w-auto mb-4"
             />
             <div className="text-xs leading-relaxed" style={{ color: "rgba(27,43,58,0.7)" }}>
