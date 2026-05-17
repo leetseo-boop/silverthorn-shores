@@ -897,7 +897,7 @@ export function Footer() {
 export default function SilverthornHomePage() {
   return (
     <main>
-      <Nav />
+      
       <Hero />
       <FleetSection />
       <StatsBar />
