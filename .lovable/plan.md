@@ -1,21 +1,31 @@
-# Fix: Individual Small Boat Pages Don't Render
+## Image updates to home page (`src/components/SilverthornHomePage.tsx`)
 
-## Problem
-Clicking a boat card on `/small-boats` updates the URL (e.g. `/small-boats/patio-boat`) but the page still shows the fleet listing hero — the detail page never renders.
+### 1. Copy uploaded images into project
+- `user-uploads://silverthornresort-shastalake2026-optimized.webp` → `src/assets/home-hero-marina.webp`
+- `user-uploads://LakeCabinSilverthornResort-ShastaLake-optimized.webp` → `src/assets/home-cabin.webp`
+- `user-uploads://Axis-Small-Boat-optimized.webp` → `src/assets/home-small-boats.webp`
 
-## Root Cause
-TanStack Router's file-based routing treats `small-boats.tsx` as a **parent layout** for `small-boats.$slug.tsx` because they share the `small-boats` prefix. The parent `SmallBoatsPage` component does not render `<Outlet />`, so the matched child route has nowhere to mount. Verified by navigating to `/small-boats/patio-boat` — URL is correct, console is clean, but the fleet hero renders.
+Import each as an ES6 module at the top of `SilverthornHomePage.tsx`.
 
-## Fix
-Rename the dynamic route to use the **non-nested** (underscore-suffix) convention so it becomes a sibling of the fleet page instead of a child:
+### 2. Hero section (`Hero`, lines ~352–432)
+Replace placeholder `/images/hero-shasta-lake.jpg` with the imported `home-hero-marina.webp`. Keep current dark overlay/opacity so the headline stays legible; bump opacity slightly (e.g. `opacity-60`) since the new photo is bright.
 
-- Rename `src/routes/small-boats.$slug.tsx` → `src/routes/small-boats_.$slug.tsx`
+### 3. Houseboat fleet cards (`FleetCard`, lines ~435–502)
+Add an `image` field to each entry in the `FLEET` array using the first hero image already defined in `src/data/houseboats.ts`:
+- queen → `/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg`
+- queen-i → `/images/queen-i-houseboat-shasta-lake-01.jpg`
+- queen-ii → `/images/queen-ii-houseboat-silverthorn-resort-shasta-lake-exterior.jpg`
+- senator → `/images/senator-houseboat-exterior-running-shasta-lake.jpg`
 
-The trailing `_` on `small-boats_` tells TanStack Router this route shares the URL path prefix but is NOT a child of `small-boats.tsx`. Both routes then render independently:
-- `/small-boats` → `small-boats.tsx` (fleet)
-- `/small-boats/patio-boat` → `small-boats_.$slug.tsx` (detail)
+Replace the emoji/colored placeholder `<div>` with an `<img>` filling the card thumbnail (`h-40 object-cover`), keeping the badge chip overlay.
 
-No code changes needed inside the file (the `createFileRoute("/small-boats/$slug")` path stays identical — only the **filename** changes). `routeTree.gen.ts` regenerates automatically.
+### 4. Lake Cabins card (lines ~537–567)
+Replace the 🏡 placeholder block with the imported `home-cabin.webp` (`h-32 object-cover`), keep the "Cabins" badge overlay.
 
-## Verification
-After the rename, navigate to `/small-boats/patio-boat` and confirm the `SilverthornBoatDetail` component renders with the Patio Boat hero, gallery, pricing, and FAQ.
+### 5. Small Boat Rentals card (lines ~569–599)
+Replace the ⛵ placeholder block with the imported `home-small-boats.webp` (`h-32 object-cover`), keep the "Day Boats" badge overlay.
+
+### Notes
+- Pure presentation change — no logic, routes, or data files modified beyond adding `image` keys in the FLEET array.
+- Each `<img>` gets a descriptive `alt` for SEO.
+- No new dependencies.
