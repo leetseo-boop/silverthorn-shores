@@ -12,7 +12,7 @@ import {
 
 const PHONE = "1-800-332-3044";
 const PHONE_TEL = "+18003323044";
-const EMAIL = "reserve@silverthornresort.com";
+const EMAIL = "reserve1@houseboats.com";
 const ADDRESS = "16250 Silverthorn Road, Redding, CA 96003";
 const MAPS_DEEP_LINK = "https://maps.app.goo.gl/acS8aohrh1m4xFz8A";
 const MAP_EMBED =

@@ -22,7 +22,7 @@ import fleetSenator from "@/assets/fleet-senator.webp";
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
 const JONES_URL     = "https://houseboats.com";
 const PHONE         = "800-332-3044";
-const EMAIL         = "reservations@silverthornresort.com";
+const EMAIL         = "reserve1@houseboats.com";
 const ADDRESS       = "16250 Silverthorn Road, Redding, CA 96003";
 
 const FLEET = [
