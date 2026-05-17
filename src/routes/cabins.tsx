@@ -22,6 +22,7 @@ import cabin2Img from "@/assets/cabin-2.jpg";
 import cabin3Img from "@/assets/cabin-3.jpg";
 import cabin4Img from "@/assets/cabin-4.jpg";
 import cabin5Img from "@/assets/cabin-5.jpg";
+import cabin6Img from "@/assets/cabin-6.jpg";
 import cabin7Img from "@/assets/cabin-7.jpg";
 import cabin8Img from "@/assets/cabin-8.jpg";
 
@@ -134,6 +135,8 @@ const CABINS: Cabin[] = [
     description:
       "A quiet end unit with secluded forest views, a short walk to the lake. Currently unavailable for booking.",
     unavailable: true,
+    image: cabin6Img,
+    imageAlt: "Dusk view from the Silverthorn Resort cabins — tall pines framing Shasta Lake at twilight with the marina and houseboats below",
   },
   {
     id: 7,
@@ -672,9 +675,16 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
         )}
 
         {unavailable && (
-          <span className="absolute top-3 right-3 inline-flex items-center rounded-full bg-foreground/80 px-2.5 py-1 text-xs font-bold text-background shadow">
-            Currently unavailable
-          </span>
+          <>
+            <div className="absolute inset-0 bg-black/45 pointer-events-none" aria-hidden="true" />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[140%] -rotate-12 bg-destructive/95 py-2.5 text-center text-white shadow-lg ring-2 ring-white/70">
+                <span className="block text-lg sm:text-2xl font-extrabold uppercase tracking-[0.2em]">
+                  Currently Unavailable
+                </span>
+              </div>
+            </div>
+          </>
         )}
 
         {cabin.accessible && (
