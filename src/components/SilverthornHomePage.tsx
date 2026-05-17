@@ -8,11 +8,15 @@
  *   fontFamily: { display: ['Playfair Display', 'Georgia', 'serif'], body: ['DM Sans', 'system-ui', 'sans-serif'] }
  */
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import silverthornLogo from "@/assets/silverthorn-logo.webp";
 import heroMarina from "@/assets/home-hero-marina.webp";
 import cabinImg from "@/assets/home-cabin.webp";
 import smallBoatsImg from "@/assets/home-small-boats.webp";
+import fleetQueen from "@/assets/fleet-queen.webp";
+import fleetQueenI from "@/assets/fleet-queen-i.webp";
+import fleetQueenII from "@/assets/fleet-queen-ii.webp";
+import fleetSenator from "@/assets/fleet-senator.webp";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
