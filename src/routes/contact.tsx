@@ -245,7 +245,8 @@ function ContactPage() {
                   { Icon: Facebook, href: "https://facebook.com/silverthornresort", label: "Facebook" },
                   { Icon: Twitter, href: "https://twitter.com/SilverthornDock", label: "Twitter" },
                   { Icon: Instagram, href: "https://instagram.com/silverthornresortandmarina", label: "Instagram" },
-                  { Icon: Youtube, href: "https://www.youtube.com/results?search_query=silverthorn+resort+shasta+lake", label: "YouTube" },
+                  { Icon: Youtube, href: "https://www.youtube.com/@houseboatslakeshasta", label: "YouTube" },
+                  { Icon: TikTokIcon, href: "https://www.tiktok.com/@houseboats.com", label: "TikTok" },
                 ].map(({ Icon, href, label }) => (
                   <a
                     key={label}
