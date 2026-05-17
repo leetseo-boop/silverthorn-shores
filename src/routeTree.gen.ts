@@ -21,6 +21,7 @@ import { Route as HouseboatsSenatorRouteImport } from './routes/houseboats.senat
 import { Route as HouseboatsQueenIiRouteImport } from './routes/houseboats.queen-ii'
 import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
 import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
+import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy'
 
 const SmallBoatsRoute = SmallBoatsRouteImport.update({
   id: '/small-boats',
@@ -82,6 +83,11 @@ const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
   path: '/houseboats/queen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HouseboatsPolicyRoute = HouseboatsPolicyRouteImport.update({
+  id: '/houseboats/policy',
+  path: '/houseboats/policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
   '/houseboats/queen-ii': typeof HouseboatsQueenIiRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
     | '/houseboats/queen-ii'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   ProShopRoute: typeof ProShopRoute
   SmallBoatsRoute: typeof SmallBoatsRoute
+  HouseboatsPolicyRoute: typeof HouseboatsPolicyRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
   HouseboatsQueenIRoute: typeof HouseboatsQueenIRoute
   HouseboatsQueenIiRoute: typeof HouseboatsQueenIiRoute
@@ -272,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HouseboatsQueenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/houseboats/policy': {
+      id: '/houseboats/policy'
+      path: '/houseboats/policy'
+      fullPath: '/houseboats/policy'
+      preLoaderRoute: typeof HouseboatsPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   ProShopRoute: ProShopRoute,
   SmallBoatsRoute: SmallBoatsRoute,
+  HouseboatsPolicyRoute: HouseboatsPolicyRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
   HouseboatsQueenIRoute: HouseboatsQueenIRoute,
   HouseboatsQueenIiRoute: HouseboatsQueenIiRoute,
@@ -292,3 +313,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
