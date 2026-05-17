@@ -52,7 +52,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
-      <Nav />
+      
 
       {/* Breadcrumb */}
       <div className="pt-20" style={{ backgroundColor: "#F4EFE6" }}>
