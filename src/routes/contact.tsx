@@ -17,9 +17,6 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 
 const path = "/contact";
 const title = "Contact Silverthorn Resort | Shasta Lake Houseboat Rentals";
