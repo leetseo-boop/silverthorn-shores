@@ -72,7 +72,7 @@ const FLEET = [
     feature: "Sun deck + BBQ",
     slug: "/houseboats/senator",
     imgBg: "#2F4A38",
-    image: "/images/senator-houseboat-exterior-running-shasta-lake.jpg",
+    image: fleetSenator,
   },
 ];
 
