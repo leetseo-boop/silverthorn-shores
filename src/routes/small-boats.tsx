@@ -146,7 +146,7 @@ function SmallBoatsPage() {
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
-      <Nav />
+      
 
       {/* Breadcrumb */}
       <div style={{ backgroundColor: SAND }} className="border-b" >
@@ -343,7 +343,7 @@ function SmallBoatsPage() {
         </div>
       </section>
 
-      <Footer />
+      
     </div>
   );
 }
