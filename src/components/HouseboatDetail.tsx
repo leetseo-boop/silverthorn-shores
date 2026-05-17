@@ -509,7 +509,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
         </div>
       </section>
 
-      <Footer />
+      
 
       {lightboxIdx !== null && (
         <Lightbox
