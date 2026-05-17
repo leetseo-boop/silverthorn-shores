@@ -121,7 +121,6 @@ const NAV_LINKS = [
     label: "Cabins",
     children: [
       { label: "Lake Cabins",    href: "/cabins" },
-      { label: "Book a Cabin",   href: BOOKING_URL, external: true },
       { label: "Cabin Policy",   href: "/cabins/policy" },
     ],
   },
@@ -837,7 +836,6 @@ export function Footer() {
                 links: [
                   { label: "Lake Cabins",   href: "/cabins" },
                   { label: "Cabin Policy",  href: "/cabins/policy" },
-                  { label: "Book a Cabin",  href: BOOKING_URL, external: true },
                 ],
               },
               {
