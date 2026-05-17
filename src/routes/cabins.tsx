@@ -135,6 +135,8 @@ const CABINS: Cabin[] = [
     description:
       "A quiet end unit with secluded forest views, a short walk to the lake. Currently unavailable for booking.",
     unavailable: true,
+    image: cabin6Img,
+    imageAlt: "Dusk view from the Silverthorn Resort cabins — tall pines framing Shasta Lake at twilight with the marina and houseboats below",
   },
   {
     id: 7,
