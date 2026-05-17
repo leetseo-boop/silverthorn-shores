@@ -1,0 +1,86 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-navy: var(--navy);
+  --color-navy-dark: var(--navy-dark);
+  --color-lake: var(--lake);
+  --color-sand: var(--sand);
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Brand */
+  --navy: #1B2B3A;
+  --navy-dark: #111d28;
+  --lake: #1A6FA8;
+  --sand: #F4EFE6;
+
+  --background: #ffffff;
+  --foreground: #1B2B3A;
+  --card: #ffffff;
+  --card-foreground: #1B2B3A;
+  --popover: #ffffff;
+  --popover-foreground: #1B2B3A;
+  --primary: #E8640A;
+  --primary-foreground: #ffffff;
+  --secondary: #1B2B3A;
+  --secondary-foreground: #ffffff;
+  --muted: #F4EFE6;
+  --muted-foreground: #5b6b78;
+  --accent: #1A6FA8;
+  --accent-foreground: #ffffff;
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --border: #e4e7eb;
+  --input: #e4e7eb;
+  --ring: #E8640A;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
