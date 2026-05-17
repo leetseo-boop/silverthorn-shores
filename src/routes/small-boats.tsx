@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Nav, Footer } from "@/components/SilverthornHomePage";
 import {
@@ -236,25 +236,36 @@ function SmallBoatsPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {fleet.map((b) => (
-              <article key={b.id} className="group rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-md transition-all" style={{ borderColor: "rgba(27,43,58,0.08)" }}>
-                <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                  <img src={b.img} alt={b.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white shadow" style={{ backgroundColor: ORANGE }}>
-                    From ${b.price.toFixed(0)}/day
+              <article key={b.id} className="group rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-md transition-all flex flex-col" style={{ borderColor: "rgba(27,43,58,0.08)" }}>
+                <Link to="/small-boats/$slug" params={{ slug: b.id }} className="block">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                    <img src={b.img} alt={b.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white shadow" style={{ backgroundColor: ORANGE }}>
+                      From ${b.price.toFixed(0)}/day
+                    </div>
                   </div>
-                </div>
-                <div className="p-5">
-                  <h3 className="font-semibold text-lg mb-1" style={{ color: NAVY, fontFamily: DISPLAY }}>{b.name}</h3>
+                </Link>
+                <div className="p-5 flex flex-col flex-1">
+                  <Link to="/small-boats/$slug" params={{ slug: b.id }} className="hover:opacity-80 transition-opacity">
+                    <h3 className="font-semibold text-lg mb-1" style={{ color: NAVY, fontFamily: DISPLAY }}>{b.name}</h3>
+                  </Link>
                   <p className="text-sm text-gray-600 mb-3">{b.use}</p>
                   <div className="flex items-center justify-between text-sm mb-4">
                     <span className="inline-flex items-center gap-1 text-gray-700"><Users className="w-4 h-4" /> Up to {b.capacity}</span>
                     <span className="font-bold" style={{ color: NAVY }}>${b.price.toFixed(2)}</span>
                   </div>
-                  <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
-                    className="block w-full text-center py-2.5 rounded-lg text-white font-medium transition-all"
-                    style={{ backgroundColor: ORANGE }}>
-                    Book Now →
-                  </a>
+                  <div className="mt-auto grid grid-cols-2 gap-2">
+                    <Link to="/small-boats/$slug" params={{ slug: b.id }}
+                      className="text-center py-2.5 rounded-lg font-medium border transition-all"
+                      style={{ color: NAVY, borderColor: NAVY }}>
+                      Details
+                    </Link>
+                    <a href={`${BOOKING_URL}/details/${b.id}`} target="_blank" rel="noopener noreferrer"
+                      className="text-center py-2.5 rounded-lg text-white font-medium transition-all"
+                      style={{ backgroundColor: ORANGE }}>
+                      Book Now
+                    </a>
+                  </div>
                 </div>
               </article>
             ))}
