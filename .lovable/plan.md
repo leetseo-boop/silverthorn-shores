@@ -1,48 +1,38 @@
-## Contact page at `/contact`
+# /contact updates
 
-Single new file `src/routes/contact.tsx` (Nav/Footer global via `__root.tsx`, same pattern as `/faq` and `/pro-shop`).
+## 1. Social links (quick edits)
+In `src/routes/contact.tsx`:
+- Replace YouTube href with `https://www.youtube.com/@houseboatslakeshasta`
+- Add TikTok as a 5th icon → `https://www.tiktok.com/@houseboats.com`. Since lucide-react has no TikTok glyph, use a small inline SVG (same 20px size, same circular border button styling as the others) so it visually matches.
+- Mirror both in the `sameAs` array of the LocalBusiness JSON-LD.
 
-### `head()`
-- `title`, `description`, `og:title`, `og:description`, `og:url`, `og:image` (reuse marina/resort image already in `src/assets`).
-- `canonical` `/contact`.
-- `scripts`: `LocalBusiness` JSON-LD with name, telephone `+1-800-332-3044`, email `reservations@silverthornresort.com`, full postal address, geo, openingHours (Mo-Su 08:00-18:30), sameAs (Facebook/Twitter/Instagram/YouTube URLs), url, image.
+## 2. Form behavior — switch from `mailto:` to real send
+The current form opens the user's email client (`mailto:`), which:
+- can't reliably BCC `marketing@houseboats.com`
+- can't guarantee delivery to `reserve1@houseboats.com`
+- can't show a real "thank you" (we don't know if they actually sent it)
 
-### Sections (top → bottom)
+To meet the three requirements (route to reserve1, thank-you confirmation, copy to marketing) we need a server-side send. Recommended path: **Lovable Cloud + Lovable Emails** (built-in, no external API keys).
 
-1. **Header** — centered. Playfair H1 "Get in Touch" (navy `--secondary`), orange divider, DM Sans subtext "Our team is here to help you plan the perfect Shasta Lake vacation."
+### Steps
+1. Enable Lovable Cloud.
+2. Set up the email sender domain (required prerequisite — one-time dialog).
+3. Scaffold app-email infrastructure + create two React Email templates in `src/lib/email-templates/`:
+   - `contact-thank-you.tsx` — sent to the guest. Subject: "Thanks for contacting Silverthorn Resort". Body uses Playfair/DM Sans-ish inline styles, brand orange `#E8640A`, navy `#1B2B3A`, echoes their message, includes phone `800-332-3044`.
+   - `contact-internal-notify.tsx` — sent to `reserve1@houseboats.com` with `marketing@houseboats.com` as a second recipient (one template, sent twice — one per recipient — keeping the "one recipient per send" rule). Subject: `New website inquiry — {name}`. Contains name, email, phone, dates, message.
+4. Create a public server route `src/routes/api/public/contact.ts` (POST):
+   - Zod-validate the same fields as today.
+   - Generate one `submissionId = crypto.randomUUID()`.
+   - Enqueue 3 emails via the existing `send-transactional-email` flow with idempotency keys:
+     - `contact-thanks-{submissionId}` → guest
+     - `contact-notify-reserve-{submissionId}` → reserve1@houseboats.com
+     - `contact-notify-marketing-{submissionId}` → marketing@houseboats.com
+   - Return `{ ok: true }`.
+5. Update `src/routes/contact.tsx`:
+   - Replace `mailto:` handler with `fetch('/api/public/contact', …)`.
+   - On success, replace the form with a centered thank-you panel: heading "Thank you!", body "We've received your message and a member of our team will be in touch shortly. For immediate help, call **800-332-3044**." Keep the navy/orange styling, soft sand background card.
+   - On error, show inline error + fallback to phone.
+   - Keep client-side zod validation as-is.
 
-2. **Two-column grid** (`md:grid-cols-2 gap-10`, `max-w-6xl mx-auto`):
-   - **Left — Contact details** (vertical stack of cards / blocks):
-     - Big phone display: `tel:+18003323044`, Playfair, `text-primary` (#E8640A), large size. Primary orange "Call Now" button below.
-     - Email block: `reservations@silverthornresort.com` (mailto link).
-     - Address block: 16250 Silverthorn Road, Redding, CA 96003.
-     - Navy card (`bg-secondary text-secondary-foreground` / white text on navy): "Marina Store Hours — Mon–Sun 8:00 AM – 6:30 PM" with small note "Seasonal — hours may vary, call to confirm".
-     - Social icons row: lucide `Facebook`, `Twitter`, `Instagram`, `Youtube` — links to facebook.com/silverthornresort, twitter.com/SilverthornDock, instagram.com/silverthornresortandmarina, youtube.com (search). Icons are orange on hover, circular hover bg.
-   - **Right — Contact form**:
-     - Fields using shadcn `Input`, `Textarea`, `Label`: Name (required), Email (required, type=email), Phone (tel), Dates interested in (text, placeholder "e.g. Jul 12–19, 2026"), Message (required textarea).
-     - Client-side validation with **zod** (already in deps): `name 1-100`, `email valid 1-255`, `phone optional max 30`, `dates optional max 100`, `message 1-1000`. Show inline errors and a toast.
-     - Submit: since there is no backend endpoint and Lovable Cloud isn't enabled, on submit build a `mailto:reservations@silverthornresort.com` with subject "Website inquiry — {name}" and the message body, then `window.location.href = mailtoUrl`. Also show a success toast: "Opening your email client…". This avoids spinning up backend work for a contact form; if you'd rather store submissions in Lovable Cloud, say the word and I'll wire a server function + table after this page is in.
-     - Primary orange "Send Message" button.
-     - Small note below: "For fastest response, call us at 800-332-3044".
-
-3. **Google Maps embed** — full-width section, `iframe` with `src="https://www.google.com/maps?q=Silverthorn+Resort,+16250+Silverthorn+Road,+Redding,+CA+96003&output=embed"`, `height={350}`, rounded-2xl, ring border, `loading="lazy"`, `title="Map to Silverthorn Resort"`, `referrerPolicy="no-referrer-when-downgrade"`.
-
-4. **Directions strip** — 3-col grid (stacks on mobile), each a small card with a route icon:
-   - From Redding: I-5 N → Exit Gilman Road → follow signs (~15 mi, 20 min).
-   - From Sacramento: 3 hours via I-5 N.
-   - From Bay Area: 4 hours via I-80 E → I-5 N.
-
-5. **Sister marina note** — narrow centered card with `bg-sand`: "Looking for Jones Valley Resort? Visit houseboats.com or call us — same team, same lake." with a small outline link to `https://www.houseboats.com`.
-
-### Styling / tokens
-- Reuse existing tokens (`--primary` #E8640A, `--secondary` #1B2B3A, `--sand`, `--border`, `--muted-foreground`).
-- Playfair via `font-display`, DM Sans via default sans.
-- shadcn `Button`, `Input`, `Textarea`, `Label`, `Card` already in the project.
-- Use `sonner`/existing toast for form feedback (already present per `src/components/ui/sonner.tsx`).
-
-### Files
-- **Created**: `src/routes/contact.tsx`.
-- No edits to `__root.tsx`, no new dependencies. `routeTree.gen.ts` is auto-regenerated by the TanStack router plugin.
-
-### Open question
-- The brief says the form should "submit" but no backend is configured. Default plan: open `mailto:` (no backend, instant). Reply "store submissions" if you'd prefer Lovable Cloud + a `contact_submissions` table + server function instead — I'll add it as a follow-up.
+## Open question
+The email rewrite requires enabling **Lovable Cloud** and configuring an email sender domain (one-time setup). If you'd rather keep things simple and skip the backend, I can instead just open `mailto:reserve1@houseboats.com` with `marketing@houseboats.com` in CC and show a static "thank you" — but delivery and the marketing copy then depend on the user's email client. **Confirm: proceed with Lovable Cloud + Emails (recommended)?**
