@@ -444,7 +444,7 @@ const LD = {
   ],
 };
 
-export const Route = createFileRoute("/cabins/policy")({
+export const Route = createFileRoute("/cabins_/policy")({
   head: () => ({
     meta: [
       { title: "Cabin Rental Policy — Silverthorn Resort" },

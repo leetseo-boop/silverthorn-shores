@@ -1,19 +1,15 @@
-## Add "Lake Cabins" link to the related-pages strip on the Cabin Rental Policy page
+## Fix: Cabin Policy submenu opens the main Cabins page
 
-Currently the "Plan the rest of your trip" section on `/cabins/policy` only links to Houseboats, Small Boats, and Pro Shop — but not back to the main Lake Cabins page itself. Since this is the cabin policy, the most relevant page to surface is `/cabins`.
+### Root cause
 
-### Change
+TanStack's flat-dot routing treats `cabins.policy.tsx` as a **child** of `cabins.tsx`, making `/cabins` a layout parent for `/cabins/policy`. But `src/routes/cabins.tsx` does not render `<Outlet />`, so when the user navigates to `/cabins/policy`, the parent cabins page renders and the policy page never appears — exactly what the user is seeing.
 
-In `src/routes/cabins.policy.tsx` (lines 617–640), update the related-pages grid:
+The project already uses the correct opt-out convention for this case: `small-boats_.$slug.tsx` (trailing underscore breaks layout nesting).
 
-- Switch grid from `md:grid-cols-3` to `md:grid-cols-2 lg:grid-cols-4`
-- Prepend a new card as the first entry:
-  - **Lake Cabins** → `/cabins`, icon `Home` (already used elsewhere in the file)
-  - Description: "See all 8 lakeside cabins, photos, amenities, and the resort map."
-- Keep the existing three cards (Houseboats, Small Boats, Pro Shop) as-is
+### Fix
 
-Breadcrumb (`Home › Cabins › Rental Policy` at line 530–532) and the in-text deposit-row link to `/cabins` already work — no changes needed there.
+Rename `src/routes/cabins.policy.tsx` → `src/routes/cabins_.policy.tsx`. URL stays exactly `/cabins/policy`, but it becomes a standalone route instead of a child of `/cabins`. No other files need to change — the nav links (`href: "/cabins/policy"` in header + footer of `SilverthornHomePage.tsx`) and the route's own `createFileRoute("/cabins/policy")` declaration both stay the same. `routeTree.gen.ts` regenerates automatically.
 
 ### Files
 
-- **Edit**: `src/routes/cabins.policy.tsx` (related-pages grid only)
+- **Rename**: `src/routes/cabins.policy.tsx` → `src/routes/cabins_.policy.tsx`
