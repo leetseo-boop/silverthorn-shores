@@ -60,7 +60,7 @@ export function HistoryPage() {
           fetchPriority="high"
           loading="eager"
           decoding="async"
-          className="w-full h-[52vh] md:h-[62vh] object-cover"
+          className="w-full h-[44vh] sm:h-[52vh] md:h-[62vh] object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/55" />
         <div className="absolute inset-0 flex items-end">
@@ -69,7 +69,7 @@ export function HistoryPage() {
               Since 1853
             </p>
             <h1
-              className="mt-3 text-4xl md:text-6xl leading-tight"
+              className="mt-3 text-3xl sm:text-4xl md:text-6xl leading-tight"
               style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600 }}
             >
               Our History
@@ -209,22 +209,22 @@ export function HistoryPage() {
               Shasta Lake Through Time
             </h2>
           </div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {gallery.map((img) => (
               <li key={img.src} className="group">
                 <figure className="overflow-hidden rounded-xl shadow-md bg-white">
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="aspect-square overflow-hidden">
                     <img
                       src={img.src}
                       alt={img.alt}
                       width={800}
-                      height={600}
+                      height={800}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  <figcaption className="p-4">
+                  <figcaption className="p-3 sm:p-4">
                     <p className="text-sm font-medium">{img.caption}</p>
                     <p className="text-xs opacity-60 mt-1">{img.date}</p>
                   </figcaption>

@@ -113,7 +113,7 @@ function FaqPage() {
       <section className="px-4 pt-16 md:pt-24 pb-10 md:pb-16">
         <div className="mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-2 md:gap-14">
           <div className="text-center md:text-left">
-            <h1 className="font-display text-4xl md:text-6xl font-bold text-secondary tracking-tight">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-secondary tracking-tight">
               Frequently Asked Questions
             </h1>
             <div className="mt-5 h-1 w-16 rounded bg-primary mx-auto md:mx-0" />

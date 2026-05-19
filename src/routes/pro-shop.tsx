@@ -136,7 +136,7 @@ function ProShopPage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-5" style={{ backgroundColor: ORANGE, color: "white" }}>
               <ShoppingBag className="w-4 h-4" /> Pro Shop & Rentals · Silverthorn Marina
             </div>
-            <h1 className="text-4xl md:text-6xl font-black leading-tight text-white mb-5" style={{ fontFamily: DISPLAY }}>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-tight text-white mb-5" style={{ fontFamily: DISPLAY }}>
               Gear up for <span style={{ color: "#FFB36B" }}>Shasta Lake</span>
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl">

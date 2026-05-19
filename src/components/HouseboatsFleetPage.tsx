@@ -91,7 +91,7 @@ export function HouseboatsFleetPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
             Pit River Arm • Shasta Lake • Northern California
           </p>
-          <h1 className="mt-4 font-serif text-4xl font-semibold leading-tight text-white md:text-6xl">
+          <h1 className="mt-4 font-serif text-3xl sm:text-4xl font-semibold leading-tight text-white md:text-6xl">
             Silverthorn Resort Houseboat Rentals on Shasta Lake
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-white/85">
