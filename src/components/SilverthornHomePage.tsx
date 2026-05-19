@@ -382,12 +382,11 @@ function Hero() {
         />
       </div>
 
-      {/* Glassy overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0D2030]/55 via-[#0D2030]/35 to-[#0D2030]/70 pointer-events-none" />
-      <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px] pointer-events-none" />
+      {/* Subtle dark gradient for text legibility only */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-3xl mx-auto rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] px-8 py-10 md:px-12 md:py-14">
+      <div className="relative z-10 max-w-3xl mx-auto" style={{ textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
         <p
           className="text-xs font-medium tracking-widest uppercase mb-5"
           style={{ color: "#E8A855", letterSpacing: "0.18em" }}
