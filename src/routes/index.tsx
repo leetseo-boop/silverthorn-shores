@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import SilverthornHomePage from "@/components/SilverthornHomePage";
+import SilverthornHomePage, { HOME_FAQS } from "@/components/SilverthornHomePage";
 import heroMarina from "@/assets/home-hero-marina.webp";
 
 const SITE = "https://silver-shasta-dreams.lovable.app";
@@ -28,6 +28,20 @@ export const Route = createFileRoute("/")({
     links: [
       { rel: "canonical", href: URL },
       { rel: "preload", as: "image", href: heroMarina, fetchPriority: "high" } as any,
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: HOME_FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
     ],
   }),
 });
