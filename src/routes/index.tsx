@@ -29,5 +29,19 @@ export const Route = createFileRoute("/")({
       { rel: "canonical", href: URL },
       { rel: "preload", as: "image", href: heroMarina, fetchPriority: "high" } as any,
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: HOME_FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
   }),
 });
