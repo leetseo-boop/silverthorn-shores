@@ -96,7 +96,7 @@ function ContactPage() {
       {/* Header */}
       <section className="px-4 pt-16 md:pt-24 pb-10">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-display text-4xl md:text-6xl font-bold text-secondary tracking-tight">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-secondary tracking-tight">
             Get in Touch
           </h1>
           <div className="mx-auto mt-5 h-1 w-16 rounded bg-primary" />
@@ -121,7 +121,7 @@ function ContactPage() {
           </p>
           <a
             href="tel:+18003323044"
-            className="mt-2 block font-display text-5xl md:text-6xl font-bold text-primary hover:opacity-80"
+            className="mt-2 block font-display text-3xl sm:text-5xl md:text-6xl font-bold text-primary hover:opacity-80"
           >
             800-332-3044
           </a>

@@ -79,7 +79,7 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-5" style={{ backgroundColor: ORANGE, color: "white" }}>
               <MapPin className="w-4 h-4" /> Silverthorn Resort · Pit River Arm
             </div>
-            <h1 className="text-4xl md:text-6xl font-black leading-tight text-white mb-5" style={{ fontFamily: DISPLAY }}>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-tight text-white mb-5" style={{ fontFamily: DISPLAY }}>
               {boat.name} <span style={{ color: "#FFB36B" }}>Rental</span>
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-6 max-w-2xl">{boat.tagline}</p>

@@ -31,7 +31,7 @@ export function DirectionsPage() {
       <section className="border-b border-border bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Visit Us</p>
-          <h1 className="mt-3 font-serif text-4xl font-semibold leading-tight md:text-5xl">
+          <h1 className="mt-3 font-serif text-3xl sm:text-4xl font-semibold leading-tight md:text-5xl">
             Getting to Silverthorn Resort
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">

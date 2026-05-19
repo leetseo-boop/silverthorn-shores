@@ -500,7 +500,7 @@ function PolicyPage() {
               style={{ backgroundColor: ORANGE, color: "white" }}>
               Cabins · Policy
             </div>
-            <h1 className="text-4xl md:text-6xl font-black leading-tight text-white mb-5"
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-tight text-white mb-5"
               style={{ fontFamily: DISPLAY }}>
               Cabin <span style={{ color: "#FFB36B" }}>Rental Policy</span>
             </h1>
