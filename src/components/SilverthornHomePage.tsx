@@ -361,10 +361,10 @@ export function Nav() {
 function Hero() {
   return (
     <section
-      className="relative flex flex-col items-center justify-center text-center px-6 py-24 md:py-32 overflow-hidden"
+      className="relative flex flex-col items-center justify-center text-center px-5 sm:px-6 py-20 sm:py-24 md:py-32 overflow-hidden"
       style={{
         backgroundColor: "#0D2030",
-        minHeight: "85vh",
+        minHeight: "min(720px, 90vh)",
         backgroundImage: `url(${heroMarina})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
