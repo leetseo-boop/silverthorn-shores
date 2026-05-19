@@ -209,22 +209,22 @@ export function HistoryPage() {
               Shasta Lake Through Time
             </h2>
           </div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {gallery.map((img) => (
               <li key={img.src} className="group">
                 <figure className="overflow-hidden rounded-xl shadow-md bg-white">
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="aspect-square overflow-hidden">
                     <img
                       src={img.src}
                       alt={img.alt}
                       width={800}
-                      height={600}
+                      height={800}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  <figcaption className="p-4">
+                  <figcaption className="p-3 sm:p-4">
                     <p className="text-sm font-medium">{img.caption}</p>
                     <p className="text-xs opacity-60 mt-1">{img.date}</p>
                   </figcaption>
