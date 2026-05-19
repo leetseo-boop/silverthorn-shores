@@ -59,10 +59,10 @@ export function HistoryPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <img
-          src={heroDam}
-          alt="Aerial view of Shasta Dam holding back the deep blue waters of Shasta Lake with Mount Shasta on the horizon"
-          width={1600}
-          height={900}
+          src={heroMarina}
+          alt="Silverthorn Resort Marina Market on Shasta Lake with houseboats, ski boats and an American flag flying above the dock"
+          width={1920}
+          height={1080}
           fetchPriority="high"
           loading="eager"
           decoding="async"
