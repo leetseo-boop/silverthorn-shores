@@ -13,6 +13,7 @@ import { Route as SmallBoatsRouteImport } from './routes/small-boats'
 import { Route as ShastaLakeRouteImport } from './routes/shasta-lake'
 import { Route as ProShopRouteImport } from './routes/pro-shop'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ExploringShastaLakeRouteImport } from './routes/exploring-shasta-lake'
 import { Route as DirectionsRouteImport } from './routes/directions'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CabinsRouteImport } from './routes/cabins'
@@ -45,6 +46,11 @@ const ProShopRoute = ProShopRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploringShastaLakeRoute = ExploringShastaLakeRouteImport.update({
+  id: '/exploring-shasta-lake',
+  path: '/exploring-shasta-lake',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DirectionsRoute = DirectionsRouteImport.update({
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
+  '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
+  '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
+  '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/cabins'
     | '/contact'
     | '/directions'
+    | '/exploring-shasta-lake'
     | '/faq'
     | '/pro-shop'
     | '/shasta-lake'
@@ -197,6 +207,7 @@ export interface FileRouteTypes {
     | '/cabins'
     | '/contact'
     | '/directions'
+    | '/exploring-shasta-lake'
     | '/faq'
     | '/pro-shop'
     | '/shasta-lake'
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/cabins'
     | '/contact'
     | '/directions'
+    | '/exploring-shasta-lake'
     | '/faq'
     | '/pro-shop'
     | '/shasta-lake'
@@ -236,6 +248,7 @@ export interface RootRouteChildren {
   CabinsRoute: typeof CabinsRoute
   ContactRoute: typeof ContactRoute
   DirectionsRoute: typeof DirectionsRoute
+  ExploringShastaLakeRoute: typeof ExploringShastaLakeRoute
   FaqRoute: typeof FaqRoute
   ProShopRoute: typeof ProShopRoute
   ShastaLakeRoute: typeof ShastaLakeRoute
@@ -279,6 +292,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exploring-shasta-lake': {
+      id: '/exploring-shasta-lake'
+      path: '/exploring-shasta-lake'
+      fullPath: '/exploring-shasta-lake'
+      preLoaderRoute: typeof ExploringShastaLakeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/directions': {
@@ -380,6 +400,7 @@ const rootRouteChildren: RootRouteChildren = {
   CabinsRoute: CabinsRoute,
   ContactRoute: ContactRoute,
   DirectionsRoute: DirectionsRoute,
+  ExploringShastaLakeRoute: ExploringShastaLakeRoute,
   FaqRoute: FaqRoute,
   ProShopRoute: ProShopRoute,
   ShastaLakeRoute: ShastaLakeRoute,
@@ -397,3 +418,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
