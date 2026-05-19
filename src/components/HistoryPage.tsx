@@ -34,12 +34,6 @@ const gallery = [
     date: "Modern day",
   },
   {
-    src: ferry,
-    alt: "Historic photo of a wooden ferry crossing the Pit River near the original Silverthorn homestead",
-    caption: "A Pit River ferry near the original Silverthorn crossing",
-    date: "c. 1900",
-  },
-  {
     src: ruins,
     alt: "Exposed concrete foundation near Shasta Dam along the Shasta Lake shoreline at low water",
     caption: "Shasta Dam foundation, exposed at low water",
