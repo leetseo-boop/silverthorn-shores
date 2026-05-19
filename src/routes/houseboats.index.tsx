@@ -2,10 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { HouseboatsFleetPage } from "@/components/HouseboatsFleetPage";
 import { houseboats } from "@/data/houseboats";
 
-const path = "/houseboats";
-const ogImage = "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg";
-const title = "Silverthorn Resort Houseboats — Shasta Lake Fleet | Queen, Queen I, Queen II & Senator";
-const description = "Explore the Silverthorn Resort houseboat fleet on Shasta Lake. Queen, Queen I, Queen II & Senator — hot tubs, waterslides, gourmet kitchens & Mt. Shasta views.";
+const SITE = "https://silver-shasta-dreams.lovable.app";
+const path = `${SITE}/houseboats`;
+const ogImage = `${SITE}/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg`;
+const title = "Shasta Lake Houseboat Rentals | Silverthorn Resort Fleet";
+const description = "Rent the Queen, Queen I, Queen II or Senator houseboat on Shasta Lake. Hot tubs, waterslides, sleeps up to 20. Pit River Arm marina — book 2026.";
 
 const FAQS = [
   { q: "How much does it cost to rent a houseboat at Silverthorn Resort?", a: "Rates start around $4,200 for shorter low-season stays and range up to roughly $11,700 for a 7-night holiday week on the flagship Queen." },
@@ -25,6 +26,8 @@ export const Route = createFileRoute("/houseboats/")({
       { property: "og:url", content: path },
       { property: "og:image", content: ogImage },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { name: "twitter:image", content: ogImage },
     ],
     links: [{ rel: "canonical", href: path }],

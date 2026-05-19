@@ -210,9 +210,12 @@ const AMENITIES = [
   { icon: Waves, label: "Steps to marina" },
 ];
 
-const PAGE_TITLE = "Shasta Lake Cabins at Silverthorn Resort — Lakeside Lodging & Boat Slips";
+const SITE = "https://silver-shasta-dreams.lovable.app";
+const PAGE_URL = `${SITE}/cabins`;
+const OG_IMAGE = `${SITE}${cabin8Img}`;
+const PAGE_TITLE = "Shasta Lake Cabin Rentals | Silverthorn Resort Lakeside Cabins";
 const PAGE_DESC =
-  "Book a Shasta Lake cabin at Silverthorn Resort. 8 lakeside cabins sleeping 4–8 with full kitchens, BBQs, and a complimentary boat slip per cabin. Bring your own boat or rent on-site.";
+  "8 lakeside cabins on Shasta Lake sleeping 4–8. Full kitchens, BBQs, DirecTV, one boat slip per cabin. Bring your own boat or rent at the marina.";
 
 export const Route = createFileRoute("/cabins")({
   head: () => ({
@@ -227,12 +230,14 @@ export const Route = createFileRoute("/cabins")({
       { property: "og:title", content: PAGE_TITLE },
       { property: "og:description", content: PAGE_DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/cabins" },
+      { property: "og:url", content: PAGE_URL },
+      { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: PAGE_TITLE },
       { name: "twitter:description", content: PAGE_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
-    links: [{ rel: "canonical", href: "/cabins" }],
+    links: [{ rel: "canonical", href: PAGE_URL }],
     scripts: [
       {
         type: "application/ld+json",
