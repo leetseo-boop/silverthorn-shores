@@ -60,7 +60,7 @@ export function HistoryPage() {
           fetchPriority="high"
           loading="eager"
           decoding="async"
-          className="w-full h-[52vh] md:h-[62vh] object-cover"
+          className="w-full h-[44vh] sm:h-[52vh] md:h-[62vh] object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/55" />
         <div className="absolute inset-0 flex items-end">
@@ -69,7 +69,7 @@ export function HistoryPage() {
               Since 1853
             </p>
             <h1
-              className="mt-3 text-4xl md:text-6xl leading-tight"
+              className="mt-3 text-3xl sm:text-4xl md:text-6xl leading-tight"
               style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600 }}
             >
               Our History
