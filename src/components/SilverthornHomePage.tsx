@@ -939,6 +939,99 @@ export function Footer() {
   );
 }
 
+export const HOME_FAQS = [
+  {
+    q: "Which houseboat is right for my group?",
+    a: "The Queen and Queen I both sleep 20 and are our flagship picks for large families. The Queen II sleeps 16 with a private penthouse suite, and the Senator sleeps 16 and is our best value. Compare them all on our houseboats page.",
+    href: "/houseboats",
+    linkLabel: "Compare all houseboats",
+  },
+  {
+    q: "What's included with a lake cabin?",
+    a: "Every cabin comes with a full kitchen, BBQ, DirecTV, linens, and one private boat slip at the marina. Sleep 4–8 guests depending on the cabin. Bring your own boat or rent one from us.",
+    href: "/cabins",
+    linkLabel: "See all cabins",
+  },
+  {
+    q: "Can I rent a small boat just for the day?",
+    a: "Yes — daily rentals include pontoons, jet skis, wakeboard & deck boats, fishing boats, kayaks and SUPs, starting from $78/day at the marina.",
+    href: "/small-boats",
+    linkLabel: "Browse boat rentals",
+  },
+  {
+    q: "When should I book for the 2026 season?",
+    a: "Holiday weeks and prime summer dates (mid-June through Labor Day) typically fill 6–9 months in advance. We recommend reserving as early as possible to lock in your preferred boat and week.",
+  },
+  {
+    q: "Where exactly is Silverthorn Resort?",
+    a: "We're on the Pit River Arm of Shasta Lake in Northern California — about 15 minutes north of Redding, just off I-5.",
+    href: "/directions",
+    linkLabel: "Get directions",
+  },
+  {
+    q: "Do I need a boating license or prior experience?",
+    a: "No license required. Every houseboat rental includes a full hands-on orientation before you leave the dock, and our team is available by radio throughout your stay.",
+  },
+];
+
+function HomeFAQ() {
+  return (
+    <section className="px-6 py-20" style={{ backgroundColor: "#fff" }}>
+      <div className="max-w-3xl mx-auto">
+        <p
+          className="text-center text-xs font-medium uppercase tracking-widest mb-3"
+          style={{ color: "#E8640A", letterSpacing: "0.14em" }}
+        >
+          Common questions
+        </p>
+        <h2
+          className="text-4xl font-bold text-center mb-10"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif", color: "#1B2B3A" }}
+        >
+          Plan Your Shasta Lake Stay
+        </h2>
+
+        <Accordion type="single" collapsible className="w-full">
+          {HOME_FAQS.map((f, i) => (
+            <AccordionItem key={i} value={`faq-${i}`} style={{ borderColor: "#E2DED6" }}>
+              <AccordionTrigger
+                className="text-left text-base font-semibold py-5"
+                style={{ color: "#1B2B3A", fontFamily: "'Playfair Display', Georgia, serif" }}
+              >
+                {f.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-sm leading-relaxed pb-5" style={{ color: "#5a6a7a" }}>
+                <p>{f.a}</p>
+                {f.href && (
+                  <a
+                    href={f.href}
+                    className="inline-block mt-3 text-xs font-semibold"
+                    style={{ color: "#E8640A" }}
+                  >
+                    {f.linkLabel} →
+                  </a>
+                )}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+
+        <p className="text-center text-sm mt-8" style={{ color: "#7a8a9a" }}>
+          Still deciding? Call{" "}
+          <a href={`tel:${PHONE.replace(/[^0-9]/g, "")}`} className="font-semibold" style={{ color: "#1B2B3A" }}>
+            {PHONE}
+          </a>{" "}
+          or visit our{" "}
+          <a href="/faq" className="font-semibold underline" style={{ color: "#1B2B3A" }}>
+            full FAQ
+          </a>
+          .
+        </p>
+      </div>
+    </section>
+  );
+}
+
 // ─── Page export ──────────────────────────────────────────────────────────────
 export default function SilverthornHomePage() {
   return (
