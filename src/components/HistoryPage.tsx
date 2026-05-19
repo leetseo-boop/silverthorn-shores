@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import heroMarina from "@/assets/history/silverthorn-marina-shasta-lake-hero.webp";
 import heroDam from "@/assets/history/shasta-dam-aerial-lake-shasta.webp";
 import ferry from "@/assets/history/silverthorn-ferry-pit-river-1853.webp";
 import damTower from "@/assets/history/shasta-dam-construction-tower.webp";
@@ -27,6 +28,12 @@ const gallery = [
     date: "c. 1942",
   },
   {
+    src: heroDam,
+    alt: "Aerial view of Shasta Dam holding back Shasta Lake with Mount Shasta on the horizon",
+    caption: "Shasta Dam from the air today",
+    date: "Modern day",
+  },
+  {
     src: ferry,
     alt: "Historic photo of a wooden ferry crossing the Pit River near the original Silverthorn homestead",
     caption: "A Pit River ferry near the original Silverthorn crossing",
@@ -34,8 +41,8 @@ const gallery = [
   },
   {
     src: ruins,
-    alt: "Old stone foundations of original Silverthorn buildings exposed along the Shasta Lake shoreline at low water",
-    caption: "Original Silverthorn foundations, exposed at low water",
+    alt: "Exposed concrete foundation near Shasta Dam along the Shasta Lake shoreline at low water",
+    caption: "Shasta Dam foundation, exposed at low water",
     date: "Modern day",
   },
   {
@@ -52,10 +59,10 @@ export function HistoryPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <img
-          src={heroDam}
-          alt="Aerial view of Shasta Dam holding back the deep blue waters of Shasta Lake with Mount Shasta on the horizon"
-          width={1600}
-          height={900}
+          src={heroMarina}
+          alt="Silverthorn Resort Marina Market on Shasta Lake with houseboats, ski boats and an American flag flying above the dock"
+          width={1920}
+          height={1080}
           fetchPriority="high"
           loading="eager"
           decoding="async"
