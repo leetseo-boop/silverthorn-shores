@@ -1,55 +1,47 @@
-## History page
+## SEO meta — homepage & fleet pages
 
-Create a new `/history` route with the supplied copy, a featured hero image (the modern Shasta Dam aerial shot), and a 6-image historical gallery built from the other uploads. Optimize images and ship full SEO (per-page head, JSON-LD, OG/Twitter, canonical, sitemap entry, nav links).
+Each of these routes already has a `head()` block, but the titles, descriptions, and OG/canonical wiring are inconsistent. This plan tightens them into a coherent, keyword-targeted set and fills the gaps.
 
-### Assets
-Copy uploads to `src/assets/history/` with descriptive, SEO-friendly filenames:
-- `user-uploads://250.webp` → `shasta-dam-aerial-lake-shasta.webp` (hero — modern dam + lake)
-- `user-uploads://775607c9d23d671.webp` → `silverthorn-ferry-pit-river-1853.webp` (historic ferry)
-- `user-uploads://250-1.webp` → `shasta-dam-construction-tower.webp`
-- `user-uploads://250-5.webp` → `shasta-dam-construction-spillway.webp`
-- `user-uploads://250-7.webp` → `shasta-dam-construction-color.webp`
-- `user-uploads://250-1_1.webp` → `silverthorn-ruins-shasta-lake-shoreline.webp`
-- `user-uploads://250-8.webp` → `shasta-lake-satellite-shoreline.webp`
-- The 2 `.avif` uploads → inspect and either drop into gallery or skip if redundant.
+### Scope (4 routes)
 
-All images get descriptive `alt` text, `loading="lazy"` except hero (`fetchpriority="high"`, `loading="eager"`), explicit `width`/`height` to prevent CLS.
+1. `src/routes/index.tsx` — Homepage
+2. `src/routes/houseboats.index.tsx` — Houseboats fleet
+3. `src/routes/cabins.tsx` — Cabins
+4. `src/routes/small-boats.tsx` — Small boats / day rentals
 
-### Page: `src/routes/history.tsx`
-- TanStack `createFileRoute("/history")` with full `head()`:
-  - `title`: "Our History — Silverthorn Resort on Shasta Lake Since 1853"
-  - `description` (~155 chars): story of George Silverthorn's 1853 Pit River ferry, the building of Shasta Dam, and today's resort.
-  - `og:title`, `og:description`, `og:type: article`, `og:url`, `og:image` (hero, absolute URL `https://silver-shasta-dreams.lovable.app/...`), `twitter:card: summary_large_image`, `twitter:image`.
-  - `<link rel="canonical" href="https://silver-shasta-dreams.lovable.app/history">`.
-  - JSON-LD scripts: `Article` (headline, image, datePublished, publisher Silverthorn Resort) + `BreadcrumbList` (Home → History).
-- Render via new component `src/components/HistoryPage.tsx`.
+Out of scope: individual boat detail pages, about/history, contact, FAQ. Those already have their own metadata or aren't fleet pages.
 
-### Component: `src/components/HistoryPage.tsx`
-- Reuse site palette/typography (Playfair headline, DM Sans body, existing CTA/wave styles from `SilverthornHomePage`).
-- Structure:
-  1. **Hero**: full-width section with the dam aerial as a sized image (not background) — `max-h-[60vh]`, `object-cover`, eyebrow "Since 1853", H1 "Our History", short tagline.
-  2. **Story**: two-column on desktop / single on mobile. Left = first 3 paragraphs of supplied copy wrapped in `<article>` with proper `<p>` tags and a pull-quote. Right = sticky historic ferry image with caption "George Silverthorn's ferry on the Pit River, c. 1853".
-  3. **Stats strip**: 375 mi shoreline · 400 ft avg depth · 40,000 acres · 1M+ annual visitors (semantic `<dl>`).
-  4. **Remaining copy**: last 3 paragraphs in a centered prose block.
-  5. **Gallery**: "Shasta Lake Through Time" — responsive masonry/grid (2 cols mobile, 3 cols desktop) of the 6 historical images, each with caption + date. Click opens lightbox (use existing shadcn `Dialog`).
-  6. **CTA band**: "Be part of the next chapter" → links to `/houseboats` and `/cabins`, matching home CTA style.
+### Per-page changes
 
-### Nav + sitemap + routing
-- Add "History" link to `Nav` in `src/components/SilverthornHomePage.tsx` (insert between existing items where it fits — likely after About/Houseboats).
-- Add `/history` entry to sitemap if `src/routes/sitemap[.]xml.ts` exists; otherwise skip sitemap (not creating one in this task).
-- Add internal links: from home page footer/about section, link to `/history`.
+**Homepage (`/`)**
+- Title: `Silverthorn Resort — Shasta Lake Houseboat Rentals, Cabins & Boat Marina`
+- Description (~155 chars): `Family-run Shasta Lake resort on the Pit River Arm. Premium houseboat rentals, lakeside cabins, jet skis, wakeboard & patio boats. Booking 2026 now.`
+- Add: `og:title`, `og:description`, `og:type=website`, `og:url`, `og:image` (hero marina, absolute), `twitter:card`, `twitter:image`, canonical `/`.
 
-### SEO checklist (10/10)
-- Single `<h1>`, semantic `<h2>` per section.
-- Image `alt` text describes content + era.
-- `width`/`height` on every `<img>` (no CLS).
-- `loading="lazy"` + `decoding="async"` on gallery images; hero preloaded via `head().links`.
-- Canonical + OG + Twitter + JSON-LD (Article + BreadcrumbList).
-- Internal links to `/`, `/houseboats`, `/cabins`.
-- Descriptive URL `/history`, no query params.
-- Copy preserves keywords: "Shasta Lake", "Shasta Dam", "Silverthorn Resort", "houseboat", "Pit River", "1853".
+**Houseboats (`/houseboats`)**
+- Tighten title to ~60 chars: `Shasta Lake Houseboat Rentals | Silverthorn Resort Fleet`
+- Description: `Rent the Queen, Queen I, Queen II or Senator houseboat on Shasta Lake. Hot tubs, waterslides, sleeps up to 20. Pit River Arm marina — book 2026.`
+- Keep existing JSON-LD (ItemList, Breadcrumb, FAQ).
+
+**Cabins (`/cabins`)**
+- Title: `Shasta Lake Cabin Rentals | Silverthorn Resort Lakeside Cabins`
+- Description: `8 lakeside cabins on Shasta Lake sleeping 4–8. Full kitchens, BBQs, DirecTV, one boat slip per cabin. Bring your own boat or rent at the marina.`
+- Add `og:image` (use an existing cabin hero) + `twitter:image`.
+
+**Small Boats (`/small-boats`)**
+- Title: `Shasta Lake Boat Rentals | Pontoons, Jet Skis & Wakeboard Boats`
+- Description: `Daily rentals on Shasta Lake — pontoons, jet skis, wakeboard & deck boats, fishing boats, kayaks & SUPs from $78/day at Silverthorn Resort marina.`
+- Already has full OG/Twitter/canonical/JSON-LD — keep as-is.
+
+### Cross-cutting
+
+- Use absolute URLs for `og:url`, `og:image`, and canonical (`https://silver-shasta-dreams.lovable.app`) per the head-meta knowledge file. Relative URLs in og:image are rejected by some crawlers.
+- Keep titles ≤ 60 chars and descriptions ≤ 160 chars where possible.
+- Single source of truth per route — no new shared SEO helper, just inline in each route's `head()`.
 
 ### Out of scope
-- No changes to other pages beyond adding the History nav link and one internal link.
-- No new dependencies.
-- No backend/auth work.
+
+- No component/UI changes.
+- No new images generated.
+- No changes to JSON-LD beyond what's noted.
+- Root route metadata stays as it is (no canonical at root — leaf-only, per project convention).
