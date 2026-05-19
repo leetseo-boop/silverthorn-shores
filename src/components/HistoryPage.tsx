@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import heroMarina from "@/assets/history/silverthorn-marina-shasta-lake-hero.webp";
 import heroDam from "@/assets/history/shasta-dam-aerial-lake-shasta.webp";
 import ferry from "@/assets/history/silverthorn-ferry-pit-river-1853.webp";
 import damTower from "@/assets/history/shasta-dam-construction-tower.webp";
