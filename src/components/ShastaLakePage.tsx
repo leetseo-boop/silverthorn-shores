@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Users, Briefcase, GraduationCap, Church, ArrowRight } from "lucide-react";
 import heroDam from "@/assets/shasta-lake/shasta-dam-mount-shasta-hero.jpg";
 import aerial from "@/assets/shasta-lake/shasta-lake-aerial-pit-river-arm.webp";
 import fishing from "@/assets/shasta-lake/shasta-lake-fishing-boat-shoreline.jpg";
