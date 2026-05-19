@@ -24,6 +24,7 @@ import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-
 import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy'
 import { Route as CabinsPolicyRouteImport } from './routes/cabins_.policy'
+import { Route as AboutHistoryRouteImport } from './routes/about.history'
 
 const SmallBoatsRoute = SmallBoatsRouteImport.update({
   id: '/small-boats',
@@ -100,6 +101,11 @@ const CabinsPolicyRoute = CabinsPolicyRouteImport.update({
   path: '/cabins/policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutHistoryRoute = AboutHistoryRouteImport.update({
+  id: '/about/history',
+  path: '/about/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/about/history': typeof AboutHistoryRoute
   '/cabins/policy': typeof CabinsPolicyRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
@@ -126,6 +133,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/about/history': typeof AboutHistoryRoute
   '/cabins/policy': typeof CabinsPolicyRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
@@ -144,6 +152,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/pro-shop': typeof ProShopRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/about/history': typeof AboutHistoryRoute
   '/cabins_/policy': typeof CabinsPolicyRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/about/history'
     | '/cabins/policy'
     | '/houseboats/policy'
     | '/houseboats/queen'
@@ -180,6 +190,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/about/history'
     | '/cabins/policy'
     | '/houseboats/policy'
     | '/houseboats/queen'
@@ -197,6 +208,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/pro-shop'
     | '/small-boats'
+    | '/about/history'
     | '/cabins_/policy'
     | '/houseboats/policy'
     | '/houseboats/queen'
@@ -215,6 +227,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   ProShopRoute: typeof ProShopRoute
   SmallBoatsRoute: typeof SmallBoatsRoute
+  AboutHistoryRoute: typeof AboutHistoryRoute
   CabinsPolicyRoute: typeof CabinsPolicyRoute
   HouseboatsPolicyRoute: typeof HouseboatsPolicyRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
@@ -332,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CabinsPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about/history': {
+      id: '/about/history'
+      path: '/about/history'
+      fullPath: '/about/history'
+      preLoaderRoute: typeof AboutHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -343,6 +363,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   ProShopRoute: ProShopRoute,
   SmallBoatsRoute: SmallBoatsRoute,
+  AboutHistoryRoute: AboutHistoryRoute,
   CabinsPolicyRoute: CabinsPolicyRoute,
   HouseboatsPolicyRoute: HouseboatsPolicyRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
