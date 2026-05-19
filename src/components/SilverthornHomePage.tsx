@@ -445,7 +445,7 @@ function FleetCard({ boat }: { boat: any }) {
       style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
     >
       <div
-        className="h-40 relative overflow-hidden"
+        className="h-56 relative overflow-hidden"
         style={{ backgroundColor: boat.imgBg }}
       >
         <img
@@ -467,7 +467,7 @@ function FleetCard({ boat }: { boat: any }) {
 
       <div className="p-4">
         <h3
-          className="text-lg font-bold mb-0.5"
+          className="text-xl font-bold mb-0.5"
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
             color: "#1B2B3A",
@@ -475,7 +475,7 @@ function FleetCard({ boat }: { boat: any }) {
         >
           {boat.name}
         </h3>
-        <p className="text-xs mb-3" style={{ color: "#7a8a9a" }}>
+        <p className="text-sm mb-3" style={{ color: "#7a8a9a" }}>
           {boat.tagline}
         </p>
 
@@ -534,14 +534,36 @@ function FleetSection() {
         </p>
 
         {/* Houseboats grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
           {FLEET.map((boat) => (
             <FleetCard key={boat.id} boat={boat} />
           ))}
         </div>
 
+        {/* Bridge heading between houseboats and cabins/small boats */}
+        <div className="text-center mt-16 mb-8 max-w-2xl mx-auto">
+          <p
+            className="text-xs font-medium uppercase tracking-widest mb-3"
+            style={{ color: "#E8640A", letterSpacing: "0.14em" }}
+          >
+            Complete your Shasta Lake stay
+          </p>
+          <h3
+            className="text-2xl font-bold mb-3"
+            style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
+              color: "#1B2B3A",
+            }}
+          >
+            Beyond the Houseboats — Stay Longer, Play More
+          </h3>
+          <p className="text-sm leading-relaxed" style={{ color: "#5a6a7a" }}>
+            Settle into a pine-shaded lakeside cabin or grab a ski, fishing, or patio boat for the day. Mix and match your Shasta Lake adventure — on the water by day, by the fire at night.
+          </p>
+        </div>
+
         {/* Cabins + Small Boats — image-led showcase */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {[
             {
               src: cabinImg,
@@ -569,7 +591,7 @@ function FleetSection() {
               className="group rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-xl transition-shadow duration-300"
               style={{ borderColor: "#E2DED6" }}
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[16/9] overflow-hidden">
                 <img
                   src={c.src}
                   alt={c.alt}
