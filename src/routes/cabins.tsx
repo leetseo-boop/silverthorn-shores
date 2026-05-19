@@ -26,7 +26,7 @@ import cabin6Img from "@/assets/cabin-6.jpg";
 import cabin7Img from "@/assets/cabin-7.jpg";
 import cabin8Img from "@/assets/cabin-8.jpg";
 
-const BOOKING_ALL = "https://rentals.silverthornresort.com/category/9";
+const BOOKING_ALL = "https://rentals.silverthornresort.com/category/15";
 const PHONE = "800-332-3044";
 
 type Cabin = {
