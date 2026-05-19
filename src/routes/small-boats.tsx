@@ -13,7 +13,9 @@ const SAND = "#F4EFE6";
 const DISPLAY = "'Playfair Display', Georgia, serif";
 const BOOKING_URL = "https://rentals.silverthornresort.com";
 const HERO = "/images/small-boats/hero.jpg";
-const PATH = "/small-boats";
+const SITE = "https://silver-shasta-dreams.lovable.app";
+const PATH = `${SITE}/small-boats`;
+const HERO_ABS = `${SITE}${HERO}`;
 
 const fleet = [
   { id: "jet-ski", name: "SeaDoo GTX 130 Jet Ski", price: 548.63, capacity: "1–2", use: "High-speed lake adventure", img: "/images/small-boats/jet-ski.webp", alt: "SeaDoo GTX 130 jet ski rental at Silverthorn Resort on Shasta Lake" },
@@ -54,8 +56,8 @@ const faqs = [
   { q: "How do I get to Silverthorn Resort on Shasta Lake?", a: "Silverthorn Resort is at 16250 Silverthorn Rd, Redding, CA 96003. From I-5 northbound, take the Gilman Road exit and follow signs (~8 miles). Drive times: Redding ~15 min, Sacramento ~3 hrs, San Francisco ~4 hrs." },
 ];
 
-const TITLE = "Silverthorn Resort Boat Rentals on Shasta Lake | Pontoons, Jet Skis & Wakeboard Boats";
-const DESC = "Rent pontoon boats, jet skis, wakeboard boats, fishing boats, kayaks & SUPs at Silverthorn Resort on Shasta Lake's Pit River Arm. 10 boats from $78/day. Book 2026!";
+const TITLE = "Shasta Lake Boat Rentals | Pontoons, Jet Skis & Wakeboard Boats";
+const DESC = "Daily rentals on Shasta Lake — pontoons, jet skis, wakeboard & deck boats, fishing boats, kayaks & SUPs from $78/day at Silverthorn Resort marina.";
 
 const ldGraph = {
   "@context": "https://schema.org",
