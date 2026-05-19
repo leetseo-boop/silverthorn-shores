@@ -126,11 +126,11 @@ export const Route = createFileRoute("/small-boats")({
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: PATH },
-      { property: "og:image", content: HERO },
+      { property: "og:image", content: HERO_ABS },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESC },
-      { name: "twitter:image", content: HERO },
+      { name: "twitter:image", content: HERO_ABS },
     ],
     links: [
       { rel: "canonical", href: PATH },
