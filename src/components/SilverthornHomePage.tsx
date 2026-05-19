@@ -583,7 +583,7 @@ function FleetSection() {
               chipBg: "#2F4A38",
               title: "Lake Cabins",
               tagline: "Nestled in the pines · 7 cabins · Studio to Family",
-              cta: "View Cabins",
+              cta: "See Our Lake Cabins →",
               learn: "/cabins",
             },
             {
@@ -593,7 +593,7 @@ function FleetSection() {
               chipBg: "#1A6FA8",
               title: "Small Boat Rentals",
               tagline: "Half or full day · Fishing gear · Pro Shop",
-              cta: "Rent a Boat",
+              cta: "Browse Boat Rentals →",
               learn: "/small-boats",
             },
           ].map((c) => (
@@ -628,18 +628,15 @@ function FleetSection() {
                   <p className="text-xs text-white/85">{c.tagline}</p>
                 </div>
               </div>
-              <div className="flex items-center justify-between px-5 py-4">
+              <div className="px-5 py-4">
                 <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-md text-white text-xs font-semibold tracking-wide"
+                  href={c.learn}
+                  className="block w-full text-center px-4 py-2.5 rounded-lg text-white text-sm font-semibold tracking-wide transition-colors"
                   style={{ backgroundColor: "#E8640A" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#C4520A")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#E8640A")}
                 >
                   {c.cta}
-                </a>
-                <a href={c.learn} className="text-xs font-semibold" style={{ color: "#1A6FA8" }}>
-                  Learn more →
                 </a>
               </div>
             </div>
