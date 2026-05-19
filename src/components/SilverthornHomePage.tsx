@@ -507,20 +507,15 @@ function FleetCard({ boat }: { boat: any }) {
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-md text-white text-xs font-medium"
-            style={{ backgroundColor: "#E8640A" }}
-          >
-            Check Availability
-          </a>
-          <a href={boat.slug} className="text-xs font-medium" style={{ color: "#1A6FA8" }}>
-            Learn more →
-          </a>
-        </div>
+        <a
+          href={boat.slug}
+          className="block w-full text-center px-4 py-2.5 rounded-lg text-white text-sm font-semibold tracking-wide transition-colors"
+          style={{ backgroundColor: "#E8640A" }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#C4520A")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#E8640A")}
+        >
+          Explore the {boat.name} →
+        </a>
       </div>
     </div>
   );
