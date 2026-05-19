@@ -9,6 +9,12 @@
  */
 
 import { useRef, useState } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import silverthornLogo from "@/assets/silverthorn-logo.webp";
 import heroMarina from "@/assets/home-hero-marina.webp";
 import cabinImg from "@/assets/home-cabin.webp";
