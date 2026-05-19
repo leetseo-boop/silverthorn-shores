@@ -252,6 +252,54 @@ export function ShastaLakePage() {
         </ul>
       </section>
 
+      {/* Groups */}
+      <section style={{ backgroundColor: "#0D2030", color: "#ffffff" }}>
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-xs tracking-[0.3em] uppercase opacity-70">Groups & Private Events</p>
+            <h2
+              className="mt-3 text-3xl md:text-4xl"
+              style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600 }}
+            >
+              Bring your whole crew to Shasta Lake
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto opacity-90 leading-relaxed">
+              From summer camps to company retreats, we host groups of every shape and
+              size — multiple houseboats, coordinated check-ins, and a marina team
+              that's done it all before.
+            </p>
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            {groups.map(({ Icon, t, d }) => (
+              <li
+                key={t}
+                className="rounded-xl p-6"
+                style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)" }}
+              >
+                <Icon size={28} style={{ color: "#E8640A" }} aria-hidden="true" />
+                <h3 className="mt-4 text-lg" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600 }}>
+                  {t}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed opacity-85">{d}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 md:mt-12 text-center">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-medium text-white transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#E8640A" }}
+            >
+              Contact Us
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <p className="mt-4 text-sm opacity-70">
+              Custom quotes & multi-boat discounts available.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Gallery */}
       <section style={{ backgroundColor: "#F1ECE2" }}>
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
