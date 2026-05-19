@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HistoryPage } from "@/components/HistoryPage";
-import heroDam from "@/assets/history/shasta-dam-aerial-lake-shasta.webp";
+import heroMarina from "@/assets/history/silverthorn-marina-shasta-lake-hero.webp";
 
 const url = "https://silver-shasta-dreams.lovable.app/about/history";
 const title =
