@@ -356,21 +356,38 @@ function Hero() {
   return (
     <section
       className="relative flex flex-col items-center justify-center text-center px-6 py-24 md:py-32 overflow-hidden"
-      style={{ backgroundColor: "#0D2030", minHeight: "85vh" }}
+      style={{
+        backgroundColor: "#0D2030",
+        minHeight: "85vh",
+        backgroundImage: `url(${heroMarina})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <img
-        src={heroMarina}
-        alt="Silverthorn Resort houseboat marina on Shasta Lake"
-        width={1600}
-        height={900}
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-        className="absolute inset-0 w-full h-full object-cover opacity-55"
-      />
+      {/* YouTube video background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <iframe
+          src="https://www.youtube.com/embed/ISEDmsezjSM?autoplay=1&mute=1&loop=1&playlist=ISEDmsezjSM&controls=0&modestbranding=1&playsinline=1&rel=0&showinfo=0&iv_load_policy=3"
+          title="Shasta Lake background video"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+          tabIndex={-1}
+          aria-hidden="true"
+          loading="eager"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none border-0"
+          style={{
+            width: "max(100vw, 177.78vh)",
+            height: "max(56.25vw, 100vh)",
+          }}
+        />
+      </div>
+
+      {/* Glassy overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0D2030]/55 via-[#0D2030]/35 to-[#0D2030]/70 pointer-events-none" />
+      <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px] pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-3xl mx-auto">
+      <div className="relative z-10 max-w-3xl mx-auto rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] px-8 py-10 md:px-12 md:py-14">
         <p
           className="text-xs font-medium tracking-widest uppercase mb-5"
           style={{ color: "#E8A855", letterSpacing: "0.18em" }}
@@ -389,7 +406,7 @@ function Hero() {
 
         <p
           className="text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed"
-          style={{ color: "rgba(255,255,255,0.65)" }}
+          style={{ color: "rgba(255,255,255,0.8)" }}
         >
           Four luxury houseboat models, seven lakeside cabins, and a
           full-service marina — all on California's premier inland lake.
@@ -411,7 +428,7 @@ function Hero() {
             href="/houseboats"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-medium text-sm transition-all"
             style={{
-              backgroundColor: "transparent",
+              backgroundColor: "rgba(255,255,255,0.08)",
               color: "#fff",
               border: "1.5px solid rgba(255,255,255,0.35)",
             }}
@@ -423,7 +440,7 @@ function Hero() {
         </div>
 
         <div className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs border"
-          style={{ color: "rgba(255,255,255,0.55)", borderColor: "rgba(255,255,255,0.2)" }}
+          style={{ color: "rgba(255,255,255,0.75)", borderColor: "rgba(255,255,255,0.25)" }}
         >
           📞 Call us: {PHONE}
         </div>
@@ -431,7 +448,7 @@ function Hero() {
 
       {/* Wave bottom */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-12"
+        className="absolute bottom-0 left-0 right-0 h-12 z-10"
         style={{ backgroundColor: "#fff", borderRadius: "100% 100% 0 0 / 40px 40px 0 0" }}
       />
     </section>
