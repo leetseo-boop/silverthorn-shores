@@ -365,6 +365,13 @@ export function ShastaLakePage() {
             >
               View Cabins
             </Link>
+            <Link
+              to="/small-boats"
+              className="inline-flex items-center px-6 py-3 rounded-lg font-medium transition-colors"
+              style={{ border: "1.5px solid rgba(255,255,255,0.4)", color: "#ffffff" }}
+            >
+              Small Boats
+            </Link>
           </div>
         </div>
       </section>
