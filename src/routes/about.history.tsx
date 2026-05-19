@@ -18,15 +18,15 @@ export const Route = createFileRoute("/about/history")({
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
       { property: "og:url", content: url },
-      { property: "og:image", content: `https://silver-shasta-dreams.lovable.app${heroDam}` },
+      { property: "og:image", content: `https://silver-shasta-dreams.lovable.app${heroMarina}` },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: `https://silver-shasta-dreams.lovable.app${heroDam}` },
+      { name: "twitter:image", content: `https://silver-shasta-dreams.lovable.app${heroMarina}` },
     ],
     links: [
       { rel: "canonical", href: url },
-      { rel: "preload", as: "image", href: heroDam, fetchPriority: "high" } as any,
+      { rel: "preload", as: "image", href: heroMarina, fetchPriority: "high" } as any,
     ],
     scripts: [
       {
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/about/history")({
           "@type": "Article",
           headline: "Our History — Silverthorn Resort on Shasta Lake",
           description,
-          image: [`https://silver-shasta-dreams.lovable.app${heroDam}`],
+          image: [`https://silver-shasta-dreams.lovable.app${heroMarina}`],
           datePublished: "2024-01-01",
           dateModified: "2026-05-19",
           author: { "@type": "Organization", name: "Silverthorn Resort" },
