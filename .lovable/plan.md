@@ -1,44 +1,57 @@
-## New page: About Shasta Lake
+## Add "Groups" sales block to /shasta-lake
 
-Create a modern, mobile-first informational page at `/about/shasta-lake` mirroring the design language of the existing History page (Playfair Display headlines, #FBF8F3 background, #1B2B3A text, #E8640A accent, #0D2030 dark bands).
+Insert a new section into `src/components/ShastaLakePage.tsx`, placed between the **Audiences** section and the **Gallery** section, so the page reads: Activities → Fish → Audiences → **Groups** → Gallery → CTA.
 
-### Files
+### Visual design
 
-1. **Copy uploaded images** to `src/assets/shasta-lake/`:
-   - `89817158-…jfif` → `shasta-dam-mount-shasta-hero.webp` (HERO — dam + Mt. Shasta)
-   - `shasta_lake2025full_lake.webp` → `shasta-lake-aerial-pit-river-arm.webp`
-   - `673944465_…jpg` → `shasta-lake-fishing-boat-shoreline.webp`
-   - `0422f317-…jpg` → `shasta-lake-houseboat-dog.webp`
-   - `0d1f9c5c-…jfif` → `silverthorn-houseboat-jumping-shasta-lake.webp`
-   - `valentines2026-2.png` → `couple-sundeck-houseboat-shasta-lake.webp`
-   - `silverthorn-resort-marina-shasta-lake-2026.webp` → same name
+Full-bleed band on the warm cream tone (`#F1ECE2`) to differentiate from the white Audiences section above and the gallery below — OR a deeper navy band (`#0D2030`, white text) to give the page a second high-contrast "moment" matching the Facts band. Recommend the **navy variant** since the cream tone is already used by Fish and Gallery, and a second dark band balances the page rhythm.
 
-2. **Create `src/components/ShastaLakePage.tsx`** with sections:
-   - **Hero**: full-bleed dam image, "About Shasta Lake" title, intro tagline. Responsive heights `h-[44vh] sm:h-[52vh] md:h-[62vh]`.
-   - **Intro prose**: 2-column on md+, single col on mobile, with sticky aerial image.
-   - **Facts grid**: dark band with all 8 Shasta Lake / Dam stats in a 2-col mobile → 4-col desktop `<dl>`.
-   - **Activities** section: hiking, biking, swimming, fishing, etc. as styled list/cards.
-   - **Fish species**: compact pill list of all species mentioned.
-   - **Audience callouts**: family / bachelor-bachelorette / friends weekend — 3 cards.
-   - **Gallery**: uniform `aspect-square` cards (matches History page treatment), 1 / 2 / 3 col responsive, lazy-loaded, captioned.
-   - **CTA band**: dark, links to `/houseboats` and `/cabins`.
-   - All headings use `text-3xl sm:text-4xl md:text-5xl` scaling.
+Layout (desktop):
+```text
+┌──────────────────────────────────────────────────────────┐
+│  GROUPS & PRIVATE EVENTS  (eyebrow)                      │
+│  Bring your whole crew to Shasta Lake (h2, serif)        │
+│  Short 1–2 line lead paragraph                           │
+│                                                          │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐            │
+│  │ Youth  │ │Corporate││ College│ │Churches│            │
+│  │ icon   │ │ icon   │ │ icon   │ │ icon   │            │
+│  │ title  │ │ title  │ │ title  │ │ title  │            │
+│  │ short  │ │ short  │ │ short  │ │ short  │            │
+│  └────────┘ └────────┘ └────────┘ └────────┘            │
+│                                                          │
+│        [ Contact Us → ]  (primary orange CTA)            │
+│        Custom quotes · multi-boat discounts              │
+└──────────────────────────────────────────────────────────┘
+```
 
-3. **Create `src/routes/about.shasta-lake.tsx`** route with full SEO `head()`:
-   - title: `About Shasta Lake — 30,000 Acres of Northern California's Best Water`
-   - description ~155 chars covering size, depth, activities, Silverthorn location
-   - canonical, og:title/description/image/url/type=article, twitter:* tags
-   - preload hero image with `fetchPriority="high"`
-   - JSON-LD: `TouristAttraction` (Shasta Lake with geo, size, description) **and** `BreadcrumbList`
-   - Uses `HistoryPage` route as the template for structure.
+Mobile: 1 column stack, cards full-width, CTA centered.
+Tablet (sm+): 2 columns. Desktop (md+): 4 columns.
 
-4. **Nav link**: add "Shasta Lake" entry to the About menu wherever `/about/history` lives in the header (verify in `__root.tsx` or shared header component during implementation).
+### Content
 
-### SEO / a11y / mobile checklist
-- Single `<h1>`, descriptive `<h2>`s, semantic `<section>`, `<dl>`, `<figure>`/`<figcaption>`.
-- Every image has descriptive alt + width/height + `loading="lazy"` (hero `eager` + preload).
-- Tap targets ≥44px, body text `text-base md:text-lg` for readability.
-- No new dependencies; reuses Tailwind + inline styles already used by HistoryPage.
+- **Eyebrow:** "Groups & Private Events"
+- **H2:** "Bring your whole crew to Shasta Lake"
+- **Lead:** "From summer camps to company retreats, we host groups of every shape and size — multiple houseboats, coordinated check-ins, and a marina team that's done it all before."
 
-### Out of scope
-- No copy edits to existing pages, no nav restructure beyond adding one link.
+Four cards (each with a Lucide icon, short title, 1-sentence pitch):
+
+| Card | Icon | Pitch |
+|---|---|---|
+| Youth Ministries | `Users` / `Tent` | Camps, retreats and lock-in weekends with safe, supervised waterfront fun. |
+| Corporate Retreats | `Briefcase` | Off-sites, leadership retreats and team-building on the water — leave the conference room behind. |
+| College Groups | `GraduationCap` | Senior trips, fraternity & sorority weekends and club getaways with room for the whole roster. |
+| Churches | `Church` | Congregation retreats, men's & women's weekends and family camps on Shasta Lake. |
+
+CTA: orange `#E8640A` button "Contact Us" → `<Link to="/contact">`. Subtext under button: "Custom quotes & multi-boat discounts available."
+
+### Implementation
+
+Single edit to `src/components/ShastaLakePage.tsx`:
+1. Add Lucide imports: `Users, Briefcase, GraduationCap, Church`.
+2. Add a `groups` const array (icon component, title, pitch).
+3. Insert the new `<section>` between Audiences (ends `</section>`) and the Gallery section.
+4. Reuse existing typography tokens (Playfair serif headings, same eyebrow style, same card padding/shadow as Audiences cards but inverted for dark background: `bg-white/5`, `border-white/10`, icon in orange).
+5. CTA uses the same orange button class already used by the final CTA band for visual consistency.
+
+No other files change. No new images, no nav changes, no SEO changes needed (it's the same route).
