@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import SilverthornHomePage from "@/components/SilverthornHomePage";
+import SilverthornHomePage, { HOME_FAQS } from "@/components/SilverthornHomePage";
 import heroMarina from "@/assets/home-hero-marina.webp";
 
 const SITE = "https://silver-shasta-dreams.lovable.app";
