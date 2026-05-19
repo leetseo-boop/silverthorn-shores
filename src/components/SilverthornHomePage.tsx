@@ -949,6 +949,7 @@ export default function SilverthornHomePage() {
       <StatsBar />
       <AboutSection />
       <Testimonials />
+      <HomeFAQ />
       <SisterMarina />
       
     </main>
