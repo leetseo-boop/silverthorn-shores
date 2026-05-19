@@ -39,6 +39,13 @@ const audiences = [
   { t: "Friends weekend", d: "Anchor in a hidden cove, fire up the grill, jump off the top deck — repeat for three days." },
 ];
 
+const groups = [
+  { Icon: Users, t: "Youth Ministries", d: "Camps, retreats and lock-in weekends with safe, supervised waterfront fun." },
+  { Icon: Briefcase, t: "Corporate Retreats", d: "Off-sites, leadership retreats and team-building on the water — leave the conference room behind." },
+  { Icon: GraduationCap, t: "College Groups", d: "Senior trips, fraternity & sorority weekends and club getaways with room for the whole roster." },
+  { Icon: Church, t: "Churches", d: "Congregation retreats, men's & women's weekends and family camps on Shasta Lake." },
+];
+
 const gallery = [
   { src: aerial, alt: "Aerial view of Shasta Lake with Mount Shasta on the horizon and forested islands", caption: "Shasta Lake from above" },
   { src: marina, alt: "Silverthorn Resort marina and houseboats on the Pit River Arm of Shasta Lake", caption: "Silverthorn Resort Marina" },
