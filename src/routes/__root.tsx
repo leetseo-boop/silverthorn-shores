@@ -132,12 +132,18 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isAdmin = pathname.startsWith("/admin");
+
+  useEffect(() => {
+    initBookingTracker();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Nav />
+      {!isAdmin && <Nav />}
       <Outlet />
-      <Footer />
+      {!isAdmin && <Footer />}
     </QueryClientProvider>
   );
 }
