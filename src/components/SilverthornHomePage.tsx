@@ -429,6 +429,7 @@ function Hero() {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
+            data-cta="hero"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-medium text-sm transition-all"
             style={{ backgroundColor: "#E8640A" }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#C4520A")}
