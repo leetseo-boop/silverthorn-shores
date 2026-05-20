@@ -353,6 +353,7 @@ export function Nav() {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
+            data-cta="nav-mobile"
             className="mt-3 text-center py-3 rounded-lg text-white text-sm font-medium"
             style={{ backgroundColor: "#E8640A" }}
           >
