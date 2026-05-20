@@ -1,15 +1,20 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { Nav, Footer } from "@/components/SilverthornHomePage";
+import { initBookingTracker } from "@/lib/booking-tracker";
+
+const GA_ID = "G-QT7MJVJMQM";
 
 function NotFoundComponent() {
   return (
