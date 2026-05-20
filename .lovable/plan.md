@@ -1,62 +1,63 @@
+## Plan: GA4 + Admin Booking-Click Dashboard
 
-## Overview
-Create a new "Planning Your Vacation" page at `/planning` (replacing the current placeholder link in the nav). Modern, mobile-first design with hero image, sectioned content, supporting imagery, icon-driven contact cards, and full SEO.
+### Goal
+Track every outbound "Book Now" click with UTM params, send to both GA4 and Lovable Cloud, expose a private admin dashboard at `/admin` (login: leetseo@gmail.com / password) with per-boat, per-page, per-source stats.
 
-## Files to create
+### 1. GA4 integration
+- Add Google Analytics 4 (`G-QT7MJVJMQM`) via gtag snippet injected in `src/routes/__root.tsx` `<head>`.
+- Fire a `book_now_click` event on every booking link with params: `boat_id`, `source_page`, `cta_location`.
 
-### 1. Image assets (`src/assets/planning/`)
-Copy uploaded photos + generate two supporting images:
-- `planning-family-packing-hero.jpg` — from `user-uploads://readyup.png` (HERO, family loading car for the lake)
-- `silverthorn-resort-welcome-sign.jpg` — from `user-uploads://svr1.jfif` (resort/marina view)
-- `silverthorn-marina-market-interior.jpg` — from `user-uploads://702325026_1488389326115359_9190088650875223485_n.jpg` (apparel & market)
-- `lake-shasta-caverns-tour.jpg` — from `user-uploads://558386283_1390669466396285_5531037713286785222_n.jpg` (caverns)
-- `houseboat-fishing-shasta-lake.jpg` — from `user-uploads://623292611_1654089545569705_5882729233595578742_n.jpg` (fishing from houseboat)
-- `sundial-bridge-redding-mount-shasta.jpg` — from `user-uploads://636254771_1338295311665831_7129317990693836902_n.jpg` (Sundial Bridge)
-- `waterworks-park-redding.webp` — from `user-uploads://301-2.webp`
-- Generated: `shasta-dam-aerial.jpg` (Shasta Dam exterior with reservoir) — `imagegen` standard
-- Generated: `potem-falls-shasta-waterfall.jpg` (Potem Falls 45-ft waterfall) — `imagegen` standard
+### 2. UTM helper + shared `BookNowLink` component
+- New `src/lib/booking-link.ts`:
+  - `appendUTM(url, { source_page, cta_location, boat_id })` → adds `utm_source=website`, `utm_medium=book_now`, `utm_campaign=<source_page>`, `utm_content=<cta_location>`, `utm_term=<boat_id>`.
+- New `src/components/BookNowLink.tsx`:
+  - Wraps `<a target="_blank" rel="noopener">`.
+  - On click: (a) fires GA4 event, (b) inserts a row into Lovable Cloud `booking_clicks` table via the public anon client, (c) navigates.
+- Replace every existing outbound `rentals.silverthornresort.com` `<a>` in:
+  - `SilverthornHomePage.tsx` (3 CTAs)
+  - `HouseboatsFleetPage.tsx` (3 CTAs incl. per-boat)
+  - `SilverthornBoatDetail.tsx` (2 CTAs)
+  - `pro-shop.tsx` (3 CTAs)
+  - `cabins.tsx` (per-cabin + 2 footer CTAs)
+  - `data/houseboats.ts` + `data/silverthorn-boats.ts` URLs stay raw; UTM applied at render via `BookNowLink`.
 
-All `alt` text SEO-tuned (descriptive keywords: Shasta Lake, Silverthorn Resort, Redding CA, activity).
+### 3. Lovable Cloud — backend
+**Tables (migration):**
+- `booking_clicks` — `id`, `boat_id` (nullable text), `source_page` (text), `cta_location` (text), `destination_url` (text), `referrer` (text nullable), `user_agent` (text nullable), `created_at` (timestamptz default now()).
+  - RLS: anyone (anon) can `INSERT`. Only admins can `SELECT`.
+- `admin_users` — `user_id` (uuid PK → auth.users), `created_at`. RLS: only the row owner can read their own row.
+- `has_admin_role(uid)` SECURITY DEFINER function used in `booking_clicks` SELECT policy.
+- Seed: insert `leetseo@gmail.com` user id into `admin_users` after signup (instruction shown to user post-build).
 
-### 2. `src/components/PlanningVacationPage.tsx`
-React component with these sections, in order:
+**Auth:** enable email+password, disable auto-confirm OFF per user request? Will set `auto_confirm_email: true` so the single admin email signs in immediately without inbox setup. Confirm OK.
 
-1. **Hero** — full-bleed `planning-family-packing-hero.jpg`, gradient overlay, H1 "Planning Your Vacation at Shasta Lake", sub "Everything you need to know before your trip to Silverthorn Resort", two CTAs (Book a Houseboat / Contact Us). `loading="eager"`, preload.
-2. **Quick Intro** — short paragraph + breadcrumb (Home › Shasta Lake › Planning Guide).
-3. **Small Boat Rentals** — 2-col (image right: marina sign); 4 boat cards (Ski Boat, Patio Boat, Deluxe Patio, Fishing Boat) with lucide icons (`Anchor`, `Sailboat`, `Sun`, `Fish`) + extras line (kayaks/SUP/tubes/wakeboards). Link to `/small-boats`.
-4. **Apparel Shop & Marina Market** — image left, hours card right with `Clock` icon, brand chips (Reef, Cielo Rosso, Von Zipper), essentials list.
-5. **Things to Do** — section header, 6 feature cards (Boating, Fishing, Tour Shasta Dam, Lake Shasta Caverns, Potem Falls Waterfall, Bird Watching). Each card: image, icon, title, copy, phone (when applicable) with `tel:` link.
-6. **Redding Attractions** — 2 cards: Sundial Bridge / Turtle Bay (image), Waterworks Park (image), with phones.
-7. **Information & Services** — grouped contact cards using lucide icons & `tel:` links:
-   - Information Centers (`Info` icon) — Chamber, Visitors Bureau, Shasta Lake Chamber, Info Center
-   - Travel (`Plane`/`Car`/`Taxi` icons) — Airport, Enterprise, Hertz, ABC Taxi, Yellow Cab
-   - Hospitals (`Cross`/`Hospital` icon) — Mercy, Shasta Regional
-   Each phone number is a tappable card with icon + label + number.
-8. **Final CTA band** — "Ready to plan your trip?" → houseboats / contact.
+### 4. Admin dashboard (private)
+- `/admin/login` route — email+password form using `supabase.auth.signInWithPassword`.
+- `_authenticated` layout gate already exists pattern; create `_authenticated.admin.tsx` checking `has_admin_role`.
+- `/admin` page shows:
+  - Totals (today / 7d / 30d / all-time).
+  - **Clicks by boat** (bar chart + table).
+  - **Clicks by source page** (table).
+  - **Clicks by CTA location** (table).
+  - Raw recent clicks table (last 100, with destination URL).
+- Data fetched via `createServerFn` with `requireSupabaseAuth`, calling `supabase.from('booking_clicks')` (RLS limits to admin).
+- `<meta name="robots" content="noindex">` on `/admin*`.
 
-Design: uses existing tokens (`bg-navy`, `bg-sand`, `text-primary`, `font-display`). Cards use `Card` from ui. Generous spacing, rounded-2xl, soft shadows, hover lift. Mobile: stacked, larger tap targets (min-h-14 on phone cards). All images `loading="lazy"` except hero, with width/height attrs.
+### 5. Files to add / modify
+**New:**
+- `src/lib/booking-link.ts`
+- `src/components/BookNowLink.tsx`
+- `src/lib/admin.functions.ts` (stats server fns)
+- `src/routes/admin.login.tsx`
+- `src/routes/_authenticated.tsx` (if not present)
+- `src/routes/_authenticated.admin.tsx` (layout + role gate)
+- `src/routes/_authenticated.admin.index.tsx` (dashboard)
 
-### 3. `src/routes/planning.tsx`
-TanStack route with full head meta:
-- `title`: "Planning Your Shasta Lake Vacation — Silverthorn Resort Guide"
-- `description`: ~155 chars covering boat rentals, marina, things to do, Redding attractions, info numbers
-- og:title/description/type=article, og:url, og:image (absolute hero URL)
-- twitter:card=summary_large_image
-- canonical → `https://silver-shasta-dreams.lovable.app/planning`
-- Preload hero image
-- JSON-LD: `TouristTrip` + `BreadcrumbList` (Home → Shasta Lake → Planning Guide) + `FAQPage` is overkill — skip. Add `LocalBusiness`/`TouristAttraction` referencing Silverthorn.
+**Modify:** `__root.tsx` (GA4 snippet + noindex on /admin), all booking-CTA files listed above.
 
-### 4. Sitemap
-If `src/routes/sitemap[.]xml.ts` exists, add `/planning` entry. (Will check during build; otherwise skip.)
+### 6. Out of scope (per user)
+- Sitemap / crawl tasks (#2) — deferred until after migration.
 
-## Nav
-No nav change — `/planning` already exists as a submenu item under Shasta Lake.
-
-## SEO/A11y checklist
-- Single H1, hierarchical H2/H3
-- Descriptive alt on every image (keywords: Shasta Lake, Silverthorn, activity)
-- Semantic `<section>`, `<nav>` for breadcrumb, `<address>` for contact cards
-- All phones as `<a href="tel:+1...">` with `aria-label`
-- Color contrast via existing tokens
-- Mobile: 44px+ tap targets, responsive grid (1 / 2 / 3 cols), `h-dvh` not used (hero is fixed-height)
-- Preloaded hero, lazy-loaded rest, explicit width/height to avoid CLS
+### Confirmation needed before I implement
+1. Auto-confirm the admin email so you can log in without email verification? (Recommended yes since it's just you.)
+2. Password — you'll set it on the signup form once `/admin/login` is built; OK?

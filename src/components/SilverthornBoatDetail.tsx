@@ -259,7 +259,7 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
             <p className="text-white/90">Reserve directly through Silverthorn Resort's booking system.</p>
           </div>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href={url} target="_blank" rel="noopener noreferrer"
+            <a href={url} target="_blank" rel="noopener noreferrer" data-cta="boat-detail-cta" data-boat-id={boat.slug}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white font-semibold"
               style={{ color: NAVY }}>
               <Calendar className="w-5 h-5" /> Reserve Now

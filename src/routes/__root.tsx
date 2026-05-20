@@ -1,15 +1,20 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { Nav, Footer } from "@/components/SilverthornHomePage";
+import { initBookingTracker } from "@/lib/booking-tracker";
+
+const GA_ID = "G-QT7MJVJMQM";
 
 function NotFoundComponent() {
   return (
@@ -98,6 +103,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
     ],
+    scripts: [
+      { src: `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`, async: true },
+      {
+        children: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js', new Date());gtag('config', '${GA_ID}');`,
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -121,12 +132,18 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isAdmin = pathname.startsWith("/admin");
+
+  useEffect(() => {
+    initBookingTracker();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Nav />
+      {!isAdmin && <Nav />}
       <Outlet />
-      <Footer />
+      {!isAdmin && <Footer />}
     </QueryClientProvider>
   );
 }

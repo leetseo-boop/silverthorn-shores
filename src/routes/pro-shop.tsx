@@ -143,7 +143,7 @@ function ProShopPage() {
               Brand-name wakeboards, skis, tubes, kayaks and paddleboards — plus swim suits, apparel and accessories at our on-site Pro Shop.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-cta="hero"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white transition-all hover:opacity-95"
                 style={{ backgroundColor: ORANGE }}>
                 <Calendar className="w-5 h-5" /> Reserve Gear
@@ -276,7 +276,7 @@ function ProShopPage() {
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: DISPLAY }}>{c.title}</h3>
                   <p className="text-sm text-white/85 mb-4">{c.text}</p>
-                  <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
+                  <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-cta={`category-${c.tag}`}
                     className="inline-flex items-center gap-2 text-sm font-semibold border-b border-white/70 pb-0.5 hover:border-white">
                     Reserve now <span aria-hidden>→</span>
                   </a>
@@ -313,7 +313,7 @@ function ProShopPage() {
             <p className="text-white/90">Reserve online or pick up at the marina — daily & weekly rentals available.</p>
           </div>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-cta="final-cta"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white font-semibold"
               style={{ color: NAVY }}>
               <Calendar className="w-5 h-5" /> Book Now

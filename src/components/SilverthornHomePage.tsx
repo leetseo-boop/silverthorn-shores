@@ -268,6 +268,7 @@ export function Nav() {
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
+          data-cta="nav"
           className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all flex-shrink-0"
           style={{ backgroundColor: "#E8640A" }}
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#C4520A")}
@@ -352,6 +353,7 @@ export function Nav() {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
+            data-cta="nav-mobile"
             className="mt-3 text-center py-3 rounded-lg text-white text-sm font-medium"
             style={{ backgroundColor: "#E8640A" }}
           >
@@ -427,6 +429,7 @@ function Hero() {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
+            data-cta="hero"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-medium text-sm transition-all"
             style={{ backgroundColor: "#E8640A" }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#C4520A")}

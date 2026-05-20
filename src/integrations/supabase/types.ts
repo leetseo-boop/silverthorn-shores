@@ -14,13 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_users: {
+        Row: {
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      booking_clicks: {
+        Row: {
+          boat_id: string | null
+          created_at: string
+          cta_location: string
+          destination_url: string
+          id: string
+          referrer: string | null
+          source_page: string
+          user_agent: string | null
+        }
+        Insert: {
+          boat_id?: string | null
+          created_at?: string
+          cta_location: string
+          destination_url: string
+          id?: string
+          referrer?: string | null
+          source_page: string
+          user_agent?: string | null
+        }
+        Update: {
+          boat_id?: string | null
+          created_at?: string
+          cta_location?: string
+          destination_url?: string
+          id?: string
+          referrer?: string | null
+          source_page?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
