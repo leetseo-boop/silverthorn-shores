@@ -201,7 +201,7 @@ export function HouseboatsFleetPage() {
                         </Link>
                       </Button>
                       <Button asChild variant="outline" className="rounded-full">
-                        <a href={boat.bookingUrl} target="_blank" rel="noopener noreferrer">Book Now</a>
+                        <a href={boat.bookingUrl} target="_blank" rel="noopener noreferrer" data-cta="fleet-card" data-boat-id={boat.slug}>Book Now</a>
                       </Button>
                     </div>
                   </div>
