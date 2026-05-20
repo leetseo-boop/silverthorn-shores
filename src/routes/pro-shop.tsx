@@ -143,7 +143,7 @@ function ProShopPage() {
               Brand-name wakeboards, skis, tubes, kayaks and paddleboards — plus swim suits, apparel and accessories at our on-site Pro Shop.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-cta="hero"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white transition-all hover:opacity-95"
                 style={{ backgroundColor: ORANGE }}>
                 <Calendar className="w-5 h-5" /> Reserve Gear
