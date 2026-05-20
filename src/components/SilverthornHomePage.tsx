@@ -138,17 +138,22 @@ const NAV_LINKS = [
     ],
   },
   {
-    label: "About",
+    label: "Shasta Lake",
     children: [
-      { label: "Our History",     href: "/about/history" },
-      { label: "Shasta Lake",     href: "/shasta-lake" },
-      { label: "Planning Guide",  href: "/planning" },
-      { label: "Directions",      href: "/directions" },
-      { label: "Employment",      href: "/employment" },
+      { label: "Shasta Lake",         href: "/shasta-lake" },
+      { label: "Explore Shasta Lake", href: "/exploring-shasta-lake" },
+      { label: "Planning Guide",      href: "/planning" },
     ],
   },
-  { label: "FAQ",     href: "/faq" },
-  { label: "Contact", href: "/contact" },
+  {
+    label: "About",
+    children: [
+      { label: "Our History", href: "/about/history" },
+      { label: "Contact",     href: "/contact" },
+      { label: "Directions",  href: "/directions" },
+    ],
+  },
+  { label: "FAQ", href: "/faq" },
 ];
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
