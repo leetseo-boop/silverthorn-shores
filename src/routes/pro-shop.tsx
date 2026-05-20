@@ -313,7 +313,7 @@ function ProShopPage() {
             <p className="text-white/90">Reserve online or pick up at the marina — daily & weekly rentals available.</p>
           </div>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-cta="final-cta"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white font-semibold"
               style={{ color: NAVY }}>
               <Calendar className="w-5 h-5" /> Book Now
