@@ -99,7 +99,7 @@ export function HouseboatsFleetPage() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="rounded-full">
-              <a href={BOOK_URL} target="_blank" rel="noopener noreferrer">Check Availability & Book Now</a>
+              <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" data-cta="hero">Check Availability & Book Now</a>
             </Button>
             <Button asChild size="lg" variant="outline" className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white">
               <a href={`tel:${PHONE}`}><Phone className="mr-1.5 h-4 w-4" />{PHONE}</a>
