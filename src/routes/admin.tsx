@@ -192,7 +192,7 @@ function Dashboard({ email }: { email: string | null }) {
                   <td className="p-2">{r.boat_id ?? "—"}</td>
                   <td className="p-2">{r.source_page}</td>
                   <td className="p-2">{r.cta_location}</td>
-                  <td className="p-2 truncate max-w-[280px]"><a className="underline" href={r.destination_url} target="_blank" rel="noopener noreferrer">{r.destination_url}</a></td>
+                  <td className="p-2 truncate max-w-[280px]">{(() => { const safe = /^https:\/\//i.test(r.destination_url) ? r.destination_url : null; return safe ? <a className="underline" href={safe} target="_blank" rel="noopener noreferrer">{safe}</a> : <span className="text-muted-foreground">{r.destination_url}</span>; })()}</td>
                 </tr>
               ))}
               {data.recent.length === 0 && (
