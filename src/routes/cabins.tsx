@@ -317,6 +317,7 @@ function CabinsPage() {
               href={BOOKING_ALL}
               target="_blank"
               rel="noopener noreferrer"
+              data-cta="hero"
               className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
             >
               Check availability <ExternalLink className="h-4 w-4" />
