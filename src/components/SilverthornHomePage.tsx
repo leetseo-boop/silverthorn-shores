@@ -268,6 +268,7 @@ export function Nav() {
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
+          data-cta="nav"
           className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all flex-shrink-0"
           style={{ backgroundColor: "#E8640A" }}
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#C4520A")}
