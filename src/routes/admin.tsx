@@ -38,7 +38,6 @@ function AdminPage() {
 }
 
 function LoginForm() {
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -49,17 +48,8 @@ function LoginForm() {
     setError(null);
     setLoading(true);
     try {
-      if (mode === "signin") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-      } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (error) throw error;
-      }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {
@@ -71,7 +61,7 @@ function LoginForm() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <form onSubmit={submit} className="w-full max-w-sm bg-card border rounded-xl p-6 shadow-sm space-y-4">
         <div>
-          <h1 className="text-xl font-semibold">Admin {mode === "signin" ? "sign in" : "sign up"}</h1>
+          <h1 className="text-xl font-semibold">Admin sign in</h1>
           <p className="text-xs text-muted-foreground mt-1">Private dashboard. Access restricted.</p>
         </div>
         <div className="space-y-2">
@@ -101,14 +91,7 @@ function LoginForm() {
           disabled={loading}
           className="w-full rounded-md bg-primary text-primary-foreground py-2 text-sm font-medium disabled:opacity-60"
         >
-          {loading ? "…" : mode === "signin" ? "Sign in" : "Create account"}
-        </button>
-        <button
-          type="button"
-          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="w-full text-xs text-muted-foreground hover:underline"
-        >
-          {mode === "signin" ? "Need to create the admin account?" : "Already have an account? Sign in"}
+          {loading ? "…" : "Sign in"}
         </button>
       </form>
     </div>
