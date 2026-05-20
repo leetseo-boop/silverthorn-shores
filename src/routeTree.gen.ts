@@ -18,6 +18,7 @@ import { Route as ExploringShastaLakeRouteImport } from './routes/exploring-shas
 import { Route as DirectionsRouteImport } from './routes/directions'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CabinsRouteImport } from './routes/cabins'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HouseboatsIndexRouteImport } from './routes/houseboats.index'
 import { Route as SmallBoatsSlugRouteImport } from './routes/small-boats_.$slug'
@@ -74,6 +75,11 @@ const CabinsRoute = CabinsRouteImport.update({
   path: '/cabins',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -127,6 +133,7 @@ const AboutHistoryRoute = AboutHistoryRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
@@ -170,6 +178,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
@@ -193,6 +202,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/cabins'
     | '/contact'
     | '/directions'
@@ -214,6 +224,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/cabins'
     | '/contact'
     | '/directions'
@@ -235,6 +246,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/cabins'
     | '/contact'
     | '/directions'
@@ -257,6 +269,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   CabinsRoute: typeof CabinsRoute
   ContactRoute: typeof ContactRoute
   DirectionsRoute: typeof DirectionsRoute
@@ -342,6 +355,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CabinsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -417,6 +437,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   CabinsRoute: CabinsRoute,
   ContactRoute: ContactRoute,
   DirectionsRoute: DirectionsRoute,
@@ -439,3 +460,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
