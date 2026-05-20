@@ -770,6 +770,8 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
                 href={cabin.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-cta="cabin-card"
+                data-boat-id={`cabin-${cabin.id}`}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
               >
                 Book Cabin #{cabin.id} <ExternalLink className="h-3.5 w-3.5" />
