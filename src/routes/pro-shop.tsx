@@ -276,7 +276,7 @@ function ProShopPage() {
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <h3 className="text-2xl font-bold mb-1.5" style={{ fontFamily: DISPLAY }}>{c.title}</h3>
                   <p className="text-sm text-white/85 mb-4">{c.text}</p>
-                  <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
+                  <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" data-cta={`category-${c.tag}`}
                     className="inline-flex items-center gap-2 text-sm font-semibold border-b border-white/70 pb-0.5 hover:border-white">
                     Reserve now <span aria-hidden>→</span>
                   </a>
