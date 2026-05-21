@@ -83,7 +83,7 @@ const FLEET = [
 ];
 
 const STATS = [
-  { num: "1975", label: "On Shasta Lake Since" },
+  { num: "1986", label: "On Shasta Lake Since" },
   { num: "4",    label: "Houseboat Models" },
   { num: "7",    label: "Lakeside Cabins" },
   { num: "365",  label: "Miles of Shoreline" },
@@ -663,7 +663,29 @@ function FleetSection() {
 
 function StatsBar() {
   return (
-    <div className="py-10 px-6" style={{ backgroundColor: "#F5EFE4" }}>
+    <div className="py-14 px-6" style={{ backgroundColor: "#F5EFE4" }}>
+      <div className="max-w-3xl mx-auto text-center mb-8">
+        <span
+          className="inline-block text-[11px] tracking-[0.25em] uppercase font-semibold px-3 py-1 rounded-full mb-4"
+          style={{ backgroundColor: "#E8640A", color: "#fff" }}
+        >
+          40 Years
+        </span>
+        <p
+          className="text-xl md:text-2xl leading-snug italic"
+          style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            color: "#1B2B3A",
+          }}
+        >
+          Celebrating 40 years of houseboating, lake adventures, and
+          unforgettable memories at beautiful Shasta Lake.
+        </p>
+        <div
+          className="mx-auto mt-6 h-px w-16"
+          style={{ backgroundColor: "#D4C9BA" }}
+        />
+      </div>
       <div className="max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0">
         {STATS.map((s, i) => (
           <div
@@ -824,7 +846,7 @@ function SisterMarina() {
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs border"
           style={{ color: "rgba(255,255,255,0.6)", borderColor: "rgba(255,255,255,0.15)", backgroundColor: "rgba(255,255,255,0.06)" }}
         >
-          ⚓ Both marinas managed by the same team on Shasta Lake since 1975
+          ⚓ Both marinas managed by the same team on Shasta Lake since 1986
         </div>
       </div>
     </section>
