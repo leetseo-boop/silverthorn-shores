@@ -1,11 +1,8 @@
-## Update age requirement text on /cabins/policy
+## Add Suntracker image to Boating card on /planning
 
-**File:** `src/routes/cabins_.policy.tsx` (line 72)
+1. Copy `user-uploads://Suntracker_1.jpg` to `src/assets/planning/suntracker-pontoon-shasta-lake.jpg`.
+2. In `src/components/PlanningVacationPage.tsx`:
+   - Import the new image as `suntracker`.
+   - Update the Boating activity entry to use `img: suntracker` and SEO-optimized alt: `"Sun Tracker pontoon boat cruising Shasta Lake with green mountains in the background"`.
 
-Replace:
-> "The Charter Captain and Co-Captain must each be at least **21 years of age** and hold a valid state-issued driver's license to rent a boat or cabin."
-
-With:
-> "The Primary Renter must be at least **21 years of age** and hold a valid state-issued driver's license to rent a cabin."
-
-No other content on the page is changed.
+No other changes.
