@@ -29,7 +29,7 @@ import fishing from "@/assets/planning/houseboat-fishing-shasta-lake.jpg";
 import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.jpg";
 import waterworks from "@/assets/planning/waterworks-park-redding.webp";
 import dam from "@/assets/planning/shasta-dam-three-shastas.jpg";
-import falls from "@/assets/planning/potem-falls-shasta-waterfall.jpg";
+import falls from "@/assets/planning/potem-falls-waterfall-pool.webp";
 import suntracker from "@/assets/planning/suntracker-pontoon-shasta-lake.jpg";
 import baldEagle from "@/assets/planning/bald-eagle-catching-fish-shasta-lake.jpg";
 
@@ -66,7 +66,7 @@ const ACTIVITIES: Activity[] = [
     phone: { label: "Shasta Caverns", tel: "+18007952283" },
   },
   {
-    img: falls, alt: "Potem Falls, a 45-foot waterfall on the Pit River Arm of Shasta Lake",
+    img: falls, alt: "Potem Falls cascading into a clear emerald pool framed by green maple leaves",
     icon: Droplets, title: "Potem Falls",
     copy: "A beautiful 45-foot waterfall high up the Pit River Arm. Boat as close to Pit 7 Dam as possible, park on the north side, then hike up the dirt road to the falls.",
   },
