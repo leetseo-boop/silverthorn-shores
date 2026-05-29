@@ -30,6 +30,7 @@ import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.jpg";
 import waterworks from "@/assets/planning/waterworks-park-redding.webp";
 import dam from "@/assets/planning/shasta-dam-aerial.jpg";
 import falls from "@/assets/planning/potem-falls-shasta-waterfall.jpg";
+import suntracker from "@/assets/planning/suntracker-pontoon-shasta-lake.jpg";
 
 type Boat = { icon: typeof Anchor; name: string; desc: string };
 const BOATS: Boat[] = [
