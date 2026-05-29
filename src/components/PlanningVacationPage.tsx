@@ -66,7 +66,7 @@ const ACTIVITIES: Activity[] = [
     phone: { label: "Shasta Caverns", tel: "+18007952283" },
   },
   {
-    img: falls, alt: "Potem Falls, a 45-foot waterfall on the Pit River Arm of Shasta Lake",
+    img: falls, alt: "Potem Falls cascading into a clear emerald pool framed by green maple leaves",
     icon: Droplets, title: "Potem Falls",
     copy: "A beautiful 45-foot waterfall high up the Pit River Arm. Boat as close to Pit 7 Dam as possible, park on the north side, then hike up the dirt road to the falls.",
   },
