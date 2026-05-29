@@ -71,7 +71,7 @@ const ACTIVITIES: Activity[] = [
     copy: "A beautiful 45-foot waterfall high up the Pit River Arm. Boat as close to Pit 7 Dam as possible, park on the north side, then hike up the dirt road to the falls.",
   },
   {
-    img: welcomeSign, alt: "Pine-framed view of Silverthorn Resort marina on Shasta Lake",
+    img: baldEagle, alt: "Bald eagle snatching a fish from Shasta Lake with wings spread wide",
     icon: Binoculars, title: "Bird Watching",
     copy: "Bring binoculars to spot Bald Eagles (we're proud of 22+ nesting pairs), Osprey, Canadian Geese, falcons, turkey vultures and songbirds across the lake.",
   },
