@@ -29,7 +29,7 @@ import fishing from "@/assets/planning/houseboat-fishing-shasta-lake.jpg";
 import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.jpg";
 import waterworks from "@/assets/planning/waterworks-park-redding.webp";
 import dam from "@/assets/planning/shasta-dam-three-shastas.jpg";
-import falls from "@/assets/planning/potem-falls-shasta-waterfall.jpg";
+import falls from "@/assets/planning/potem-falls-waterfall-pool.webp";
 import suntracker from "@/assets/planning/suntracker-pontoon-shasta-lake.jpg";
 import baldEagle from "@/assets/planning/bald-eagle-catching-fish-shasta-lake.jpg";
 
