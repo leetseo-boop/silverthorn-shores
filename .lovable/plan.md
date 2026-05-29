@@ -1,15 +1,10 @@
-## Home page — anniversary update
+## Remove "Executive" row from Parking Permits table
 
-**Files:** `src/components/SilverthornHomePage.tsx`
+**File:** `src/routes/houseboats.policy.tsx` (line 60)
 
-### Changes
+Remove this entry from the `PERMITS` array:
+```
+{ boat: "Executive", count: 3, to: "/houseboats" },
+```
 
-1. **Stat number** (line 86): `"1975"` → `"1986"`.
-2. **Footer-area mention** (line 827): "...on Shasta Lake since 1975" → "...since 1986".
-3. **StatsBar block** (lines 664–690): add a celebratory headline above the stats grid:
-   > *Celebrating 40 years of houseboating, lake adventures, and unforgettable memories at beautiful Shasta Lake.*
-
-   Styling: centered, Playfair Display serif, navy color, with a small orange "40 Years" eyebrow chip above it and a thin divider separating it from the numbers. Keeps the existing sand background (`#F5EFE4`) and the 4-stat grid intact, just nested under the new heading with more vertical padding.
-
-### Out of scope
-No other copy, layout, or routes touched.
+The Parking Permits table on `/houseboats/policy` will no longer list the Executive houseboat row. No other content is touched.

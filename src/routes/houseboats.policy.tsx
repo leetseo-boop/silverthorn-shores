@@ -57,7 +57,7 @@ const CANCELLATION_TIERS = [
 const PERMITS = [
   { boat: "Queen / Queen I", count: 5, to: "/houseboats" },
   { boat: "Queen II / Presidential / Senator", count: 4, to: "/houseboats" },
-  { boat: "Executive", count: 3, to: "/houseboats" },
+  
 ];
 
 const SECTIONS: Section[] = [
