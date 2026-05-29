@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import hero from "@/assets/planning/planning-family-packing-hero.jpg";
 import welcomeSign from "@/assets/planning/silverthorn-resort-welcome-sign.jpg";
 import marinaMarket from "@/assets/planning/silverthorn-marina-market-interior.jpg";
-import caverns from "@/assets/planning/lake-shasta-caverns-tour.jpg";
+import caverns from "@/assets/planning/lake-shasta-caverns-stalactites.png";
 import fishing from "@/assets/planning/houseboat-fishing-shasta-lake.jpg";
 import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.jpg";
 import waterworks from "@/assets/planning/waterworks-park-redding.webp";
