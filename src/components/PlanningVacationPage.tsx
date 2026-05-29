@@ -28,7 +28,7 @@ import caverns from "@/assets/planning/lake-shasta-caverns-tour.jpg";
 import fishing from "@/assets/planning/houseboat-fishing-shasta-lake.jpg";
 import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.jpg";
 import waterworks from "@/assets/planning/waterworks-park-redding.webp";
-import dam from "@/assets/planning/shasta-dam-aerial.jpg";
+import dam from "@/assets/planning/shasta-dam-three-shastas.jpg";
 import falls from "@/assets/planning/potem-falls-shasta-waterfall.jpg";
 import suntracker from "@/assets/planning/suntracker-pontoon-shasta-lake.jpg";
 
@@ -53,7 +53,7 @@ const ACTIVITIES: Activity[] = [
     copy: "Rainbow & brown trout, chinook salmon, largemouth, spotted & smallmouth bass, crappie, bluegill, catfish and more. California licenses, bait and tackle available at the Marina Market.",
   },
   {
-    img: dam, alt: "Aerial view of Shasta Dam holding back Shasta Lake",
+    img: dam, alt: "Shasta Dam releasing water with Shasta Lake and snow-capped Mount Shasta in the background",
     icon: Building2, title: "Tour Shasta Dam",
     copy: "The second largest dam in the US — 6.5 million cubic yards of concrete. Free guided tours hourly in summer. Meet at the visitor center 15 minutes prior; no cell phones on tour.",
     phone: { label: "Shasta Dam Visitor Center", tel: "+15302754463" },
