@@ -53,7 +53,7 @@ const ACTIVITIES: Activity[] = [
     copy: "Rainbow & brown trout, chinook salmon, largemouth, spotted & smallmouth bass, crappie, bluegill, catfish and more. California licenses, bait and tackle available at the Marina Market.",
   },
   {
-    img: dam, alt: "Aerial view of Shasta Dam holding back Shasta Lake",
+    img: dam, alt: "Shasta Dam releasing water with Shasta Lake and snow-capped Mount Shasta in the background",
     icon: Building2, title: "Tour Shasta Dam",
     copy: "The second largest dam in the US — 6.5 million cubic yards of concrete. Free guided tours hourly in summer. Meet at the visitor center 15 minutes prior; no cell phones on tour.",
     phone: { label: "Shasta Dam Visitor Center", tel: "+15302754463" },
