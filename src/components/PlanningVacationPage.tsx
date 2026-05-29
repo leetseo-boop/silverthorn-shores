@@ -59,7 +59,7 @@ const ACTIVITIES: Activity[] = [
     phone: { label: "Shasta Dam Visitor Center", tel: "+15302754463" },
   },
   {
-    img: caverns, alt: "Guided tour exploring stalactites inside Lake Shasta Caverns",
+    img: caverns, alt: "Visitor admiring towering stalactite formations inside Lake Shasta Caverns",
     icon: Mountain, title: "Lake Shasta Caverns",
     copy: "Scenic catamaran ride plus a bus to the cavern entrance, then a one-hour guided walk through one of America's most beautiful caverns. Tours run year-round.",
     phone: { label: "Shasta Caverns", tel: "+18007952283" },
