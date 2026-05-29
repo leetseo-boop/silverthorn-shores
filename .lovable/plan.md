@@ -1,10 +1,11 @@
-## Remove "Executive" row from Parking Permits table
+## Update age requirement text on /cabins/policy
 
-**File:** `src/routes/houseboats.policy.tsx` (line 60)
+**File:** `src/routes/cabins_.policy.tsx` (line 72)
 
-Remove this entry from the `PERMITS` array:
-```
-{ boat: "Executive", count: 3, to: "/houseboats" },
-```
+Replace:
+> "The Charter Captain and Co-Captain must each be at least **21 years of age** and hold a valid state-issued driver's license to rent a boat or cabin."
 
-The Parking Permits table on `/houseboats/policy` will no longer list the Executive houseboat row. No other content is touched.
+With:
+> "The Primary Renter must be at least **21 years of age** and hold a valid state-issued driver's license to rent a cabin."
+
+No other content on the page is changed.
