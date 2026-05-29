@@ -43,7 +43,7 @@ const BOATS: Boat[] = [
 type Activity = { img: string; icon: typeof Anchor; title: string; alt: string; copy: string; phone?: { label: string; tel: string } };
 const ACTIVITIES: Activity[] = [
   {
-    img: fishing, alt: "Angler casting from a Silverthorn Resort houseboat on Shasta Lake",
+    img: suntracker, alt: "Sun Tracker pontoon boat cruising Shasta Lake with green mountains in the background",
     icon: Sailboat, title: "Boating",
     copy: "Explore 365 miles of shoreline and 40,000 surface acres. Choose from ski boats, patio boats, fishing boats, kayaks and stand-up paddleboards at Silverthorn Resort.",
   },
