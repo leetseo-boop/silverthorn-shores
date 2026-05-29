@@ -28,7 +28,7 @@ import caverns from "@/assets/planning/lake-shasta-caverns-tour.jpg";
 import fishing from "@/assets/planning/houseboat-fishing-shasta-lake.jpg";
 import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.jpg";
 import waterworks from "@/assets/planning/waterworks-park-redding.webp";
-import dam from "@/assets/planning/shasta-dam-aerial.jpg";
+import dam from "@/assets/planning/shasta-dam-three-shastas.jpg";
 import falls from "@/assets/planning/potem-falls-shasta-waterfall.jpg";
 import suntracker from "@/assets/planning/suntracker-pontoon-shasta-lake.jpg";
 
