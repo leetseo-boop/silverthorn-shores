@@ -69,9 +69,9 @@ const SECTIONS: Section[] = [
     body: (
       <>
         <p>
-          The Charter Captain and Co-Captain must each be at least <strong>21 years of age</strong> and hold a valid
-          state-issued driver's license to rent a boat or cabin. Rental fees plus the security/damage deposit must be
-          paid in full at least <strong>75 days prior</strong> to your arrival date.
+          The Primary Renter must be at least <strong>21 years of age</strong> and hold a valid state-issued driver's
+          license to rent a cabin. Rental fees plus the security/damage deposit must be paid in full at least{" "}
+          <strong>75 days prior</strong> to your arrival date.
         </p>
         <p>
           Payment for deposits, rentals, fuel, and supplies may be made by Visa, MasterCard, American Express, Discover,
