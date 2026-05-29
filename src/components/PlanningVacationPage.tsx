@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import hero from "@/assets/planning/planning-family-packing-hero.jpg";
 import welcomeSign from "@/assets/planning/silverthorn-resort-welcome-sign.jpg";
 import marinaMarket from "@/assets/planning/silverthorn-marina-market-interior.jpg";
-import caverns from "@/assets/planning/lake-shasta-caverns-tour.jpg";
+import caverns from "@/assets/planning/lake-shasta-caverns-stalactites.png";
 import fishing from "@/assets/planning/houseboat-fishing-shasta-lake.jpg";
 import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.jpg";
 import waterworks from "@/assets/planning/waterworks-park-redding.webp";
@@ -59,7 +59,7 @@ const ACTIVITIES: Activity[] = [
     phone: { label: "Shasta Dam Visitor Center", tel: "+15302754463" },
   },
   {
-    img: caverns, alt: "Guided tour exploring stalactites inside Lake Shasta Caverns",
+    img: caverns, alt: "Visitor admiring towering stalactite formations inside Lake Shasta Caverns",
     icon: Mountain, title: "Lake Shasta Caverns",
     copy: "Scenic catamaran ride plus a bus to the cavern entrance, then a one-hour guided walk through one of America's most beautiful caverns. Tours run year-round.",
     phone: { label: "Shasta Caverns", tel: "+18007952283" },
