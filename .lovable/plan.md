@@ -1,8 +1,1 @@
-## Add Suntracker image to Boating card on /planning
-
-1. Copy `user-uploads://Suntracker_1.jpg` to `src/assets/planning/suntracker-pontoon-shasta-lake.jpg`.
-2. In `src/components/PlanningVacationPage.tsx`:
-   - Import the new image as `suntracker`.
-   - Update the Boating activity entry to use `img: suntracker` and SEO-optimized alt: `"Sun Tracker pontoon boat cruising Shasta Lake with green mountains in the background"`.
-
-No other changes.
+Copy upload to `src/assets/planning/shasta-dam-three-shastas.jpg`, import it in `src/components/PlanningVacationPage.tsx` and replace the Tour Shasta Dam activity's `img` (currently `dam`) and `alt` with the new image and SEO alt: "Shasta Dam releasing water with Shasta Lake and snow-capped Mount Shasta in the background".
