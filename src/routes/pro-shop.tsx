@@ -8,6 +8,7 @@ import {
 import heroImg from "@/assets/proshop-hero.webp";
 import tubingImg from "@/assets/proshop-tubing.webp";
 import groupImg from "@/assets/proshop-group.webp";
+import apparelStoreImg from "@/assets/proshop-apparel-store-interior.jpg";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -289,19 +290,32 @@ function ProShopPage() {
 
       {/* Apparel callout */}
       <section className="py-14" style={{ backgroundColor: SAND }}>
-        <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: ORANGE, color: "white" }}>
-            <Shirt className="w-7 h-7" />
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+          <div className="rounded-2xl overflow-hidden shadow-lg bg-white">
+            <img
+              src={apparelStoreImg}
+              alt="Inside the Silverthorn Resort apparel and pro shop with snacks, sunglasses, hats, swimwear and souvenirs on Shasta Lake"
+              className="w-full h-full object-cover aspect-[4/3]"
+              width={1600}
+              height={1200}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
-          <div className="flex-1">
-            <h3 className="text-2xl font-bold mb-1" style={{ fontFamily: DISPLAY, color: NAVY }}>Apparel & Accessories in-store</h3>
-            <p className="text-gray-700">Forgot your sunscreen, hat, sunglasses or swim trunks? We've got you covered at the marina.</p>
+          <div className="flex flex-col items-start gap-5 text-left">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: ORANGE, color: "white" }}>
+              <Shirt className="w-7 h-7" />
+            </div>
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ fontFamily: DISPLAY, color: NAVY }}>Apparel & Accessories in-store</h3>
+              <p className="text-gray-700">Forgot your sunscreen, hat, sunglasses or swim trunks? We've got you covered at the marina.</p>
+            </div>
+            <a href="tel:+18003323044"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-semibold text-white"
+              style={{ backgroundColor: NAVY }}>
+              <Phone className="w-4 h-4" /> Call the Shop
+            </a>
           </div>
-          <a href="tel:+18003323044"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-semibold text-white"
-            style={{ backgroundColor: NAVY }}>
-            <Phone className="w-4 h-4" /> Call the Shop
-          </a>
         </div>
       </section>
 
