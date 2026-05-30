@@ -1,1 +1,7 @@
-Copy upload to `src/assets/planning/potem-falls-waterfall-pool.webp`, update the `falls` import in `src/components/PlanningVacationPage.tsx` to point to the new file, and update the Potem Falls activity alt to: "Potem Falls cascading into a clear emerald pool framed by green maple leaves".
+In `src/routes/houseboats.policy.tsx`, remove all mentions of "Executive" from the Security/Damage Deposit section (and related page references):
+
+1. Line 43 (DEPOSITS row): change `"Presidential, Senator, Executive"` → `"Presidential, Senator"`.
+2. Line 118 (holiday callout): change `"Presidential, Senator, and Executive"` → `"Presidential and Senator"`.
+3. Line 534 (related-links card description): change `"Queen, Presidential, Senator & Executive houseboats."` → `"Queen, Presidential & Senator houseboats."`.
+
+No other changes.
