@@ -319,7 +319,22 @@ const SECTIONS: Section[] = [
           limited parking during peak season, additional permits may not be available for purchase. Vehicles without a
           parking permit will be towed at the owner's expense. <strong>Please carpool when possible.</strong>
         </p>
-        <div className="mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
+        <ul className="sm:hidden mt-5 space-y-2">
+          {PERMITS.map((p) => (
+            <li key={p.boat} className="rounded-xl border bg-white p-4 flex items-center justify-between gap-3"
+              style={{ borderColor: "rgba(27,43,58,0.1)" }}>
+              <Link to={p.to} className="font-semibold underline underline-offset-2"
+                style={{ color: "var(--lake)" }}>
+                {p.boat}
+              </Link>
+              <div className="text-right">
+                <div className="text-[11px] uppercase tracking-wide text-gray-500">Permits</div>
+                <div className="text-lg font-bold" style={{ color: ORANGE }}>{p.count}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="hidden sm:block mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
           <div className="grid grid-cols-2 text-xs sm:text-sm font-semibold uppercase tracking-wide"
             style={{ backgroundColor: SAND, color: NAVY }}>
             <div className="px-3 sm:px-5 py-3">Houseboat</div>
