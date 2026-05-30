@@ -8,6 +8,7 @@ import {
 import heroImg from "@/assets/proshop-hero.webp";
 import tubingImg from "@/assets/proshop-tubing.webp";
 import groupImg from "@/assets/proshop-group.webp";
+import apparelStoreImg from "@/assets/proshop-apparel-store-interior.jpg";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
