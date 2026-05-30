@@ -583,7 +583,7 @@ function PolicyPage() {
       <section className="py-8 md:py-14" style={{ backgroundColor: SAND }}>
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[260px_1fr] gap-8">
           {/* TOC */}
-          <aside className="lg:sticky lg:top-24 lg:self-start">
+          <aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-2xl border bg-white p-4"
               style={{ borderColor: "rgba(27,43,58,0.1)" }}>
               <div className="flex items-center gap-2 mb-3 px-2">
@@ -592,10 +592,10 @@ function PolicyPage() {
                   On this page
                 </span>
               </div>
-              <nav className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible">
+              <nav className="flex lg:flex-col gap-1">
                 {SECTIONS.map((s) => (
                   <a key={s.id} href={`#${s.id}`}
-                    className="rounded-md px-3 py-2 text-sm whitespace-nowrap lg:whitespace-normal transition-colors hover:bg-orange-50"
+                    className="rounded-md px-3 py-2 text-sm transition-colors hover:bg-orange-50"
                     style={{ color: NAVY }}>
                     {s.title}
                   </a>
@@ -608,7 +608,7 @@ function PolicyPage() {
           <div className="space-y-5">
             {SECTIONS.map(({ id, title, icon: Icon, body }) => (
               <article key={id} id={id}
-                className="scroll-mt-24 rounded-2xl border bg-white p-6 md:p-8"
+                className="scroll-mt-24 rounded-2xl border bg-white p-5 sm:p-6 md:p-8"
                 style={{ borderColor: "rgba(27,43,58,0.1)" }}>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
