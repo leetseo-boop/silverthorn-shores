@@ -40,7 +40,7 @@ type Section = {
 
 const DEPOSITS = [
   { boat: "Queen, Queen I, Queen II", standard: "$1,000", holiday: "$5,000 (cash)", to: "/houseboats" },
-  { boat: "Presidential, Senator, Executive", standard: "$500", holiday: "$3,000 (cash)", to: "/houseboats" },
+  { boat: "Presidential, Senator", standard: "$500", holiday: "$3,000 (cash)", to: "/houseboats" },
   { boat: "Wakeboard Boats", standard: "$500", holiday: "—", to: "/small-boats" },
   { boat: "Patio Boats & Fishing Boats", standard: "$200", holiday: "—", to: "/small-boats" },
   { boat: "Cabins", standard: "$100", holiday: "—", to: "/cabins" },
@@ -115,7 +115,7 @@ const SECTIONS: Section[] = [
         <div className="mt-5 rounded-xl p-4 sm:p-5 text-sm leading-relaxed"
           style={{ backgroundColor: `${ORANGE}14`, color: NAVY, border: `1px solid ${ORANGE}55` }}>
           <strong>Holiday weekends and all weekends in May:</strong> deposits increase to $5,000 for the Queen, Queen I,
-          and Queen II, and $3,000 for the Presidential, Senator, and Executive — and must be paid in <strong>cash only</strong>.
+          and Queen II, and $3,000 for the Presidential and Senator — and must be paid in <strong>cash only</strong>.
           Cashier's checks and money orders are not accepted for holiday damage deposits.
         </div>
       </>
@@ -531,7 +531,7 @@ function PolicyPage() {
           <p className="text-center text-gray-700 mb-8">Explore the rest of Silverthorn Resort.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { to: "/houseboats", icon: Ship, title: "Luxury Houseboats", desc: "Browse our fleet of Queen, Presidential, Senator & Executive houseboats." },
+              { to: "/houseboats", icon: Ship, title: "Luxury Houseboats", desc: "Browse our fleet of Queen, Presidential & Senator houseboats." },
               { to: "/small-boats", icon: Anchor, title: "Patio & Wakeboard Boats", desc: "Add a patio boat, fishing boat, or wakeboard boat to your stay." },
               { to: "/pro-shop", icon: Store, title: "Silverthorn Pro Shop", desc: "Fuel, tackle, snacks, gear, and last-minute essentials on the main dock." },
             ].map(({ to, icon: Icon, title, desc }) => (
