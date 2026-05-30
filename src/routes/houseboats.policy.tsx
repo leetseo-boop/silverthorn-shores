@@ -22,6 +22,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import heroImg from "@/assets/rental-policy-hero.jpg";
+import { MobileToc, BackToTop } from "@/components/PolicyMobileHelpers";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -91,7 +92,29 @@ const SECTIONS: Section[] = [
           is returned undamaged, clean, and with all inventory intact. Deposits may be paid by Visa, MasterCard,
           American Express, Discover, or cash. Cash deposits are refunded by mailed check.
         </p>
-        <div className="mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
+        {/* Mobile stacked cards */}
+        <ul className="sm:hidden mt-5 space-y-2">
+          {DEPOSITS.map((d) => (
+            <li key={d.boat} className="rounded-xl border bg-white p-4"
+              style={{ borderColor: "rgba(27,43,58,0.1)" }}>
+              <Link to={d.to} className="block font-semibold underline underline-offset-2"
+                style={{ color: "var(--lake)" }}>
+                {d.boat}
+              </Link>
+              <div className="mt-2 flex justify-between gap-3 text-sm">
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide text-gray-500">Standard</div>
+                  <div className="font-semibold" style={{ color: NAVY }}>{d.standard}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[11px] uppercase tracking-wide text-gray-500">Holiday / May</div>
+                  <div className="font-semibold" style={{ color: ORANGE }}>{d.holiday}</div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="hidden sm:block mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
           <div className="grid grid-cols-3 text-xs sm:text-sm font-semibold uppercase tracking-wide"
             style={{ backgroundColor: SAND, color: NAVY }}>
             <div className="px-3 sm:px-5 py-3">Rental</div>
@@ -296,7 +319,22 @@ const SECTIONS: Section[] = [
           limited parking during peak season, additional permits may not be available for purchase. Vehicles without a
           parking permit will be towed at the owner's expense. <strong>Please carpool when possible.</strong>
         </p>
-        <div className="mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
+        <ul className="sm:hidden mt-5 space-y-2">
+          {PERMITS.map((p) => (
+            <li key={p.boat} className="rounded-xl border bg-white p-4 flex items-center justify-between gap-3"
+              style={{ borderColor: "rgba(27,43,58,0.1)" }}>
+              <Link to={p.to} className="font-semibold underline underline-offset-2"
+                style={{ color: "var(--lake)" }}>
+                {p.boat}
+              </Link>
+              <div className="text-right">
+                <div className="text-[11px] uppercase tracking-wide text-gray-500">Permits</div>
+                <div className="text-lg font-bold" style={{ color: ORANGE }}>{p.count}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="hidden sm:block mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
           <div className="grid grid-cols-2 text-xs sm:text-sm font-semibold uppercase tracking-wide"
             style={{ backgroundColor: SAND, color: NAVY }}>
             <div className="px-3 sm:px-5 py-3">Houseboat</div>
@@ -409,27 +447,27 @@ function PolicyPage() {
           <div className="absolute inset-0"
             style={{ background: "linear-gradient(to right, rgba(13,32,48,0.85), rgba(13,32,48,0.5) 60%, rgba(13,32,48,0.25))" }} />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-32">
+        <div className="relative max-w-7xl mx-auto px-6 py-12 sm:py-16 md:py-32">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide mb-5"
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide mb-4 sm:mb-5"
               style={{ backgroundColor: ORANGE, color: "white" }}>
               Houseboats · Policy
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-tight text-white mb-5"
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-tight text-white mb-4 sm:mb-5"
               style={{ fontFamily: DISPLAY }}>
               Houseboat <span style={{ color: "#FFB36B" }}>Rental Policy</span>
             </h1>
-            <p className="text-base md:text-xl text-white/90 mb-8">
+            <p className="text-base md:text-xl text-white/90 mb-6 sm:mb-8">
               Everything you need to know before your Silverthorn Resort vacation on Shasta Lake.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
               <a href={`tel:+1${PHONE.replace(/-/g, "")}`}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-semibold text-white transition-all hover:brightness-110"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-5 py-3 rounded-lg font-semibold text-white transition-all hover:brightness-110"
                 style={{ backgroundColor: ORANGE }}>
                 <Phone className="w-4 h-4" /> Call {PHONE}
               </a>
               <a href={`mailto:${EMAIL}`}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-semibold bg-white/95 hover:bg-white transition-all"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-5 py-3 rounded-lg font-semibold bg-white/95 hover:bg-white transition-all"
                 style={{ color: NAVY }}>
                 <Mail className="w-4 h-4" /> Email Us
               </a>
@@ -437,6 +475,8 @@ function PolicyPage() {
           </div>
         </div>
       </section>
+
+      <MobileToc sections={SECTIONS.map((s) => ({ id: s.id, title: s.title }))} />
 
       {/* Breadcrumb */}
       <div style={{ backgroundColor: SAND }} className="border-b" >
@@ -477,7 +517,7 @@ function PolicyPage() {
       <section className="py-8 md:py-14" style={{ backgroundColor: SAND }}>
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[260px_1fr] gap-8">
           {/* TOC */}
-          <aside className="lg:sticky lg:top-24 lg:self-start">
+          <aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-2xl border bg-white p-4"
               style={{ borderColor: "rgba(27,43,58,0.1)" }}>
               <div className="flex items-center gap-2 mb-3 px-2">
@@ -486,10 +526,10 @@ function PolicyPage() {
                   On this page
                 </span>
               </div>
-              <nav className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible">
+              <nav className="flex lg:flex-col gap-1">
                 {SECTIONS.map((s) => (
                   <a key={s.id} href={`#${s.id}`}
-                    className="rounded-md px-3 py-2 text-sm whitespace-nowrap lg:whitespace-normal transition-colors hover:bg-orange-50"
+                    className="rounded-md px-3 py-2 text-sm transition-colors hover:bg-orange-50"
                     style={{ color: NAVY }}>
                     {s.title}
                   </a>
@@ -502,7 +542,7 @@ function PolicyPage() {
           <div className="space-y-5">
             {SECTIONS.map(({ id, title, icon: Icon, body }) => (
               <article key={id} id={id}
-                className="scroll-mt-24 rounded-2xl border bg-white p-6 md:p-8"
+                className="scroll-mt-24 rounded-2xl border bg-white p-5 sm:p-6 md:p-8"
                 style={{ borderColor: "rgba(27,43,58,0.1)" }}>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -565,20 +605,21 @@ function PolicyPage() {
             </h2>
             <p className="text-white/90">Our reservation team is happy to walk you through any detail.</p>
           </div>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center w-full md:w-auto">
             <a href={`tel:+1${PHONE.replace(/-/g, "")}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white font-semibold"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-6 py-3 rounded-lg bg-white font-semibold"
               style={{ color: NAVY }}>
               <Phone className="w-5 h-5" /> Call {PHONE}
             </a>
             <a href={`mailto:${EMAIL}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold border-2 border-white text-white">
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-6 py-3 rounded-lg font-semibold border-2 border-white text-white">
               <Mail className="w-5 h-5" /> {EMAIL}
             </a>
           </div>
         </div>
       </section>
 
+      <BackToTop />
     </div>
   );
 }
