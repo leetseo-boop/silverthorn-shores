@@ -92,7 +92,29 @@ const SECTIONS: Section[] = [
           is returned undamaged, clean, and with all inventory intact. Deposits may be paid by Visa, MasterCard,
           American Express, Discover, or cash. Cash deposits are refunded by mailed check.
         </p>
-        <div className="mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
+        {/* Mobile stacked cards */}
+        <ul className="sm:hidden mt-5 space-y-2">
+          {DEPOSITS.map((d) => (
+            <li key={d.boat} className="rounded-xl border bg-white p-4"
+              style={{ borderColor: "rgba(27,43,58,0.1)" }}>
+              <Link to={d.to} className="block font-semibold underline underline-offset-2"
+                style={{ color: "var(--lake)" }}>
+                {d.boat}
+              </Link>
+              <div className="mt-2 flex justify-between gap-3 text-sm">
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide text-gray-500">Standard</div>
+                  <div className="font-semibold" style={{ color: NAVY }}>{d.standard}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[11px] uppercase tracking-wide text-gray-500">Holiday / May</div>
+                  <div className="font-semibold" style={{ color: ORANGE }}>{d.holiday}</div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="hidden sm:block mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
           <div className="grid grid-cols-3 text-xs sm:text-sm font-semibold uppercase tracking-wide"
             style={{ backgroundColor: SAND, color: NAVY }}>
             <div className="px-3 sm:px-5 py-3">Rental</div>
