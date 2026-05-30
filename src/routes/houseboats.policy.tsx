@@ -605,20 +605,21 @@ function PolicyPage() {
             </h2>
             <p className="text-white/90">Our reservation team is happy to walk you through any detail.</p>
           </div>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center w-full md:w-auto">
             <a href={`tel:+1${PHONE.replace(/-/g, "")}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white font-semibold"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-6 py-3 rounded-lg bg-white font-semibold"
               style={{ color: NAVY }}>
               <Phone className="w-5 h-5" /> Call {PHONE}
             </a>
             <a href={`mailto:${EMAIL}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold border-2 border-white text-white">
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-6 py-3 rounded-lg font-semibold border-2 border-white text-white">
               <Mail className="w-5 h-5" /> {EMAIL}
             </a>
           </div>
         </div>
       </section>
 
+      <BackToTop />
     </div>
   );
 }
