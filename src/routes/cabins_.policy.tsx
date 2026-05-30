@@ -513,27 +513,27 @@ function PolicyPage() {
           <div className="absolute inset-0"
             style={{ background: "linear-gradient(to right, rgba(13,32,48,0.85), rgba(13,32,48,0.5) 60%, rgba(13,32,48,0.25))" }} />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-32">
+        <div className="relative max-w-7xl mx-auto px-6 py-12 sm:py-16 md:py-32">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide mb-5"
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide mb-4 sm:mb-5"
               style={{ backgroundColor: ORANGE, color: "white" }}>
               Cabins · Policy
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-tight text-white mb-5"
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-tight text-white mb-4 sm:mb-5"
               style={{ fontFamily: DISPLAY }}>
               Cabin <span style={{ color: "#FFB36B" }}>Rental Policy</span>
             </h1>
-            <p className="text-base md:text-xl text-white/90 mb-8">
+            <p className="text-base md:text-xl text-white/90 mb-6 sm:mb-8">
               Everything you need to know before your Silverthorn Resort cabin stay on Shasta Lake.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
               <a href={`tel:+1${PHONE.replace(/-/g, "")}`}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-semibold text-white transition-all hover:brightness-110"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-5 py-3 rounded-lg font-semibold text-white transition-all hover:brightness-110"
                 style={{ backgroundColor: ORANGE }}>
                 <Phone className="w-4 h-4" /> Call {PHONE}
               </a>
               <a href={`mailto:${EMAIL}`}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg font-semibold bg-white/95 hover:bg-white transition-all"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-5 py-3 rounded-lg font-semibold bg-white/95 hover:bg-white transition-all"
                 style={{ color: NAVY }}>
                 <Mail className="w-4 h-4" /> Email Us
               </a>
@@ -541,6 +541,8 @@ function PolicyPage() {
           </div>
         </div>
       </section>
+
+      <MobileToc sections={SECTIONS.map((s) => ({ id: s.id, title: s.title }))} />
 
       {/* Breadcrumb */}
       <div style={{ backgroundColor: SAND }} className="border-b">
