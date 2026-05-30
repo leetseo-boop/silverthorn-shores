@@ -91,7 +91,25 @@ const SECTIONS: Section[] = [
           We charge the booking deposit as a portion of the total cost of the reservation, and place a hold on a card
           for the damage deposit upon arrival.
         </p>
-        <div className="mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
+        <ul className="sm:hidden mt-5 space-y-2">
+          {DEPOSITS.map((d) => (
+            <li key={d.boat} className="rounded-xl border p-4 flex items-center justify-between gap-3"
+              style={{
+                borderColor: "rgba(27,43,58,0.1)",
+                backgroundColor: d.highlight ? `${ORANGE}10` : "white",
+              }}>
+              <Link to={d.to} className="font-semibold underline underline-offset-2"
+                style={{ color: "var(--lake)" }}>
+                {d.boat}
+              </Link>
+              <div className="text-right">
+                <div className="text-[11px] uppercase tracking-wide text-gray-500">Deposit</div>
+                <div className="font-bold" style={{ color: d.highlight ? ORANGE : NAVY }}>{d.amount}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="hidden sm:block mt-5 overflow-hidden rounded-xl border" style={{ borderColor: "rgba(27,43,58,0.12)" }}>
           <div className="grid grid-cols-2 text-xs sm:text-sm font-semibold uppercase tracking-wide"
             style={{ backgroundColor: SAND, color: NAVY }}>
             <div className="px-3 sm:px-5 py-3">Rental</div>
