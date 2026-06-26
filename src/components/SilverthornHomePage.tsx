@@ -279,12 +279,15 @@ export function Nav() {
 
         {/* Mobile hamburger */}
         <button
+          type="button"
           className="md:hidden ml-auto text-xl"
           style={{ color: "#1B2B3A" }}
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
+          aria-label={mobileOpen ? "Close main menu" : "Open main menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav-menu"
         >
-          {mobileOpen ? "✕" : "☰"}
+          <span aria-hidden="true">{mobileOpen ? "✕" : "☰"}</span>
         </button>
       </div>
 

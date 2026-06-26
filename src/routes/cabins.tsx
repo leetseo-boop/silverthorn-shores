@@ -213,7 +213,7 @@ const AMENITIES = [
 const SITE = "https://silver-shasta-dreams.lovable.app";
 const PAGE_URL = `${SITE}/cabins`;
 const OG_IMAGE = `${SITE}${cabin8Img}`;
-const PAGE_TITLE = "Shasta Lake Cabin Rentals | Silverthorn Resort Lakeside Cabins";
+const PAGE_TITLE = "Shasta Lake Cabin Rentals | Silverthorn Resort";
 const PAGE_DESC =
   "8 lakeside cabins on Shasta Lake sleeping 4–8. Full kitchens, BBQs, DirecTV, one boat slip per cabin. Bring your own boat or rent at the marina.";
 
