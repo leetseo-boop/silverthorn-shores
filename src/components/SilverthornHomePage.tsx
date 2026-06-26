@@ -294,6 +294,7 @@ export function Nav() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div
+          id="mobile-nav-menu"
           className="md:hidden border-t px-6 py-4 flex flex-col gap-1 max-h-[80vh] overflow-y-auto"
           style={{
             backgroundColor: "#ffffff",
