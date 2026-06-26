@@ -93,7 +93,7 @@ export const BOATS: BoatConfig[] = [
       { q: "What are the jet ski rental hours at Silverthorn Resort?", a: "Jet ski rentals run from morning until 30 minutes before marina close. Jet skis are not rented after 2:00 PM for same-day returns to ensure adequate ride time." },
       { q: "Can I ride a jet ski to other parts of Shasta Lake from Silverthorn?", a: "Absolutely! From Silverthorn Resort you can ride directly onto the Pit River Arm, reach the main body of Shasta Lake, and explore all three major arms. Shasta Lake has over 365 miles of shoreline to discover at speed." },
     ],
-    metaTitle: "Jet Ski Rental at Silverthorn Resort | SeaDoo GTX 130 | $548/Day Shasta Lake",
+    metaTitle: "Jet Ski Rental Shasta Lake | SeaDoo GTX 130",
     metaDescription: "Rent a SeaDoo GTX 130 jet ski at Silverthorn Resort on Shasta Lake. $548.63/day. Ride the Pit River Arm at speeds up to 60 mph. Book 2026!",
   },
   {
@@ -151,7 +151,7 @@ export const BOATS: BoatConfig[] = [
       { q: "What water sports can I do with the Axis T220-R?", a: "The Axis T220-R is designed for wakeboarding, wakesurfing, and tubing. Its integrated ballast system creates customizable wakes for every skill level. It also makes a fantastic cruising and swimming platform." },
       { q: "Where can I wakeboard from Silverthorn Resort?", a: "The Pit River Arm offers long, wide stretches of water perfect for wakeboarding. From Silverthorn you can quickly reach the main body of Shasta Lake for even more open water. The calm mornings provide glass-like conditions ideal for wake sports." },
     ],
-    metaTitle: "Axis T220-R Wakeboard Boat Rental | Silverthorn Resort Shasta Lake",
+    metaTitle: "Axis T220-R Wakeboard Rental | Shasta Lake",
     metaDescription: "Rent the premium Axis T220-R wakeboard boat at Silverthorn Resort on Shasta Lake. $1,243.55/day. Seats 8. Adjustable wakes for wakeboarding & wakesurfing. Book 2026!",
   },
   {
@@ -210,7 +210,7 @@ export const BOATS: BoatConfig[] = [
       { q: "Is the Centurion T-5 good for wakesurfing?", a: "Yes! The Centurion T-5 produces clean, surfable wakes when properly weighted. Our staff will help you set up the ballast for your preferred water sport during orientation." },
       { q: "Where should I wakeboard from Silverthorn Resort?", a: "The Pit River Arm offers wide, calm water ideal for wake sports, especially in the morning. From Silverthorn you can reach the main body quickly for even more open water." },
     ],
-    metaTitle: "Centurion T-5 Wakeboard Boat Rental | Silverthorn Resort Shasta Lake",
+    metaTitle: "Centurion T-5 Wakeboard Rental | Shasta Lake",
     metaDescription: "Rent the Centurion T-5 wakeboard boat at Silverthorn Resort on Shasta Lake. $637.45/day. Seats 8. Clean wakes for wakeboarding & wakesurfing. Book 2026!",
   },
   {
@@ -269,7 +269,7 @@ export const BOATS: BoatConfig[] = [
       { q: "What's the difference between the Tahoe Deck Boat and a pontoon?", a: "The Tahoe Deck Boat has a V-hull design, giving it better handling at speed and a sportier ride compared to flat-bottomed pontoons. It's the ideal middle ground between a ski boat and a cruising pontoon." },
       { q: "Where can I cruise from Silverthorn Resort?", a: "From Silverthorn you'll explore the Pit River Arm and have direct access to the main body of Shasta Lake. Cruise to hidden coves, swim beaches, and scenic viewpoints along the way." },
     ],
-    metaTitle: "Tahoe Deck Boat 150 Rental | Silverthorn Resort Shasta Lake",
+    metaTitle: "Tahoe Deck Boat 150 Rental | Shasta Lake",
     metaDescription: "Rent the versatile Tahoe Deck Boat 150 at Silverthorn Resort on Shasta Lake. $543.40/day. Seats 8 with open bow. Great for cruising, tubing & swimming. Book 2026!",
   },
   {
@@ -324,7 +324,7 @@ export const BOATS: BoatConfig[] = [
       { q: "Can I use the Patio Boat for fishing?", a: "While the Patio Boat isn't designed as a fishing boat, you can certainly fish from it with your own gear. The flat deck provides a stable casting platform. A valid California fishing license is required." },
       { q: "Where can I cruise from Silverthorn Resort?", a: "From Silverthorn you'll explore the Pit River Arm and have direct access to the main body of Shasta Lake. The Patio Boat's comfortable pace makes it perfect for all-day exploration of hidden coves and scenic viewpoints." },
     ],
-    metaTitle: "Patio Boat Rental | Silverthorn Resort Shasta Lake | $324/Day",
+    metaTitle: "Patio Boat Rental | Shasta Lake | $324/Day",
     metaDescription: "Rent a Patio Boat at Silverthorn Resort on Shasta Lake. Just $323.95/day. Seats 8 on a stable flat deck. Affordable family cruising on the Pit River Arm. Book 2026!",
   },
   {
@@ -381,7 +381,7 @@ export const BOATS: BoatConfig[] = [
       { q: "Is the Sun Tracker Pontoon easy to drive?", a: "Yes! Pontoon boats are among the easiest boats to operate. The flat deck, responsive steering, and low center of gravity make it comfortable for first-time boaters. Our staff provides a full orientation before you depart." },
       { q: "Can I bring food and drinks on the pontoon?", a: "Absolutely! The Sun Tracker has plenty of deck space for coolers, snacks, and everything you need for a full day on the water. Just pack out what you pack in." },
     ],
-    metaTitle: "Sun Tracker Pontoon Rental | Silverthorn Resort Shasta Lake | $439/Day",
+    metaTitle: "Sun Tracker Pontoon Rental | Shasta Lake",
     metaDescription: "Rent a Sun Tracker Pontoon at Silverthorn Resort on Shasta Lake. $438.90/day. Seats 10 with bimini shade. Spacious family pontoon on the Pit River Arm. Book 2026!",
   },
   {
@@ -436,7 +436,7 @@ export const BOATS: BoatConfig[] = [
       { q: "Can I bring my own music and food?", a: "Absolutely! The Party Cruiser has a built-in sound system with Bluetooth connectivity. Bring coolers, food, drinks, and your playlist for the ultimate lake party experience." },
       { q: "Where can I cruise on the Party Cruiser from Silverthorn?", a: "From Silverthorn Resort you'll cruise the Pit River Arm and have direct access to the main body of Shasta Lake. Find a scenic cove, anchor up, and enjoy your party with 365 miles of shoreline as your backdrop." },
     ],
-    metaTitle: "Party Cruiser I Rental | Silverthorn Resort Shasta Lake | 25 Guests",
+    metaTitle: "Party Cruiser I Rental | Shasta Lake (25 Guests)",
     metaDescription: "Rent the Party Cruiser I large pontoon at Silverthorn Resort on Shasta Lake. $830.78/day for up to 25 guests. Sound system, waterslide & shade. Book 2026!",
   },
   {
@@ -491,7 +491,7 @@ export const BOATS: BoatConfig[] = [
       { q: "Is fishing gear included?", a: "Fishing gear is not included with the boat rental. Bring your own rods, reels, tackle, and bait. Our marina store may have basic supplies available." },
       { q: "Where are the best fishing spots from Silverthorn?", a: "The Pit River Arm is one of Shasta Lake's top bass fishing areas. Target submerged points, rocky drop-offs, and creek channel intersections. Early morning and late afternoon are peak times." },
     ],
-    metaTitle: "Fishing Boat Rental | Silverthorn Resort Shasta Lake | $78/Day",
+    metaTitle: "Fishing Boat Rental | Shasta Lake | $78/Day",
     metaDescription: "Rent an aluminum fishing boat at Silverthorn Resort on Shasta Lake. Just $78.38/day. Bass fishing on the Pit River Arm. Seats 3–4 anglers. Book 2026!",
   },
   {
@@ -553,7 +553,7 @@ export const BOATS: BoatConfig[] = [
       { q: "Where can I kayak from Silverthorn Resort?", a: "From Silverthorn Resort you can paddle into the scenic Pit River Arm, explore hidden coves, glide along granite shorelines, and discover secluded beaches. Silverthorn also has direct access to the main body of the lake, with calm, protected waters ideal for kayaking." },
       SHARED_FAQ_LICENSE,
     ],
-    metaTitle: "Kayak Rental | Silverthorn Resort Shasta Lake | $78/Day",
+    metaTitle: "Kayak Rental | Shasta Lake | $78/Day",
     metaDescription: "Rent a kayak at Silverthorn Resort on Shasta Lake. $78.38/day. Paddle hidden coves on the Pit River Arm. Solo or tandem. Book your 2026 paddle adventure!",
   },
   {
@@ -607,7 +607,7 @@ export const BOATS: BoatConfig[] = [
       { q: "Where are the best SUP spots from Silverthorn Resort?", a: "From Silverthorn you can paddle into the scenic Pit River Arm, explore granite-lined coves, and discover secluded beaches. Silverthorn also has direct access to the main lake area. Early morning offers glass-like water conditions perfect for SUP fitness workouts." },
       SHARED_FAQ_LICENSE,
     ],
-    metaTitle: "Stand Up Paddle Board Rental | Silverthorn Resort Shasta Lake | $78/Day",
+    metaTitle: "Paddle Board (SUP) Rental | Shasta Lake | $78/Day",
     metaDescription: "Rent a stand up paddle board at Silverthorn Resort on Shasta Lake. $78.38/day. Explore the Pit River Arm and hidden coves. Book your 2026 SUP adventure!",
   },
 ];
