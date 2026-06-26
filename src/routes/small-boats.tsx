@@ -56,7 +56,7 @@ const faqs = [
   { q: "How do I get to Silverthorn Resort on Shasta Lake?", a: "Silverthorn Resort is at 16250 Silverthorn Rd, Redding, CA 96003. From I-5 northbound, take the Gilman Road exit and follow signs (~8 miles). Drive times: Redding ~15 min, Sacramento ~3 hrs, San Francisco ~4 hrs." },
 ];
 
-const TITLE = "Shasta Lake Boat Rentals | Pontoons, Jet Skis & Wakeboard Boats";
+const TITLE = "Shasta Lake Boat Rentals | Pontoons & Wakeboards";
 const DESC = "Daily rentals on Shasta Lake — pontoons, jet skis, wakeboard & deck boats, fishing boats, kayaks & SUPs from $78/day at Silverthorn Resort marina.";
 
 const ldGraph = {

@@ -19,10 +19,11 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 import { Button } from "@/components/ui/button";
 
 const path = "/contact";
-const title = "Contact Silverthorn Resort | Shasta Lake Houseboat Rentals";
+const SITE = "https://silver-shasta-dreams.lovable.app";
+const title = "Contact Silverthorn Resort | Shasta Lake Marina";
 const description =
   "Get in touch with Silverthorn Resort on Shasta Lake. Call 800-332-3044, email reservations, find directions, and reach our marina team.";
-const ogImage = "/src/assets/home-hero-marina.webp";
+const ogImage = `${SITE}/images/home-hero-marina.webp`;
 
 const LOCAL_BUSINESS_JSONLD = {
   "@context": "https://schema.org",
@@ -62,7 +63,7 @@ const LOCAL_BUSINESS_JSONLD = {
     "https://www.youtube.com/@houseboatslakeshasta",
     "https://www.tiktok.com/@houseboats.com",
   ],
-  url: path,
+  url: `${SITE}${path}`,
   image: ogImage,
 };
 
@@ -74,12 +75,12 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: path },
+      { property: "og:url", content: `${SITE}${path}` },
       { property: "og:image", content: ogImage },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: ogImage },
     ],
-    links: [{ rel: "canonical", href: path }],
+    links: [{ rel: "canonical", href: `${SITE}${path}` }],
     scripts: [
       {
         type: "application/ld+json",

@@ -4,7 +4,7 @@ import heroMarina from "@/assets/home-hero-marina.webp";
 
 const SITE = "https://silver-shasta-dreams.lovable.app";
 const URL = `${SITE}/`;
-const TITLE = "Silverthorn Resort — Shasta Lake Houseboat Rentals, Cabins & Marina";
+const TITLE = "Silverthorn Resort — Shasta Lake Houseboats & Cabins";
 const DESCRIPTION =
   "Family-run Shasta Lake resort on the Pit River Arm. Premium houseboat rentals, lakeside cabins, jet skis, wakeboard & patio boats. Booking 2026 now.";
 const OG_IMAGE = `${SITE}${heroMarina}`;
