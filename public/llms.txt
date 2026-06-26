@@ -1,20 +1,3 @@
-# Silverthorn Resort
-
-> Family-run Shasta Lake resort and marina on the Pit River Arm. We rent premium houseboats, lakeside cabins, jet skis, wakeboard boats, pontoons, fishing boats, kayaks, and SUPs. On Shasta Lake since 1986.
-
-## Pages
-
-- [Home](/): Overview of Silverthorn Resort, houseboats, cabins, and marina.
-- [Houseboats](/houseboats): Houseboat fleet — Queen, Queen I, Queen II, Senator.
-- [Houseboat Policy](/houseboats/policy): Deposits, permits, age requirements, and rental terms.
-- [Cabins](/cabins): Lakeside cabin rentals, sleeps 4–10.
-- [Cabin Policy](/cabins/policy): Deposits, check-in, and cabin rental terms.
-- [Small Boats & Rentals](/small-boats): Pontoons, jet skis, wakeboard boats, fishing boats, kayaks, SUPs.
-- [Pro Shop](/pro-shop): Marina market, apparel, snacks, fuel dock and supplies.
-- [Shasta Lake](/shasta-lake): About Shasta Lake — facts, fish species, activities.
-- [Explore Shasta Lake](/exploring-shasta-lake): Sacramento, McCloud, Squaw, and Pit Arms.
-- [Planning Your Vacation](/planning): Trip planning, attractions, local numbers.
-- [Our History](/about/history): Silverthorn Resort history since 1986.
-- [Contact](/contact): Phone, email, hours, and address.
-- [Directions](/directions): Driving directions to the marina.
-- [FAQ](/faq): Frequently asked questions about rentals and the lake.
+# Site under construction — not available for indexing or AI training yet.
+User-agent: *
+Disallow: /
