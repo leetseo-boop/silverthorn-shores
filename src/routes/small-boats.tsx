@@ -12,7 +12,7 @@ const ORANGE = "#E8640A";
 const SAND = "#F4EFE6";
 const DISPLAY = "'Playfair Display', Georgia, serif";
 const BOOKING_URL = "https://rentals.silverthornresort.com";
-const HERO = "/images/small-boats/hero.jpg";
+const HERO = "/images/small-boats/hero.webp";
 const SITE = "https://silver-shasta-dreams.lovable.app";
 const PATH = `${SITE}/small-boats`;
 const HERO_ABS = `${SITE}${HERO}`;
@@ -23,10 +23,10 @@ const fleet = [
   { id: "centurion-t5", name: "Centurion T-5 Wakeboard Boat", price: 637.45, capacity: "8", use: "Wakeboarding & water sports", img: "/images/small-boats/centurion-t5.webp", alt: "Centurion T-5 wakeboard boat rental at Silverthorn Resort, Shasta Lake" },
   { id: "tahoe-deck", name: "Tahoe Deck Boat 150", price: 543.40, capacity: "8", use: "Family cruising & swimming", img: "/images/small-boats/tahoe-deck.webp", alt: "Tahoe 150 deck boat rental at Silverthorn Resort, Shasta Lake" },
   { id: "patio-boat", name: "Patio Boat", price: 323.95, capacity: "8", use: "Relaxed cove cruising", img: "/images/small-boats/patio-boat.webp", alt: "Patio boat rental at Silverthorn Resort, Shasta Lake" },
-  { id: "sun-tracker", name: "Sun Tracker Pontoon", price: 438.90, capacity: "10", use: "Family pontoon cruising", img: "/images/small-boats/sun-tracker.jpg", alt: "Sun Tracker pontoon boat rental at Silverthorn Resort, Shasta Lake" },
+  { id: "sun-tracker", name: "Sun Tracker Pontoon", price: 438.90, capacity: "10", use: "Family pontoon cruising", img: "/images/small-boats/sun-tracker.webp", alt: "Sun Tracker pontoon boat rental at Silverthorn Resort, Shasta Lake" },
   { id: "party-cruiser-i", name: "Party Cruiser I", price: 830.78, capacity: "12+", use: "Group parties & celebrations", img: "/images/small-boats/party-cruiser-i.webp", alt: "Party Cruiser I large pontoon rental at Silverthorn Resort, Shasta Lake" },
   { id: "fishing-boat", name: "Fishing Boat", price: 78.38, capacity: "3–4", use: "Bass fishing on Pit River Arm", img: "/images/small-boats/fishing-boat.webp", alt: "Aluminum fishing boat rental at Silverthorn Resort, Shasta Lake" },
-  { id: "kayak", name: "Kayak", price: 78.38, capacity: "1–2", use: "Solo paddling & cove exploration", img: "/images/small-boats/kayak.jpg", alt: "Kayak rental at Silverthorn Resort on Shasta Lake" },
+  { id: "kayak", name: "Kayak", price: 78.38, capacity: "1–2", use: "Solo paddling & cove exploration", img: "/images/small-boats/kayak.webp", alt: "Kayak rental at Silverthorn Resort on Shasta Lake" },
   { id: "sup", name: "Stand Up Paddle Board", price: 78.38, capacity: "1", use: "Fitness & calm-water fun", img: "/images/small-boats/sup.webp", alt: "Stand-up paddle board rental at Silverthorn Resort, Shasta Lake" },
 ];
 

@@ -16,15 +16,15 @@ import {
   Calendar,
   Sparkles,
 } from "lucide-react";
-import resortMap from "@/assets/silverthorn-resort-map.png";
-import cabin1Img from "@/assets/cabin-1.jpg";
-import cabin2Img from "@/assets/cabin-2.jpg";
-import cabin3Img from "@/assets/cabin-3.jpg";
-import cabin4Img from "@/assets/cabin-4.jpg";
-import cabin5Img from "@/assets/cabin-5.jpg";
-import cabin6Img from "@/assets/cabin-6.jpg";
-import cabin7Img from "@/assets/cabin-7.jpg";
-import cabin8Img from "@/assets/cabin-8.jpg";
+import resortMap from "@/assets/silverthorn-resort-map.webp";
+import cabin1Img from "@/assets/cabin-1.webp";
+import cabin2Img from "@/assets/cabin-2.webp";
+import cabin3Img from "@/assets/cabin-3.webp";
+import cabin4Img from "@/assets/cabin-4.webp";
+import cabin5Img from "@/assets/cabin-5.webp";
+import cabin6Img from "@/assets/cabin-6.webp";
+import cabin7Img from "@/assets/cabin-7.webp";
+import cabin8Img from "@/assets/cabin-8.webp";
 
 const BOOKING_ALL = "https://rentals.silverthornresort.com/category/15";
 const PHONE = "800-332-3044";

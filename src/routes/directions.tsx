@@ -5,7 +5,7 @@ const path = "/directions";
 const title = "Directions to Silverthorn Resort | Shasta Lake, Redding CA";
 const description =
   "How to get to Silverthorn Resort on Shasta Lake's Pit River Arm. Address, embedded map, drive times from Redding, Sacramento, and the Bay Area, plus turn-by-turn directions.";
-const ogImage = "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg";
+const ogImage = "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.webp";
 
 export const Route = createFileRoute("/directions")({
   head: () => ({

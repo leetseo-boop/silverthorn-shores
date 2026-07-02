@@ -49,10 +49,10 @@ export const BOATS: BoatConfig[] = [
     weeklyPrice: 3840.38,
     deposit: 500,
     tagline: "Tear across Shasta Lake at speeds up to 60 mph from Silverthorn's private marina.",
-    hero: "/images/silverthorn/jetski-hero-silverthorn.png",
+    hero: "/images/silverthorn/jetski-hero-silverthorn.webp",
     heroAlt: "Two riders on a SeaDoo GTX 130 jet ski speeding across Shasta Lake with forested mountains in the background",
     gallery: [
-      { src: "/images/silverthorn/jetski-gallery/seadoo-gtx-130-tandem-riders-shasta-lake.png", alt: "Two riders on a SeaDoo GTX 130 jet ski speeding across Shasta Lake with forested mountains behind them" },
+      { src: "/images/silverthorn/jetski-gallery/seadoo-gtx-130-tandem-riders-shasta-lake.webp", alt: "Two riders on a SeaDoo GTX 130 jet ski speeding across Shasta Lake with forested mountains behind them" },
       { src: "/images/silverthorn/jetski-gallery/seadoo-jetski-spray-action-shasta-lake.webp", alt: "SeaDoo jet ski throwing a massive rooster tail spray on Shasta Lake near Silverthorn Resort" },
       { src: "/images/silverthorn/jetski-gallery/seadoo-jetski-aerial-drone-shasta-lake.webp", alt: "Aerial drone view of a jet ski carving wake patterns on the calm waters of Shasta Lake" },
       { src: "/images/silverthorn/jetski-gallery/seadoo-jetski-sunset-wake-pit-river-bridge.webp", alt: "Jet ski rider silhouetted against sunset with Pit River Bridge visible in the background on Shasta Lake" },
@@ -108,7 +108,7 @@ export const BOATS: BoatConfig[] = [
     weeklyPrice: 7461.30,
     deposit: 1000,
     tagline: "Silverthorn's premium wakeboarding experience — perfect wakes on the Pit River Arm.",
-    hero: "/images/silverthorn/axis-t220r-hero-silverthorn-riders.png",
+    hero: "/images/silverthorn/axis-t220r-hero-silverthorn-riders.webp",
     heroAlt: "Axis T220-R wakeboard boat with riders on Shasta Lake at Silverthorn Resort",
     gallery: [
       { src: "/images/silverthorn/axis-t220r-gallery/axis-t220r-cruising-bow-view-shasta-lake.webp", alt: "Axis T220-R wakeboard boat cruising with bow view on Shasta Lake near Silverthorn Resort" },
@@ -166,16 +166,16 @@ export const BOATS: BoatConfig[] = [
     weeklyPrice: 3824.70,
     deposit: 500,
     tagline: "Mid-range wakeboarding muscle — clean wakes at half the price of a flagship boat.",
-    hero: "/images/silverthorn/centurion-t5-wakeboard-silverthorn-hero.png",
+    hero: "/images/silverthorn/centurion-t5-wakeboard-silverthorn-hero.webp",
     heroAlt: "Centurion T-5 wakeboard boat cruising on Shasta Lake at Silverthorn Resort",
     gallery: [
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-riders-aerial-shasta-lake.png", alt: "Centurion T-5 wakeboard boat with riders cruising on Shasta Lake near Silverthorn Resort" },
+      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-riders-aerial-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat with riders cruising on Shasta Lake near Silverthorn Resort" },
       { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-side-profile-open-water-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat side profile at full speed on open water at Shasta Lake" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-stern-swim-platform-docked-shasta-lake.jpg", alt: "Centurion T-5 stern swim platform and seating while docked at Silverthorn Resort on Shasta Lake" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-overhead-bow-docked-shasta-lake.jpg", alt: "Centurion T-5 wakeboard boat overhead bow view docked at Silverthorn Resort marina" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-top-down-bimini-cover-shasta-lake.jpg", alt: "Centurion T-5 top-down aerial view with bimini cover at Silverthorn Resort on Shasta Lake" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cockpit-interior-helm-shasta-lake.jpg", alt: "Centurion T-5 cockpit interior and helm station at Silverthorn Resort on Shasta Lake" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cockpit-seating-marina-shasta-lake.jpg", alt: "Centurion T-5 cockpit seating layout at Silverthorn Resort marina on Shasta Lake" },
+      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-stern-swim-platform-docked-shasta-lake.webp", alt: "Centurion T-5 stern swim platform and seating while docked at Silverthorn Resort on Shasta Lake" },
+      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-overhead-bow-docked-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat overhead bow view docked at Silverthorn Resort marina" },
+      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-top-down-bimini-cover-shasta-lake.webp", alt: "Centurion T-5 top-down aerial view with bimini cover at Silverthorn Resort on Shasta Lake" },
+      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cockpit-interior-helm-shasta-lake.webp", alt: "Centurion T-5 cockpit interior and helm station at Silverthorn Resort on Shasta Lake" },
+      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cockpit-seating-marina-shasta-lake.webp", alt: "Centurion T-5 cockpit seating layout at Silverthorn Resort marina on Shasta Lake" },
       { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cruising-mountain-backdrop-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat cruising with mountain backdrop on Shasta Lake" },
     ],
     intro: [
@@ -225,7 +225,7 @@ export const BOATS: BoatConfig[] = [
     weeklyPrice: 3260.40,
     deposit: 500,
     tagline: "The versatile family boat — open-bow cruiser that handles like a sport boat.",
-    hero: "/images/silverthorn/tahoe-deck-boat-silverthorn-hero.png",
+    hero: "/images/silverthorn/tahoe-deck-boat-silverthorn-hero.webp",
     heroAlt: "Tahoe Deck Boat 150 on Shasta Lake at Silverthorn Resort",
     gallery: [
       { src: "/images/silverthorn/tahoe-deck-boat-gallery/tahoe-deck-boat-cruising-speed-shasta-lake.webp", alt: "Tahoe Deck Boat 150 at full speed cruising on Shasta Lake with forested hills" },
@@ -339,7 +339,7 @@ export const BOATS: BoatConfig[] = [
     weeklyPrice: 2633.40,
     deposit: 200,
     tagline: "Roomy 10-passenger pontoon with bimini shade — Silverthorn's most popular day boat.",
-    hero: "/images/silverthorn/sun-tracker-pontoon-silverthorn-hero.jpg",
+    hero: "/images/silverthorn/sun-tracker-pontoon-silverthorn-hero.webp",
     heroAlt: "Sun Tracker Pontoon boat on Shasta Lake at Silverthorn Resort",
     gallery: [
       { src: "/images/silverthorn/sun-tracker-gallery/sun-tracker-pontoons-docked-silverthorn-marina-shasta-lake.webp", alt: "Sun Tracker Pontoons docked at Silverthorn Resort marina with houseboats and Shasta Lake mountains" },
@@ -454,9 +454,9 @@ export const BOATS: BoatConfig[] = [
     hero: "/images/silverthorn/fishing-boat-silverthorn-hero.webp",
     heroAlt: "Aluminum fishing boat on Shasta Lake at Silverthorn Resort",
     gallery: [
-      { src: "/images/silverthorn/fishing-boat-silverthorn-angler-sunset.png", alt: "Angler fishing from a Silverthorn Resort boat on Shasta Lake at golden hour" },
+      { src: "/images/silverthorn/fishing-boat-silverthorn-angler-sunset.webp", alt: "Angler fishing from a Silverthorn Resort boat on Shasta Lake at golden hour" },
       { src: "/images/silverthorn/fishing-boat-silverthorn-two-anglers.webp", alt: "Two anglers fishing from a Silverthorn Resort aluminum boat on Shasta Lake" },
-      { src: "/images/silverthorn/fishing-boat-silverthorn-two-men-shasta-lake.jpg", alt: "Two men fishing from a Silverthorn Resort boat on Shasta Lake with forested hills" },
+      { src: "/images/silverthorn/fishing-boat-silverthorn-two-men-shasta-lake.webp", alt: "Two men fishing from a Silverthorn Resort boat on Shasta Lake with forested hills" },
     ],
     intro: [
       "Silverthorn's aluminum fishing boats are the most affordable motorized way onto Shasta Lake — perfect for chasing bass on the Pit River Arm.",
@@ -572,7 +572,7 @@ export const BOATS: BoatConfig[] = [
     heroAlt: "Stand-up paddle boarder on Shasta Lake at Silverthorn Resort",
     gallery: [
       { src: "/images/silverthorn/sup-paddleboard-houseboat-shasta-lake.webp", alt: "Two women stand up paddle boarding near a houseboat on Shasta Lake with pine trees and sunlight" },
-      { src: "/images/silverthorn/sup-family-paddleboard-shasta-lake-cove.jpg", alt: "Family stand up paddle boarding in a calm cove on Shasta Lake near Silverthorn Resort" },
+      { src: "/images/silverthorn/sup-family-paddleboard-shasta-lake-cove.webp", alt: "Family stand up paddle boarding in a calm cove on Shasta Lake near Silverthorn Resort" },
     ],
     intro: [
       "Stand-up paddle boards are Silverthorn's most peaceful way onto the water — a great workout and a great excuse to slow down and notice the lake.",

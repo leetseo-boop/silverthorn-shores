@@ -28,7 +28,7 @@ import {
   ClipboardCheck,
   Calendar,
 } from "lucide-react";
-import heroImg from "@/assets/rental-policy-hero.jpg";
+import heroImg from "@/assets/rental-policy-hero.webp";
 import { MobileToc, BackToTop } from "@/components/PolicyMobileHelpers";
 
 const NAVY = "#1B2B3A";

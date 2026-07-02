@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 
 const HERO_IMG =
-  "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg";
+  "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.webp";
 const BOOK_URL = "https://rentals.silverthornresort.com/";
 const PHONE = "1-800-332-3044";
 const MAPS_URL = "https://maps.app.goo.gl/acS8aohrh1m4xFz8A";

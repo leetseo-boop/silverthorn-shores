@@ -4,7 +4,7 @@ import { houseboats } from "@/data/houseboats";
 
 const SITE = "https://silver-shasta-dreams.lovable.app";
 const path = `${SITE}/houseboats`;
-const ogImage = `${SITE}/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.jpg`;
+const ogImage = `${SITE}/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.webp`;
 const title = "Shasta Lake Houseboat Rentals | Silverthorn Resort Fleet";
 const description = "Rent the Queen, Queen I, Queen II or Senator houseboat on Shasta Lake. Hot tubs, waterslides, sleeps up to 20. Pit River Arm marina — book 2026.";
 

@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Users, Briefcase, GraduationCap, Church, ArrowRight } from "lucide-react";
-import heroDam from "@/assets/shasta-lake/shasta-dam-mount-shasta-hero.jpg";
+import heroDam from "@/assets/shasta-lake/shasta-dam-mount-shasta-hero.webp";
 import aerial from "@/assets/shasta-lake/shasta-lake-aerial-pit-river-arm.webp";
-import fishing from "@/assets/shasta-lake/shasta-lake-fishing-boat-shoreline.jpg";
-import dog from "@/assets/shasta-lake/shasta-lake-houseboat-dog.jpg";
-import jumping from "@/assets/shasta-lake/silverthorn-houseboat-jumping-shasta-lake.jpg";
-import couple from "@/assets/shasta-lake/couple-sundeck-houseboat-shasta-lake.png";
+import fishing from "@/assets/shasta-lake/shasta-lake-fishing-boat-shoreline.webp";
+import dog from "@/assets/shasta-lake/shasta-lake-houseboat-dog.webp";
+import jumping from "@/assets/shasta-lake/silverthorn-houseboat-jumping-shasta-lake.webp";
+import couple from "@/assets/shasta-lake/couple-sundeck-houseboat-shasta-lake.webp";
 import marina from "@/assets/shasta-lake/silverthorn-resort-marina-shasta-lake-2026.webp";
 
 const facts: [string, string][] = [

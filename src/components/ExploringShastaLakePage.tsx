@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Mountain, Fish, Tent, Waves, MapPin, ArrowRight } from "lucide-react";
-import heroSunset from "@/assets/exploring-shasta-lake/shasta-lake-sunset-hero.jpg";
-import rainbowMarina from "@/assets/exploring-shasta-lake/shasta-lake-rainbow-marina.jpg";
-import boating from "@/assets/exploring-shasta-lake/shasta-lake-boating-houseboats.jpg";
+import heroSunset from "@/assets/exploring-shasta-lake/shasta-lake-sunset-hero.webp";
+import rainbowMarina from "@/assets/exploring-shasta-lake/shasta-lake-rainbow-marina.webp";
+import boating from "@/assets/exploring-shasta-lake/shasta-lake-boating-houseboats.webp";
 import campingMap from "@/assets/exploring-shasta-lake/shasta-lake-camping-map.png";
 import kennett from "@/assets/exploring-shasta-lake/kennett-historic-town-1900s.webp";
 import baird from "@/assets/exploring-shasta-lake/baird-fish-hatchery-historic.webp";

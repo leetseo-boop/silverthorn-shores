@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ExploringShastaLakePage } from "@/components/ExploringShastaLakePage";
-import heroSunset from "@/assets/exploring-shasta-lake/shasta-lake-sunset-hero.jpg";
+import heroSunset from "@/assets/exploring-shasta-lake/shasta-lake-sunset-hero.webp";
 
 const SITE = "https://silver-shasta-dreams.lovable.app";
 const url = `${SITE}/exploring-shasta-lake`;
