@@ -17,13 +17,14 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 import { Button } from "@/components/ui/button";
+import heroMarina from "@/assets/home-hero-marina.webp";
 
 const path = "/contact";
 const SITE = "https://silver-shasta-dreams.lovable.app";
 const title = "Contact Silverthorn Resort | Shasta Lake Marina";
 const description =
   "Get in touch with Silverthorn Resort on Shasta Lake. Call 800-332-3044, email reservations, find directions, and reach our marina team.";
-const ogImage = `${SITE}/images/home-hero-marina.webp`;
+const ogImage = `${SITE}${heroMarina}`;
 
 const LOCAL_BUSINESS_JSONLD = {
   "@context": "https://schema.org",
