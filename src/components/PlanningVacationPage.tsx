@@ -21,17 +21,17 @@ import {
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-import hero from "@/assets/planning/planning-family-packing-hero.jpg";
-import welcomeSign from "@/assets/planning/silverthorn-resort-welcome-sign.jpg";
-import marinaMarket from "@/assets/planning/silverthorn-marina-market-interior.jpg";
-import caverns from "@/assets/planning/lake-shasta-caverns-stalactites.png";
-import fishing from "@/assets/planning/houseboat-fishing-shasta-lake.jpg";
-import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.jpg";
+import hero from "@/assets/planning/planning-family-packing-hero.webp";
+import welcomeSign from "@/assets/planning/silverthorn-resort-welcome-sign.webp";
+import marinaMarket from "@/assets/planning/silverthorn-marina-market-interior.webp";
+import caverns from "@/assets/planning/lake-shasta-caverns-stalactites.webp";
+import fishing from "@/assets/planning/houseboat-fishing-shasta-lake.webp";
+import sundial from "@/assets/planning/sundial-bridge-redding-mount-shasta.webp";
 import waterworks from "@/assets/planning/waterworks-park-redding.webp";
-import dam from "@/assets/planning/shasta-dam-three-shastas.jpg";
+import dam from "@/assets/planning/shasta-dam-three-shastas.webp";
 import falls from "@/assets/planning/potem-falls-waterfall-pool.webp";
-import suntracker from "@/assets/planning/suntracker-pontoon-shasta-lake.jpg";
-import baldEagle from "@/assets/planning/bald-eagle-catching-fish-shasta-lake.jpg";
+import suntracker from "@/assets/planning/suntracker-pontoon-shasta-lake.webp";
+import baldEagle from "@/assets/planning/bald-eagle-catching-fish-shasta-lake.webp";
 
 type Boat = { icon: typeof Anchor; name: string; desc: string };
 const BOATS: Boat[] = [
@@ -253,12 +253,13 @@ export function PlanningVacationPage() {
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {["Reef", "Cielo Rosso", "Von Zipper", "Bait &amp; Tackle", "Ice &amp; Beer", "Fresh Pizza"].map((tag) => (
+              {["Reef", "Cielo Rosso", "Von Zipper", "Bait & Tackle", "Ice & Beer", "Fresh Pizza"].map((tag) => (
                 <span
                   key={tag}
                   className="rounded-full bg-white px-3 py-1 text-xs font-medium text-[var(--navy)] border border-border"
-                  dangerouslySetInnerHTML={{ __html: tag }}
-                />
+                >
+                  {tag}
+                </span>
               ))}
             </div>
           </div>

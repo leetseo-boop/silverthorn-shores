@@ -8,7 +8,7 @@
  *   fontFamily: { display: ['Playfair Display', 'Georgia', 'serif'], body: ['DM Sans', 'system-ui', 'sans-serif'] }
  */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -370,6 +370,19 @@ export function Nav() {
 }
 
 function Hero() {
+  // The static hero image renders immediately; the heavy YouTube embed is
+  // mounted only after the page has finished loading so it can't delay LCP.
+  const [showVideo, setShowVideo] = useState(false);
+  useEffect(() => {
+    const mount = () => setShowVideo(true);
+    if (document.readyState === "complete") {
+      mount();
+      return;
+    }
+    window.addEventListener("load", mount, { once: true });
+    return () => window.removeEventListener("load", mount);
+  }, []);
+
   return (
     <section
       className="relative flex flex-col items-center justify-center text-center px-5 sm:px-6 py-20 sm:py-24 md:py-32 overflow-hidden"
@@ -381,7 +394,8 @@ function Hero() {
         backgroundPosition: "center",
       }}
     >
-      {/* YouTube video background */}
+      {/* YouTube video background (deferred until window load) */}
+      {showVideo && (
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <iframe
           src="https://www.youtube.com/embed/ISEDmsezjSM?autoplay=1&mute=1&loop=1&playlist=ISEDmsezjSM&controls=0&modestbranding=1&playsinline=1&rel=0&showinfo=0&iv_load_policy=3"
@@ -398,6 +412,7 @@ function Hero() {
           }}
         />
       </div>
+      )}
 
       {/* Subtle dark gradient for text legibility only */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
@@ -726,7 +741,7 @@ function AboutSection() {
           style={{ backgroundColor: "#0D3A52", minHeight: "300px" }}
         >
           <img
-            src="/images/shasta-lake-about.jpg"
+            src="/images/shasta-lake-about.webp"
             alt="Shasta Lake aerial view with mountains"
             loading="lazy"
             decoding="async"
