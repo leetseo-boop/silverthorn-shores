@@ -1,31 +1,19 @@
-## Plan
+## Add 4 PDFs to Guest Info page
 
-### 1. Fix duplicate header on `/guest-info`
-The `GuestInfoPage` in `src/routes/guest-info.tsx` imports and renders its own `<Nav />` and `<Footer />`. However, `src/routes/__root.tsx` already renders `<Nav />` and `<Footer />` around every non-admin route. This causes the two stacked headers seen in the screenshot.
+Upload the 4 uploaded PDFs as CDN assets and add them to the `docs` array in `src/routes/guest-info.tsx`, placed at the top of the list in this exact order (respecting original filenames as titles):
 
-- Remove the `<Nav />` and `<Footer />` imports from `src/routes/guest-info.tsx`.
-- Remove the `<Nav />` call at the top of the page JSX and the `<Footer />` call at the bottom.
-- The root layout will continue to provide the single shared header and footer.
+1. **SVR HB Rental Contract** — `SVR-HB-Rental-Contract.pdf` — icon: `FileSignature`
+2. **Silverthorn Small Boat Contract** — `Silverthorn-Small-Boat-Contract.pdf` — icon: `ScrollText`
+3. **Houseboat guest check-in process PDF** — `Houseboat-guest-check-in-process-PDF.pdf` — icon: `ClipboardCheck`
+4. **Suggested SVR** — `Suggested-SVR.pdf` — icon: `Lightbulb`
 
-### 2. Remove "Guest Info" from the Houseboats submenu
-In `src/components/SilverthornHomePage.tsx`, the `NAV_LINKS` array has "Guest Info" duplicated:
-- Inside the `Houseboats` submenu (`children` array).
-- As a standalone top-level item.
+Followed by the existing 3 docs, each keeping its current unique icon (`Ship`, `HomeIcon`, `Anchor`). Total 7 cards, no icon repeats.
 
-Per your answer, keep the standalone top-level link and remove only the `Houseboats` submenu entry:
+### Technical details
 
-```ts
-{ label: "Guest Info", href: "/guest-info" }, // remove this line only
-```
-
-The top-level link will remain:
-
-```ts
-{ label: "Guest Info", href: "/guest-info" },
-{ label: "FAQ", href: "/faq" },
-```
-
-### 3. Verification
-- Run a build to confirm no import/type errors after removing `Nav`/`Footer` from `guest-info.tsx`.
-- Preview `/guest-info` to confirm only one header is visible and the page still renders correctly.
-- Confirm the Houseboats dropdown no longer shows "Guest Info" while the top-level nav still does.
+- Run `lovable-assets create --file /mnt/user-uploads/<name>.pdf --filename <name>.pdf > src/assets/guest-info/<slug>.pdf.asset.json` for each of the 4 new PDFs.
+- Import the 4 new `.asset.json` pointers at the top of `src/routes/guest-info.tsx`.
+- Prepend 4 new entries to the `docs` array in the order above; keep the same `Doc` shape and same card block markup — no visual/style changes.
+- Add `FileSignature`, `ScrollText`, `ClipboardCheck`, `Lightbulb` to the `lucide-react` import.
+- Grid stays `md:grid-cols-3` — 7 cards will wrap naturally (3+3+1).
+- JSON-LD `hasPart` auto-includes new docs since it maps over `docs`.

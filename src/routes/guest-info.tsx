@@ -1,8 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Ship, Home as HomeIcon, Anchor, FileText, Download, ExternalLink, Phone, Mail, MapPin } from "lucide-react";
+import { Ship, Home as HomeIcon, Anchor, FileText, Download, ExternalLink, Phone, Mail, MapPin, FileSignature, ScrollText, ClipboardCheck, Lightbulb } from "lucide-react";
 import houseboatPdf from "@/assets/guest-info/houseboat.pdf.asset.json";
 import cabinPdf from "@/assets/guest-info/cabin.pdf.asset.json";
 import smallBoatsPdf from "@/assets/guest-info/small-boats.pdf.asset.json";
+import hbRentalContractPdf from "@/assets/guest-info/hb-rental-contract.pdf.asset.json";
+import smallBoatContractPdf from "@/assets/guest-info/small-boat-contract.pdf.asset.json";
+import houseboatCheckinPdf from "@/assets/guest-info/houseboat-checkin.pdf.asset.json";
+import suggestedSvrPdf from "@/assets/guest-info/suggested-svr.pdf.asset.json";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -13,7 +17,7 @@ const SITE = "https://silver-shasta-dreams.lovable.app";
 const URL = `${SITE}/guest-info`;
 const TITLE = "Guest Information & Cleaning Lists | Silverthorn";
 const DESCRIPTION =
-  "Download guest information and cleaning checklists for houseboats, cabins, and small boat rentals at Silverthorn Resort on Shasta Lake.";
+  "Download guest information, rental contracts, and cleaning checklists for houseboats, cabins, and small boat rentals at Silverthorn Resort on Shasta Lake.";
 
 type Doc = {
   key: string;
@@ -26,6 +30,42 @@ type Doc = {
 };
 
 const docs: Doc[] = [
+  {
+    key: "hb-rental-contract",
+    title: "SVR HB Rental Contract",
+    desc: "Official Silverthorn Resort houseboat rental contract — please review before your arrival.",
+    icon: FileSignature,
+    url: hbRentalContractPdf.url,
+    filename: "SVR-HB-Rental-Contract.pdf",
+    sizeKB: Math.round(hbRentalContractPdf.size / 1024),
+  },
+  {
+    key: "small-boat-contract",
+    title: "Silverthorn Small Boat Contract",
+    desc: "Rental contract for jet skis, wakeboard boats, pontoons, and other small boat rentals.",
+    icon: ScrollText,
+    url: smallBoatContractPdf.url,
+    filename: "Silverthorn-Small-Boat-Contract.pdf",
+    sizeKB: Math.round(smallBoatContractPdf.size / 1024),
+  },
+  {
+    key: "houseboat-checkin",
+    title: "Houseboat guest check-in process PDF",
+    desc: "Step-by-step guide to the houseboat check-in process so you can hit the water quickly and confidently.",
+    icon: ClipboardCheck,
+    url: houseboatCheckinPdf.url,
+    filename: "Houseboat-guest-check-in-process.pdf",
+    sizeKB: Math.round(houseboatCheckinPdf.size / 1024),
+  },
+  {
+    key: "suggested-svr",
+    title: "Suggested SVR",
+    desc: "Silverthorn Resort's suggested packing and preparation list for a smooth Shasta Lake vacation.",
+    icon: Lightbulb,
+    url: suggestedSvrPdf.url,
+    filename: "Suggested-SVR.pdf",
+    sizeKB: Math.round(suggestedSvrPdf.size / 1024),
+  },
   {
     key: "houseboat",
     title: "Houseboat Guest Info & Cleaning List",
@@ -54,6 +94,7 @@ const docs: Doc[] = [
     sizeKB: Math.round(smallBoatsPdf.size / 1024),
   },
 ];
+
 
 const ldGraph = {
   "@context": "https://schema.org",
