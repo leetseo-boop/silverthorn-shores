@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Nav, Footer } from "@/components/SilverthornHomePage";
 import { Ship, Home as HomeIcon, Anchor, FileText, Download, ExternalLink, Phone, Mail, MapPin } from "lucide-react";
 import houseboatPdf from "@/assets/guest-info/houseboat.pdf.asset.json";
 import cabinPdf from "@/assets/guest-info/cabin.pdf.asset.json";
@@ -106,8 +105,6 @@ export const Route = createFileRoute("/guest-info")({
 function GuestInfoPage() {
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
-      <Nav />
-
       {/* Breadcrumb */}
       <div style={{ backgroundColor: SAND }} className="border-b">
         <div className="max-w-7xl mx-auto px-6 py-3">
@@ -236,8 +233,6 @@ function GuestInfoPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }
