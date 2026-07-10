@@ -1,9 +1,6 @@
-Compile every public route from the current Silverthorn Resort site into a single Bluehost-compatible `.htaccess` 301 redirect block. All source paths will redirect to `https://silverthornresort.com/` (domain root), as requested.
-
-Deliverable — copy/paste ready `.htaccess` snippet:
-
-```apache
 # Bluehost 301 redirects — Silverthorn old site → new domain
+# Paste these rules into the .htaccess file at the root of the old hosting account.
+
 Redirect 301 / https://silverthornresort.com/
 Redirect 301 /admin https://silverthornresort.com/
 Redirect 301 /cabins https://silverthornresort.com/
@@ -24,13 +21,6 @@ Redirect 301 /shasta-lake https://silverthornresort.com/
 Redirect 301 /small-boats https://silverthornresort.com/
 Redirect 301 /about/history https://silverthornresort.com/
 
-# Catch-all for any dynamic small-boat detail pages
+# Catch-all for any dynamic small-boat detail pages (e.g. /small-boats/pontoon)
 RewriteEngine On
 RewriteRule ^small-boats/.+ https://silverthornresort.com/ [R=301,L]
-```
-
-Notes:
-- 18 static routes are listed (every route in the generated route tree).
-- `/houseboats` is the fleet index; `/houseboats/` (trailing slash) is the same page in TanStack Start, so Apache normalizes it.
-- Small-boat detail pages use the pattern `/small-boats/{slug}`; the `RewriteRule` catches any remaining slug under that path.
-- Place this inside the site root `.htaccess` file on Bluehost, typically above any WordPress/default rules, or inside the old site's root folder before disabling/removing it.
