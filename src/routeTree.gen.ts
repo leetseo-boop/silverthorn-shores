@@ -16,6 +16,7 @@ import { Route as PlanningRouteImport } from './routes/planning'
 import { Route as GuestInfoRouteImport } from './routes/guest-info'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExploringShastaLakeRouteImport } from './routes/exploring-shasta-lake'
+import { Route as EmploymentRouteImport } from './routes/employment'
 import { Route as DirectionsRouteImport } from './routes/directions'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CabinsRouteImport } from './routes/cabins'
@@ -64,6 +65,11 @@ const FaqRoute = FaqRouteImport.update({
 const ExploringShastaLakeRoute = ExploringShastaLakeRouteImport.update({
   id: '/exploring-shasta-lake',
   path: '/exploring-shasta-lake',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmploymentRoute = EmploymentRouteImport.update({
+  id: '/employment',
+  path: '/employment',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DirectionsRoute = DirectionsRouteImport.update({
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
+  '/employment': typeof EmploymentRoute
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
@@ -166,6 +173,7 @@ export interface FileRoutesByTo {
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
+  '/employment': typeof EmploymentRoute
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
@@ -190,6 +198,7 @@ export interface FileRoutesById {
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
   '/directions': typeof DirectionsRoute
+  '/employment': typeof EmploymentRoute
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
@@ -215,6 +224,7 @@ export interface FileRouteTypes {
     | '/cabins'
     | '/contact'
     | '/directions'
+    | '/employment'
     | '/exploring-shasta-lake'
     | '/faq'
     | '/guest-info'
@@ -238,6 +248,7 @@ export interface FileRouteTypes {
     | '/cabins'
     | '/contact'
     | '/directions'
+    | '/employment'
     | '/exploring-shasta-lake'
     | '/faq'
     | '/guest-info'
@@ -261,6 +272,7 @@ export interface FileRouteTypes {
     | '/cabins'
     | '/contact'
     | '/directions'
+    | '/employment'
     | '/exploring-shasta-lake'
     | '/faq'
     | '/guest-info'
@@ -285,6 +297,7 @@ export interface RootRouteChildren {
   CabinsRoute: typeof CabinsRoute
   ContactRoute: typeof ContactRoute
   DirectionsRoute: typeof DirectionsRoute
+  EmploymentRoute: typeof EmploymentRoute
   ExploringShastaLakeRoute: typeof ExploringShastaLakeRoute
   FaqRoute: typeof FaqRoute
   GuestInfoRoute: typeof GuestInfoRoute
@@ -352,6 +365,13 @@ declare module '@tanstack/react-router' {
       path: '/exploring-shasta-lake'
       fullPath: '/exploring-shasta-lake'
       preLoaderRoute: typeof ExploringShastaLakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employment': {
+      id: '/employment'
+      path: '/employment'
+      fullPath: '/employment'
+      preLoaderRoute: typeof EmploymentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/directions': {
@@ -461,6 +481,7 @@ const rootRouteChildren: RootRouteChildren = {
   CabinsRoute: CabinsRoute,
   ContactRoute: ContactRoute,
   DirectionsRoute: DirectionsRoute,
+  EmploymentRoute: EmploymentRoute,
   ExploringShastaLakeRoute: ExploringShastaLakeRoute,
   FaqRoute: FaqRoute,
   GuestInfoRoute: GuestInfoRoute,
