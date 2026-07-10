@@ -153,6 +153,7 @@ const NAV_LINKS = [
       { label: "Directions",  href: "/directions" },
     ],
   },
+  { label: "Guest Info", href: "/guest-info" },
   { label: "FAQ", href: "/faq" },
 ];
 
