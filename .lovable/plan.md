@@ -1,28 +1,21 @@
-## Create Employment page
+## Set uploaded Silverthorn logo as favicon
 
-New route `/employment` with the provided copy, plus the PDF application as a downloadable CDN asset, and a footer link under **Resort → Employment**.
+The uploaded logo is wide (roughly 3:1) — a favicon needs to be square and read well at 16–32px. The wide wordmark won't be legible; the circular houseboat medallion on the right is the recognizable brand mark and will crop perfectly into a square icon.
 
 ### Steps
 
-1. **Upload PDF as CDN asset**
-   - `lovable-assets create --file /mnt/user-uploads/STR-Application-Full.pdf --filename STR-Application-Full.pdf > src/assets/employment/str-application.pdf.asset.json`
+1. **Extract & optimize the medallion** into a square favicon:
+   - Crop the circular houseboat/mountain/sunset medallion from `user-uploads://silverthorn-no_pub-tribe.png`.
+   - Resize to 512×512, transparent background outside the circle.
+   - Save to `public/favicon.png` (PNG, optimized).
 
-2. **Create `src/routes/employment.tsx`**
-   - Same visual language as `guest-info.tsx` (NAVY / ORANGE / SAND, Playfair Display headings, breadcrumb + hero + content sections).
-   - Sections:
-     - Hero: "Employment @ Silverthorn Resort Marina" + "Looking for a change of scenery? Consider working on beautiful Shasta Lake."
-     - Year-round openings: 2 cards — **Houseboat Maintenance**, **Marine Mechanic** (each with unique icon).
-     - Seasonal positions: single card / list block with the 6 bullets and the "starts recruiting March 15" note.
-     - How to apply: address `16250 Silverthorn Rd, Redding, CA 96003`, hours `8am–4:30pm`, with "Download Application" (open PDF) + "Download PDF" buttons.
-     - EEO / drug-free footer note.
-   - Full SEO `head()`: title, description, og tags, canonical, JSON-LD `JobPosting` entries for the 2 year-round roles + breadcrumb.
-   - Mobile-first responsive grid, matches guest-info card style.
+2. **Wire it into the site head**:
+   - In `src/routes/__root.tsx`, replace the current `{ rel: "icon", href: "/favicon.ico" }` entry with `{ rel: "icon", type: "image/png", href: "/favicon.png" }`.
+   - Delete the default `public/favicon.ico` so stale requests don't serve the old Lovable icon.
 
-3. **Footer link — `Resort → Employment`**
-   - Locate the footer's Resort column (in `src/components/SilverthornHomePage.tsx` or wherever `Footer` is defined) and add `{ label: "Employment", href: "/employment" }`.
+3. **Verify** with a build.
 
-### Technical details
+### Notes
 
-- No changes to top nav (footer only, as requested).
-- Icons: `HardHat` (maintenance), `Wrench` (mechanic), `CalendarClock` (seasonal), `MapPin`, `Clock`, `FileText`, `Download`, `ExternalLink`, `ShieldCheck` (EEO/drug-free).
-- The uploaded PDF is only referenced via CDN URL — no binary in repo.
+- Using the full wide logo would render as an unreadable smear at 16px — the medallion is the right choice.
+- If you prefer the full wordmark (letterboxed inside a square with padding), say the word and I'll swap the approach.
