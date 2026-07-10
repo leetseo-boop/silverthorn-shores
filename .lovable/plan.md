@@ -1,19 +1,28 @@
-## Add 4 PDFs to Guest Info page
+## Create Employment page
 
-Upload the 4 uploaded PDFs as CDN assets and add them to the `docs` array in `src/routes/guest-info.tsx`, placed at the top of the list in this exact order (respecting original filenames as titles):
+New route `/employment` with the provided copy, plus the PDF application as a downloadable CDN asset, and a footer link under **Resort → Employment**.
 
-1. **SVR HB Rental Contract** — `SVR-HB-Rental-Contract.pdf` — icon: `FileSignature`
-2. **Silverthorn Small Boat Contract** — `Silverthorn-Small-Boat-Contract.pdf` — icon: `ScrollText`
-3. **Houseboat guest check-in process PDF** — `Houseboat-guest-check-in-process-PDF.pdf` — icon: `ClipboardCheck`
-4. **Suggested SVR** — `Suggested-SVR.pdf` — icon: `Lightbulb`
+### Steps
 
-Followed by the existing 3 docs, each keeping its current unique icon (`Ship`, `HomeIcon`, `Anchor`). Total 7 cards, no icon repeats.
+1. **Upload PDF as CDN asset**
+   - `lovable-assets create --file /mnt/user-uploads/STR-Application-Full.pdf --filename STR-Application-Full.pdf > src/assets/employment/str-application.pdf.asset.json`
+
+2. **Create `src/routes/employment.tsx`**
+   - Same visual language as `guest-info.tsx` (NAVY / ORANGE / SAND, Playfair Display headings, breadcrumb + hero + content sections).
+   - Sections:
+     - Hero: "Employment @ Silverthorn Resort Marina" + "Looking for a change of scenery? Consider working on beautiful Shasta Lake."
+     - Year-round openings: 2 cards — **Houseboat Maintenance**, **Marine Mechanic** (each with unique icon).
+     - Seasonal positions: single card / list block with the 6 bullets and the "starts recruiting March 15" note.
+     - How to apply: address `16250 Silverthorn Rd, Redding, CA 96003`, hours `8am–4:30pm`, with "Download Application" (open PDF) + "Download PDF" buttons.
+     - EEO / drug-free footer note.
+   - Full SEO `head()`: title, description, og tags, canonical, JSON-LD `JobPosting` entries for the 2 year-round roles + breadcrumb.
+   - Mobile-first responsive grid, matches guest-info card style.
+
+3. **Footer link — `Resort → Employment`**
+   - Locate the footer's Resort column (in `src/components/SilverthornHomePage.tsx` or wherever `Footer` is defined) and add `{ label: "Employment", href: "/employment" }`.
 
 ### Technical details
 
-- Run `lovable-assets create --file /mnt/user-uploads/<name>.pdf --filename <name>.pdf > src/assets/guest-info/<slug>.pdf.asset.json` for each of the 4 new PDFs.
-- Import the 4 new `.asset.json` pointers at the top of `src/routes/guest-info.tsx`.
-- Prepend 4 new entries to the `docs` array in the order above; keep the same `Doc` shape and same card block markup — no visual/style changes.
-- Add `FileSignature`, `ScrollText`, `ClipboardCheck`, `Lightbulb` to the `lucide-react` import.
-- Grid stays `md:grid-cols-3` — 7 cards will wrap naturally (3+3+1).
-- JSON-LD `hasPart` auto-includes new docs since it maps over `docs`.
+- No changes to top nav (footer only, as requested).
+- Icons: `HardHat` (maintenance), `Wrench` (mechanic), `CalendarClock` (seasonal), `MapPin`, `Clock`, `FileText`, `Download`, `ExternalLink`, `ShieldCheck` (EEO/drug-free).
+- The uploaded PDF is only referenced via CDN URL — no binary in repo.
