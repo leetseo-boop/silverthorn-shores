@@ -120,7 +120,7 @@ const NAV_LINKS = [
       { label: "Queen II",     href: "/houseboats/queen-ii" },
       { label: "Senator",      href: "/houseboats/senator" },
       { label: "Rental Policy",href: "/houseboats/policy" },
-      { label: "Guest Info",   href: "/houseboats/guest-info" },
+      { label: "Guest Info",   href: "/guest-info" },
     ],
   },
   {
@@ -153,6 +153,7 @@ const NAV_LINKS = [
       { label: "Directions",  href: "/directions" },
     ],
   },
+  { label: "Guest Info", href: "/guest-info" },
   { label: "FAQ", href: "/faq" },
 ];
 
