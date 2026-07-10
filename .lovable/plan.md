@@ -1,34 +1,31 @@
-# Guest Information Page
+## Plan
 
-Create a new `/guest-info` page that hosts the 3 uploaded PDFs (Houseboats, Cabins, Small Boats) as clearly-labeled download cards, styled to match the rest of the site.
+### 1. Fix duplicate header on `/guest-info`
+The `GuestInfoPage` in `src/routes/guest-info.tsx` imports and renders its own `<Nav />` and `<Footer />`. However, `src/routes/__root.tsx` already renders `<Nav />` and `<Footer />` around every non-admin route. This causes the two stacked headers seen in the screenshot.
 
-## Uploads → Lovable Assets
-Upload the 3 PDFs to the CDN (not committed to repo):
-- `Guest_Info_and_Cleaning_Check_List_Silverthorn_Resort.pdf` → Houseboats
-- `Cabins_Guest_info_and_Cleaning_List_Silverthorn.pdf` → Cabins
-- `Small_Boats_Guest_info_and_Cleaning_List_Silverthorn.pdf` → Small Boats
+- Remove the `<Nav />` and `<Footer />` imports from `src/routes/guest-info.tsx`.
+- Remove the `<Nav />` call at the top of the page JSX and the `<Footer />` call at the bottom.
+- The root layout will continue to provide the single shared header and footer.
 
-Each becomes an `.asset.json` pointer under `src/assets/guest-info/`.
+### 2. Remove "Guest Info" from the Houseboats submenu
+In `src/components/SilverthornHomePage.tsx`, the `NAV_LINKS` array has "Guest Info" duplicated:
+- Inside the `Houseboats` submenu (`children` array).
+- As a standalone top-level item.
 
-## New Route
-`src/routes/guest-info.tsx` with full head() SEO (title <60ch, description, og tags, canonical, JSON-LD `WebPage` + `BreadcrumbList`).
+Per your answer, keep the standalone top-level link and remove only the `Houseboats` submenu entry:
 
-## Layout (matches site design language — navy/orange/sand, Playfair headings)
-- **Hero band** (compact, navy gradient): H1 "Guest Information", welcome copy from the user message, phone + contact CTA buttons.
-- **3-card grid** (`sm:grid-cols-1 md:grid-cols-3`), one card per PDF:
-  - Large lucide icon in an orange tinted tile (`Ship` / `Home` / `Anchor`)
-  - Title (e.g., "Houseboat Guest Info & Cleaning List")
-  - Short one-line description
-  - File meta line: "PDF · Download or save"
-  - Primary button **"Open PDF"** → opens in new tab (`target="_blank"`, `rel="noopener"`) so users can view/save via browser
-  - Secondary button **"Download"** → same href with `download` attribute
-- **Help band**: "Questions? Contact us" CTA linking `/contact` and `tel:` link.
-- Mobile-first: stacked cards, tap-friendly buttons, sufficient spacing — same pattern as Planning/FAQ pages.
+```ts
+{ label: "Guest Info", href: "/guest-info" }, // remove this line only
+```
 
-## Navigation
-Add "Guest Info" as a top-level nav item in `NAV_LINKS` (`src/components/SilverthornHomePage.tsx`) between "About" and "FAQ", plus mirror the link in the footer quick-links list.
+The top-level link will remain:
 
-## Notes
-- No business logic changes; presentation only.
-- PDFs served from CDN URL, so "Open PDF" reliably renders inline in browsers and users can save via the browser toolbar.
-- `noindex` global remains (site not yet public to crawlers).
+```ts
+{ label: "Guest Info", href: "/guest-info" },
+{ label: "FAQ", href: "/faq" },
+```
+
+### 3. Verification
+- Run a build to confirm no import/type errors after removing `Nav`/`Footer` from `guest-info.tsx`.
+- Preview `/guest-info` to confirm only one header is visible and the page still renders correctly.
+- Confirm the Houseboats dropdown no longer shows "Guest Info" while the top-level nav still does.
