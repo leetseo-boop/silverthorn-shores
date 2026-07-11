@@ -13,10 +13,10 @@ export function SummerPromoBanner() {
       className="relative isolate overflow-hidden promo-sunset-bg"
       aria-label="Summer Fun Sale — 20% off Queen I and Queen II"
     >
-      {/* Decorative sun */}
+      {/* Decorative sun — clamped on mobile so it never crowds the copy */}
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute -top-12 -right-12 h-48 w-48 opacity-70 promo-spin-slow"
+        className="pointer-events-none absolute -top-8 -right-8 h-28 w-28 opacity-70 promo-spin-slow sm:-top-12 sm:-right-12 sm:h-48 sm:w-48"
         viewBox="0 0 200 200"
       >
         <defs>
@@ -42,7 +42,7 @@ export function SummerPromoBanner() {
         />
       </svg>
 
-      {/* Houseboat silhouette bobbing on the wave */}
+      {/* Houseboat silhouette bobbing on the wave (desktop only) */}
       <svg
         aria-hidden="true"
         className="pointer-events-none absolute bottom-3 right-6 hidden h-14 w-36 text-white/60 sm:block promo-bob"
@@ -54,26 +54,24 @@ export function SummerPromoBanner() {
         />
       </svg>
 
-      {/* Floating summer emoji chips */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <span className="absolute left-[6%] top-6 text-2xl promo-float" style={{ animationDelay: "0s" }}>🕶️</span>
-        <span className="absolute left-[14%] bottom-8 text-2xl promo-float" style={{ animationDelay: "1s" }}>🩴</span>
-        <span className="absolute right-[8%] top-4 text-2xl promo-float" style={{ animationDelay: "1.5s" }}>🌴</span>
-        <span className="absolute right-[22%] bottom-10 text-2xl promo-float" style={{ animationDelay: "0.6s" }}>🛟</span>
-        <span className="absolute left-[42%] top-2 text-xl promo-float" style={{ animationDelay: "2s" }}>👙</span>
-        <span className="absolute right-[38%] top-3 text-xl promo-float" style={{ animationDelay: "2.4s" }}>🍹</span>
+      {/* Floating summer emoji — kept in the top strip so they never overlap the copy card */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hidden h-16 sm:block">
+        <span className="absolute left-[4%] top-3 text-2xl promo-float" style={{ animationDelay: "0s" }}>🕶️</span>
+        <span className="absolute right-[6%] top-2 text-2xl promo-float" style={{ animationDelay: "1.5s" }}>🌴</span>
+        <span className="absolute left-[46%] top-1 text-xl promo-float hidden md:inline" style={{ animationDelay: "2s" }}>👙</span>
+        <span className="absolute right-[42%] top-2 text-xl promo-float hidden md:inline" style={{ animationDelay: "2.4s" }}>🍹</span>
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-8 sm:py-10">
-        <div className="rounded-3xl bg-black/20 p-5 sm:p-7 shadow-xl ring-1 ring-white/40 backdrop-blur-sm">
+        <div className="rounded-3xl bg-black/40 p-5 sm:p-7 shadow-xl ring-1 ring-white/40 backdrop-blur-sm">
 
           <div className="flex flex-col items-center gap-4 text-center sm:gap-5">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-orange-700 shadow-sm">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-orange-700 shadow-sm">
               <span aria-hidden>🌞</span> Limited Time
             </span>
 
             <h2
-              className="promo-shimmer font-black leading-[0.95] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]"
+              className="promo-shimmer font-black leading-[0.95] text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]"
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
                 fontSize: "clamp(1.75rem, 5vw, 3rem)",
@@ -82,7 +80,7 @@ export function SummerPromoBanner() {
               SUMMER FUN SALE
             </h2>
 
-            <p className="max-w-2xl text-sm sm:text-base font-medium text-white/95 drop-shadow">
+            <p className="max-w-2xl text-sm sm:text-base font-medium text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
               Book your houseboat vacation between{" "}
               <strong className="whitespace-nowrap">{PROMO.dateLabel}</strong>{" "}
               and receive <strong>{PROMO.discount}</strong>.
@@ -100,7 +98,7 @@ export function SummerPromoBanner() {
                   {PROMO.code}
                 </code>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/85 px-3.5 py-1.5 text-xs font-semibold text-slate-800 shadow-md">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-slate-800 shadow-md">
                 <span aria-hidden>⛵</span>
                 Selected Houseboats: {PROMO.eligibleNames}
               </div>
@@ -118,13 +116,13 @@ export function SummerPromoBanner() {
               </a>
               <a
                 href="/houseboats"
-                className="inline-flex items-center gap-2 rounded-xl border-2 border-white/80 bg-white/10 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-white/25"
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-white/80 bg-white/15 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-white/25"
               >
                 View Eligible Boats →
               </a>
             </div>
 
-            <p className="text-[11px] text-white/85">{PROMO.fineprint}</p>
+            <p className="text-[11px] text-white/90">{PROMO.fineprint}</p>
           </div>
         </div>
       </div>

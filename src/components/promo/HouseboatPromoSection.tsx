@@ -18,7 +18,7 @@ export function HouseboatPromoSection({ slug, boatName, bookingUrl }: Props) {
     >
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute -top-12 -left-12 h-56 w-56 opacity-70 promo-spin-slow"
+        className="pointer-events-none absolute -top-8 -left-8 h-32 w-32 opacity-70 promo-spin-slow sm:-top-12 sm:-left-12 sm:h-56 sm:w-56"
         viewBox="0 0 200 200"
       >
         <defs>
@@ -42,16 +42,14 @@ export function HouseboatPromoSection({ slug, boatName, bookingUrl }: Props) {
         />
       </svg>
 
-      {/* Floating summer emoji chips */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <span className="absolute right-[6%] top-6 text-3xl promo-float" style={{ animationDelay: "0.2s" }}>🌴</span>
-        <span className="absolute right-[18%] bottom-8 text-2xl promo-float" style={{ animationDelay: "1.1s" }}>🛟</span>
-        <span className="absolute left-[8%] bottom-10 text-2xl promo-float" style={{ animationDelay: "1.6s" }}>🩴</span>
-        <span className="absolute left-[36%] top-4 text-xl promo-float" style={{ animationDelay: "0.8s" }}>🕶️</span>
-        <span className="absolute right-[36%] top-8 text-xl promo-float" style={{ animationDelay: "2.2s" }}>🍹</span>
+      {/* Floating summer emoji — kept in the top strip so they never overlap the copy card */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hidden h-16 sm:block">
+        <span className="absolute right-[4%] top-3 text-3xl promo-float" style={{ animationDelay: "0.2s" }}>🌴</span>
+        <span className="absolute left-[38%] top-2 text-xl promo-float hidden md:inline" style={{ animationDelay: "0.8s" }}>🕶️</span>
+        <span className="absolute right-[38%] top-3 text-xl promo-float hidden lg:inline" style={{ animationDelay: "1.4s" }}>🍹</span>
       </div>
 
-      {/* Houseboat silhouette bobbing */}
+      {/* Houseboat silhouette bobbing (desktop only) */}
       <svg
         aria-hidden="true"
         className="pointer-events-none absolute bottom-4 right-4 hidden h-14 w-36 text-white/60 md:block promo-bob"
@@ -64,23 +62,23 @@ export function HouseboatPromoSection({ slug, boatName, bookingUrl }: Props) {
       </svg>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-10 sm:py-14">
-        <div className="rounded-3xl bg-black/25 p-6 sm:p-8 ring-1 ring-white/40 backdrop-blur-sm shadow-xl">
+        <div className="rounded-3xl bg-black/45 p-6 sm:p-8 ring-1 ring-white/40 backdrop-blur-sm shadow-xl">
 
-          <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-            <div className="text-center md:text-left">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 shadow-sm">
+          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+            <div className="min-w-0 text-center md:text-left">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 shadow-sm">
                 🌞 Summer Fun Sale
               </span>
               <h2
-                className="promo-shimmer mt-3 font-black leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]"
+                className="promo-shimmer mt-3 font-black leading-tight text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]"
                 style={{
                   fontFamily: "'Playfair Display', Georgia, serif",
-                  fontSize: "clamp(1.6rem, 4vw, 2.75rem)",
+                  fontSize: "clamp(1.5rem, 4vw, 2.75rem)",
                 }}
               >
                 {PROMO.discount} on the {boatName} This Summer
               </h2>
-              <p className="mt-3 text-base font-medium text-white/95">
+              <p className="mt-3 text-base font-medium text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
                 Book between <strong className="whitespace-nowrap">{PROMO.dateLabel}</strong>. Use promo code{" "}
                 <code
                   className="rounded-md bg-white/95 px-2 py-0.5 text-orange-800 font-black tracking-widest"
@@ -90,7 +88,7 @@ export function HouseboatPromoSection({ slug, boatName, bookingUrl }: Props) {
                 </code>{" "}
                 at checkout.
               </p>
-              <p className="mt-2 text-xs text-white/85">{PROMO.fineprint}</p>
+              <p className="mt-2 text-xs text-white/90">{PROMO.fineprint}</p>
             </div>
             <div className="flex justify-center md:justify-end">
               <a
