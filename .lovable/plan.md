@@ -1,21 +1,56 @@
-## Set uploaded Silverthorn logo as favicon
+## Goal
 
-The uploaded logo is wide (roughly 3:1) — a favicon needs to be square and read well at 16–32px. The wide wordmark won't be legible; the circular houseboat medallion on the right is the recognizable brand mark and will crop perfectly into a square icon.
+Make every page — home, houseboat fleet, individual houseboats (Queen, Queen I, Queen II, Senator), cabins, small boats + each boat detail, Shasta Lake pages, planning, pro-shop, policies, guest info, employment, contact, directions, history, FAQ — load noticeably faster on mobile and desktop, without changing any content or design.
 
-### Steps
+## What the audit found
 
-1. **Extract & optimize the medallion** into a square favicon:
-   - Crop the circular houseboat/mountain/sunset medallion from `user-uploads://silverthorn-no_pub-tribe.png`.
-   - Resize to 512×512, transparent background outside the circle.
-   - Save to `public/favicon.png` (PNG, optimized).
+Bundle side is healthy (main chunk 756 KB, route chunks 5–31 KB). The real weight is images:
 
-2. **Wire it into the site head**:
-   - In `src/routes/__root.tsx`, replace the current `{ rel: "icon", href: "/favicon.ico" }` entry with `{ rel: "icon", type: "image/png", href: "/favicon.png" }`.
-   - Delete the default `public/favicon.ico` so stale requests don't serve the old Lovable icon.
+- `dist/client/images/silverthorn/` (small-boat galleries) = **16 MB**
+- `dist/client/images/small-boats/` = 2.1 MB
+- Houseboat detail galleries: many photos **200–500 KB each** (Queen I, Queen II, Senator galleries alone have dozens of >200 KB files, several 400–515 KB)
+- Total shipped images ~30 MB
 
-3. **Verify** with a build.
+Secondary issues:
+- No `width`/`height` on gallery `<img>` tags → layout shift + late decode
+- Hero images preload correctly on most routes, but not all `<img>` heroes set `fetchpriority="high"`, `loading="eager"`, and `decoding="async"` consistently
+- No responsive `srcset` anywhere — mobile devices download desktop-sized files
+- Two lightbox `<img>` in `HouseboatDetail` / `SilverthornBoatDetail` never set `decoding` — minor, but included in the sweep
 
-### Notes
+## Plan
 
-- Using the full wide logo would render as an unreadable smear at 16px — the medallion is the right choice.
-- If you prefer the full wordmark (letterboxed inside a square with padding), say the word and I'll swap the approach.
+### 1. Re-encode oversized WebPs (biggest win)
+
+Batch-recompress every image over 150 KB in `public/images/**` in place with `cwebp -q 78 -m 6 -resize 1600 0` (cap long edge at 1600 px, keep aspect ratio, quality 78 — visually identical, ~40–60% smaller). Skip anything already under 150 KB and skip floor-plan diagrams (small already). Expected result: total image payload drops from ~30 MB to ~10–12 MB, individual gallery photos land in the 60–150 KB range.
+
+### 2. Hero LCP polish (every route)
+
+For each route's above-the-fold hero `<img>`:
+- add `fetchpriority="high"`, `loading="eager"`, `decoding="async"`
+- add explicit `width` and `height` (prevents CLS)
+- keep the existing `head().links` preload entry
+
+Routes touched: `index`, `houseboats.index`, `houseboats.queen`, `houseboats.queen-i`, `houseboats.queen-ii`, `houseboats.senator`, `cabins`, `small-boats`, `small-boats_.$slug`, `shasta-lake`, `exploring-shasta-lake`, `planning`, `pro-shop`, `houseboats.policy`, `cabins_.policy`, `about.history`, `directions`, `contact`, `faq`, `guest-info`, `employment`.
+
+### 3. Below-the-fold images
+
+Verify every `<img>` outside the first viewport has `loading="lazy"` and `decoding="async"`. Add the two missing ones in `HouseboatDetail.tsx` (line 32) and `SilverthornBoatDetail.tsx` (line 290) lightbox images (`decoding="async"` — lightbox images shouldn't block anything).
+
+### 4. Nav link preloading
+
+TanStack `<Link>` already preloads on intent by default in this project. Confirm `defaultPreload: "intent"` is set in `src/router.tsx`; if not, enable it so hovering a nav item warms the next route's chunk.
+
+### 5. Verify
+
+Run `bun run build` after changes and compare:
+- `du -sh dist/client/images` before vs after
+- `du -k dist/client/assets/*.js` (should be unchanged)
+
+Report the before/after image totals to you.
+
+## What I will NOT do
+
+- No design changes, no content rewrites, no route restructures
+- No new dependencies (`sharp`, `vite-imagetools`, image CDN) — the in-place `cwebp` pass is enough and reversible
+- No responsive `srcset` rollout in this pass — it would touch every `<img>` and risk visual regressions; if the mobile numbers still aren't good after step 1, we can do a targeted second pass on the hero images only
+- No changes to `.asset.json` CDN files (already optimized on the CDN side)
