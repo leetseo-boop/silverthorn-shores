@@ -37,16 +37,26 @@ const FAQS: Faq[] = [
   },
   {
     q: "Can I bring my pet?",
-    a: "Yes — Silverthorn and Jones Valley Resort are a pet friendly resort and will accommodate one pet at no charge. Each additional pet will require a non-refundable charge of $50.00 to be paid prior to occupancy/boarding. Any excessive cleaning required upon departure of pet hair, urine, etc. will be charged to the credit card on file at the rate of $95.00 per hour. Any damages will be charged at replacement cost.",
+    a: "Silverthorn and Jones Valley Resort are pet friendly. Houseboats accommodate a maximum of 2 pets — the first pet is free, and the second pet requires a non-refundable $50.00 charge to be paid prior to occupancy/boarding. Any excessive cleaning required upon departure of pet hair, urine, etc. will be charged to the credit card on file at the rate of $95.00 per hour. Any damages will be charged at replacement cost. See our Pet Policy at https://houseboats.com/trip-preparation/pet-policy.",
     render: () => (
       <>
-        Silverthorn and Jones Valley Resort are a pet friendly resort and will
-        accommodate <strong>one pet at no charge</strong>. Each additional pet
-        will require a non-refundable charge of <strong>$50.00</strong> to be
-        paid prior to occupancy/boarding. Any excessive cleaning required upon
-        departure of pet hair, urine, etc. will be charged to the credit card
-        on file at the rate of <strong>$95.00 per hour</strong>. Any damages
-        will be charged at <strong>replacement cost</strong>.
+        Silverthorn and Jones Valley Resort are pet friendly. Houseboats
+        accommodate a maximum of <strong>2 pets</strong> — the{" "}
+        <strong>first pet is free</strong>, and the{" "}
+        <strong>second pet requires a non-refundable $50.00 charge</strong> to
+        be paid prior to occupancy/boarding. Any excessive cleaning required
+        upon departure of pet hair, urine, etc. will be charged to the credit
+        card on file at the rate of <strong>$95.00 per hour</strong>. Any
+        damages will be charged at <strong>replacement cost</strong>. See our{" "}
+        <a
+          href="https://houseboats.com/trip-preparation/pet-policy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline underline-offset-2 hover:opacity-80"
+        >
+          Pet Policy
+        </a>
+        .
       </>
     ),
   },
