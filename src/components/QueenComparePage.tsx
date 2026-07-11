@@ -240,7 +240,10 @@ export function QueenComparePage() {
 
       {/* At-a-glance specs */}
       <section className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <h2 className="text-2xl font-bold text-foreground md:text-3xl">At a glance</h2>
+        <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground md:text-3xl">
+          <Sun className="h-6 w-6 text-amber-500" aria-hidden />
+          At a glance
+        </h2>
         <p className="mt-1 text-sm text-muted-foreground">Key specs, head to head.</p>
 
         {/* Desktop table */}
