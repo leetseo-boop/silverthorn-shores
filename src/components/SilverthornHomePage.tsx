@@ -141,10 +141,6 @@ const NAV_LINKS = [
     ],
   },
   {
-    label: "Moorage",
-    href: "/moorage",
-  },
-  {
     label: "Shasta Lake",
     children: [
       { label: "Shasta Lake",         href: "/shasta-lake" },
@@ -158,6 +154,7 @@ const NAV_LINKS = [
       { label: "Our History", href: "/about/history" },
       { label: "Contact",     href: "/contact" },
       { label: "Directions",  href: "/directions" },
+      { label: "Boat Slips",  href: "/moorage" },
     ],
   },
   { label: "Guest Info", href: "/guest-info" },
@@ -933,6 +930,7 @@ export function Footer() {
                 links: [
                   { label: "Lake Cabins",   href: "/cabins" },
                   { label: "Cabin Policy",  href: "/cabins/policy" },
+                  { label: "Moorage",       href: "/moorage" },
                 ],
               },
               {
