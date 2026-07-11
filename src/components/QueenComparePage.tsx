@@ -419,13 +419,27 @@ export function QueenComparePage() {
 
       {/* Final CTA */}
       <section className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <div className="rounded-2xl border border-border bg-card p-6 text-center shadow-sm md:p-10">
+        <div
+          className="relative overflow-hidden rounded-2xl border border-border p-6 text-center shadow-sm md:p-10"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,194,75,0.18) 0%, rgba(255,138,31,0.14) 50%, rgba(226,62,87,0.10) 100%), hsl(var(--card))",
+          }}
+        >
+          <Sun aria-hidden className="pointer-events-none absolute -left-4 -top-4 hidden h-24 w-24 text-amber-400/40 promo-float md:block" />
+          <Waves aria-hidden className="pointer-events-none absolute -right-4 -bottom-4 hidden h-24 w-24 text-sky-500/30 promo-bob md:block" />
+          <span
+            className="mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-md promo-badge-glow"
+            style={{ background: "linear-gradient(135deg, #FFC24B 0%, #FF8A1F 45%, #E23E57 100%)" }}
+          >
+            <Sun className="h-3.5 w-3.5" aria-hidden /> 20% OFF · Code {PROMO.code}
+          </span>
           <h2 className="text-2xl font-bold text-foreground md:text-3xl">Ready to book?</h2>
           <p className="mt-2 text-sm text-muted-foreground md:text-base">
             Reserve directly with Silverthorn Resort — apply promo code <strong>{PROMO.code}</strong>{" "}
             at checkout on eligible dates.
           </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="relative mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <BookButton boat={q1} size="lg" />
             <BookButton boat={q2} size="lg" />
           </div>
