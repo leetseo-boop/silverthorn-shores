@@ -103,33 +103,22 @@
   0%, 100% { box-shadow: 0 4px 14px rgba(226,62,87,0.35), 0 0 0 rgba(255,180,80,0); }
   50%      { box-shadow: 0 6px 22px rgba(226,62,87,0.5), 0 0 22px rgba(255,180,80,0.55); }
 }
-@keyframes promo-frame-rotate {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+@keyframes promo-badge-glow {
+  0%, 100% { box-shadow: 0 4px 14px rgba(226,62,87,0.35), 0 0 0 rgba(255,180,80,0); }
+  50%      { box-shadow: 0 6px 22px rgba(226,62,87,0.5), 0 0 22px rgba(255,180,80,0.55); }
 }
 
-.promo-sunset-bg {
-  background: linear-gradient(120deg, #FFD166 0%, #FF8A1F 35%, #E23E57 70%, #7B2CBF 100%);
-  background-size: 220% 220%;
-  animation: promo-gradient-pan 14s ease-in-out infinite;
-}
-.promo-shimmer  { animation: promo-shimmer 3.6s ease-in-out infinite; }
-.promo-spin-slow { animation: promo-spin-slow 60s linear infinite; transform-origin: center; }
-.promo-badge-glow { animation: promo-badge-glow 2.4s ease-in-out infinite; }
-
-/* Animated conic-gradient border wrapping promo cards */
+/* Static conic-gradient glow border wrapping promo cards (no rotation) */
 .promo-frame {
   padding: 2px;
   background: conic-gradient(from 0deg, #FFD166, #FF8A1F, #E23E57, #7B2CBF, #FFD166);
-  background-size: 200% 200%;
-  animation: promo-frame-rotate 8s linear infinite;
   box-shadow: 0 10px 30px -12px rgba(226,62,87,0.35);
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 .promo-frame-inner {
   background: #fff;
   overflow: hidden;
 }
-.promo-frame { transition: transform 200ms ease, box-shadow 200ms ease; }
 @media (hover: hover) {
   .promo-frame:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -12px rgba(226,62,87,0.5); }
 }
