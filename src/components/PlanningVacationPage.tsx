@@ -147,6 +147,8 @@ export function PlanningVacationPage() {
           src={hero}
           alt="Family loading kayaks, coolers and beach gear into the car for a Shasta Lake vacation"
           className="absolute inset-0 h-full w-full object-cover"
+          width={1920}
+          height={1080}
           fetchPriority="high"
           loading="eager"
           decoding="async"

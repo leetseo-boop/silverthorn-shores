@@ -174,6 +174,7 @@ function SmallBoatsPage() {
             height={1080}
             loading="eager"
             fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(13,32,48,0.78), rgba(13,32,48,0.5) 50%, rgba(13,32,48,0.3))" }} />
         </div>
