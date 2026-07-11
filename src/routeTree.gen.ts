@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SmallBoatsRouteImport } from './routes/small-boats'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ShastaVsLakePowellRouteImport } from './routes/shasta-vs-lake-powell'
 import { Route as ShastaLakeRouteImport } from './routes/shasta-lake'
 import { Route as ProShopRouteImport } from './routes/pro-shop'
 import { Route as PlanningRouteImport } from './routes/planning'
@@ -43,6 +44,11 @@ const SmallBoatsRoute = SmallBoatsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShastaVsLakePowellRoute = ShastaVsLakePowellRouteImport.update({
+  id: '/shasta-vs-lake-powell',
+  path: '/shasta-vs-lake-powell',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShastaLakeRoute = ShastaLakeRouteImport.update({
@@ -175,6 +181,7 @@ export interface FileRoutesByFullPath {
   '/planning': typeof PlanningRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
+  '/shasta-vs-lake-powell': typeof ShastaVsLakePowellRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
   '/about/history': typeof AboutHistoryRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/planning': typeof PlanningRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
+  '/shasta-vs-lake-powell': typeof ShastaVsLakePowellRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
   '/about/history': typeof AboutHistoryRoute
@@ -230,6 +238,7 @@ export interface FileRoutesById {
   '/planning': typeof PlanningRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
+  '/shasta-vs-lake-powell': typeof ShastaVsLakePowellRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
   '/about/history': typeof AboutHistoryRoute
@@ -259,6 +268,7 @@ export interface FileRouteTypes {
     | '/planning'
     | '/pro-shop'
     | '/shasta-lake'
+    | '/shasta-vs-lake-powell'
     | '/sitemap.xml'
     | '/small-boats'
     | '/about/history'
@@ -286,6 +296,7 @@ export interface FileRouteTypes {
     | '/planning'
     | '/pro-shop'
     | '/shasta-lake'
+    | '/shasta-vs-lake-powell'
     | '/sitemap.xml'
     | '/small-boats'
     | '/about/history'
@@ -313,6 +324,7 @@ export interface FileRouteTypes {
     | '/planning'
     | '/pro-shop'
     | '/shasta-lake'
+    | '/shasta-vs-lake-powell'
     | '/sitemap.xml'
     | '/small-boats'
     | '/about/history'
@@ -341,6 +353,7 @@ export interface RootRouteChildren {
   PlanningRoute: typeof PlanningRoute
   ProShopRoute: typeof ProShopRoute
   ShastaLakeRoute: typeof ShastaLakeRoute
+  ShastaVsLakePowellRoute: typeof ShastaVsLakePowellRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SmallBoatsRoute: typeof SmallBoatsRoute
   AboutHistoryRoute: typeof AboutHistoryRoute
@@ -369,6 +382,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shasta-vs-lake-powell': {
+      id: '/shasta-vs-lake-powell'
+      path: '/shasta-vs-lake-powell'
+      fullPath: '/shasta-vs-lake-powell'
+      preLoaderRoute: typeof ShastaVsLakePowellRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shasta-lake': {
@@ -549,6 +569,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlanningRoute: PlanningRoute,
   ProShopRoute: ProShopRoute,
   ShastaLakeRoute: ShastaLakeRoute,
+  ShastaVsLakePowellRoute: ShastaVsLakePowellRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SmallBoatsRoute: SmallBoatsRoute,
   AboutHistoryRoute: AboutHistoryRoute,
