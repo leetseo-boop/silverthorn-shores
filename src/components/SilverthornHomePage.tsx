@@ -1030,8 +1030,9 @@ export const HOME_FAQS = [
   },
   {
     q: "Do I need a boating license or prior experience?",
-    a: "No license required. Every houseboat rental includes a full hands-on orientation before you leave the dock, and our team is available by radio throughout your stay.",
+    a: "No license required. Every houseboat rental includes a full hands-on orientation before you leave the dock.",
   },
+
 ];
 
 function HomeFAQ() {
