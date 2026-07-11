@@ -15,8 +15,9 @@ const PHONE_TEL = "+18003323044";
 const EMAIL = "reserve1@houseboats.com";
 const ADDRESS = "16250 Silverthorn Road, Redding, CA 96003";
 const MAPS_DEEP_LINK = "https://maps.app.goo.gl/acS8aohrh1m4xFz8A";
-const MAP_EMBED =
-  "https://www.google.com/maps?q=16250+Silverthorn+Road,+Redding,+CA+96003&output=embed";
+const MAP_EMBED = `https://www.google.com/maps/embed/v1/place?key=${
+  import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY
+}&q=${encodeURIComponent("Silverthorn Resort, 16250 Silverthorn Road, Redding, CA 96003")}`;
 
 const DRIVE_TIMES = [
   { from: "From Redding, CA", time: "≈ 15 min", tip: "Take I-5 north to the Lakehead area, then follow Silverthorn Rd to the marina." },

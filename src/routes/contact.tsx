@@ -215,7 +215,7 @@ function ContactPage() {
         <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl ring-1 ring-border shadow-sm">
           <iframe
             title="Map to Silverthorn Resort"
-            src="https://www.google.com/maps?q=Silverthorn+Resort,+16250+Silverthorn+Road,+Redding,+CA+96003&output=embed"
+            src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY}&q=${encodeURIComponent("Silverthorn Resort, 16250 Silverthorn Road, Redding, CA 96003")}`}
             width="100%"
             height={350}
             style={{ border: 0 }}
