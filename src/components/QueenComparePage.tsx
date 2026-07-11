@@ -16,11 +16,20 @@ import {
   Check,
   Minus,
   ExternalLink,
+  Sun,
+  Palmtree,
+  IceCreamCone,
+  LifeBuoy,
+  Sailboat,
+  Sparkles,
+  PartyPopper,
 } from "lucide-react";
 import type { Houseboat } from "@/data/houseboats";
 import { getHouseboatBySlug } from "@/data/houseboats";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PROMO } from "@/lib/promo";
+import { PromoBadge } from "@/components/promo/PromoBadge";
+import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
 
 const q1 = getHouseboatBySlug("queen-i")!;
 const q2 = getHouseboatBySlug("queen-ii")!;
