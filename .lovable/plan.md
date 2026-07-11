@@ -1,56 +1,51 @@
-## Goal
+## Summer Fun Sale — 20% OFF Queen I & Queen II
 
-Make every page — home, houseboat fleet, individual houseboats (Queen, Queen I, Queen II, Senator), cabins, small boats + each boat detail, Shasta Lake pages, planning, pro-shop, policies, guest info, employment, contact, directions, history, FAQ — load noticeably faster on mobile and desktop, without changing any content or design.
+### 1. Shared promo config
+Create `src/lib/promo.ts` with a single source of truth:
+- `PROMO = { code: "BREAK20", discount: "20% OFF", startsOn: "2026-07-12", endsOn: "2026-08-25", dateLabel: "July 12 – August 25, 2026", eligibleSlugs: ["queen-i", "queen-ii"], fineprint: "New reservations only." }`
+- Helper `isPromoBoat(slug)`.
 
-## What the audit found
+All new UI reads from this file so the code and dates never drift.
 
-Bundle side is healthy (main chunk 756 KB, route chunks 5–31 KB). The real weight is images:
+### 2. Shared promo components
+Create `src/components/promo/` with three small, reusable pieces:
 
-- `dist/client/images/silverthorn/` (small-boat galleries) = **16 MB**
-- `dist/client/images/small-boats/` = 2.1 MB
-- Houseboat detail galleries: many photos **200–500 KB each** (Queen I, Queen II, Senator galleries alone have dozens of >200 KB files, several 400–515 KB)
-- Total shipped images ~30 MB
+- **`PromoBadge.tsx`** — pill "20% OFF" placed as an absolute top-right badge over a card image. Sunset gradient (amber → orange → rose), soft glow, `aria-label="20 percent off summer promotion"`. Skips render if `!isPromoBoat(slug)`.
+- **`PromoCardFrame.tsx`** — wraps an existing card; adds an animated conic-gradient border glow (slow rotation via CSS keyframes, `@media (prefers-reduced-motion: reduce)` disables the animation), gentle hover lift on desktop, active-state ring on touch. Renders children unchanged so we don't rewrite card markup.
+- **`SummerPromoBanner.tsx`** — the hero-adjacent banner. Full-width section, animated yellow→orange→sunset gradient background (CSS `background-size: 200% 200%` + slow keyframe pan, reduced-motion falls back to static gradient). Decorative SVG sun, waves, and a houseboat silhouette (inline SVG, no new assets, no layout shift). Content:
+  - Eyebrow chip "Limited Time"
+  - H2 "SUMMER FUN SALE" with a subtle text-shimmer (opacity/brightness pulse, not blinking — WCAG-safe)
+  - Body: "Book your houseboat vacation between July 12 and August 25, 2026 and receive 20% OFF."
+  - Promo code shown in a copy-friendly monospace chip: `BREAK20`
+  - Eligible boats line: "Selected Houseboats: Queen I & Queen II"
+  - Fine print
+  - Primary CTA "Book Now" → `https://rentals.silverthornresort.com/category/13` (existing houseboat category), `data-cta="home-summer-promo"`
+  - Secondary link "View Eligible Boats" → `/houseboats`
 
-Secondary issues:
-- No `width`/`height` on gallery `<img>` tags → layout shift + late decode
-- Hero images preload correctly on most routes, but not all `<img>` heroes set `fetchpriority="high"`, `loading="eager"`, and `decoding="async"` consistently
-- No responsive `srcset` anywhere — mobile devices download desktop-sized files
-- Two lightbox `<img>` in `HouseboatDetail` / `SilverthornBoatDetail` never set `decoding` — minor, but included in the sweep
+Uses semantic tokens from `styles.css`; adds only 2 keyframes (`gradient-pan`, `shimmer`) scoped inside the component's styles or `@utility` in `styles.css`.
 
-## Plan
+### 3. Homepage integration (`src/components/SilverthornHomePage.tsx`)
+- Import `SummerPromoBanner` and render it directly below the hero section, above the existing content.
+- In `FleetCard` (line ~490), wrap the card body of Queen I & Queen II in `PromoCardFrame` and drop a `PromoBadge` in the image top-right. Other boats render unchanged.
+- Verify mobile spacing: cards already stack; badge uses `top-3 right-3` so it clears the corner radius and doesn't overlap price/rating.
 
-### 1. Re-encode oversized WebPs (biggest win)
+### 4. Fleet page (`src/components/HouseboatsFleetPage.tsx`)
+- Same treatment on the fleet card grid: `PromoCardFrame` + `PromoBadge` for Queen I & Queen II only, driven by `isPromoBoat(boat.slug)`.
 
-Batch-recompress every image over 150 KB in `public/images/**` in place with `cwebp -q 78 -m 6 -resize 1600 0` (cap long edge at 1600 px, keep aspect ratio, quality 78 — visually identical, ~40–60% smaller). Skip anything already under 150 KB and skip floor-plan diagrams (small already). Expected result: total image payload drops from ~30 MB to ~10–12 MB, individual gallery photos land in the 60–150 KB range.
+### 5. Individual boat pages (Queen I & Queen II)
+- Add a `HouseboatPromoSection` block (new component in `src/components/promo/`) inside `HouseboatDetail.tsx`, rendered conditionally with `isPromoBoat(boat.slug)`, positioned just below the hero/gallery and above the specs section.
+- Reuses the sunset gradient + summer SVGs from the banner but in a boat-page-scale layout: headline "20% OFF This Summer", date line, `BREAK20` chip, fine print, and a "Book Now" button whose href matches that boat's existing "Check Availability" URL (read from the boat data — no hardcoded URLs).
+- Because `HouseboatDetail` is shared by all four boats, the gate is `isPromoBoat(boat.slug)`; Queen and Senator render nothing extra.
 
-### 2. Hero LCP polish (every route)
+### 6. Accessibility, performance, quality bar
+- All animations honor `prefers-reduced-motion`.
+- Text contrast on the sunset background verified against WCAG AA (dark text on the lightest gradient stop, or a translucent white content card layered on the gradient).
+- Inline SVG decorations only — no new image downloads, no CLS.
+- No changes to routes, data, pricing, links, or SEO.
+- No new deps.
 
-For each route's above-the-fold hero `<img>`:
-- add `fetchpriority="high"`, `loading="eager"`, `decoding="async"`
-- add explicit `width` and `height` (prevents CLS)
-- keep the existing `head().links` preload entry
-
-Routes touched: `index`, `houseboats.index`, `houseboats.queen`, `houseboats.queen-i`, `houseboats.queen-ii`, `houseboats.senator`, `cabins`, `small-boats`, `small-boats_.$slug`, `shasta-lake`, `exploring-shasta-lake`, `planning`, `pro-shop`, `houseboats.policy`, `cabins_.policy`, `about.history`, `directions`, `contact`, `faq`, `guest-info`, `employment`.
-
-### 3. Below-the-fold images
-
-Verify every `<img>` outside the first viewport has `loading="lazy"` and `decoding="async"`. Add the two missing ones in `HouseboatDetail.tsx` (line 32) and `SilverthornBoatDetail.tsx` (line 290) lightbox images (`decoding="async"` — lightbox images shouldn't block anything).
-
-### 4. Nav link preloading
-
-TanStack `<Link>` already preloads on intent by default in this project. Confirm `defaultPreload: "intent"` is set in `src/router.tsx`; if not, enable it so hovering a nav item warms the next route's chunk.
-
-### 5. Verify
-
-Run `bun run build` after changes and compare:
-- `du -sh dist/client/images` before vs after
-- `du -k dist/client/assets/*.js` (should be unchanged)
-
-Report the before/after image totals to you.
-
-## What I will NOT do
-
-- No design changes, no content rewrites, no route restructures
-- No new dependencies (`sharp`, `vite-imagetools`, image CDN) — the in-place `cwebp` pass is enough and reversible
-- No responsive `srcset` rollout in this pass — it would touch every `<img>` and risk visual regressions; if the mobile numbers still aren't good after step 1, we can do a targeted second pass on the hero images only
-- No changes to `.asset.json` CDN files (already optimized on the CDN side)
+### Technical notes
+- Files created: `src/lib/promo.ts`, `src/components/promo/PromoBadge.tsx`, `src/components/promo/PromoCardFrame.tsx`, `src/components/promo/SummerPromoBanner.tsx`, `src/components/promo/HouseboatPromoSection.tsx`.
+- Files edited: `src/components/SilverthornHomePage.tsx`, `src/components/HouseboatsFleetPage.tsx`, `src/components/HouseboatDetail.tsx`, and (if needed for shared keyframes) `src/styles.css`.
+- No touches to Queen, Senator, cabins, small boats, or any policy/content pages.
+- Build check after wiring, plus a quick preview screenshot of home + `/houseboats` + `/houseboats/queen-i` to verify badge placement and mobile layout.

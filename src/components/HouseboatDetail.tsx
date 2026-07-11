@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import type { Houseboat } from "@/data/houseboats";
 import { houseboats } from "@/data/houseboats";
+import { HouseboatPromoSection } from "@/components/promo/HouseboatPromoSection";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -158,6 +159,8 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
           </div>
         </div>
       </section>
+
+      <HouseboatPromoSection slug={boat.slug} boatName={boat.name} bookingUrl={boat.bookingUrl} />
 
       {/* Main content + sidebar */}
       <section className="py-12">

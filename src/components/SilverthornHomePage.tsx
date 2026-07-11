@@ -23,6 +23,10 @@ import fleetQueen from "@/assets/fleet-queen.webp";
 import fleetQueenI from "@/assets/fleet-queen-i.webp";
 import fleetQueenII from "@/assets/fleet-queen-ii.webp";
 import fleetSenator from "@/assets/fleet-senator.webp";
+import { SummerPromoBanner } from "@/components/promo/SummerPromoBanner";
+import { PromoBadge } from "@/components/promo/PromoBadge";
+import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
+import { isPromoBoat } from "@/lib/promo";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
@@ -488,10 +492,12 @@ function Hero() {
 }
 
 function FleetCard({ boat }: { boat: any }) {
+  const promo = isPromoBoat(boat.slug);
   return (
+    <PromoCardFrame slug={boat.slug}>
     <div
       className="rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1"
-      style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
+      style={{ backgroundColor: "#fff", borderColor: promo ? "transparent" : "#E2DED6" }}
     >
       <div
         className="h-56 relative overflow-hidden"
@@ -512,6 +518,7 @@ function FleetCard({ boat }: { boat: any }) {
         >
           {boat.badge}
         </span>
+        <PromoBadge slug={boat.slug} />
       </div>
 
       <div className="p-4">
@@ -551,6 +558,7 @@ function FleetCard({ boat }: { boat: any }) {
         </a>
       </div>
     </div>
+    </PromoCardFrame>
   );
 }
 
@@ -1087,6 +1095,7 @@ export default function SilverthornHomePage() {
     <main>
       
       <Hero />
+      <SummerPromoBanner />
       <FleetSection />
       <StatsBar />
       <AboutSection />

@@ -26,6 +26,8 @@ import {
   Bath,
   Ruler,
 } from "lucide-react";
+import { PromoBadge } from "@/components/promo/PromoBadge";
+import { isPromoBoat } from "@/lib/promo";
 
 const HERO_IMG =
   "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.webp";
@@ -155,13 +157,14 @@ export function HouseboatsFleetPage() {
                   key={boat.id}
                   className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-12 ${reverse ? "lg:[&>div:first-child]:order-2" : ""}`}
                 >
-                  <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-border">
+                  <div className={`relative overflow-hidden rounded-3xl shadow-lg ${isPromoBoat(boat.slug) ? "ring-2 ring-orange-400/70 promo-badge-glow" : "ring-1 ring-border"}`}>
                     <img
                       src={boat.heroImages[0]}
                       alt={boat.heroAltTexts[0]}
                       className="aspect-[4/3] w-full object-cover transition-transform duration-500 hover:scale-105"
                       loading="lazy"
                     />
+                    <PromoBadge slug={boat.slug} />
                   </div>
                   <div>
                     <Badge variant="secondary" className="rounded-full">{boat.badge}</Badge>
