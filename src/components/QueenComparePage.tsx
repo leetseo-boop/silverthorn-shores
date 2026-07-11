@@ -140,13 +140,39 @@ export function QueenComparePage() {
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-12">
       {/* Hero */}
-      <section className="border-b border-border bg-gradient-to-b from-muted/40 to-background">
-        <div className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-          <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+      <section className="relative overflow-hidden border-b border-border">
+        {/* Sunset wash */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,194,75,0.22) 0%, rgba(255,138,31,0.14) 40%, rgba(226,62,87,0.08) 70%, hsl(var(--background)) 100%)",
+          }}
+        />
+        {/* Floating summer icons (desktop/tablet only) */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden sm:block">
+          <Sun className="absolute left-[4%] top-6 h-10 w-10 text-amber-400/70 promo-float" />
+          <Palmtree className="absolute right-[6%] top-10 h-9 w-9 text-emerald-500/50 promo-bob" />
+          <LifeBuoy className="absolute left-[8%] bottom-8 h-8 w-8 text-rose-500/50 promo-float" style={{ animationDelay: "1.2s" }} />
+          <IceCreamCone className="absolute right-[10%] bottom-16 h-8 w-8 text-pink-500/50 promo-bob" style={{ animationDelay: "0.6s" }} />
+          <Sailboat className="absolute left-1/2 top-4 h-7 w-7 -translate-x-1/2 text-sky-500/50 promo-float" style={{ animationDelay: "2s" }} />
+          <Waves className="absolute right-1/3 bottom-4 h-8 w-8 text-sky-500/40 promo-bob" style={{ animationDelay: "1.5s" }} />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 py-10 md:py-14">
+          <span
+            className="mb-3 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md ring-2 ring-white/60 promo-badge-glow"
+            style={{
+              background: "linear-gradient(135deg, #FFC24B 0%, #FF8A1F 45%, #E23E57 100%)",
+              textShadow: "0 1px 2px rgba(0,0,0,0.25)",
+            }}
+          >
+            <Sun className="h-3.5 w-3.5" aria-hidden />
             Summer Fun Sale · {PROMO.discount} · Code {PROMO.code}
-          </p>
+          </span>
           <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Queen I vs Queen II
+            Queen I <span className="text-primary">vs</span> Queen II
           </h1>
           <p className="mt-3 max-w-2xl text-base text-muted-foreground md:text-lg">
             Two luxury Silverthorn Resort houseboats, side by side. Compare capacity,
@@ -158,26 +184,38 @@ export function QueenComparePage() {
 
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {[q1, q2].map((boat) => (
-              <div
-                key={boat.slug}
-                className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
-              >
-                <img
-                  src={boat.heroImages[0]}
-                  alt={boat.heroAltTexts[0]}
-                  width={800}
-                  height={500}
-                  loading="eager"
-                  decoding="async"
-                  className="aspect-[16/10] w-full object-cover"
-                />
-                <div className="p-5">
-                  <div className="flex items-center justify-between gap-3">
-                    <h2 className="text-xl font-bold text-foreground">{boat.name}</h2>
-                    <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
-                      {boat.badge}
-                    </span>
+              <PromoCardFrame key={boat.slug} slug={boat.slug}>
+                <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+                  {/* Top-right 20% OFF badge */}
+                  <PromoBadge slug={boat.slug} />
+                  {/* Top-left "Save 20%" ribbon */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute left-[-38px] top-4 z-20 -rotate-45 px-10 py-1 text-[10px] font-extrabold uppercase tracking-widest text-white shadow-md"
+                    style={{
+                      background: "linear-gradient(135deg, #FFC24B 0%, #FF8A1F 60%, #E23E57 100%)",
+                      textShadow: "0 1px 2px rgba(0,0,0,0.25)",
+                    }}
+                  >
+                    ☀ Save 20%
                   </div>
+                  <img
+                    src={boat.heroImages[0]}
+                    alt={boat.heroAltTexts[0]}
+                    width={800}
+                    height={500}
+                    loading="eager"
+                    decoding="async"
+                    className="aspect-[16/10] w-full object-cover"
+                  />
+                  <div className="p-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <h2 className="text-xl font-bold text-foreground">{boat.name}</h2>
+                      <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
+                        {boat.badge}
+                      </span>
+                    </div>
+
                   <p className="mt-1 text-sm text-muted-foreground">{boat.tagline}</p>
                   <p className="mt-3 text-sm text-foreground">
                     Sleeps {boat.sleeps} · {boat.staterooms} staterooms · {boat.bathrooms} baths ·
