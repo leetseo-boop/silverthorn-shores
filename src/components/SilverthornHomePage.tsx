@@ -141,6 +141,10 @@ const NAV_LINKS = [
     ],
   },
   {
+    label: "Moorage",
+    href: "/moorage",
+  },
+  {
     label: "Shasta Lake",
     children: [
       { label: "Shasta Lake",         href: "/shasta-lake" },
