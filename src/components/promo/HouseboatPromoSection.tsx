@@ -32,7 +32,7 @@ export function HouseboatPromoSection({ slug, boatName, bookingUrl }: Props) {
       </svg>
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-0 right-0 w-full text-white/25"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 w-full text-white/30"
         viewBox="0 0 1440 90"
         preserveAspectRatio="none"
       >
@@ -42,8 +42,30 @@ export function HouseboatPromoSection({ slug, boatName, bookingUrl }: Props) {
         />
       </svg>
 
-      <div className="relative mx-auto max-w-6xl px-4 py-10 sm:py-14">
-        <div className="rounded-3xl bg-white/15 p-6 sm:p-8 ring-1 ring-white/40 backdrop-blur-sm shadow-xl">
+      {/* Floating summer emoji chips */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <span className="absolute right-[6%] top-6 text-3xl promo-float" style={{ animationDelay: "0.2s" }}>🌴</span>
+        <span className="absolute right-[18%] bottom-8 text-2xl promo-float" style={{ animationDelay: "1.1s" }}>🛟</span>
+        <span className="absolute left-[8%] bottom-10 text-2xl promo-float" style={{ animationDelay: "1.6s" }}>🩴</span>
+        <span className="absolute left-[36%] top-4 text-xl promo-float" style={{ animationDelay: "0.8s" }}>🕶️</span>
+        <span className="absolute right-[36%] top-8 text-xl promo-float" style={{ animationDelay: "2.2s" }}>🍹</span>
+      </div>
+
+      {/* Houseboat silhouette bobbing */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-4 right-4 hidden h-14 w-36 text-white/60 md:block promo-bob"
+        viewBox="0 0 200 80"
+      >
+        <path
+          fill="currentColor"
+          d="M10,55 h180 l-15,15 h-150 z M25,30 h150 v20 h-150 z M35,10 h130 v18 h-130 z M55,5 h20 v5 h-20 z"
+        />
+      </svg>
+
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-10 sm:py-14">
+        <div className="rounded-3xl bg-black/25 p-6 sm:p-8 ring-1 ring-white/40 backdrop-blur-sm shadow-xl">
+
           <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
             <div className="text-center md:text-left">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 shadow-sm">
