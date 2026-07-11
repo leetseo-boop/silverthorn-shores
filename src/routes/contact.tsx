@@ -17,6 +17,7 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 import { Button } from "@/components/ui/button";
+import { ResortMap } from "@/components/ResortMap";
 import heroMarina from "@/assets/home-hero-marina.webp";
 
 const path = "/contact";
@@ -213,16 +214,7 @@ function ContactPage() {
       {/* Map */}
       <section className="px-4 pb-12">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl ring-1 ring-border shadow-sm">
-          <iframe
-            title="Map to Silverthorn Resort"
-            src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY}&q=${encodeURIComponent("Silverthorn Resort, 16250 Silverthorn Road, Redding, CA 96003")}`}
-            width="100%"
-            height={350}
-            style={{ border: 0 }}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-          />
+          <ResortMap className="block h-[350px] w-full" />
         </div>
       </section>
 
