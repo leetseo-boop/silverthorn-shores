@@ -1,28 +1,26 @@
 ## Problem
 
-The map on `/directions` and `/contact` still shows "This content is blocked." The Google Maps **Embed API** requires the API key to have the *Maps Embed API* enabled, but the Lovable-managed browser key is only authorized for the **Maps JavaScript API** and **Places API (New)** (per the connector knowledge). So `maps/embed/v1/place?key=...` gets rejected — no iframe fallback will fix this.
+The Lovable-managed Google Maps key is referrer-restricted to `*.lovable.app` / `*.lovableproject.com`. On the live custom domain `silverthornresort.com`, both the Embed API and Maps JavaScript API get rejected, leaving the map blank.
 
-## Fix
+## Fix (Option A — zero setup)
 
-Stop using the Embed API iframe. Render a real interactive map with the **Maps JavaScript API**, which the browser key *is* authorized for.
+Replace the Google Maps embed with an OpenStreetMap iframe. No API key, no referrer restrictions, works instantly on any domain.
 
 ### Steps
 
-1. Create `src/components/ResortMap.tsx`:
-   - Loads the Maps JS script once (async, with `callback=initMap`, `channel=<tracking id>`, using `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY`).
-   - Renders a `<div>` container, instantiates `new google.maps.Map` centered on the resort's coordinates (approx `40.7466, -122.3260` — Silverthorn Rd, Lakehead), zoom ~13.
-   - Adds a `google.maps.Marker` with the resort title.
-   - No `mapId` (per knowledge), no `AdvancedMarkerElement`.
-   - Handles script-already-loaded case (only inject once across the app).
-   - Fallback UI: if the key is missing or the script fails, show a styled card with "Open in Google Maps" button linking to the existing `MAPS_DEEP_LINK`.
+1. Rewrite `src/components/ResortMap.tsx`:
+   - Remove all Google Maps JS loading logic.
+   - Render an `<iframe>` pointing to `https://www.openstreetmap.org/export/embed.html` centered on the resort coords (`40.8419, -122.2489`) with a marker.
+   - Keep the same `className` prop so the container styling on `/directions` and `/contact` stays identical (no layout shift).
+   - Keep the "Open in Google Maps" fallback button below/over the map linking to the existing `MAPS_DEEP_LINK` so users can still get turn-by-turn directions in their preferred app.
+   - Add `title`, `loading="lazy"`, and proper `aria-label` for a11y/SEO.
 
-2. Swap the iframe in `src/components/DirectionsPage.tsx` for `<ResortMap />` inside the same rounded/bordered container (keep the aspect ratio classes).
+2. No changes to `DirectionsPage.tsx` or `contact.tsx` — they already consume `<ResortMap />`.
 
-3. Swap the iframe in `src/routes/contact.tsx` the same way.
-
-4. Verify with Playwright after publish: load `/directions`, screenshot, confirm the map tiles render and the marker is visible with no "content is blocked" message.
+3. Verify with Playwright on the live domain after publish: load `/directions` and `/contact`, screenshot, confirm the OSM tiles render with the marker visible.
 
 ### Notes
 
-- No key/permission changes needed — Maps JS is already authorized.
-- No layout changes; container styles stay identical so nothing else on the page shifts.
+- OSM embed has no usage limits or billing concerns.
+- Look/feel is clean and neutral; fits the resort's minimal aesthetic.
+- If later you want branded Google Maps back, we can do Option B (custom GCP key with `silverthornresort.com` in the referrer allowlist).
