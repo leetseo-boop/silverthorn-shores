@@ -29,7 +29,7 @@ function Lightbox({ items, alts, index, onClose, onPrev, onNext }: any) {
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4" onClick={onClose}>
       <button className="absolute top-4 right-4 text-white text-3xl z-10" onClick={onClose} aria-label="Close">✕</button>
       <button className="absolute left-4 text-white text-4xl px-3 z-10" onClick={(e) => { e.stopPropagation(); onPrev(); }} aria-label="Previous">‹</button>
-      <img src={items[index]} alt={alts?.[index] || ""} className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg" onClick={(e) => e.stopPropagation()} />
+      <img src={items[index]} alt={alts?.[index] || ""} className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg" decoding="async" onClick={(e) => e.stopPropagation()} />
       <button className="absolute right-4 text-white text-4xl px-3 z-10" onClick={(e) => { e.stopPropagation(); onNext(); }} aria-label="Next">›</button>
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/10 backdrop-blur text-white rounded-full text-sm">
         {index + 1} / {items.length}

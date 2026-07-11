@@ -84,7 +84,11 @@ export function HouseboatsFleetPage() {
           src={HERO_IMG}
           alt="Queen houseboat anchored at Silverthorn Resort on the Pit River Arm of Shasta Lake"
           className="absolute inset-0 h-full w-full object-cover"
+          width={1920}
+          height={1080}
+          loading="eager"
           fetchPriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
         <div className="relative mx-auto max-w-6xl px-4 py-28 md:py-40">

@@ -287,7 +287,7 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
             <ChevronRight className="w-6 h-6" />
           </button>
           <figure className="max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
-            <img src={boat.gallery[lightbox].src} alt={boat.gallery[lightbox].alt} className="w-full h-auto max-h-[85vh] object-contain rounded-lg" />
+            <img src={boat.gallery[lightbox].src} alt={boat.gallery[lightbox].alt} decoding="async" className="w-full h-auto max-h-[85vh] object-contain rounded-lg" />
             <figcaption className="text-center text-white/80 text-sm mt-3">{boat.gallery[lightbox].alt} · {lightbox + 1} / {boat.gallery.length}</figcaption>
           </figure>
         </div>
