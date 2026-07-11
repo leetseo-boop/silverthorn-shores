@@ -24,6 +24,7 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/small-boats", changefreq: "weekly", priority: "0.9" },
   { path: "/shasta-lake", changefreq: "monthly", priority: "0.7" },
   { path: "/exploring-shasta-lake", changefreq: "monthly", priority: "0.7" },
+  { path: "/shasta-vs-lake-powell", changefreq: "monthly", priority: "0.8" },
   { path: "/planning", changefreq: "monthly", priority: "0.7" },
   { path: "/about/history", changefreq: "yearly", priority: "0.5" },
   { path: "/contact", changefreq: "monthly", priority: "0.6" },
