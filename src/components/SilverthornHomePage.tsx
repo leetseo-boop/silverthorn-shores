@@ -146,6 +146,7 @@ const NAV_LINKS = [
       { label: "Shasta Lake",         href: "/shasta-lake" },
       { label: "Explore Shasta Lake", href: "/exploring-shasta-lake" },
       { label: "Planning Guide",      href: "/planning" },
+      { label: "Shasta vs Lake Powell", href: "/shasta-vs-lake-powell" },
     ],
   },
   {
