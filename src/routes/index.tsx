@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import SilverthornHomePage, { HOME_FAQS } from "@/components/SilverthornHomePage";
 import heroMarina from "@/assets/home-hero-marina.webp";
 
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const URL = `${SITE}/`;
 const TITLE = "Silverthorn Resort — Shasta Lake Houseboats & Cabins";
 const DESCRIPTION =

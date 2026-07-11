@@ -210,7 +210,7 @@ const AMENITIES = [
   { icon: Waves, label: "Steps to marina" },
 ];
 
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const PAGE_URL = `${SITE}/cabins`;
 const OG_IMAGE = `${SITE}${cabin8Img}`;
 const PAGE_TITLE = "Shasta Lake Cabin Rentals | Silverthorn Resort";

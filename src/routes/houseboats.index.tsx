@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { HouseboatsFleetPage } from "@/components/HouseboatsFleetPage";
 import { houseboats } from "@/data/houseboats";
 
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const path = `${SITE}/houseboats`;
 const ogImage = `${SITE}/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.webp`;
 const title = "Shasta Lake Houseboat Rentals | Silverthorn Resort Fleet";

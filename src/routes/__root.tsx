@@ -78,8 +78,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "robots", content: "noindex, nofollow, noarchive, nosnippet, noimageindex" },
-      { name: "googlebot", content: "noindex, nofollow" },
       { title: "Silverthorn Resort" },
       { name: "description", content: "Family-run Shasta Lake resort. Houseboats, cabins, and boat rentals on the Pit River Arm since 1986." },
       { name: "author", content: "Silverthorn Resort" },
