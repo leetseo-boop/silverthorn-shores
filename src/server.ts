@@ -100,9 +100,98 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
+const LEGACY_REDIRECTS: Record<string, string> = {
+  "/index.html": "/",
+  "/home": "/",
+  "/home.html": "/",
+  "/index.php": "/",
+  "/history": "/about/history",
+  "/history.html": "/about/history",
+  "/about": "/about/history",
+  "/about.html": "/about/history",
+  "/contact.html": "/contact",
+  "/directions.html": "/directions",
+  "/faq.html": "/faq",
+  "/houseboats.html": "/houseboats",
+  "/cabins.html": "/cabins",
+  "/small-boats.html": "/small-boats",
+  "/smallboats": "/small-boats",
+  "/pro-shop.html": "/pro-shop",
+  "/proshop": "/pro-shop",
+  "/employment.html": "/employment",
+  "/guest-info.html": "/guest-info",
+  "/shasta-lake.html": "/shasta-lake",
+  "/planning.html": "/planning",
+};
+
+// Known route prefixes served by the app — anything else legacy falls back to "/".
+const KNOWN_PREFIXES = [
+  "/houseboats",
+  "/cabins",
+  "/small-boats",
+  "/shasta-lake",
+  "/exploring-shasta-lake",
+  "/planning",
+  "/about",
+  "/contact",
+  "/directions",
+  "/faq",
+  "/guest-info",
+  "/pro-shop",
+  "/employment",
+  "/compare",
+  "/auth",
+  "/admin",
+  "/api",
+  "/_",
+  "/sitemap.xml",
+  "/robots.txt",
+  "/favicon",
+  "/assets",
+];
+
+function resolveLegacyRedirect(url: URL): string | null {
+  const path = url.pathname;
+  if (path === "/") return null;
+
+  // Exact match
+  const exact = LEGACY_REDIRECTS[path];
+  if (exact) return exact;
+
+  // Strip trailing .html for any legacy static page
+  if (path.endsWith(".html")) {
+    const stripped = path.slice(0, -5);
+    if (KNOWN_PREFIXES.some((p) => stripped === p || stripped.startsWith(p + "/"))) {
+      return stripped;
+    }
+    return "/";
+  }
+
+  // Strip trailing slash and retry route match
+  if (path.length > 1 && path.endsWith("/")) {
+    return path.slice(0, -1);
+  }
+
+  return null;
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      const redirectTo = resolveLegacyRedirect(url);
+      if (redirectTo) {
+        const target = new URL(redirectTo, url.origin);
+        target.search = url.search;
+        return new Response(null, {
+          status: 301,
+          headers: {
+            location: target.toString(),
+            "cache-control": "public, max-age=3600",
+          },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
@@ -112,3 +201,4 @@ export default {
     }
   },
 };
+
