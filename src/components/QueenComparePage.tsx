@@ -454,9 +454,10 @@ export function QueenComparePage() {
             target="_blank"
             rel="noopener noreferrer"
             data-cta="compare-sticky-queen-i"
-            className="inline-flex items-center justify-center rounded-lg bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground"
+            className="inline-flex items-center justify-center rounded-lg px-3 py-2.5 text-sm font-extrabold text-white shadow-md"
+            style={{ background: "linear-gradient(135deg, #FFC24B 0%, #FF8A1F 55%, #E23E57 100%)" }}
           >
-            Book Queen I
+            ☀ Book Queen I · 20% OFF
           </a>
           <a
             href={q2.bookingUrl}
@@ -465,7 +466,7 @@ export function QueenComparePage() {
             data-cta="compare-sticky-queen-ii"
             className="inline-flex items-center justify-center rounded-lg border-2 border-primary px-3 py-2.5 text-sm font-semibold text-primary"
           >
-            Book Queen II
+            ☀ Book Queen II
           </a>
         </div>
       </div>
