@@ -1,13 +1,5 @@
-## Show full decimal prices on Small Boats pages
+Update the "Can I bring my pet?" FAQ answer in `src/routes/faq.tsx` (line 40) with the full pet policy from the uploaded image:
 
-The prices in the badges are being rounded to whole dollars via `.toFixed(0)`. The image shows they should display with cents (e.g. `$548.63/day`, `$1243.55/day`).
+> Silverthorn and Jones Valley Resort are a pet friendly resort and will accommodate **one pet at no charge**. Each additional pet will require a non-refundable charge of **$50.00** to be paid prior to occupancy/boarding. Any excessive cleaning required upon departure of pet hair, urine, etc. will be charged to the credit card on file at the rate of **$95.00 per hour**. Any damages will be charged at **replacement cost**.
 
-### Changes
-
-1. **`src/routes/small-boats.tsx`** (line 247) — fleet card badge:
-   - `From $${b.price.toFixed(0)}/day` → `$${b.price.toFixed(2)}/day`
-
-2. **`src/components/SilverthornBoatDetail.tsx`** (line 241) — "Related boats" cards on each individual boat page:
-   - `From $${r.dailyPrice.toFixed(0)}/day` → `$${r.dailyPrice.toFixed(2)}/day`
-
-All other price displays already use `.toFixed(2)` (hero, pricing table, JSON-LD) and stay unchanged.
+If the FAQ answer field supports rich text/JSX, keep the bold emphasis; if it's plain string, use plain text with the same wording. I'll check the type of `a` and render accordingly (likely switch to a small JSX renderer or add a `bold` markdown-style split).
