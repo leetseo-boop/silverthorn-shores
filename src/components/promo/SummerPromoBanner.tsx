@@ -42,10 +42,10 @@ export function SummerPromoBanner() {
         />
       </svg>
 
-      {/* Houseboat silhouette */}
+      {/* Houseboat silhouette bobbing on the wave */}
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-3 right-6 hidden h-12 w-32 text-white/40 sm:block"
+        className="pointer-events-none absolute bottom-3 right-6 hidden h-14 w-36 text-white/60 sm:block promo-bob"
         viewBox="0 0 200 80"
       >
         <path
@@ -54,8 +54,19 @@ export function SummerPromoBanner() {
         />
       </svg>
 
-      <div className="relative mx-auto max-w-6xl px-4 py-8 sm:py-10">
-        <div className="rounded-3xl bg-white/15 p-5 sm:p-7 shadow-xl ring-1 ring-white/40 backdrop-blur-sm">
+      {/* Floating summer emoji chips */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <span className="absolute left-[6%] top-6 text-2xl promo-float" style={{ animationDelay: "0s" }}>🕶️</span>
+        <span className="absolute left-[14%] bottom-8 text-2xl promo-float" style={{ animationDelay: "1s" }}>🩴</span>
+        <span className="absolute right-[8%] top-4 text-2xl promo-float" style={{ animationDelay: "1.5s" }}>🌴</span>
+        <span className="absolute right-[22%] bottom-10 text-2xl promo-float" style={{ animationDelay: "0.6s" }}>🛟</span>
+        <span className="absolute left-[42%] top-2 text-xl promo-float" style={{ animationDelay: "2s" }}>👙</span>
+        <span className="absolute right-[38%] top-3 text-xl promo-float" style={{ animationDelay: "2.4s" }}>🍹</span>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-8 sm:py-10">
+        <div className="rounded-3xl bg-black/20 p-5 sm:p-7 shadow-xl ring-1 ring-white/40 backdrop-blur-sm">
+
           <div className="flex flex-col items-center gap-4 text-center sm:gap-5">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-orange-700 shadow-sm">
               <span aria-hidden>🌞</span> Limited Time
