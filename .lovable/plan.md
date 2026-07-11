@@ -1,16 +1,11 @@
-The Queen 3D tour is blocked because `my.matterport.com/show/?m=<id>` refuses to embed / navigate for this space. The working public URL you shared uses the `discover.matterport.com/space/<id>` format.
+## Plan
 
-### Change
-In `src/components/HouseboatDetail.tsx` (3D Tour tab, ~lines 364 and 371), swap both the "Open Fullscreen" link `href` and the `<iframe>` `src` from:
+1. **Fix the embedded 3D tour URL**
+   - Update the houseboat 3D tour iframe to use Matterport’s embeddable viewer URL instead of the public `discover.matterport.com/space/...` page, which is what is showing the blocked-content message.
+   - Keep the fullscreen/open button pointing to the public Matterport page so visitors can still open the tour in a new tab.
 
-`https://my.matterport.com/show/?m=${boat.matterportId}`
+2. **Apply it to all houseboat tours**
+   - Because all 3D tours share the same `HouseboatDetail` component and `matterportId` data, one component fix will cover Queen, Queen I, Queen II, and the other houseboat tour automatically.
 
-to:
-
-`https://discover.matterport.com/space/${boat.matterportId}`
-
-This applies to every houseboat with a `matterportId` (Queen, Queen I, Queen II, Senator), all of which use the same Matterport space format.
-
-### Verification
-- Load `/houseboats/queen` → 3D Tour tab → confirm iframe renders and "Open Fullscreen" opens the space.
-- Spot-check `/houseboats/queen-i` and `/houseboats/queen-ii` still load their tours.
+3. **Verify visually**
+   - Check at least one houseboat page’s 3D Tour tab after the change to confirm the embedded tour loads instead of the blocked message.
