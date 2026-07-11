@@ -386,7 +386,9 @@ export function QueenComparePage() {
             Which one is right for you?
           </h2>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <div aria-hidden className="absolute inset-x-0 top-0 h-1.5" style={{ background: "linear-gradient(90deg, #FFC24B, #FF8A1F, #E23E57)" }} />
+              <Sparkles aria-hidden className="absolute right-4 top-4 h-5 w-5 text-amber-500/70 promo-float" />
               <h3 className="text-lg font-bold text-foreground">Choose Queen I if…</h3>
               <ul className="mt-3 space-y-2 text-sm text-foreground">
                 <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> You need to sleep up to <strong>20 guests</strong> — the largest capacity of the pair.</li>
@@ -398,7 +400,9 @@ export function QueenComparePage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <div aria-hidden className="absolute inset-x-0 top-0 h-1.5" style={{ background: "linear-gradient(90deg, #E23E57, #FF8A1F, #FFC24B)" }} />
+              <Sparkles aria-hidden className="absolute right-4 top-4 h-5 w-5 text-rose-500/70 promo-float" style={{ animationDelay: "1s" }} />
               <h3 className="text-lg font-bold text-foreground">Choose Queen II if…</h3>
               <ul className="mt-3 space-y-2 text-sm text-foreground">
                 <li className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> You want a <strong>private penthouse suite</strong> with its own bath & sundeck.</li>
