@@ -368,7 +368,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
                     <div className="relative w-full overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
                       <div className="relative w-full aspect-video">
                         <iframe
-                          src={`https://my.matterport.com/show/?m=${boat.matterportId}`}
+                          src={`https://discover.matterport.com/space/${boat.matterportId}`}
                           title={`${boat.name} Houseboat 3D Virtual Tour`}
                           className="absolute inset-0 w-full h-full"
                           allow="fullscreen; xr-spatial-tracking"
