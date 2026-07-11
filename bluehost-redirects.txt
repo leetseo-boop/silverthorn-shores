@@ -1,26 +1,63 @@
 # Bluehost 301 redirects — Silverthorn old site → new domain
-# Paste these rules into the .htaccess file at the root of the old hosting account.
+# Paste these rules into the .htaccess file at the DOCUMENT ROOT of the old Bluehost account.
+# Each old path maps to its matching page on silverthornresort.com (the new Lovable site).
+#
+# IMPORTANT: These rules only affect HTTP/web traffic. They do NOT touch MX, SPF, DKIM,
+# or DMARC records, so reservations1@silverthornresort.com and all other mailboxes
+# continue to work exactly as before.
 
-Redirect 301 / https://silverthornresort.com/
-Redirect 301 /admin https://silverthornresort.com/
-Redirect 301 /cabins https://silverthornresort.com/
-Redirect 301 /cabins/policy https://silverthornresort.com/
-Redirect 301 /contact https://silverthornresort.com/
-Redirect 301 /directions https://silverthornresort.com/
-Redirect 301 /exploring-shasta-lake https://silverthornresort.com/
-Redirect 301 /faq https://silverthornresort.com/
-Redirect 301 /houseboats https://silverthornresort.com/
-Redirect 301 /houseboats/policy https://silverthornresort.com/
-Redirect 301 /houseboats/queen https://silverthornresort.com/
-Redirect 301 /houseboats/queen-i https://silverthornresort.com/
-Redirect 301 /houseboats/queen-ii https://silverthornresort.com/
-Redirect 301 /houseboats/senator https://silverthornresort.com/
-Redirect 301 /planning https://silverthornresort.com/
-Redirect 301 /pro-shop https://silverthornresort.com/
-Redirect 301 /shasta-lake https://silverthornresort.com/
-Redirect 301 /small-boats https://silverthornresort.com/
-Redirect 301 /about/history https://silverthornresort.com/
-
-# Catch-all for any dynamic small-boat detail pages (e.g. /small-boats/pontoon)
 RewriteEngine On
-RewriteRule ^small-boats/.+ https://silverthornresort.com/ [R=301,L]
+
+# Home
+Redirect 301 /index.html https://silverthornresort.com/
+Redirect 301 /home https://silverthornresort.com/
+
+# Houseboats
+Redirect 301 /houseboats https://silverthornresort.com/houseboats
+Redirect 301 /houseboats/queen-i https://silverthornresort.com/houseboats/queen-i
+Redirect 301 /houseboats/queen-ii https://silverthornresort.com/houseboats/queen-ii
+Redirect 301 /houseboats/queen https://silverthornresort.com/houseboats/queen
+Redirect 301 /houseboats/senator https://silverthornresort.com/houseboats/senator
+Redirect 301 /houseboats/policy https://silverthornresort.com/houseboats/policy
+Redirect 301 /compare/queens https://silverthornresort.com/compare/queens
+
+# Cabins
+Redirect 301 /cabins https://silverthornresort.com/cabins
+Redirect 301 /cabins/policy https://silverthornresort.com/cabins/policy
+
+# Small boats
+Redirect 301 /small-boats https://silverthornresort.com/small-boats
+Redirect 301 /small-boats/jet-ski https://silverthornresort.com/small-boats/jet-ski
+Redirect 301 /small-boats/axis-t220r https://silverthornresort.com/small-boats/axis-t220r
+Redirect 301 /small-boats/centurion-t5 https://silverthornresort.com/small-boats/centurion-t5
+Redirect 301 /small-boats/tahoe-deck https://silverthornresort.com/small-boats/tahoe-deck
+Redirect 301 /small-boats/patio-boat https://silverthornresort.com/small-boats/patio-boat
+Redirect 301 /small-boats/sun-tracker https://silverthornresort.com/small-boats/sun-tracker
+Redirect 301 /small-boats/party-cruiser-i https://silverthornresort.com/small-boats/party-cruiser-i
+Redirect 301 /small-boats/fishing-boat https://silverthornresort.com/small-boats/fishing-boat
+Redirect 301 /small-boats/kayak https://silverthornresort.com/small-boats/kayak
+Redirect 301 /small-boats/sup https://silverthornresort.com/small-boats/sup
+
+# Shasta Lake
+Redirect 301 /shasta-lake https://silverthornresort.com/shasta-lake
+Redirect 301 /exploring-shasta-lake https://silverthornresort.com/exploring-shasta-lake
+Redirect 301 /planning https://silverthornresort.com/planning
+
+# About
+Redirect 301 /about/history https://silverthornresort.com/about/history
+Redirect 301 /history https://silverthornresort.com/about/history
+Redirect 301 /contact https://silverthornresort.com/contact
+Redirect 301 /directions https://silverthornresort.com/directions
+
+# Other
+Redirect 301 /faq https://silverthornresort.com/faq
+Redirect 301 /guest-info https://silverthornresort.com/guest-info
+Redirect 301 /pro-shop https://silverthornresort.com/pro-shop
+Redirect 301 /employment https://silverthornresort.com/employment
+
+# Catch-all for any unmatched small-boat detail page
+RewriteRule ^small-boats/(.+)$ https://silverthornresort.com/small-boats/$1 [R=301,L]
+
+# Final catch-all: anything else on the old site → new homepage
+# (Keep this LAST — Apache evaluates rules top-to-bottom and this one matches everything.)
+RewriteRule ^(.*)$ https://silverthornresort.com/ [R=301,L]
