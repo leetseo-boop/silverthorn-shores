@@ -42,12 +42,11 @@ export function HouseboatPromoSection({ slug, boatName, bookingUrl }: Props) {
         />
       </svg>
 
-      {/* Floating summer emoji — hidden on mobile to keep copy uncluttered */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 hidden sm:block">
-        <span className="absolute right-[4%] top-6 text-3xl promo-float" style={{ animationDelay: "0.2s" }}>🌴</span>
-        <span className="absolute right-[14%] bottom-14 text-2xl promo-float hidden md:inline" style={{ animationDelay: "1.1s" }}>🛟</span>
-        <span className="absolute left-[6%] bottom-14 text-2xl promo-float hidden md:inline" style={{ animationDelay: "1.6s" }}>🩴</span>
-        <span className="absolute left-[38%] top-4 text-xl promo-float hidden lg:inline" style={{ animationDelay: "0.8s" }}>🕶️</span>
+      {/* Floating summer emoji — kept in the top strip so they never overlap the copy card */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hidden h-16 sm:block">
+        <span className="absolute right-[4%] top-3 text-3xl promo-float" style={{ animationDelay: "0.2s" }}>🌴</span>
+        <span className="absolute left-[38%] top-2 text-xl promo-float hidden md:inline" style={{ animationDelay: "0.8s" }}>🕶️</span>
+        <span className="absolute right-[38%] top-3 text-xl promo-float hidden lg:inline" style={{ animationDelay: "1.4s" }}>🍹</span>
       </div>
 
       {/* Houseboat silhouette bobbing (desktop only) */}

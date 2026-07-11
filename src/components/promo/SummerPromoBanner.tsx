@@ -54,13 +54,12 @@ export function SummerPromoBanner() {
         />
       </svg>
 
-      {/* Floating summer emoji — hidden on mobile to prevent overlap with the copy card */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 hidden sm:block">
-        <span className="absolute left-[4%] top-6 text-2xl promo-float" style={{ animationDelay: "0s" }}>🕶️</span>
-        <span className="absolute left-[10%] bottom-14 text-2xl promo-float" style={{ animationDelay: "1s" }}>🩴</span>
-        <span className="absolute right-[6%] top-4 text-2xl promo-float" style={{ animationDelay: "1.5s" }}>🌴</span>
-        <span className="absolute left-[46%] top-2 text-xl promo-float hidden md:inline" style={{ animationDelay: "2s" }}>👙</span>
-        <span className="absolute right-[42%] top-3 text-xl promo-float hidden md:inline" style={{ animationDelay: "2.4s" }}>🍹</span>
+      {/* Floating summer emoji — kept in the top strip so they never overlap the copy card */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hidden h-16 sm:block">
+        <span className="absolute left-[4%] top-3 text-2xl promo-float" style={{ animationDelay: "0s" }}>🕶️</span>
+        <span className="absolute right-[6%] top-2 text-2xl promo-float" style={{ animationDelay: "1.5s" }}>🌴</span>
+        <span className="absolute left-[46%] top-1 text-xl promo-float hidden md:inline" style={{ animationDelay: "2s" }}>👙</span>
+        <span className="absolute right-[42%] top-2 text-xl promo-float hidden md:inline" style={{ animationDelay: "2.4s" }}>🍹</span>
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-8 sm:py-10">
