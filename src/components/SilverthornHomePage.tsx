@@ -23,6 +23,10 @@ import fleetQueen from "@/assets/fleet-queen.webp";
 import fleetQueenI from "@/assets/fleet-queen-i.webp";
 import fleetQueenII from "@/assets/fleet-queen-ii.webp";
 import fleetSenator from "@/assets/fleet-senator.webp";
+import { SummerPromoBanner } from "@/components/promo/SummerPromoBanner";
+import { PromoBadge } from "@/components/promo/PromoBadge";
+import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
+import { isPromoBoat } from "@/lib/promo";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
@@ -1087,6 +1091,7 @@ export default function SilverthornHomePage() {
     <main>
       
       <Hero />
+      <SummerPromoBanner />
       <FleetSection />
       <StatsBar />
       <AboutSection />
