@@ -19,14 +19,14 @@ async function getServerEntry(): Promise<ServerEntry> {
 }
 
 // 'unsafe-inline' script-src is required by the inline GA bootstrap in __root.tsx;
-// frame-src covers the YouTube hero embed.
+// frame-src covers video embeds and Matterport 3D houseboat tours.
 const CSP = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
-  "frame-src https://www.youtube.com https://www.youtube-nocookie.com",
+  "frame-src https://www.youtube.com https://www.youtube-nocookie.com https://my.matterport.com https://discover.matterport.com",
   "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com",
   "object-src 'none'",
   "base-uri 'self'",
@@ -47,7 +47,7 @@ function withSecurityHeaders(response: Response): Response {
   secured.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
   secured.headers.set(
     "Permissions-Policy",
-    "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+    "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(self \"https://my.matterport.com\"), gyroscope=(self \"https://my.matterport.com\"), xr-spatial-tracking=(self \"https://my.matterport.com\")",
   );
   return secured;
 }
