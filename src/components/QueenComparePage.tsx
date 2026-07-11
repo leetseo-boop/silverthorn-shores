@@ -347,7 +347,10 @@ export function QueenComparePage() {
 
       {/* Pricing */}
       <section className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <h2 className="text-2xl font-bold text-foreground md:text-3xl">Seasonal pricing</h2>
+        <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground md:text-3xl">
+          <IceCreamCone className="h-6 w-6 text-pink-500" aria-hidden />
+          Seasonal pricing
+        </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Rates below are total per trip. Mid-season (May–September) rates are available on each
           boat's detail page.
