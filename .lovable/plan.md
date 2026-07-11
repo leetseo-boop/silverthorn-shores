@@ -1,17 +1,16 @@
-Add a new navigation item for the existing `/shasta-vs-lake-powell` comparison page under **Shasta Lake** in the site header.
+The Queen 3D tour is blocked because `my.matterport.com/show/?m=<id>` refuses to embed / navigate for this space. The working public URL you shared uses the `discover.matterport.com/space/<id>` format.
 
-### What will change
-- File: `src/components/SilverthornHomePage.tsx`
-- Location: `NAV_LINKS` constant, `Shasta Lake` submenu
-- Insertion point: immediately after `Planning Guide`
-- New item:
-  - Label: `Shasta vs Lake Powell`
-  - Href: `/shasta-vs-lake-powell`
+### Change
+In `src/components/HouseboatDetail.tsx` (3D Tour tab, ~lines 364 and 371), swap both the "Open Fullscreen" link `href` and the `<iframe>` `src` from:
 
-### How it will work
-The desktop dropdown and mobile drawer both read from `NAV_LINKS`, so the new link will appear in both places automatically without any extra components or logic.
+`https://my.matterport.com/show/?m=${boat.matterportId}`
+
+to:
+
+`https://discover.matterport.com/space/${boat.matterportId}`
+
+This applies to every houseboat with a `matterportId` (Queen, Queen I, Queen II, Senator), all of which use the same Matterport space format.
 
 ### Verification
-- Build the project to confirm no TypeScript/route errors.
-- Check the header dropdown to confirm the item renders after `Planning Guide`.
-- Click the link to confirm it navigates to `/shasta-vs-lake-powell`.
+- Load `/houseboats/queen` → 3D Tour tab → confirm iframe renders and "Open Fullscreen" opens the space.
+- Spot-check `/houseboats/queen-i` and `/houseboats/queen-ii` still load their tours.

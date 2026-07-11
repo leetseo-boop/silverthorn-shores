@@ -361,7 +361,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
                         <h2 className="text-2xl font-bold" style={{ fontFamily: DISPLAY, color: NAVY }}>Virtual 3D Tour</h2>
                         <p className="text-gray-600 mt-1">Explore every corner of the {boat.name} from anywhere.</p>
                       </div>
-                      <a href={`https://my.matterport.com/show/?m=${boat.matterportId}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-medium" style={{ color: ORANGE }}>
+                      <a href={`https://discover.matterport.com/space/${boat.matterportId}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-medium" style={{ color: ORANGE }}>
                         Open Fullscreen <ArrowRight className="w-4 h-4" />
                       </a>
                     </div>
