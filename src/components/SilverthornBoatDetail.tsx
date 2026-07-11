@@ -238,7 +238,7 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
                 <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                   <img src={r.hero} alt={r.heroAlt} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white shadow" style={{ backgroundColor: ORANGE }}>
-                    From ${r.dailyPrice.toFixed(0)}/day
+                    ${r.dailyPrice.toFixed(2)}/day
                   </div>
                 </div>
                 <div className="p-5">

@@ -244,7 +244,7 @@ function SmallBoatsPage() {
                   <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                     <img src={b.img} alt={b.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white shadow" style={{ backgroundColor: ORANGE }}>
-                      From ${b.price.toFixed(0)}/day
+                      ${b.price.toFixed(2)}/day
                     </div>
                   </div>
                 </Link>
