@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ShastaLakePage } from "@/components/ShastaLakePage";
 import heroDam from "@/assets/shasta-lake/shasta-dam-mount-shasta-hero.webp";
 
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const url = `${SITE}/shasta-lake`;
 const title = "About Shasta Lake — 30,000 Acres in Northern California | Silverthorn Resort";
 const description =

@@ -13,7 +13,7 @@ const SAND = "#F4EFE6";
 const DISPLAY = "'Playfair Display', Georgia, serif";
 const BOOKING_URL = "https://rentals.silverthornresort.com";
 const HERO = "/images/small-boats/hero.webp";
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const PATH = `${SITE}/small-boats`;
 const HERO_ABS = `${SITE}${HERO}`;
 

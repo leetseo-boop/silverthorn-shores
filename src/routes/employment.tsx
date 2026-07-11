@@ -7,7 +7,7 @@ const ORANGE = "#E8640A";
 const SAND = "#F4EFE6";
 const DISPLAY = "'Playfair Display', Georgia, serif";
 
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const URL = `${SITE}/employment`;
 const TITLE = "Employment | Silverthorn Resort Marina on Shasta Lake";
 const DESCRIPTION =

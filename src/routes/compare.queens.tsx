@@ -4,7 +4,7 @@ import { getHouseboatBySlug } from "@/data/houseboats";
 
 const q1 = getHouseboatBySlug("queen-i")!;
 const q2 = getHouseboatBySlug("queen-ii")!;
-const url = "https://silver-shasta-dreams.lovable.app/compare/queens";
+const url = "https://silverthornresort.com/compare/queens";
 
 export const Route = createFileRoute("/compare/queens")({
   head: () => ({
@@ -67,8 +67,8 @@ export const Route = createFileRoute("/compare/queens")({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://silver-shasta-dreams.lovable.app/" },
-            { "@type": "ListItem", position: 2, name: "Houseboats", item: "https://silver-shasta-dreams.lovable.app/houseboats" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://silverthornresort.com/" },
+            { "@type": "ListItem", position: 2, name: "Houseboats", item: "https://silverthornresort.com/houseboats" },
             { "@type": "ListItem", position: 3, name: "Queen I vs Queen II", item: url },
           ],
         }),

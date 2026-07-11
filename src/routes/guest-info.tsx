@@ -13,7 +13,7 @@ const ORANGE = "#E8640A";
 const SAND = "#F4EFE6";
 const DISPLAY = "'Playfair Display', Georgia, serif";
 
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const URL = `${SITE}/guest-info`;
 const TITLE = "Guest Information & Cleaning Lists | Silverthorn";
 const DESCRIPTION =

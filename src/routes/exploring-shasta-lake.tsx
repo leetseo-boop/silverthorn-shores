@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ExploringShastaLakePage } from "@/components/ExploringShastaLakePage";
 import heroSunset from "@/assets/exploring-shasta-lake/shasta-lake-sunset-hero.webp";
 
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const url = `${SITE}/exploring-shasta-lake`;
 const title = "Exploring Shasta Lake — Sacramento, McCloud, Squaw & Pit Arms";
 const description =

@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import heroMarina from "@/assets/home-hero-marina.webp";
 
 const path = "/contact";
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const title = "Contact Silverthorn Resort | Shasta Lake Marina";
 const description =
   "Get in touch with Silverthorn Resort on Shasta Lake. Call 800-332-3044, email reservations, find directions, and reach our marina team.";

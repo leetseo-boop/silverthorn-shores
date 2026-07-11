@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PlanningVacationPage } from "@/components/PlanningVacationPage";
 import hero from "@/assets/planning/planning-family-packing-hero.webp";
 
-const SITE = "https://silver-shasta-dreams.lovable.app";
+const SITE = "https://silverthornresort.com";
 const url = `${SITE}/planning`;
 const title = "Planning Your Shasta Lake Vacation — Silverthorn Resort Guide";
 const description =
