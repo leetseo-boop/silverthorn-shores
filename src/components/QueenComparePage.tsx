@@ -305,7 +305,10 @@ export function QueenComparePage() {
       {/* Features & amenities */}
       <section className="border-t border-border bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-          <h2 className="text-2xl font-bold text-foreground md:text-3xl">Features & amenities</h2>
+          <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground md:text-3xl">
+            <Waves className="h-6 w-6 text-sky-500" aria-hidden />
+            Features & amenities
+          </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             What each boat brings on board.
           </p>
