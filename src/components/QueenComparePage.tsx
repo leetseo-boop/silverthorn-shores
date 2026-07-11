@@ -230,8 +230,9 @@ export function QueenComparePage() {
                       See full details
                     </Link>
                   </div>
+                  </div>
                 </div>
-              </div>
+              </PromoCardFrame>
             ))}
           </div>
         </div>
