@@ -1,30 +1,28 @@
-# Fix the broken map embed
-
 ## Problem
-The map iframe on `/directions` (and `/contact`) uses the legacy unauthenticated URL:
 
-```
-https://www.google.com/maps?q=...&output=embed
-```
-
-Google now rejects this and renders: **"The Google Maps Embed API must be used in an iframe."** — so the map area shows a blank/error frame.
+The map on `/directions` and `/contact` still shows "This content is blocked." The Google Maps **Embed API** requires the API key to have the *Maps Embed API* enabled, but the Lovable-managed browser key is only authorized for the **Maps JavaScript API** and **Places API (New)** (per the connector knowledge). So `maps/embed/v1/place?key=...` gets rejected — no iframe fallback will fix this.
 
 ## Fix
-Switch both iframes to the official **Google Maps Embed API v1**, which is authorized on the Lovable-managed Google Maps browser key already available in this project as `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY`.
 
-New embed URL shape:
+Stop using the Embed API iframe. Render a real interactive map with the **Maps JavaScript API**, which the browser key *is* authorized for.
 
-```
-https://www.google.com/maps/embed/v1/place
-  ?key={VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY}
-  &q=Silverthorn+Resort,16250+Silverthorn+Road,Redding,CA+96003
-```
+### Steps
 
-## Files to edit
-1. `src/components/DirectionsPage.tsx` — replace `MAP_EMBED` constant with the Embed API v1 URL built from the env var.
-2. `src/routes/contact.tsx` — same fix on its iframe `src`.
+1. Create `src/components/ResortMap.tsx`:
+   - Loads the Maps JS script once (async, with `callback=initMap`, `channel=<tracking id>`, using `VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY`).
+   - Renders a `<div>` container, instantiates `new google.maps.Map` centered on the resort's coordinates (approx `40.7466, -122.3260` — Silverthorn Rd, Lakehead), zoom ~13.
+   - Adds a `google.maps.Marker` with the resort title.
+   - No `mapId` (per knowledge), no `AdvancedMarkerElement`.
+   - Handles script-already-loaded case (only inject once across the app).
+   - Fallback UI: if the key is missing or the script fails, show a styled card with "Open in Google Maps" button linking to the existing `MAPS_DEEP_LINK`.
 
-## Notes
-- The browser key is referrer-restricted to `*.lovable.app` and `silverthornresort.com`, so it works on both preview and production.
-- No new deps, no connector wiring changes — the key env var is already present.
-- "Open in Google Maps" / "Get Directions" buttons stay unchanged (they use the public deep link).
+2. Swap the iframe in `src/components/DirectionsPage.tsx` for `<ResortMap />` inside the same rounded/bordered container (keep the aspect ratio classes).
+
+3. Swap the iframe in `src/routes/contact.tsx` the same way.
+
+4. Verify with Playwright after publish: load `/directions`, screenshot, confirm the map tiles render and the marker is visible with no "content is blocked" message.
+
+### Notes
+
+- No key/permission changes needed — Maps JS is already authorized.
+- No layout changes; container styles stay identical so nothing else on the page shifts.
