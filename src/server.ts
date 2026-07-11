@@ -175,10 +175,28 @@ function resolveLegacyRedirect(url: URL): string | null {
   return null;
 }
 
+const CANONICAL_HOST = "silverthornresort.com";
+const HOST_ALIASES = new Set(["www.silverthornresort.com"]);
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const url = new URL(request.url);
+
+      // Canonical host redirect (www → apex). Only for known aliases so
+      // preview/lovable.app hosts are unaffected.
+      if (HOST_ALIASES.has(url.hostname)) {
+        const target = new URL(url.toString());
+        target.hostname = CANONICAL_HOST;
+        return new Response(null, {
+          status: 301,
+          headers: {
+            location: target.toString(),
+            "cache-control": "public, max-age=3600",
+          },
+        });
+      }
+
       const redirectTo = resolveLegacyRedirect(url);
       if (redirectTo) {
         const target = new URL(redirectTo, url.origin);
@@ -194,6 +212,21 @@ export default {
 
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
+
+      // Force correct content-type for sitemap.xml — hosting layer otherwise
+      // rewrites application/xml to text/html.
+      if (url.pathname === "/sitemap.xml" && response.status === 200) {
+        const body = await response.text();
+        return new Response(body, {
+          status: 200,
+          headers: {
+            "content-type": "application/xml; charset=utf-8",
+            "cache-control": "public, max-age=3600",
+            "x-content-type-options": "nosniff",
+          },
+        });
+      }
+
       return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
     } catch (error) {
       console.error(error);
