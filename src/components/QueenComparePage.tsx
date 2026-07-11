@@ -381,7 +381,10 @@ export function QueenComparePage() {
       {/* Which should you pick? */}
       <section className="border-t border-border bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-          <h2 className="text-2xl font-bold text-foreground md:text-3xl">Which one is right for you?</h2>
+          <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground md:text-3xl">
+            <PartyPopper className="h-6 w-6 text-orange-500" aria-hidden />
+            Which one is right for you?
+          </h2>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <h3 className="text-lg font-bold text-foreground">Choose Queen I if…</h3>
