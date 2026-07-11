@@ -101,6 +101,7 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 }
 
 const LEGACY_REDIRECTS: Record<string, string> = {
+  // Static/legacy Bluehost paths
   "/index.html": "/",
   "/home": "/",
   "/home.html": "/",
@@ -122,6 +123,24 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/guest-info.html": "/guest-info",
   "/shasta-lake.html": "/shasta-lake",
   "/planning.html": "/planning",
+
+  // Legacy WordPress slugs still linked from rentals.silverthornresort.com
+  "/cabin-reservations": "/cabins",
+  "/cabin-rental-policy": "/cabins/policy",
+  "/our-houseboats": "/houseboats",
+  "/houseboat-reservations": "/houseboats",
+  "/houseboat-rental-policy": "/houseboats/policy",
+  "/queen-elite-of-the-fleet": "/houseboats/queen",
+  "/queen-i-the-ultimate": "/houseboats/queen-i",
+  "/queen-ii-luxury-on-the-lake": "/houseboats/queen-ii",
+  "/senator-destination-vacation": "/houseboats/senator",
+  "/small-boat-rentals": "/small-boats",
+  "/small-boat-reservations": "/small-boats",
+  "/planning-your-vacation": "/planning",
+  "/silverthorn-marina": "/planning",
+  "/silverthorn-moorage": "/planning",
+  "/our-history": "/about/history",
+  "/guest-information": "/guest-info",
 };
 
 // Known route prefixes served by the app — anything else legacy falls back to "/".
@@ -151,10 +170,14 @@ const KNOWN_PREFIXES = [
 ];
 
 function resolveLegacyRedirect(url: URL): string | null {
-  const path = url.pathname;
-  if (path === "/") return null;
+  const rawPath = url.pathname;
+  if (rawPath === "/") return null;
 
-  // Exact match
+  // Normalize trailing slash before lookup so /our-history and /our-history/ both match.
+  const path =
+    rawPath.length > 1 && rawPath.endsWith("/") ? rawPath.slice(0, -1) : rawPath;
+
+  // Exact match against legacy map
   const exact = LEGACY_REDIRECTS[path];
   if (exact) return exact;
 
@@ -167,13 +190,14 @@ function resolveLegacyRedirect(url: URL): string | null {
     return "/";
   }
 
-  // Strip trailing slash and retry route match
-  if (path.length > 1 && path.endsWith("/")) {
-    return path.slice(0, -1);
+  // Trailing slash on an otherwise-known route → canonical no-slash form
+  if (rawPath !== path && KNOWN_PREFIXES.some((p) => path === p || path.startsWith(p + "/"))) {
+    return path;
   }
 
   return null;
 }
+
 
 const CANONICAL_HOST = "silverthornresort.com";
 const HOST_ALIASES = new Set(["www.silverthornresort.com"]);
