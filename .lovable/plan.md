@@ -1,37 +1,50 @@
-## Goal
-Verify the Bluehost → silverthornresort.com 301 redirects work correctly, and confirm the live sitemap returns HTTP 200 with valid XML.
+## Problem
 
-## Checks
+`rentals.silverthornresort.com` still links to the old WordPress-style URLs on `silverthornresort.com` (e.g. `/our-history/`, `/queen-i-the-ultimate/`, `/houseboat-rental-policy/`). None of those paths exist on the new Lovable site, so every click 404s.
 
-### 1. Sitemap health
-- `curl -I https://www.silverthornresort.com/sitemap.xml` → expect `200 OK`, `content-type: application/xml`.
-- `curl -I https://silverthornresort.com/sitemap.xml` → same.
-- `curl -s https://www.silverthornresort.com/sitemap.xml | head -40` → confirm valid `<urlset>` XML with expected `<loc>` entries.
-- Open in a real browser (Playwright) and screenshot to confirm it renders as XML, not a 404 or HTML shell.
+Bluehost `.htaccess` no longer runs — DNS points to Lovable. The redirects have to live in the edge worker (`src/server.ts`), same place we already handle `/index.html`, `/home`, etc.
 
-### 2. Redirect spot-checks (old Bluehost paths → new site)
-For each of the following, run `curl -sI -o /dev/null -w "%{http_code} -> %{redirect_url}\n" <old-url>` and confirm it returns `301` pointing at the matching `https://silverthornresort.com/...` path:
+## Fix
 
-- `https://www.silverthornresort.com/index.html` → `/`
-- `https://www.silverthornresort.com/home` → `/`
-- `https://www.silverthornresort.com/houseboats/queen-i` → `/houseboats/queen-i`
-- `https://www.silverthornresort.com/houseboats/policy` → `/houseboats/policy`
-- `https://www.silverthornresort.com/cabins` → `/cabins`
-- `https://www.silverthornresort.com/small-boats/jet-ski` → `/small-boats/jet-ski`
-- `https://www.silverthornresort.com/small-boats/some-unknown-boat` → catch-all to `/small-boats/some-unknown-boat`
-- `https://www.silverthornresort.com/history` → `/about/history`
-- `https://www.silverthornresort.com/contact` → `/contact`
-- `https://www.silverthornresort.com/faq` → `/faq`
-- `https://www.silverthornresort.com/some-random-legacy-page` → final catch-all → `/`
+Extend `LEGACY_REDIRECTS` in `src/server.ts` with the full old-slug → new-route map, and normalize trailing slashes before lookup so both `/our-history` and `/our-history/` match.
 
-### 3. Follow-through
-After the raw curl checks, follow one or two redirects end-to-end (`curl -sIL`) to confirm the final destination returns `200` on Lovable and not a redirect loop.
+### Mapping (old WordPress slug → new route)
 
-### 4. Report
-Summarize:
-- Sitemap: status code, content-type, entry count, any missing routes.
-- Redirects: table of old URL → status → new URL → final status, flagging anything that isn't a clean `301` to the expected target.
-- Any URLs that resolve to the wrong page, hit a redirect loop, or 404.
+```text
+/                              → /                       (already home)
+/cabins/                       → /cabins
+/cabin-reservations/           → /cabins
+/cabin-rental-policy/          → /cabins/policy
+/our-houseboats/               → /houseboats
+/houseboat-reservations/       → /houseboats
+/houseboat-rental-policy/      → /houseboats/policy
+/queen-elite-of-the-fleet/     → /houseboats/queen
+/queen-i-the-ultimate/         → /houseboats/queen-i
+/queen-ii-luxury-on-the-lake/  → /houseboats/queen-ii
+/senator-destination-vacation/ → /houseboats/senator
+/small-boats/                  → /small-boats
+/small-boat-rentals/           → /small-boats
+/small-boat-reservations/      → /small-boats
+/shasta-lake/                  → /shasta-lake
+/exploring-shasta-lake/        → /exploring-shasta-lake
+/planning-your-vacation/       → /planning
+/silverthorn-marina/           → /planning
+/silverthorn-moorage/          → /planning
+/our-history/                  → /about/history
+/contact/                      → /contact
+/faq/                          → /faq
+/guest-information/            → /guest-info
+/employment/                   → /employment
+/pro-shop/                     → /pro-shop
+```
 
-## Non-goals
-- No code, redirect, or sitemap changes in this pass — verification only. If something fails, I'll report it and propose fixes in a follow-up plan.
+### Implementation notes
+
+- Add entries to `LEGACY_REDIRECTS` in `src/server.ts` using the no-trailing-slash form.
+- Adjust `resolveLegacyRedirect` so it strips a trailing slash **before** the map lookup (currently trailing-slash strip happens last and returns the stripped path unchanged — for these WordPress slugs we want to map to a different destination, not just drop the slash).
+- Existing `/index.html`, `/home`, `.html` handling and the final "unknown legacy path → /" fallback stay intact.
+- Nothing else changes: no route files, no sitemap, no SEO metadata.
+
+## Verification (after publish)
+
+`curl -sI` a handful of the old URLs and confirm each returns `301` to the mapped target, including at least: `/our-history/`, `/queen-i-the-ultimate/`, `/houseboat-rental-policy/`, `/guest-information/`, `/silverthorn-marina/`, and an unknown slug like `/something-random/` (should still fall through to `/`).
