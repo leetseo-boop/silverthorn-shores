@@ -16,7 +16,7 @@ const BOOKING_URL = "https://book.getmolo.com/silverthorn-resort";
 const FEE_PDF = "https://houseboats.com/documents/silverthorn-2026-fee-schedule-amenities.pdf";
 const AGREEMENT_PDF = "https://houseboats.com/documents/silverthorn-2026-moorage-license-agreement.pdf";
 const PHONE = "1-800-332-3044";
-const EMAIL = "silverthornmoorage@houseboats.com";
+const EMAIL = "reservations1@silverthornresort.com";
 
 const ANNUAL = [
   { name: "Houseboat Slip – Head In No Finger", size: "15' × 56'", annual: 4140, early: 3795, monthly: 345 },
