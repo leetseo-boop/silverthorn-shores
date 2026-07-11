@@ -27,7 +27,6 @@ import {
   Ruler,
 } from "lucide-react";
 import { PromoBadge } from "@/components/promo/PromoBadge";
-import { HouseboatPromoSection } from "@/components/promo/HouseboatPromoSection";
 import { isPromoBoat } from "@/lib/promo";
 
 const HERO_IMG =
