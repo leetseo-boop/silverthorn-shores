@@ -1,3 +1,31 @@
-# Site under construction — not available for indexing or AI training yet.
-User-agent: *
-Disallow: /
+# Silverthorn Resort
+
+> Family-run Shasta Lake resort on the Pit River Arm in Northern California. Luxury houseboat rentals, lakeside cabins, jet ski and patio boat rentals since 1986.
+
+Silverthorn Resort has operated on Shasta Lake for 40 years. The marina is on the Pit River Arm — the quietest of Shasta Lake's four arms — about 3.5 hours from the San Francisco Bay Area and 2.5 hours from Sacramento. The fleet includes the Queen I and Queen II luxury houseboats, the Queen, and the Senator, plus jet skis, wakeboard boats and patio boats.
+
+## Pages
+
+- [Home](/): Overview of the resort, fleet, and summer promotions.
+- [Houseboats](/houseboats): All houseboat models with capacity, features and rates.
+- [Queen I Houseboat](/houseboats/queen-i): Luxury three-deck houseboat, sleeps 16.
+- [Queen II Houseboat](/houseboats/queen-ii): Luxury three-deck houseboat, sleeps 16.
+- [Queen Houseboat](/houseboats/queen): Mid-size houseboat.
+- [Senator Houseboat](/houseboats/senator): Value-class houseboat.
+- [Queen I vs Queen II](/compare/queens): Side-by-side spec and price comparison.
+- [Shasta vs Lake Powell](/shasta-vs-lake-powell): Honest comparison for California houseboat renters.
+- [Houseboat Rental Policy](/houseboats/policy): Rental terms, deposits and requirements.
+- [Cabins](/cabins): Lakeside cabin rentals.
+- [Cabin Policy](/cabins/policy): Cabin rental terms.
+- [Moorage / Boat Slips](/moorage): Annual and seasonal slip rentals at Silverthorn Marina.
+- [Small Boats](/small-boats): Jet skis, wakeboard boats, patio boats and fishing boats.
+- [About Shasta Lake](/shasta-lake): Facts, activities and history of Shasta Lake.
+- [Exploring Shasta Lake](/exploring-shasta-lake): Guide to the Sacramento, McCloud, Squaw Creek and Pit River arms.
+- [Planning Your Vacation](/planning): Trip planning, provisioning, marina info.
+- [Guest Information](/guest-info): Rental contracts, check-in guides and packing lists.
+- [Our History](/about/history): Silverthorn Resort family history since 1986.
+- [Directions](/directions): Driving directions to Silverthorn Resort.
+- [Contact](/contact): Phone, email and reservations.
+- [FAQ](/faq): Frequently asked questions about houseboats, cabins and pets.
+- [Pro Shop](/pro-shop): On-site marina store, apparel, tubes and supplies.
+- [Employment](/employment): Year-round and seasonal jobs at the resort.
