@@ -9,15 +9,13 @@ import {
   Plane,
   ExternalLink,
 } from "lucide-react";
+import { ResortMap } from "@/components/ResortMap";
 
 const PHONE = "1-800-332-3044";
 const PHONE_TEL = "+18003323044";
 const EMAIL = "reserve1@houseboats.com";
 const ADDRESS = "16250 Silverthorn Road, Redding, CA 96003";
 const MAPS_DEEP_LINK = "https://maps.app.goo.gl/acS8aohrh1m4xFz8A";
-const MAP_EMBED = `https://www.google.com/maps/embed/v1/place?key=${
-  import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY
-}&q=${encodeURIComponent("Silverthorn Resort, 16250 Silverthorn Road, Redding, CA 96003")}`;
 
 const DRIVE_TIMES = [
   { from: "From Redding, CA", time: "≈ 15 min", tip: "Take I-5 north to the Lakehead area, then follow Silverthorn Rd to the marina." },
@@ -60,14 +58,7 @@ export function DirectionsPage() {
         <div className="grid gap-8 lg:grid-cols-5">
           <div className="lg:col-span-3">
             <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
-              <iframe
-                src={MAP_EMBED}
-                title="Map showing Silverthorn Resort, 16250 Silverthorn Road, Redding CA"
-                className="block aspect-[4/3] w-full md:aspect-[16/10]"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+              <ResortMap className="block aspect-[4/3] w-full md:aspect-[16/10]" />
             </div>
           </div>
           <Card className="lg:col-span-2 p-6 md:p-8">
