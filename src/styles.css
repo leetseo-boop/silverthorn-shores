@@ -92,8 +92,8 @@
   100% { background-position: 0% 50%; }
 }
 @keyframes promo-shimmer {
-  0%, 100% { filter: brightness(1); text-shadow: 0 2px 8px rgba(0,0,0,0.25); }
-  50%      { filter: brightness(1.15); text-shadow: 0 2px 18px rgba(255,220,120,0.6), 0 2px 8px rgba(0,0,0,0.25); }
+  0%, 100% { filter: brightness(1); text-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+  50%      { filter: brightness(1.15); text-shadow: 0 2px 18px rgba(255,220,120,0.7), 0 2px 8px rgba(0,0,0,0.45); }
 }
 @keyframes promo-spin-slow {
   from { transform: rotate(0deg); }
@@ -103,10 +103,38 @@
   0%, 100% { box-shadow: 0 4px 14px rgba(226,62,87,0.35), 0 0 0 rgba(255,180,80,0); }
   50%      { box-shadow: 0 6px 22px rgba(226,62,87,0.5), 0 0 22px rgba(255,180,80,0.55); }
 }
-@keyframes promo-badge-glow {
-  0%, 100% { box-shadow: 0 4px 14px rgba(226,62,87,0.35), 0 0 0 rgba(255,180,80,0); }
-  50%      { box-shadow: 0 6px 22px rgba(226,62,87,0.5), 0 0 22px rgba(255,180,80,0.55); }
+@keyframes promo-bob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-6px) rotate(2deg); }
 }
+@keyframes promo-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* Animated sunset background — sun → orange → magenta → dusk */
+.promo-sunset-bg {
+  background-image:
+    radial-gradient(1200px 400px at 15% 0%, rgba(255,243,176,0.55), transparent 60%),
+    radial-gradient(900px 300px at 85% 100%, rgba(123,44,191,0.35), transparent 60%),
+    linear-gradient(115deg, #FFD166 0%, #FFB347 22%, #FF8A1F 45%, #E23E57 70%, #7B2CBF 100%);
+  background-size: 100% 100%, 100% 100%, 220% 220%;
+  background-position: 0% 0%, 100% 100%, 0% 50%;
+  animation: promo-gradient-pan 18s ease-in-out infinite;
+}
+.promo-sunset-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.promo-shimmer { animation: promo-shimmer 3.2s ease-in-out infinite; }
+.promo-spin-slow { animation: promo-spin-slow 30s linear infinite; transform-origin: center; }
+.promo-bob { animation: promo-bob 4s ease-in-out infinite; transform-origin: center; }
+.promo-float { animation: promo-float 5s ease-in-out infinite; }
+.promo-badge-glow { animation: promo-badge-glow 2.6s ease-in-out infinite; }
 
 /* Static conic-gradient glow border wrapping promo cards (no rotation) */
 .promo-frame {
@@ -128,9 +156,12 @@
   .promo-sunset-bg,
   .promo-shimmer,
   .promo-spin-slow,
+  .promo-bob,
+  .promo-float,
   .promo-badge-glow,
   .promo-frame {
     animation: none !important;
   }
 }
+
 
