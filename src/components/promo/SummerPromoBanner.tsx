@@ -1,131 +1,36 @@
-import { PROMO } from "@/lib/promo";
+import promoBanner from "@/assets/silverthorn-promo-summer-2026.webp.asset.json";
 
 const BOOK_URL = "https://rentals.silverthornresort.com/category/13";
 
 /**
- * Homepage "Summer Fun Sale" banner. Sits below the hero.
- * Animated sunset gradient background with tasteful inline SVG art.
- * Fully responsive; honors prefers-reduced-motion via .promo-* utility classes.
+ * Homepage "Summer Fun Sale" static banner.
+ * Full-width clickable image linking to the Queen I / Queen II booking category.
  */
 export function SummerPromoBanner() {
   return (
     <section
-      className="relative isolate overflow-hidden promo-sunset-bg"
+      className="mx-auto max-w-6xl px-4 py-6"
       aria-label="Summer Fun Sale — 20% off Queen I and Queen II"
     >
-      {/* Decorative sun — clamped on mobile so it never crowds the copy */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-8 -right-8 h-28 w-28 opacity-70 promo-spin-slow sm:-top-12 sm:-right-12 sm:h-48 sm:w-48"
-        viewBox="0 0 200 200"
+      <a
+        href={BOOK_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cta="home-summer-promo"
+        className="block overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 transition-transform hover:scale-[1.01] focus:outline-none focus-visible:ring-4 focus-visible:ring-orange-400"
       >
-        <defs>
-          <radialGradient id="promo-sun" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#FFF3B0" stopOpacity="0.95" />
-            <stop offset="60%" stopColor="#FFD166" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#FF8A1F" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <circle cx="100" cy="100" r="90" fill="url(#promo-sun)" />
-      </svg>
-
-      {/* Wave silhouette bottom */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-0 right-0 w-full text-white/25"
-        viewBox="0 0 1440 90"
-        preserveAspectRatio="none"
-      >
-        <path
-          fill="currentColor"
-          d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,90 L0,90 Z"
+        <img
+          src={promoBanner.url}
+          alt="Summer Fun Sale — 20% off Queen I and Queen II houseboats. Book July 12 through August 25, 2026 with promo code BREAK20."
+          width={1920}
+          height={600}
+          loading="eager"
+          decoding="async"
+          // @ts-expect-error - fetchpriority is a valid HTML attribute
+          fetchpriority="high"
+          className="block h-auto w-full"
         />
-      </svg>
-
-      {/* Houseboat silhouette bobbing on the wave (desktop only) */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-3 right-6 hidden h-14 w-36 text-white/60 sm:block promo-bob"
-        viewBox="0 0 200 80"
-      >
-        <path
-          fill="currentColor"
-          d="M10,55 h180 l-15,15 h-150 z M25,30 h150 v20 h-150 z M35,10 h130 v18 h-130 z M55,5 h20 v5 h-20 z"
-        />
-      </svg>
-
-      {/* Floating summer emoji — kept in the top strip so they never overlap the copy card */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hidden h-16 sm:block">
-        <span className="absolute left-[4%] top-3 text-2xl promo-float" style={{ animationDelay: "0s" }}>🕶️</span>
-        <span className="absolute right-[6%] top-2 text-2xl promo-float" style={{ animationDelay: "1.5s" }}>🌴</span>
-        <span className="absolute left-[46%] top-1 text-xl promo-float hidden md:inline" style={{ animationDelay: "2s" }}>👙</span>
-        <span className="absolute right-[42%] top-2 text-xl promo-float hidden md:inline" style={{ animationDelay: "2.4s" }}>🍹</span>
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-6xl px-4 py-8 sm:py-10">
-        <div className="rounded-3xl bg-black/40 p-5 sm:p-7 shadow-xl ring-1 ring-white/40 backdrop-blur-sm">
-
-          <div className="flex flex-col items-center gap-4 text-center sm:gap-5">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-orange-700 shadow-sm">
-              <span aria-hidden>🌞</span> Limited Time
-            </span>
-
-            <h2
-              className="promo-shimmer font-black leading-[0.95] text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]"
-              style={{
-                fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: "clamp(1.75rem, 5vw, 3rem)",
-              }}
-            >
-              SUMMER FUN SALE
-            </h2>
-
-            <p className="max-w-2xl text-sm sm:text-base font-medium text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
-              Book your houseboat vacation between{" "}
-              <strong className="whitespace-nowrap">{PROMO.dateLabel}</strong>{" "}
-              and receive <strong>{PROMO.discount}</strong>.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-1.5 shadow-md">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-orange-700">
-                  Promo Code
-                </span>
-                <code
-                  className="rounded-md bg-orange-100 px-2 py-0.5 text-sm font-black tracking-widest text-orange-800"
-                  style={{ fontFamily: "'Menlo', ui-monospace, monospace" }}
-                >
-                  {PROMO.code}
-                </code>
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-slate-800 shadow-md">
-                <span aria-hidden>⛵</span>
-                Selected Houseboats: {PROMO.eligibleNames}
-              </div>
-            </div>
-
-            <div className="mt-1 flex flex-col items-center gap-3 sm:flex-row">
-              <a
-                href={BOOK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cta="home-summer-promo"
-                className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-orange-700 shadow-lg transition-transform hover:scale-[1.03] focus:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
-              >
-                📅 Book Now
-              </a>
-              <a
-                href="/houseboats"
-                className="inline-flex items-center gap-2 rounded-xl border-2 border-white/80 bg-white/15 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-white/25"
-              >
-                View Eligible Boats →
-              </a>
-            </div>
-
-            <p className="text-[11px] text-white/90">{PROMO.fineprint}</p>
-          </div>
-        </div>
-      </div>
+      </a>
     </section>
   );
 }
