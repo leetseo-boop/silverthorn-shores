@@ -37,7 +37,18 @@ const FAQS: Faq[] = [
   },
   {
     q: "Can I bring my pet?",
-    a: "All of our houseboats are pet friendly. Please call 800-332-3044 with any questions about traveling with your pet.",
+    a: "Yes — Silverthorn and Jones Valley Resort are a pet friendly resort and will accommodate one pet at no charge. Each additional pet will require a non-refundable charge of $50.00 to be paid prior to occupancy/boarding. Any excessive cleaning required upon departure of pet hair, urine, etc. will be charged to the credit card on file at the rate of $95.00 per hour. Any damages will be charged at replacement cost.",
+    render: () => (
+      <>
+        Silverthorn and Jones Valley Resort are a pet friendly resort and will
+        accommodate <strong>one pet at no charge</strong>. Each additional pet
+        will require a non-refundable charge of <strong>$50.00</strong> to be
+        paid prior to occupancy/boarding. Any excessive cleaning required upon
+        departure of pet hair, urine, etc. will be charged to the credit card
+        on file at the rate of <strong>$95.00 per hour</strong>. Any damages
+        will be charged at <strong>replacement cost</strong>.
+      </>
+    ),
   },
   {
     q: "What is the cancellation and rental policy?",
