@@ -52,16 +52,18 @@ const FAQS: Faq[] = [
   },
   {
     q: "What is the cancellation and rental policy?",
-    a: "See our full Houseboat Rental Policy at /houseboats/policy. We strongly recommend reviewing this before booking.",
+    a: "See our full Houseboat Rental Policy at https://silverthornresort.com/houseboats/policy. We strongly recommend reviewing this before booking.",
     render: () => (
       <>
         See our full{" "}
-        <Link
-          to="/houseboats/queen"
+        <a
+          href="https://silverthornresort.com/houseboats/policy"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-primary underline underline-offset-2 hover:opacity-80"
         >
           Houseboat Rental Policy
-        </Link>
+        </a>
         . We strongly recommend reviewing this before booking.
       </>
     ),

@@ -1,5 +1,8 @@
-Update the "Can I bring my pet?" FAQ answer in `src/routes/faq.tsx` (line 40) with the full pet policy from the uploaded image:
+Update the "What is the cancellation and rental policy?" FAQ in `src/routes/faq.tsx`.
 
-> Silverthorn and Jones Valley Resort are a pet friendly resort and will accommodate **one pet at no charge**. Each additional pet will require a non-refundable charge of **$50.00** to be paid prior to occupancy/boarding. Any excessive cleaning required upon departure of pet hair, urine, etc. will be charged to the credit card on file at the rate of **$95.00 per hour**. Any damages will be charged at **replacement cost**.
+Currently the answer links to `/houseboats/queen` via an internal TanStack `<Link>`. Replace it with an external anchor to `https://silverthornresort.com/houseboats/policy` that opens in a new tab (`target="_blank" rel="noopener noreferrer"`), while preserving the existing link styling and surrounding sentence.
 
-If the FAQ answer field supports rich text/JSX, keep the bold emphasis; if it's plain string, use plain text with the same wording. I'll check the type of `a` and render accordingly (likely switch to a small JSX renderer or add a `bold` markdown-style split).
+Acceptance criteria:
+- The "Houseboat Rental Policy" link points to `https://silverthornresort.com/houseboats/policy`.
+- The link opens in a new tab.
+- All other FAQ content and page metadata remain unchanged.
