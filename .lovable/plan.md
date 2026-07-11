@@ -1,26 +1,13 @@
-## Problem
+## Show full decimal prices on Small Boats pages
 
-The Lovable-managed Google Maps key is referrer-restricted to `*.lovable.app` / `*.lovableproject.com`. On the live custom domain `silverthornresort.com`, both the Embed API and Maps JavaScript API get rejected, leaving the map blank.
+The prices in the badges are being rounded to whole dollars via `.toFixed(0)`. The image shows they should display with cents (e.g. `$548.63/day`, `$1243.55/day`).
 
-## Fix (Option A — zero setup)
+### Changes
 
-Replace the Google Maps embed with an OpenStreetMap iframe. No API key, no referrer restrictions, works instantly on any domain.
+1. **`src/routes/small-boats.tsx`** (line 247) — fleet card badge:
+   - `From $${b.price.toFixed(0)}/day` → `$${b.price.toFixed(2)}/day`
 
-### Steps
+2. **`src/components/SilverthornBoatDetail.tsx`** (line 241) — "Related boats" cards on each individual boat page:
+   - `From $${r.dailyPrice.toFixed(0)}/day` → `$${r.dailyPrice.toFixed(2)}/day`
 
-1. Rewrite `src/components/ResortMap.tsx`:
-   - Remove all Google Maps JS loading logic.
-   - Render an `<iframe>` pointing to `https://www.openstreetmap.org/export/embed.html` centered on the resort coords (`40.8419, -122.2489`) with a marker.
-   - Keep the same `className` prop so the container styling on `/directions` and `/contact` stays identical (no layout shift).
-   - Keep the "Open in Google Maps" fallback button below/over the map linking to the existing `MAPS_DEEP_LINK` so users can still get turn-by-turn directions in their preferred app.
-   - Add `title`, `loading="lazy"`, and proper `aria-label` for a11y/SEO.
-
-2. No changes to `DirectionsPage.tsx` or `contact.tsx` — they already consume `<ResortMap />`.
-
-3. Verify with Playwright on the live domain after publish: load `/directions` and `/contact`, screenshot, confirm the OSM tiles render with the marker visible.
-
-### Notes
-
-- OSM embed has no usage limits or billing concerns.
-- Look/feel is clean and neutral; fits the resort's minimal aesthetic.
-- If later you want branded Google Maps back, we can do Option B (custom GCP key with `silverthornresort.com` in the referrer allowlist).
+All other price displays already use `.toFixed(2)` (hero, pricing table, JSON-LD) and stay unchanged.
