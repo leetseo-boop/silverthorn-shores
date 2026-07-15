@@ -57,12 +57,6 @@ export function ResortMap({ className }: ResortMapProps) {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-3 top-3 max-w-[calc(100%-1.5rem)] rounded-full bg-background/95 px-3 py-2 text-xs font-semibold text-secondary shadow-lg ring-1 ring-border backdrop-blur sm:text-sm">
-        <span className="flex items-center gap-2">
-          <MapPin className="h-4 w-4 shrink-0 text-primary" />
-          Map preview
-        </span>
-      </div>
     </div>
   );
 }
