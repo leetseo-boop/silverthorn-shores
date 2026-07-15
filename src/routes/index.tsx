@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import SilverthornHomePage, { HOME_FAQS } from "@/components/SilverthornHomePage";
 import heroMarina from "@/assets/home-hero-marina.webp";
+import { PROMO } from "@/lib/promo";
 
 const SITE = "https://silverthornresort.com";
 const URL = `${SITE}/`;
 const TITLE = "Silverthorn Resort — Shasta Lake Houseboats & Cabins";
 const DESCRIPTION =
-  "Family-run Shasta Lake resort on the Pit River Arm. Premium houseboat rentals, lakeside cabins, jet skis, wakeboard & patio boats. Booking 2026 now.";
+  "Family-run Shasta Lake resort. Houseboats, cabins & boat rentals. Summer 2026: 20% off Queen I & Queen II — code BREAK20 (Jul 12–Aug 25).";
 const OG_IMAGE = `${SITE}${heroMarina}`;
 
 export const Route = createFileRoute("/")({
