@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ExternalLink, MapPin, Navigation, Waves } from "lucide-react";
 
-const MAPS_DEEP_LINK = "https://maps.app.goo.gl/acS8aohrh1m4xFz8A";
+const MAPS_DEEP_LINK = "https://www.google.com/maps/dir/?api=1&destination=16250%20Silverthorn%20Road%2C%20Redding%2C%20CA%2096003&destination_place_id=ChIJk20Lw4qG0lQR2YhZYOKwFKE";
 const ADDRESS = "16250 Silverthorn Road, Redding, CA 96003";
 
 interface ResortMapProps {

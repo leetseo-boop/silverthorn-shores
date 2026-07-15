@@ -33,7 +33,7 @@ const HERO_IMG =
   "/images/queen-houseboat-exterior-lifestyle-anchored-silverthorn-resort.webp";
 const BOOK_URL = "https://rentals.silverthornresort.com/";
 const PHONE = "1-800-332-3044";
-const MAPS_URL = "https://maps.app.goo.gl/acS8aohrh1m4xFz8A";
+const MAPS_URL = "https://www.google.com/maps/dir/?api=1&destination=16250%20Silverthorn%20Road%2C%20Redding%2C%20CA%2096003&destination_place_id=ChIJk20Lw4qG0lQR2YhZYOKwFKE";
 
 const WHY = [
   { icon: Mountain, title: "Mt. Shasta Views", body: "The Pit River Arm delivers some of Shasta Lake's most stunning panoramas, with the snow-capped peak visible from your upper deck on clear days." },

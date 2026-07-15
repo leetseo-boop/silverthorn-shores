@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getGoogleReviews, type GoogleReview } from "@/lib/googleReviews.functions";
+import type { GoogleReview, ReviewsPayload } from "@/lib/googleReviews.types";
 
 
 
@@ -100,7 +100,11 @@ function ReviewCard({ review }: { review: GoogleReview }) {
 export default function GoogleReviewsCarousel() {
   const { data } = useQuery({
     queryKey: ["google-reviews"],
-    queryFn: () => getGoogleReviews(),
+    queryFn: async (): Promise<ReviewsPayload> => {
+      const response = await fetch("/api/public/google-reviews");
+      if (!response.ok) throw new Error("Google reviews failed to load");
+      return response.json();
+    },
     staleTime: 30 * 60 * 1000, // 30 min
     refetchOnWindowFocus: false,
   });
