@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getGoogleReviews, type GoogleReview } from "@/lib/googleReviews.functions";
 
-const GOOGLE_PLACE_URL = "https://www.google.com/maps/place/?q=place_id:ChIJk20Lw4qG0lQR2YhZYOKwFKE";
+
 
 const FALLBACK: GoogleReview[] = [
   {
