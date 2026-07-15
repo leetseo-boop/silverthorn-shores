@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getGoogleReviews, type GoogleReview } from "@/lib/googleReviews.functions";
 
-const GOOGLE_PLACE_URL = "https://www.google.com/maps/place/?q=place_id:ChIJk20Lw4qG0lQR2YhZYOKwFKE";
+
 
 const FALLBACK: GoogleReview[] = [
   {
@@ -110,7 +110,7 @@ export default function GoogleReviewsCarousel() {
     return live.length > 0 ? live : FALLBACK;
   }, [data]);
 
-  const rating = data?.rating ?? 4.8;
+  const rating = 4;
   const totalReviews = data?.totalReviews ?? null;
 
   const [index, setIndex] = useState(0);
@@ -142,15 +142,6 @@ export default function GoogleReviewsCarousel() {
             </span>
           )}
         </div>
-        <a
-          href={GOOGLE_PLACE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs font-medium underline"
-          style={{ color: "#E8640A" }}
-        >
-          Read all reviews on Google →
-        </a>
       </div>
 
       {/* Mobile: single card rotating */}
