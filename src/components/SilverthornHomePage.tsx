@@ -972,27 +972,48 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-5 border-t"
+          className="flex flex-col gap-4 pt-5 border-t"
           style={{ borderColor: "rgba(27,43,58,0.1)" }}
         >
-          <div className="text-xs" style={{ color: "rgba(27,43,58,0.55)" }}>
-            Silverthorn Resort ™ 2026 · All rights reserved
-          </div>
-          <div className="flex gap-2">
-            {["f", "📷", "𝕏", "▶"].map((icon, i) => (
-              <button
-                key={i}
-                className="w-7 h-7 rounded-full flex items-center justify-center text-xs transition-all"
-                style={{
-                  backgroundColor: "rgba(27,43,58,0.08)",
-                  color: "#1B2B3A",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(27,43,58,0.16)")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(27,43,58,0.08)")}
+          <nav aria-label="Legal" className="flex flex-wrap gap-x-5 gap-y-2 text-xs" style={{ color: "rgba(27,43,58,0.7)" }}>
+            {[
+              { label: "Privacy Policy", href: "/privacy" },
+              { label: "Terms of Service", href: "/terms" },
+              { label: "Sitemap", href: "/sitemap" },
+              { label: "Accessibility", href: "/accessibility" },
+              { label: "Cookie Settings", href: "/cookie-settings" },
+            ].map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="transition-colors"
+                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#E8640A")}
+                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(27,43,58,0.7)")}
               >
-                {icon}
-              </button>
+                {l.label}
+              </a>
             ))}
+          </nav>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-xs" style={{ color: "rgba(27,43,58,0.55)" }}>
+              Silverthorn Resort ™ 2026 · All rights reserved
+            </div>
+            <div className="flex gap-2">
+              {["f", "📷", "𝕏", "▶"].map((icon, i) => (
+                <button
+                  key={i}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-xs transition-all"
+                  style={{
+                    backgroundColor: "rgba(27,43,58,0.08)",
+                    color: "#1B2B3A",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(27,43,58,0.16)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(27,43,58,0.08)")}
+                >
+                  {icon}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
