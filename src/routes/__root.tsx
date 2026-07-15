@@ -142,6 +142,7 @@ function RootComponent() {
 
   useEffect(() => {
     initBookingTracker();
+    applyConsent();
   }, []);
 
   return (
@@ -149,6 +150,7 @@ function RootComponent() {
       {!isAdmin && <Nav />}
       <Outlet />
       {!isAdmin && <Footer />}
+      {!isAdmin && <CookieBanner />}
     </QueryClientProvider>
   );
 }
