@@ -213,8 +213,8 @@ function ContactPage() {
 
       {/* Map */}
       <section className="px-4 pb-12">
-        <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl ring-1 ring-border shadow-sm">
-          <ResortMap className="block h-[350px] w-full" />
+        <div className="mx-auto max-w-xl">
+          <ResortMap />
         </div>
       </section>
 

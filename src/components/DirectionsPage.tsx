@@ -57,9 +57,7 @@ export function DirectionsPage() {
       <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
         <div className="grid gap-8 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
-              <ResortMap className="block aspect-[4/3] w-full md:aspect-[16/10]" />
-            </div>
+            <ResortMap className="h-full min-h-[320px] flex flex-col justify-center" />
           </div>
           <Card className="lg:col-span-2 p-6 md:p-8">
             <h2 className="font-serif text-2xl font-semibold">Silverthorn Resort</h2>
