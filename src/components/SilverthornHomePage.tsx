@@ -905,6 +905,12 @@ export function Footer() {
               📞 {PHONE}<br />
               ✉️ {EMAIL}
             </div>
+            <div className="mt-5">
+              <div className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(27,43,58,0.55)" }}>
+                Follow us
+              </div>
+              <SocialLinks />
+            </div>
           </div>
 
           {/* Links */}
