@@ -32,7 +32,6 @@ const seasonal = [
   "Mechanics",
   "Retail Clerks",
   "Service Crew",
-  "Bartenders / Restaurant Servers",
 ];
 
 const jobPostings = yearRound.map((r) => ({
