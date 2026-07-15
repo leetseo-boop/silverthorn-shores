@@ -27,6 +27,7 @@ import { SummerPromoBanner } from "@/components/promo/SummerPromoBanner";
 import { PromoBadge } from "@/components/promo/PromoBadge";
 import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
 import { isPromoBoat } from "@/lib/promo";
+import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
@@ -827,26 +828,7 @@ function Testimonials() {
         >
           What Our Guests Say
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {REVIEWS.map((r) => (
-            <div
-              key={r.author}
-              className="rounded-2xl p-5 border"
-              style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
-            >
-              <div className="text-base mb-3" style={{ color: "#E8A855", letterSpacing: "2px" }}>
-                ★★★★★
-              </div>
-              <p className="text-sm leading-relaxed italic mb-4" style={{ color: "#444" }}>
-                "{r.text}"
-              </p>
-              <div className="text-xs font-semibold" style={{ color: "#1B2B3A" }}>{r.author}</div>
-              <div className="text-xs mt-0.5" style={{ color: "#9a8a7a" }}>
-                {r.location} · {r.source}
-              </div>
-            </div>
-          ))}
-        </div>
+        <GoogleReviewsCarousel />
       </div>
     </section>
   );

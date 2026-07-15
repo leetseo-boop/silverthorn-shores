@@ -62,6 +62,33 @@ export type Database = {
         }
         Relationships: []
       }
+      google_reviews_cache: {
+        Row: {
+          fetched_at: string
+          place_id: string
+          rating: number | null
+          reviews: Json
+          updated_at: string
+          user_ratings_total: number | null
+        }
+        Insert: {
+          fetched_at?: string
+          place_id: string
+          rating?: number | null
+          reviews?: Json
+          updated_at?: string
+          user_ratings_total?: number | null
+        }
+        Update: {
+          fetched_at?: string
+          place_id?: string
+          rating?: number | null
+          reviews?: Json
+          updated_at?: string
+          user_ratings_total?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
