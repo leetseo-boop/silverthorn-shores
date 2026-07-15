@@ -35,6 +35,7 @@ import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy
 import { Route as CompareQueensRouteImport } from './routes/compare.queens'
 import { Route as CabinsPolicyRouteImport } from './routes/cabins_.policy'
 import { Route as AboutHistoryRouteImport } from './routes/about.history'
+import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
 
 const SmallBoatsRoute = SmallBoatsRouteImport.update({
@@ -167,6 +168,11 @@ const AboutHistoryRoute = AboutHistoryRouteImport.update({
   path: '/about/history',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicGoogleReviewsRoute = ApiPublicGoogleReviewsRouteImport.update({
+  id: '/api/public/google-reviews',
+  path: '/api/public/google-reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicHooksRefreshReviewsRoute =
   ApiPublicHooksRefreshReviewsRouteImport.update({
     id: '/api/public/hooks/refresh-reviews',
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats/$slug': typeof SmallBoatsSlugRoute
   '/houseboats/': typeof HouseboatsIndexRoute
+  '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
 }
 export interface FileRoutesByTo {
@@ -230,6 +237,7 @@ export interface FileRoutesByTo {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats/$slug': typeof SmallBoatsSlugRoute
   '/houseboats': typeof HouseboatsIndexRoute
+  '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
 }
 export interface FileRoutesById {
@@ -260,6 +268,7 @@ export interface FileRoutesById {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats_/$slug': typeof SmallBoatsSlugRoute
   '/houseboats/': typeof HouseboatsIndexRoute
+  '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
 }
 export interface FileRouteTypes {
@@ -291,6 +300,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats/$slug'
     | '/houseboats/'
+    | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -320,6 +330,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats/$slug'
     | '/houseboats'
+    | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
   id:
     | '__root__'
@@ -349,6 +360,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats_/$slug'
     | '/houseboats/'
+    | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
   fileRoutesById: FileRoutesById
 }
@@ -379,6 +391,7 @@ export interface RootRouteChildren {
   HouseboatsSenatorRoute: typeof HouseboatsSenatorRoute
   SmallBoatsSlugRoute: typeof SmallBoatsSlugRoute
   HouseboatsIndexRoute: typeof HouseboatsIndexRoute
+  ApiPublicGoogleReviewsRoute: typeof ApiPublicGoogleReviewsRoute
   ApiPublicHooksRefreshReviewsRoute: typeof ApiPublicHooksRefreshReviewsRoute
 }
 
@@ -566,6 +579,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/google-reviews': {
+      id: '/api/public/google-reviews'
+      path: '/api/public/google-reviews'
+      fullPath: '/api/public/google-reviews'
+      preLoaderRoute: typeof ApiPublicGoogleReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/refresh-reviews': {
       id: '/api/public/hooks/refresh-reviews'
       path: '/api/public/hooks/refresh-reviews'
@@ -603,8 +623,19 @@ const rootRouteChildren: RootRouteChildren = {
   HouseboatsSenatorRoute: HouseboatsSenatorRoute,
   SmallBoatsSlugRoute: SmallBoatsSlugRoute,
   HouseboatsIndexRoute: HouseboatsIndexRoute,
+  ApiPublicGoogleReviewsRoute: ApiPublicGoogleReviewsRoute,
   ApiPublicHooksRefreshReviewsRoute: ApiPublicHooksRefreshReviewsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
