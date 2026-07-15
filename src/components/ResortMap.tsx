@@ -11,18 +11,11 @@ interface ResortMapProps {
 export function ResortMap({ className }: ResortMapProps) {
   return (
     <div
-      className={`relative isolate flex min-h-[320px] overflow-hidden bg-muted ${className || ""}`}
+      className={`flex min-h-[280px] items-center justify-center bg-background p-4 sm:p-6 ${className || ""}`}
       role="img"
-      aria-label={`Illustrated location map for Silverthorn Resort at ${ADDRESS}`}
+      aria-label={`Location information for Silverthorn Resort at ${ADDRESS}`}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-background to-accent/25" />
-      <div className="absolute inset-x-0 bottom-0 h-2/5 bg-primary/15" />
-      <div className="absolute -left-8 bottom-8 h-28 w-[120%] -rotate-6 rounded-full border-y border-primary/20 bg-background/70 shadow-sm" />
-      <div className="absolute -right-10 top-12 h-20 w-3/4 rotate-12 rounded-full border-y border-border bg-card/80 shadow-sm" />
-      <div className="absolute left-8 top-8 hidden h-16 w-16 rounded-full border border-primary/20 bg-primary/10 sm:block" />
-      <div className="absolute right-10 bottom-20 hidden h-24 w-24 rounded-full border border-accent/40 bg-accent/20 sm:block" />
-
-      <div className="relative z-10 grid h-full w-full place-items-center p-4 sm:p-6">
+      <div className="grid h-full w-full place-items-center">
         <div className="w-full max-w-md rounded-2xl border border-border bg-background/95 p-5 text-center shadow-xl backdrop-blur sm:p-6">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
             <MapPin className="h-7 w-7" />
