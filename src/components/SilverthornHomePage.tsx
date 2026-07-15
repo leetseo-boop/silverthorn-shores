@@ -27,6 +27,7 @@ import { SummerPromoBanner } from "@/components/promo/SummerPromoBanner";
 import { PromoBadge } from "@/components/promo/PromoBadge";
 import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
 import { isPromoBoat } from "@/lib/promo";
+import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
