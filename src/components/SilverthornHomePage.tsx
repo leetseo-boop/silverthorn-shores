@@ -425,6 +425,25 @@ function Hero() {
 
       {/* Content */}
       <div className="relative z-10 max-w-3xl mx-auto" style={{ textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
+        <a
+          href="/compare/queens"
+          data-cta="hero-summer-promo"
+          aria-label="Summer Fun Sale: 20% off Queen I and Queen II houseboats with code BREAK20. Compare the Queens."
+          className="promo-sunset-bg promo-badge-glow group relative inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full text-white text-xs sm:text-sm font-semibold overflow-hidden ring-1 ring-white/30 hover:ring-white/60 transition-all"
+          style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}
+        >
+          <span className="promo-float relative z-10" aria-hidden="true">☀️</span>
+          <span className="relative z-10 rounded-full bg-white/95 text-[#E23E57] px-2 py-0.5 text-[11px] sm:text-xs font-black tracking-wide" style={{ textShadow: "none" }}>
+            20% OFF
+          </span>
+          <span className="relative z-10">
+            <span className="hidden sm:inline">Summer Fun Sale — Queen I &amp; Queen II · Code </span>
+            <span className="sm:hidden">Queens · Code </span>
+            <span className="font-black tracking-wider">BREAK20</span>
+          </span>
+          <span className="relative z-10 transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+
         <p
           className="text-xs font-medium tracking-widest uppercase mb-5"
           style={{ color: "#E8A855", letterSpacing: "0.18em" }}
