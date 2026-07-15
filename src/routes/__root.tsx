@@ -12,7 +12,9 @@ import {
 
 import appCss from "../styles.css?url";
 import { Nav, Footer } from "@/components/SilverthornHomePage";
+import { CookieBanner } from "@/components/CookieBanner";
 import { initBookingTracker } from "@/lib/booking-tracker";
+import { applyConsent } from "@/lib/cookie-consent";
 
 const GA_ID = "G-QT7MJVJMQM";
 
@@ -109,7 +111,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       { src: `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`, async: true },
       {
-        children: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js', new Date());gtag('config', '${GA_ID}');`,
+        children: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});try{var c=JSON.parse(localStorage.getItem('str-cookie-consent')||'null');if(c&&c.analytics===true){gtag('consent','update',{analytics_storage:'granted'});}}catch(e){}gtag('js', new Date());gtag('config', '${GA_ID}');`,
       },
     ],
   }),

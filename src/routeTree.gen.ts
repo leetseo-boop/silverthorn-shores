@@ -9,11 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SmallBoatsRouteImport } from './routes/small-boats'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ShastaVsLakePowellRouteImport } from './routes/shasta-vs-lake-powell'
 import { Route as ShastaLakeRouteImport } from './routes/shasta-lake'
 import { Route as ProShopRouteImport } from './routes/pro-shop'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PlanningRouteImport } from './routes/planning'
 import { Route as MoorageRouteImport } from './routes/moorage'
 import { Route as GuestInfoRouteImport } from './routes/guest-info'
@@ -21,9 +24,11 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExploringShastaLakeRouteImport } from './routes/exploring-shasta-lake'
 import { Route as EmploymentRouteImport } from './routes/employment'
 import { Route as DirectionsRouteImport } from './routes/directions'
+import { Route as CookieSettingsRouteImport } from './routes/cookie-settings'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CabinsRouteImport } from './routes/cabins'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HouseboatsIndexRouteImport } from './routes/houseboats.index'
 import { Route as SmallBoatsSlugRouteImport } from './routes/small-boats_.$slug'
@@ -38,6 +43,11 @@ import { Route as AboutHistoryRouteImport } from './routes/about.history'
 import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SmallBoatsRoute = SmallBoatsRouteImport.update({
   id: '/small-boats',
   path: '/small-boats',
@@ -46,6 +56,11 @@ const SmallBoatsRoute = SmallBoatsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShastaVsLakePowellRoute = ShastaVsLakePowellRouteImport.update({
@@ -61,6 +76,11 @@ const ShastaLakeRoute = ShastaLakeRouteImport.update({
 const ProShopRoute = ProShopRouteImport.update({
   id: '/pro-shop',
   path: '/pro-shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlanningRoute = PlanningRouteImport.update({
@@ -98,6 +118,11 @@ const DirectionsRoute = DirectionsRouteImport.update({
   path: '/directions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookieSettingsRoute = CookieSettingsRouteImport.update({
+  id: '/cookie-settings',
+  path: '/cookie-settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -111,6 +136,11 @@ const CabinsRoute = CabinsRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessibilityRoute = AccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -182,9 +212,11 @@ const ApiPublicHooksRefreshReviewsRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
   '/admin': typeof AdminRoute
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
+  '/cookie-settings': typeof CookieSettingsRoute
   '/directions': typeof DirectionsRoute
   '/employment': typeof EmploymentRoute
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
@@ -192,11 +224,14 @@ export interface FileRoutesByFullPath {
   '/guest-info': typeof GuestInfoRoute
   '/moorage': typeof MoorageRoute
   '/planning': typeof PlanningRoute
+  '/privacy': typeof PrivacyRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
   '/shasta-vs-lake-powell': typeof ShastaVsLakePowellRoute
+  '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/terms': typeof TermsRoute
   '/about/history': typeof AboutHistoryRoute
   '/cabins/policy': typeof CabinsPolicyRoute
   '/compare/queens': typeof CompareQueensRoute
@@ -212,9 +247,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
   '/admin': typeof AdminRoute
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
+  '/cookie-settings': typeof CookieSettingsRoute
   '/directions': typeof DirectionsRoute
   '/employment': typeof EmploymentRoute
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
@@ -222,11 +259,14 @@ export interface FileRoutesByTo {
   '/guest-info': typeof GuestInfoRoute
   '/moorage': typeof MoorageRoute
   '/planning': typeof PlanningRoute
+  '/privacy': typeof PrivacyRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
   '/shasta-vs-lake-powell': typeof ShastaVsLakePowellRoute
+  '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/terms': typeof TermsRoute
   '/about/history': typeof AboutHistoryRoute
   '/cabins/policy': typeof CabinsPolicyRoute
   '/compare/queens': typeof CompareQueensRoute
@@ -243,9 +283,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
   '/admin': typeof AdminRoute
   '/cabins': typeof CabinsRoute
   '/contact': typeof ContactRoute
+  '/cookie-settings': typeof CookieSettingsRoute
   '/directions': typeof DirectionsRoute
   '/employment': typeof EmploymentRoute
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
@@ -253,11 +295,14 @@ export interface FileRoutesById {
   '/guest-info': typeof GuestInfoRoute
   '/moorage': typeof MoorageRoute
   '/planning': typeof PlanningRoute
+  '/privacy': typeof PrivacyRoute
   '/pro-shop': typeof ProShopRoute
   '/shasta-lake': typeof ShastaLakeRoute
   '/shasta-vs-lake-powell': typeof ShastaVsLakePowellRoute
+  '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
+  '/terms': typeof TermsRoute
   '/about/history': typeof AboutHistoryRoute
   '/cabins_/policy': typeof CabinsPolicyRoute
   '/compare/queens': typeof CompareQueensRoute
@@ -275,9 +320,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/accessibility'
     | '/admin'
     | '/cabins'
     | '/contact'
+    | '/cookie-settings'
     | '/directions'
     | '/employment'
     | '/exploring-shasta-lake'
@@ -285,11 +332,14 @@ export interface FileRouteTypes {
     | '/guest-info'
     | '/moorage'
     | '/planning'
+    | '/privacy'
     | '/pro-shop'
     | '/shasta-lake'
     | '/shasta-vs-lake-powell'
+    | '/sitemap'
     | '/sitemap.xml'
     | '/small-boats'
+    | '/terms'
     | '/about/history'
     | '/cabins/policy'
     | '/compare/queens'
@@ -305,9 +355,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/accessibility'
     | '/admin'
     | '/cabins'
     | '/contact'
+    | '/cookie-settings'
     | '/directions'
     | '/employment'
     | '/exploring-shasta-lake'
@@ -315,11 +367,14 @@ export interface FileRouteTypes {
     | '/guest-info'
     | '/moorage'
     | '/planning'
+    | '/privacy'
     | '/pro-shop'
     | '/shasta-lake'
     | '/shasta-vs-lake-powell'
+    | '/sitemap'
     | '/sitemap.xml'
     | '/small-boats'
+    | '/terms'
     | '/about/history'
     | '/cabins/policy'
     | '/compare/queens'
@@ -335,9 +390,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/accessibility'
     | '/admin'
     | '/cabins'
     | '/contact'
+    | '/cookie-settings'
     | '/directions'
     | '/employment'
     | '/exploring-shasta-lake'
@@ -345,11 +402,14 @@ export interface FileRouteTypes {
     | '/guest-info'
     | '/moorage'
     | '/planning'
+    | '/privacy'
     | '/pro-shop'
     | '/shasta-lake'
     | '/shasta-vs-lake-powell'
+    | '/sitemap'
     | '/sitemap.xml'
     | '/small-boats'
+    | '/terms'
     | '/about/history'
     | '/cabins_/policy'
     | '/compare/queens'
@@ -366,9 +426,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccessibilityRoute: typeof AccessibilityRoute
   AdminRoute: typeof AdminRoute
   CabinsRoute: typeof CabinsRoute
   ContactRoute: typeof ContactRoute
+  CookieSettingsRoute: typeof CookieSettingsRoute
   DirectionsRoute: typeof DirectionsRoute
   EmploymentRoute: typeof EmploymentRoute
   ExploringShastaLakeRoute: typeof ExploringShastaLakeRoute
@@ -376,11 +438,14 @@ export interface RootRouteChildren {
   GuestInfoRoute: typeof GuestInfoRoute
   MoorageRoute: typeof MoorageRoute
   PlanningRoute: typeof PlanningRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProShopRoute: typeof ProShopRoute
   ShastaLakeRoute: typeof ShastaLakeRoute
   ShastaVsLakePowellRoute: typeof ShastaVsLakePowellRoute
+  SitemapRoute: typeof SitemapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SmallBoatsRoute: typeof SmallBoatsRoute
+  TermsRoute: typeof TermsRoute
   AboutHistoryRoute: typeof AboutHistoryRoute
   CabinsPolicyRoute: typeof CabinsPolicyRoute
   CompareQueensRoute: typeof CompareQueensRoute
@@ -397,6 +462,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/small-boats': {
       id: '/small-boats'
       path: '/small-boats'
@@ -409,6 +481,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shasta-vs-lake-powell': {
@@ -430,6 +509,13 @@ declare module '@tanstack/react-router' {
       path: '/pro-shop'
       fullPath: '/pro-shop'
       preLoaderRoute: typeof ProShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/planning': {
@@ -481,6 +567,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DirectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookie-settings': {
+      id: '/cookie-settings'
+      path: '/cookie-settings'
+      fullPath: '/cookie-settings'
+      preLoaderRoute: typeof CookieSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -500,6 +593,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accessibility': {
+      id: '/accessibility'
+      path: '/accessibility'
+      fullPath: '/accessibility'
+      preLoaderRoute: typeof AccessibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -598,9 +698,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccessibilityRoute: AccessibilityRoute,
   AdminRoute: AdminRoute,
   CabinsRoute: CabinsRoute,
   ContactRoute: ContactRoute,
+  CookieSettingsRoute: CookieSettingsRoute,
   DirectionsRoute: DirectionsRoute,
   EmploymentRoute: EmploymentRoute,
   ExploringShastaLakeRoute: ExploringShastaLakeRoute,
@@ -608,11 +710,14 @@ const rootRouteChildren: RootRouteChildren = {
   GuestInfoRoute: GuestInfoRoute,
   MoorageRoute: MoorageRoute,
   PlanningRoute: PlanningRoute,
+  PrivacyRoute: PrivacyRoute,
   ProShopRoute: ProShopRoute,
   ShastaLakeRoute: ShastaLakeRoute,
   ShastaVsLakePowellRoute: ShastaVsLakePowellRoute,
+  SitemapRoute: SitemapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SmallBoatsRoute: SmallBoatsRoute,
+  TermsRoute: TermsRoute,
   AboutHistoryRoute: AboutHistoryRoute,
   CabinsPolicyRoute: CabinsPolicyRoute,
   CompareQueensRoute: CompareQueensRoute,
