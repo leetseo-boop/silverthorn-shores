@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { refreshGoogleReviews } from "@/lib/googleReviews.functions";
 
 export const Route = createFileRoute("/api/public/hooks/refresh-reviews")({
   server: {
@@ -16,6 +15,7 @@ export const Route = createFileRoute("/api/public/hooks/refresh-reviews")({
         }
 
         try {
+          const { refreshGoogleReviews } = await import("@/lib/googleReviews.server");
           const payload = await refreshGoogleReviews();
           return new Response(
             JSON.stringify({
@@ -42,6 +42,7 @@ export const Route = createFileRoute("/api/public/hooks/refresh-reviews")({
         if (!provided || !expected || provided !== expected) {
           return new Response("Unauthorized", { status: 401 });
         }
+        const { refreshGoogleReviews } = await import("@/lib/googleReviews.server");
         const payload = await refreshGoogleReviews();
         return new Response(JSON.stringify({ ok: true, count: payload.reviews.length }), {
           headers: { "Content-Type": "application/json" },
