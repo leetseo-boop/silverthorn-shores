@@ -1,0 +1,2 @@
+GRANT SELECT ON public.google_reviews_cache TO anon, authenticated;
+GRANT ALL ON public.google_reviews_cache TO service_role;
