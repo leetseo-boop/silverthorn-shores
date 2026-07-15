@@ -28,6 +28,7 @@ import { PromoBadge } from "@/components/promo/PromoBadge";
 import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
 import { isPromoBoat } from "@/lib/promo";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
+import { SocialLinks } from "@/components/SocialLinks";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
@@ -904,6 +905,12 @@ export function Footer() {
               📞 {PHONE}<br />
               ✉️ {EMAIL}
             </div>
+            <div className="mt-5">
+              <div className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(27,43,58,0.55)" }}>
+                Follow us
+              </div>
+              <SocialLinks />
+            </div>
           </div>
 
           {/* Links */}
@@ -994,26 +1001,8 @@ export function Footer() {
               </a>
             ))}
           </nav>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-xs" style={{ color: "rgba(27,43,58,0.55)" }}>
-              Silverthorn Resort ™ 2026 · All rights reserved
-            </div>
-            <div className="flex gap-2">
-              {["f", "📷", "𝕏", "▶"].map((icon, i) => (
-                <button
-                  key={i}
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-xs transition-all"
-                  style={{
-                    backgroundColor: "rgba(27,43,58,0.08)",
-                    color: "#1B2B3A",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(27,43,58,0.16)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(27,43,58,0.08)")}
-                >
-                  {icon}
-                </button>
-              ))}
-            </div>
+          <div className="text-xs" style={{ color: "rgba(27,43,58,0.55)" }}>
+            Silverthorn Resort ™ 2026 · All rights reserved
           </div>
         </div>
       </div>
