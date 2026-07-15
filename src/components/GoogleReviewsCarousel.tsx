@@ -116,6 +116,9 @@ export default function GoogleReviewsCarousel() {
   const [index, setIndex] = useState(0);
   const paused = useRef(false);
 
+  const next = () => setIndex((i) => (i + 1) % reviews.length);
+  const prev = () => setIndex((i) => (i - 1 + reviews.length) % reviews.length);
+
   useEffect(() => {
     if (reviews.length <= 1) return;
     const id = setInterval(() => {
@@ -123,6 +126,35 @@ export default function GoogleReviewsCarousel() {
     }, 6000);
     return () => clearInterval(id);
   }, [reviews.length]);
+
+  const ArrowBtn = ({
+    dir,
+    onClick,
+    className = "",
+    size = 40,
+  }: {
+    dir: "prev" | "next";
+    onClick: () => void;
+    className?: string;
+    size?: number;
+  }) => (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={dir === "prev" ? "Previous review" : "Next review"}
+      className={`flex items-center justify-center rounded-full shadow-md transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 ${className}`}
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: "#E8640A",
+        color: "#fff",
+      }}
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        {dir === "prev" ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
+      </svg>
+    </button>
+  );
 
   return (
     <div
@@ -144,10 +176,22 @@ export default function GoogleReviewsCarousel() {
         </div>
       </div>
 
-      {/* Mobile: single card rotating */}
+      {/* Mobile: single card rotating with side arrows */}
       <div className="md:hidden">
-        <div className="relative">
+        <div className="relative px-2">
           <ReviewCard review={reviews[index]} />
+          <ArrowBtn
+            dir="prev"
+            onClick={prev}
+            className="absolute top-1/2 -translate-y-1/2 -left-1"
+            size={40}
+          />
+          <ArrowBtn
+            dir="next"
+            onClick={next}
+            className="absolute top-1/2 -translate-y-1/2 -right-1"
+            size={40}
+          />
         </div>
         <div className="flex justify-center gap-2 mt-4">
           {reviews.map((_, i) => (
@@ -166,13 +210,27 @@ export default function GoogleReviewsCarousel() {
         </div>
       </div>
 
-      {/* Desktop: 3 rotating cards */}
+      {/* Desktop: 3 rotating cards flanked by arrows */}
       <div className="hidden md:block">
-        <div className="grid grid-cols-3 gap-4">
-          {[0, 1, 2].map((offset) => {
-            const r = reviews[(index + offset) % reviews.length];
-            return <ReviewCard key={`${index}-${offset}`} review={r} />;
-          })}
+        <div className="relative px-14">
+          <div className="grid grid-cols-3 gap-4">
+            {[0, 1, 2].map((offset) => {
+              const r = reviews[(index + offset) % reviews.length];
+              return <ReviewCard key={`${index}-${offset}`} review={r} />;
+            })}
+          </div>
+          <ArrowBtn
+            dir="prev"
+            onClick={prev}
+            className="absolute top-1/2 -translate-y-1/2 left-0"
+            size={44}
+          />
+          <ArrowBtn
+            dir="next"
+            onClick={next}
+            className="absolute top-1/2 -translate-y-1/2 right-0"
+            size={44}
+          />
         </div>
         <div className="flex justify-center gap-2 mt-6">
           {reviews.map((_, i) => (
@@ -193,3 +251,4 @@ export default function GoogleReviewsCarousel() {
     </div>
   );
 }
+
