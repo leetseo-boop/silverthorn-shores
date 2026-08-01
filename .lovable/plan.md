@@ -1,56 +1,43 @@
-## Thorn — Silverthorn's AI guest assistant
+## Thorn chat: accessibility, a Policies & Booking mode, and live moods
 
-A cartoon version of Thorn (the resort dog) as a floating AI chat assistant on every page, in the same illustrated mascot style as Squatch, with mood art that changes with the conversation.
+Three upgrades to the Thorn assistant, all inside the chat widget and its server route.
 
-### 1. Thorn character art (9 moods)
+### 1. Accessibility and readable contrast
 
-Generate a consistent cartoon Thorn from the uploaded photo — fluffy white American Eskimo / Spitz, cream-tipped ears, black nose, friendly open-mouth smile — rendered as a clean, warm, hand-illustrated 3D-ish mascot on transparent background, matching the Squatch style and the resort's sunset/orange palette.
+`src/components/ThornChat.tsx`
 
-Core set:
-- `wave` — greeting, paw up (default idle)
-- `helping` — round glasses on, attentive (used while answering)
-- `thinking` — head tilt, paw to chin (while the AI is generating)
-- `resting` — curled up napping (idle after inactivity)
-- `celebrate` — happy jump, confetti (booking / good news)
+- **Keyboard flow**: focus moves into the panel when it opens and returns to the launcher when it closes; Escape closes from anywhere inside (currently only from the panel wrapper); Tab is trapped inside the open panel so focus can't wander behind it into the page.
+- **Focus states**: visible `focus-visible` ring on the launcher, close/reset buttons, quick-ask chips, send button and textarea, using the site's primary token so it reads on both the dark header and light body.
+- **Screen readers**: the transcript becomes an `aria-live="polite"` log so new replies are announced; each message gets a "Thorn said" / "You said" label; the loading line and error box are announced; the launcher's dog image is marked decorative since the button already has a label.
+- **Contrast + targets**: the footer disclaimer and "Resort dog & guest helper" subline move off low-opacity text onto proper tokens; all icon buttons get a 44×44 minimum tap target on touch screens; panel height switches to `dvh` units so mobile browser chrome can't clip the composer.
+- Verify with a keyboard-only pass and screenshots at phone, tablet and desktop widths.
 
-Lake set:
-- `houseboat` — standing on a houseboat deck
-- `lifevest` — wearing an orange life vest
-- `fishing` — holding a fishing pole
-- `sunglasses` — sunglasses at the marina dock
+### 2. "Policies & Booking" quick mode with citations
 
-Stored as CDN asset pointers in `src/assets/thorn/`, plus `src/lib/thorn-moods.ts` exporting the mood map, a keyword→mood detector, and a `[mood:xxx]` tag parser (same pattern as the Squatch project).
+New file `src/lib/thorn-knowledge.ts` — a single source of policy facts pulled from what's already on the policy pages (deposit tiers, the cancellation windows, check-in 3–6 PM / check-out 9–10 AM, age 21+ and license, pets, fuel, parking), each entry carrying the page anchor it came from, e.g. `/houseboats/policy#cancellation`, `/cabins/policy#cancellation`, `/guest-info`.
 
-### 2. Chat widget
+- A **Policies & Booking** toggle in the chat header. When on, the request tells the server to use a stricter policy persona: answer only from the stored policy facts, never improvise a number, and end each answer with the pages it drew from.
+- `src/routes/api/chat.ts` gains that second prompt mode and injects the policy facts block. The model returns sources as a compact trailing tag; the widget parses it and renders **citation chips** ("Houseboat policy — Cancellation") that link straight to the section anchor.
+- When policy mode is off, Thorn behaves exactly as today.
+- Quick-ask chips in policy mode change to: Cancellation, Deposits, Check-in / check-out, Pets, Age requirement.
 
-New `src/components/ThornChat.tsx`, mounted once in `src/routes/__root.tsx`:
-- Floating Thorn avatar bottom-right with a "Chat with Thorn 🐾" pill; tap to open a panel
-- Header shows current-mood Thorn, name, "Online" dot
-- Streaming replies, markdown rendering, typing/thinking state (Thorn switches to `thinking`)
-- Conversation kept in this browser only (single conversation, `localStorage`) — no accounts, no database
-- Quick-start chips: "Houseboat rates", "Cabins", "Pet policy", "Directions", "Summer sale"
-- Mobile-safe sizing, respects the existing safe-area/footer layout, and does not collide with the cookie banner
-- Site color tokens (orange/secondary), never hardcoded colors
+### 3. Automatic mood switching
 
-### 3. AI backend
+`src/lib/thorn-moods.ts` and the widget
 
-New streaming route `src/routes/api/chat.ts` using Lovable AI + the AI SDK, key stays server-side.
+- Moods already switch from the model's tag; this makes them react during the conversation too: **thinking** the moment a question is sent, a **topic mood** as the answer streams in (houseboat, fishing, lifevest for rules/safety, sunglasses for summer/the sale, celebrate for booking talk), and **resting** after the panel sits idle.
+- Adds **directions/travel** detection (directions, drive, map, address, how far, GPS, I-5, Redding) mapped to a travel-appropriate mood, plus greeting/goodbye → wave.
+- Avatar swaps cross-fade instead of hard-cutting, and respect `prefers-reduced-motion`.
+- Mood images keep their descriptive alt text so the change is conveyed to screen readers as well.
 
-Thorn's system prompt gets a resort knowledge brief compiled from what's already in the codebase: houseboat fleet (Queen I/II, Senator), cabins, small boats and decimal pricing, moorage slips, policies (age 21+, pets, deposits), marina store hours, directions, Shasta Lake info, employment, and the 20% BREAK20 summer sale.
+### Technical notes
 
-Behavior rules:
-- Friendly, short, dog-personality-lite (never gimmicky), first person as Thorn
-- Nudges to book or call **800-332-3044** at natural moments, linking `/compare/queens`, `/houseboats`, `/cabins`, `/small-boats`, `/contact`
-- Never invents rates or availability — defers to the phone/booking link when unsure
-- Ends each reply with a hidden `[mood:xxx]` tag that drives the avatar art
-- Rate-limit and error states surfaced in the panel, not silent failures
+- Policy facts live in one typed module so the chat and the policy pages can't drift; the module is imported by the server route only (no extra client weight).
+- Citation parsing reuses the existing trailing-tag approach already used for `[mood:...]`, so streaming never flashes raw tags on screen.
+- No database, no new dependencies; the existing Lovable AI gateway route handles both prompt modes.
 
-### 4. Polish
+### Verification
 
-- `alt` text on every Thorn image, `aria-label`s on the launcher and panel, keyboard-closable
-- Small "Meet Thorn" mention isn't added anywhere else unless you want it later
-- Verify with a browser pass on mobile + desktop: no layout shift, no horizontal scroll, launcher not covering the footer CTAs
-
-### Notes
-- Image generation is the bulk of the cost here (9 illustrations); if any mood comes back off-model I'll re-roll just that one.
-- Chat history stays in the visitor's browser, so no new database tables and nothing to moderate server-side.
+- Keyboard-only run: open, tab through every control, send a message, close with Escape, confirm focus returns to the launcher.
+- Ask a cancellation question in policy mode and confirm the answer matches the policy page and the citation chip links to the right anchor.
+- Confirm moods change across a directions question, a fishing question and a booking question.

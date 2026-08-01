@@ -1,27 +1,34 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { X, Send, RotateCcw } from "lucide-react";
+import { X, Send, RotateCcw, ScrollText, ExternalLink } from "lucide-react";
 import { getConsent } from "@/lib/cookie-consent";
+import { POLICY_SOURCES } from "@/lib/thorn-sources";
 import {
   MOOD_ALT,
   MOOD_IMAGES,
+  MOOD_STATUS,
   detectMood,
   extractMoodTag,
-  stripPartialMoodTag,
+  extractSources,
+  stripPartialTags,
   type ThornMood,
 } from "@/lib/thorn-moods";
 
-type Msg = { role: "user" | "assistant"; content: string };
+type Msg = { role: "user" | "assistant"; content: string; sources?: string[] };
 
 const STORAGE_KEY = "thorn-chat-history";
 const MAX_STORED = 30;
 
-const QUICK_ASKS = [
-  "Houseboat rates",
-  "Cabins",
-  "Pet policy",
-  "Directions",
-  "Summer sale",
+const QUICK_ASKS = ["Houseboat rates", "Cabins", "Pet policy", "Directions", "Summer sale"];
+const POLICY_ASKS = [
+  "Cancellation policy",
+  "Deposits",
+  "Check-in / check-out",
+  "Pets",
+  "Age requirement",
 ];
+
+const FOCUSABLE =
+  'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
 function loadHistory(): Msg[] {
   if (typeof window === "undefined") return [];
@@ -34,10 +41,12 @@ function loadHistory(): Msg[] {
   }
 }
 
-/** Very small markdown renderer: **bold**, links, and line breaks. */
+/** Very small markdown renderer: links, **bold**, phone numbers, line breaks. */
 function renderRich(text: string) {
   const lines = text.split("\n");
-  return lines.map((line, i) => {
+  return lines.map((rawLine, i) => {
+    const bullet = /^\s*[*-]\s+/.test(rawLine);
+    const line = bullet ? rawLine.replace(/^\s*[*-]\s+/, "") : rawLine;
     const parts: React.ReactNode[] = [];
     const rx =
       /(\[[^\]]+\]\([^)\s]+\))|(\*\*[^*]+\*\*)|(https?:\/\/[^\s)]+)|(\/[a-z0-9-]+(?:\/[a-z0-9-]+)*)|(\b\d{3}-\d{3}-\d{4}\b)/gi;
@@ -47,6 +56,8 @@ function renderRich(text: string) {
       if (m.index > last) parts.push(line.slice(last, m.index));
       const token = m[0];
       const md = token.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+      const linkClass =
+        "rounded-sm font-medium text-primary underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1";
       if (md) {
         const href = md[2];
         parts.push(
@@ -55,7 +66,7 @@ function renderRich(text: string) {
             href={href}
             target={href.startsWith("http") ? "_blank" : undefined}
             rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="font-medium text-primary underline underline-offset-2"
+            className={linkClass}
           >
             {md[1]}
           </a>,
@@ -67,13 +78,8 @@ function renderRich(text: string) {
           </strong>,
         );
       } else if (/^\d{3}-\d{3}-\d{4}$/.test(token)) {
-
         parts.push(
-          <a
-            key={`${i}-${m.index}`}
-            href={`tel:+1${token.replace(/-/g, "")}`}
-            className="font-semibold text-primary underline underline-offset-2"
-          >
+          <a key={`${i}-${m.index}`} href={`tel:+1${token.replace(/-/g, "")}`} className={linkClass}>
             {token}
           </a>,
         );
@@ -84,7 +90,7 @@ function renderRich(text: string) {
             href={token}
             target={token.startsWith("http") ? "_blank" : undefined}
             rel={token.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="text-primary underline underline-offset-2"
+            className={linkClass}
           >
             {token}
           </a>,
@@ -94,12 +100,16 @@ function renderRich(text: string) {
     }
     if (last < line.length) parts.push(line.slice(last));
     return (
-      <span key={i} className="block">
-        {parts.length ? parts : "\u00A0"}
+      <span key={i} className={bullet ? "flex gap-2 pl-1" : "block"}>
+        {bullet && <span aria-hidden="true" className="text-primary">•</span>}
+        <span>{parts.length ? parts : "\u00A0"}</span>
       </span>
     );
   });
 }
+
+const ICON_BTN =
+  "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary";
 
 export function ThornChat() {
   const [open, setOpen] = useState(false);
@@ -109,10 +119,14 @@ export function ThornChat() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [mood, setMood] = useState<ThornMood>("wave");
+  const [policyMode, setPolicyMode] = useState(false);
+  const [consentDecided, setConsentDecided] = useState(true);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  const [consentDecided, setConsentDecided] = useState(true);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const restoreFocus = useRef(false);
 
   useEffect(() => {
     setMounted(true);
@@ -123,25 +137,29 @@ export function ThornChat() {
     return () => window.removeEventListener("str-consent-change", onConsent);
   }, []);
 
-
   useEffect(() => {
     if (!mounted) return;
     try {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(messages.slice(-MAX_STORED)),
-      );
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(-MAX_STORED)));
     } catch {
       /* storage full or blocked — chat still works in memory */
     }
   }, [messages, mounted]);
 
+  // Keep the newest message in view and the composer ready to type in.
   useEffect(() => {
-    if (open) {
-      scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-      inputRef.current?.focus();
-    }
+    if (!open) return;
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    inputRef.current?.focus();
   }, [messages, open, loading]);
+
+  // Return focus to the launcher when the panel closes.
+  useEffect(() => {
+    if (!open && restoreFocus.current) {
+      restoreFocus.current = false;
+      launcherRef.current?.focus();
+    }
+  }, [open]);
 
   // Thorn dozes off when the panel sits idle.
   useEffect(() => {
@@ -149,6 +167,37 @@ export function ThornChat() {
     const t = window.setTimeout(() => setMood("resting"), 60000);
     return () => window.clearTimeout(t);
   }, [open, loading, messages]);
+
+  const closePanel = useCallback(() => {
+    restoreFocus.current = true;
+    setOpen(false);
+  }, []);
+
+  const onPanelKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        closePanel();
+        return;
+      }
+      if (e.key !== "Tab" || !panelRef.current) return;
+      const items = Array.from(
+        panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE),
+      ).filter((el) => el.offsetParent !== null);
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey && (active === first || !panelRef.current.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    },
+    [closePanel],
+  );
 
   const send = useCallback(
     async (raw: string) => {
@@ -158,19 +207,29 @@ export function ThornChat() {
       setInput("");
       const next: Msg[] = [...messages, { role: "user", content: text }];
       setMessages(next);
-      setMood(detectMood(text) ?? "thinking");
+      setMood("thinking");
       setLoading(true);
+
+      // Switch to a topic mood a beat later so "thinking" is visible first.
+      const topic = detectMood(text);
+      const topicTimer = topic ? window.setTimeout(() => setMood(topic), 900) : undefined;
 
       try {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: next }),
+          body: JSON.stringify({
+            messages: next.map(({ role, content }) => ({ role, content })),
+            mode: policyMode ? "policy" : "general",
+          }),
         });
 
-        if (res.status === 429) throw new Error("Thorn is getting a lot of belly rubs right now — try again in a minute.");
-        if (res.status === 402) throw new Error("Thorn is out of treats for today. Please call 800-332-3044.");
-        if (!res.ok || !res.body) throw new Error("Thorn couldn't reach the front desk. Try again, or call 800-332-3044.");
+        if (res.status === 429)
+          throw new Error("Thorn is getting a lot of belly rubs right now — try again in a minute.");
+        if (res.status === 402)
+          throw new Error("Thorn is out of treats for today. Please call 800-332-3044.");
+        if (!res.ok || !res.body)
+          throw new Error("Thorn couldn't reach the front desk. Try again, or call 800-332-3044.");
 
         setMessages((m) => [...m, { role: "assistant", content: "" }]);
         const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
@@ -179,7 +238,7 @@ export function ThornChat() {
           const { value, done } = await reader.read();
           if (done) break;
           acc += value;
-          const visible = stripPartialMoodTag(acc);
+          const visible = stripPartialTags(acc);
           setMessages((m) => {
             const copy = [...m];
             copy[copy.length - 1] = { role: "assistant", content: visible };
@@ -187,49 +246,64 @@ export function ThornChat() {
           });
         }
 
-        const { text: clean, mood: tagged } = extractMoodTag(acc);
+        const withoutSources = extractSources(acc);
+        const withoutMood = extractMoodTag(withoutSources.text);
+        const finalSources = withoutSources.sources.length
+          ? withoutSources.sources
+          : extractSources(withoutMood.text).sources;
+        const clean = extractSources(withoutMood.text).text;
+
         setMessages((m) => {
           const copy = [...m];
-          copy[copy.length - 1] = { role: "assistant", content: clean };
+          copy[copy.length - 1] = {
+            role: "assistant",
+            content: clean,
+            sources: finalSources.filter((id) => POLICY_SOURCES[id]),
+          };
           return copy;
         });
-        setMood(tagged ?? detectMood(clean) ?? "helping");
+        setMood(withoutMood.mood ?? topic ?? detectMood(clean) ?? "helping");
       } catch (e) {
         setError(e instanceof Error ? e.message : "Something went wrong.");
         setMood("helping");
       } finally {
+        if (topicTimer) window.clearTimeout(topicTimer);
         setLoading(false);
       }
     },
-    [loading, messages],
+    [loading, messages, policyMode],
   );
 
   if (!mounted || (!consentDecided && !open)) return null;
+
+  const asks = policyMode ? POLICY_ASKS : QUICK_ASKS;
 
   return (
     <>
       {/* Launcher */}
       {!open && (
         <button
+          ref={launcherRef}
           type="button"
           onClick={() => {
             setOpen(true);
             setMood("wave");
           }}
           aria-label="Chat with Thorn, the Silverthorn Resort assistant"
-          className="group fixed right-3 z-40 flex items-end gap-2 md:right-5"
+          className="group fixed right-3 z-40 flex items-end gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:right-5"
           style={{ bottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem))" }}
         >
-          <span className="hidden rounded-full border border-primary/30 bg-card px-3 py-1.5 text-xs font-semibold text-secondary shadow-md transition-transform group-hover:scale-105 sm:inline-block">
+          <span className="hidden rounded-full border border-primary/40 bg-card px-3 py-1.5 text-xs font-semibold text-secondary shadow-md transition-transform group-hover:scale-105 motion-reduce:transition-none sm:inline-block">
             Chat with Thorn 🐾
           </span>
           <img
             src={MOOD_IMAGES.wave}
-            alt={MOOD_ALT.wave}
+            alt=""
+            aria-hidden="true"
             width={512}
             height={512}
             loading="lazy"
-            className="h-16 w-16 drop-shadow-[0_6px_14px_rgba(0,0,0,0.25)] transition-transform group-hover:-translate-y-1 md:h-20 md:w-20"
+            className="h-16 w-16 drop-shadow-[0_6px_14px_rgba(0,0,0,0.25)] transition-transform group-hover:-translate-y-1 motion-reduce:transition-none md:h-20 md:w-20"
           />
         </button>
       )}
@@ -237,31 +311,48 @@ export function ThornChat() {
       {/* Panel */}
       {open && (
         <div
+          ref={panelRef}
           role="dialog"
-          aria-label="Chat with Thorn"
-          className="fixed right-2 left-2 z-50 flex max-h-[80vh] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[380px]"
+          aria-modal="false"
+          aria-label="Chat with Thorn, the Silverthorn Resort assistant"
+          className="fixed right-2 left-2 z-50 flex max-h-[85dvh] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
           style={{ bottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") setOpen(false);
-          }}
+          onKeyDown={onPanelKeyDown}
         >
           {/* Header */}
-          <div className="flex items-center gap-3 border-b border-border bg-secondary px-4 py-3 text-secondary-foreground">
+          <div className="flex items-center gap-3 border-b border-border bg-secondary px-3 py-3 text-secondary-foreground">
             <img
+              key={mood}
               src={MOOD_IMAGES[mood]}
               alt={MOOD_ALT[mood]}
               width={512}
               height={512}
               loading="lazy"
-              className="h-11 w-11 shrink-0 transition-opacity"
+              className="h-11 w-11 shrink-0 animate-in fade-in duration-300 motion-reduce:animate-none"
             />
             <div className="min-w-0 flex-1">
               <p className="font-display text-lg font-semibold leading-tight">Thorn</p>
-              <p className="flex items-center gap-1.5 text-xs opacity-80">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                Resort dog & guest helper
+              <p className="flex items-center gap-1.5 text-xs text-secondary-foreground">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+                <span aria-live="polite">
+                  {loading ? MOOD_STATUS.thinking : MOOD_STATUS[mood]}
+                </span>
               </p>
             </div>
+            <button
+              type="button"
+              onClick={() => setPolicyMode((v) => !v)}
+              aria-pressed={policyMode}
+              aria-label="Policies and booking mode"
+              title="Policies & Booking mode — answers straight from our policy pages"
+              className={`${ICON_BTN} ${
+                policyMode
+                  ? "bg-primary text-primary-foreground"
+                  : "text-secondary-foreground hover:bg-white/10"
+              }`}
+            >
+              <ScrollText className="h-5 w-5" />
+            </button>
             {messages.length > 0 && (
               <button
                 type="button"
@@ -269,39 +360,56 @@ export function ThornChat() {
                   setMessages([]);
                   setError(null);
                   setMood("wave");
+                  inputRef.current?.focus();
                 }}
                 aria-label="Start a new conversation"
-                className="rounded-full p-1.5 opacity-70 transition-opacity hover:opacity-100"
+                className={`${ICON_BTN} text-secondary-foreground hover:bg-white/10`}
               >
-                <RotateCcw className="h-4 w-4" />
+                <RotateCcw className="h-5 w-5" />
               </button>
             )}
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={closePanel}
               aria-label="Close chat"
-              className="rounded-full p-1.5 opacity-70 transition-opacity hover:opacity-100"
+              className={`${ICON_BTN} text-secondary-foreground hover:bg-white/10`}
             >
               <X className="h-5 w-5" />
             </button>
           </div>
 
+          {policyMode && (
+            <p className="border-b border-border bg-primary/10 px-4 py-2 text-xs font-medium text-secondary">
+              Policies &amp; Booking mode — answers come straight from our published policies, with
+              links to the exact section.
+            </p>
+          )}
+
           {/* Transcript */}
-          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+          <div
+            ref={scrollRef}
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions text"
+            aria-label="Conversation with Thorn"
+            tabIndex={0}
+            className="flex-1 space-y-3 overflow-y-auto px-4 py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
+          >
             {messages.length === 0 && (
               <div className="space-y-3">
                 <p className="text-base font-semibold text-secondary">Hi, I'm Thorn! 🐾</p>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  I live here at Silverthorn Resort on Shasta Lake. Ask me about houseboats,
-                  cabins, boat rentals, policies, or planning your trip.
+                  {policyMode
+                    ? "Ask me about deposits, cancellation, check-in and check-out, pets or age rules — I'll quote our policies and link the page."
+                    : "I live here at Silverthorn Resort on Shasta Lake. Ask me about houseboats, cabins, boat rentals, policies, or planning your trip."}
                 </p>
                 <div className="flex flex-wrap gap-2 pt-1">
-                  {QUICK_ASKS.map((q) => (
+                  {asks.map((q) => (
                     <button
                       key={q}
                       type="button"
                       onClick={() => send(q)}
-                      className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-xs font-medium text-secondary transition-colors hover:bg-primary hover:text-primary-foreground"
+                      className="min-h-9 rounded-full border border-primary/50 bg-primary/10 px-3 py-1.5 text-xs font-medium text-secondary transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                     >
                       {q}
                     </button>
@@ -313,22 +421,53 @@ export function ThornChat() {
             {messages.map((m, i) =>
               m.role === "user" ? (
                 <div key={i} className="flex justify-end">
-                  <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-primary px-3.5 py-2 text-sm text-primary-foreground">
+                  <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-primary px-3.5 py-2 text-sm text-primary-foreground">
+                    <span className="sr-only">You said: </span>
                     {m.content}
-                  </div>
+                  </p>
                 </div>
               ) : (
                 <div key={i} className="max-w-[95%] space-y-1 text-sm leading-relaxed text-foreground">
+                  <span className="sr-only">Thorn said: </span>
                   {renderRich(m.content)}
+                  {m.sources && m.sources.length > 0 && (
+                    <div className="pt-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                        From our policies
+                      </p>
+                      <ul className="mt-1.5 flex flex-wrap gap-1.5">
+                        {m.sources.map((id) => {
+                          const src = POLICY_SOURCES[id];
+                          if (!src) return null;
+                          return (
+                            <li key={id}>
+                              <a
+                                href={src.href}
+                                className="inline-flex items-center gap-1 rounded-full border border-border bg-muted px-2.5 py-1 text-[11px] font-medium text-secondary transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+                              >
+                                {src.label}
+                                <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               ),
             )}
 
             {loading && (
-              <p className="animate-pulse text-sm text-muted-foreground">Thorn is sniffing around…</p>
+              <p className="animate-pulse text-sm text-muted-foreground motion-reduce:animate-none">
+                Thorn is sniffing around…
+              </p>
             )}
             {error && (
-              <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+              <p
+                role="alert"
+                className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs font-medium text-destructive"
+              >
                 {error}
               </p>
             )}
@@ -348,23 +487,26 @@ export function ThornChat() {
                   }
                 }}
                 rows={1}
-                placeholder="Ask Thorn anything…"
-                aria-label="Message Thorn"
-                className="max-h-24 flex-1 resize-none rounded-xl border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
+                placeholder={policyMode ? "Ask about a policy…" : "Ask Thorn anything…"}
+                aria-label={policyMode ? "Ask Thorn about a policy" : "Message Thorn"}
+                className="max-h-24 flex-1 resize-none rounded-xl border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               />
               <button
                 type="button"
                 onClick={() => send(input)}
                 disabled={loading || !input.trim()}
                 aria-label="Send message"
-                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50"
               >
-                <Send className="h-4 w-4" />
+                <Send className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
             <p className="mt-2 text-center text-[11px] text-muted-foreground">
               Thorn is an AI helper — for availability call{" "}
-              <a href="tel:+18003323044" className="font-medium text-primary">
+              <a
+                href="tel:+18003323044"
+                className="rounded-sm font-semibold text-primary underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
                 800-332-3044
               </a>
             </p>
