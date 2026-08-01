@@ -124,7 +124,17 @@ type ChatMessage = { role: "user" | "assistant"; content: string };
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
+      // Warm-up ping: the widget calls this when it opens so the first real
+      // guest message never waits on a cold server start.
+      GET: async () => {
+        void loadRoster();
+        void conditionsBlock();
+        return new Response(JSON.stringify({ ok: true }), {
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+        });
+      },
       POST: async ({ request }) => {
+
         let body: { messages?: ChatMessage[]; mode?: string; sessionId?: string };
         try {
           body = (await request.json()) as typeof body;
