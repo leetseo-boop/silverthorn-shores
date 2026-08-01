@@ -368,7 +368,7 @@ export function ThornChat() {
           role="dialog"
           aria-modal="false"
           aria-label="Chat with Thorn, the Silverthorn Resort assistant"
-          className="fixed right-2 left-2 z-50 flex h-[min(78dvh,620px)] max-h-[calc(100dvh-5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
+          className="fixed right-3 left-3 z-50 flex h-[min(72dvh,560px)] max-h-[calc(100dvh-6rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
           style={{ bottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
           onKeyDown={onPanelKeyDown}
         >
