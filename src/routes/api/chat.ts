@@ -16,10 +16,12 @@ import {
   logAbuse,
   logAssistant,
   logMessages,
+  matchAdHocStaff,
   matchStaff,
   rememberStaffSession,
   staffForSession,
 } from "@/lib/thorn/runtime.server";
+
 
 
 const MODEL_ID = "google/gemini-3.6-flash";
