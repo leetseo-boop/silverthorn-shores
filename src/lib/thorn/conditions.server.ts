@@ -98,7 +98,7 @@ export async function fetchLakeLevel(): Promise<LakeLevel> {
   if (elev) {
     out.elevation_ft = Math.round(Number(elev.value) * 10) / 10;
     out.feet_below_full = Math.round((FULL_POOL_FT - Number(elev.value)) * 10) / 10;
-    out.as_of = elev.date;
+    out.as_of = elev.date.split(" ")[0];
   }
   if (stor) out.storage_af = Math.round(Number(stor.value));
   return out;
