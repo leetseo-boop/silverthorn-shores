@@ -1,26 +1,28 @@
-## 1. Fleet knowledge Thorn should state
+## Where Thorn stands right now
 
-Add a small "fleet guidance" knowledge entry (new entries in `src/lib/thorn/kb-site.ts`, high search weight so it is retrieved on "best boat", "cheapest", "hot tub", "recommend"):
+I ran live checks against the running app:
 
-- **Queen is the flagship / best houseboat of the fleet** — most luxurious, hot tub + waterslide on the third deck, penthouse suite. Recommend it first when a guest asks "which is your best boat".
-- **Senator has NO hot tub.** It is the **best-priced houseboat** in the fleet and still a great Shasta Lake boat — sleeps 16, waterslide, captain's fly bridge, full kitchen, swamp cooler. Recommend it for budget-minded groups.
+- **Policies mode** — answered the houseboat cancellation policy correctly with exact windows and a `[sources: hb-cancellation]` citation.
+- **General mode** — correctly said the **Senator has no hot tub**, steered to the Queen boats, and quoted **today's live Shasta Lake weather** (high 104°F / low 70°F). Fleet ranking and daily conditions are wired in and working.
+- Transcript logging, learned-facts drafting, staff roster tone, admin panel (overview / transcripts / knowledge / abuse) and the ban gate are all in place.
 
-Also add a one-line rule to the chat system prompt in `src/routes/api/chat.ts` so Thorn never claims a hot tub on the Senator.
+So yes — functionally he's ready for staff to hammer on. Three things I'd fix first, specifically because *staff* are the testers.
 
-## 2. Daily weather + lake level
+## Recommended pre-test changes
 
-The houseboats.com weather page renders its live numbers in the browser, so scraping it returns an empty block. To get the same data reliably, the nightly job will pull from the public sources that page is built on:
+**1. Stop staff from banning the resort's own IP (most important)**
+Today, two foul messages from any IP triggers a permanent site-wide block. If staff test the abuse flow from the resort office (or all share one connection), the whole office loses access to silverthornresort.com. Fix: skip the ban for recognized staff sessions and for an allow-listed set of IPs; they still see the warning and the trace theatre, but no real ban is written. Also make the block expire instead of being forever for everyone else.
 
-- **Weather** (Shasta Lake, 96003): Open-Meteo — today's high/low, conditions, and a short 3-day outlook. No API key.
-- **Lake level**: CDEC station SHA — current elevation (ft), storage, and feet below the crest / full pool. No API key.
+**2. One-click "clear my test data" in the admin panel**
+Heavy testing will fill Transcripts and inflate the Overview counters, and will feed junk into the nightly learned-facts job. Add an admin-only action to delete a session's messages (and a "hide staff sessions" toggle on the transcripts tab) so real guest analytics stay clean.
 
-Pieces to build:
+**3. Cold-start warm-up**
+My very first request timed out before the server woke up; the next one answered normally. Add a lightweight warm-up ping when the chat widget opens so the first guest message never appears to hang.
 
-1. **Table `thorn_daily_conditions`** (one row per day: date, weather JSON, lake level JSON, fetched_at). Public read via anon SELECT so it can also be shown on-site later; writes only by the job.
-2. **Hook `src/routes/api/public/hooks/thorn-conditions.ts`** — fetches both sources, writes the row. Protected with the existing `REVIEWS_REFRESH_SECRET` bearer, same as `thorn-learn`.
-3. **pg_cron job at 00:00 PST** (08:00 UTC standard / 07:00 UTC during DST — scheduled at 08:00 UTC to match the existing jobs' convention) calling that hook.
-4. **Chat wiring** — `src/routes/api/chat.ts` loads today's row (cached in memory per request cycle) and injects a compact "TODAY AT SHASTA LAKE" block into the system prompt: date, high/low, conditions, 3-day outlook, lake elevation and feet from full. Thorn cites the weather page as the source. If the row is missing or stale, that block is omitted and Thorn falls back to seasonal averages rather than guessing.
+## Technical notes
 
-### Technical notes
-- Job runs on the server only; both APIs are keyless HTTP GETs, so no new secrets.
-- Data is read in the chat handler from the cached table, not fetched live per message, so chat latency is unchanged.
+- Ban skip logic lives in `src/routes/api/chat.ts` (offense branch) plus `src/lib/thorn/runtime.server.ts` (`banIp`, `isBanned`); staff detection already exists via `staffForSession` / `matchStaff`.
+- Test-data cleanup needs a new admin server fn in `src/lib/thorn-admin.functions.ts` behind the existing `assertAdmin`, plus buttons in `src/components/admin/ThornAdminPanel.tsx`.
+- Warm-up: a no-op GET handler on the chat route, called from `ThornChat.tsx` when the panel opens.
+
+If you'd rather just start testing as-is, say so and I'll only do item 1 — that's the one that can lock your team out of the site.
