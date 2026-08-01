@@ -221,6 +221,12 @@ export default {
         });
       }
 
+      // Banned visitors (repeat chat abuse) lose the whole site, not just chat.
+      if (!url.pathname.startsWith("/api/")) {
+        const { isVisitorBanned, bannedResponse } = await import("./lib/thorn/ban-gate.server");
+        if (await isVisitorBanned(request)) return bannedResponse();
+      }
+
       const redirectTo = resolveLegacyRedirect(url);
       if (redirectTo) {
         const target = new URL(redirectTo, url.origin);
