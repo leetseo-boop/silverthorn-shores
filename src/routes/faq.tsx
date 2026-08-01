@@ -37,21 +37,20 @@ const FAQS: Faq[] = [
   },
   {
     q: "Can I bring my pet?",
-    a: "Silverthorn and Jones Valley Resort are pet friendly. Houseboats accommodate a maximum of 2 pets — the first pet is free, and the second pet requires a non-refundable $50.00 charge to be paid prior to occupancy/boarding. Any excessive cleaning required upon departure of pet hair, urine, etc. will be charged to the credit card on file at the rate of $95.00 per hour. Any damages will be charged at replacement cost. See our Pet Policy at https://houseboats.com/trip-preparation/pet-policy.",
+    a: "Silverthorn and Jones Valley Resort are pet friendly. Houseboats accommodate a maximum of 2 dogs — the first dog is free, and the second dog requires a non-refundable $50.00 charge to be paid prior to occupancy/boarding. Any excessive cleaning required upon departure of pet hair, urine, etc. will be charged to the credit card on file at the rate of $95.00 per hour. Any damages will be charged at replacement cost. See our full Pet Policy at /pet-policy.",
     render: () => (
       <>
         Silverthorn and Jones Valley Resort are pet friendly. Houseboats
-        accommodate a maximum of <strong>2 pets</strong> — the{" "}
-        <strong>first pet is free</strong>, and the{" "}
-        <strong>second pet requires a non-refundable $50.00 charge</strong> to
+        accommodate a maximum of <strong>2 dogs</strong> — the{" "}
+        <strong>first dog is free</strong>, and the{" "}
+        <strong>second dog requires a non-refundable $50.00 charge</strong> to
         be paid prior to occupancy/boarding. Any excessive cleaning required
         upon departure of pet hair, urine, etc. will be charged to the credit
         card on file at the rate of <strong>$95.00 per hour</strong>. Any
-        damages will be charged at <strong>replacement cost</strong>. See our{" "}
+        damages will be charged at <strong>replacement cost</strong>. See our
+        full{" "}
         <a
-          href="https://houseboats.com/trip-preparation/pet-policy"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/pet-policy"
           className="text-primary underline underline-offset-2 hover:opacity-80"
         >
           Pet Policy

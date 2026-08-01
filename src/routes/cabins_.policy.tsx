@@ -326,12 +326,18 @@ const SECTIONS: Section[] = [
     body: (
       <>
         <p>
-          Silverthorn Resort is a pet-friendly resort and will accommodate <strong>one pet at no charge</strong>. Each
-          additional pet requires a non-refundable charge of <strong>$35.00</strong> to be paid prior to occupancy.
+          Silverthorn Resort is a pet-friendly resort and welcomes a <strong>maximum of 2 dogs</strong> — the{" "}
+          <strong>1st dog stays free</strong> and the <strong>2nd dog is a non-refundable $50.00</strong>, paid prior to
+          occupancy.
         </p>
         <p>
           Any excessive cleaning required upon departure (pet hair, urine, etc.) will be charged to the credit card on
-          file at <strong>$25.00 per hour</strong>. Any damages will be charged at replacement cost.
+          file at <strong>$95.00 per hour</strong>. Any damages will be charged at replacement cost.
+        </p>
+        <p>
+          <Link to="/pet-policy" className="underline underline-offset-2 hover:no-underline" style={{ color: "var(--lake)" }}>
+            Read the full Pet Policy
+          </Link>
         </p>
       </>
     ),
