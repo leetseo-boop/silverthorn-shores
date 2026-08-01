@@ -13,6 +13,7 @@ import {
 import appCss from "../styles.css?url";
 import { Nav, Footer } from "@/components/SilverthornHomePage";
 import { CookieBanner } from "@/components/CookieBanner";
+import { ThornChat } from "@/components/ThornChat";
 import { initBookingTracker } from "@/lib/booking-tracker";
 import { applyConsent } from "@/lib/cookie-consent";
 
@@ -151,6 +152,7 @@ function RootComponent() {
       <Outlet />
       {!isAdmin && <Footer />}
       {!isAdmin && <CookieBanner />}
+      {!isAdmin && <ThornChat />}
     </QueryClientProvider>
   );
 }
