@@ -39,6 +39,7 @@ import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy'
 import { Route as CompareQueensRouteImport } from './routes/compare.queens'
 import { Route as CabinsPolicyRouteImport } from './routes/cabins_.policy'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AboutHistoryRouteImport } from './routes/about.history'
 import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
@@ -193,6 +194,11 @@ const CabinsPolicyRoute = CabinsPolicyRouteImport.update({
   path: '/cabins/policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutHistoryRoute = AboutHistoryRouteImport.update({
   id: '/about/history',
   path: '/about/history',
@@ -233,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
   '/about/history': typeof AboutHistoryRoute
+  '/api/chat': typeof ApiChatRoute
   '/cabins/policy': typeof CabinsPolicyRoute
   '/compare/queens': typeof CompareQueensRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
@@ -268,6 +275,7 @@ export interface FileRoutesByTo {
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
   '/about/history': typeof AboutHistoryRoute
+  '/api/chat': typeof ApiChatRoute
   '/cabins/policy': typeof CabinsPolicyRoute
   '/compare/queens': typeof CompareQueensRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
@@ -304,6 +312,7 @@ export interface FileRoutesById {
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
   '/about/history': typeof AboutHistoryRoute
+  '/api/chat': typeof ApiChatRoute
   '/cabins_/policy': typeof CabinsPolicyRoute
   '/compare/queens': typeof CompareQueensRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
@@ -341,6 +350,7 @@ export interface FileRouteTypes {
     | '/small-boats'
     | '/terms'
     | '/about/history'
+    | '/api/chat'
     | '/cabins/policy'
     | '/compare/queens'
     | '/houseboats/policy'
@@ -376,6 +386,7 @@ export interface FileRouteTypes {
     | '/small-boats'
     | '/terms'
     | '/about/history'
+    | '/api/chat'
     | '/cabins/policy'
     | '/compare/queens'
     | '/houseboats/policy'
@@ -411,6 +422,7 @@ export interface FileRouteTypes {
     | '/small-boats'
     | '/terms'
     | '/about/history'
+    | '/api/chat'
     | '/cabins_/policy'
     | '/compare/queens'
     | '/houseboats/policy'
@@ -447,6 +459,7 @@ export interface RootRouteChildren {
   SmallBoatsRoute: typeof SmallBoatsRoute
   TermsRoute: typeof TermsRoute
   AboutHistoryRoute: typeof AboutHistoryRoute
+  ApiChatRoute: typeof ApiChatRoute
   CabinsPolicyRoute: typeof CabinsPolicyRoute
   CompareQueensRoute: typeof CompareQueensRoute
   HouseboatsPolicyRoute: typeof HouseboatsPolicyRoute
@@ -672,6 +685,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CabinsPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about/history': {
       id: '/about/history'
       path: '/about/history'
@@ -719,6 +739,7 @@ const rootRouteChildren: RootRouteChildren = {
   SmallBoatsRoute: SmallBoatsRoute,
   TermsRoute: TermsRoute,
   AboutHistoryRoute: AboutHistoryRoute,
+  ApiChatRoute: ApiChatRoute,
   CabinsPolicyRoute: CabinsPolicyRoute,
   CompareQueensRoute: CompareQueensRoute,
   HouseboatsPolicyRoute: HouseboatsPolicyRoute,
