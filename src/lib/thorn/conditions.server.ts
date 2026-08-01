@@ -78,15 +78,17 @@ export async function fetchLakeLevel(): Promise<LakeLevel> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`CDEC ${res.status}`);
   const rows = (await res.json()) as {
-    sensorNumber: number;
+    SENSOR_NUM: number;
     value: number | string;
     date: string;
   }[];
 
+  const stamp = (s: string) => Date.parse(s.replace(" ", "T")) || 0;
+
   const latest = (sensor: number) => {
     const list = rows
-      .filter((r) => Number(r.sensorNumber) === sensor && Number(r.value) > 0)
-      .sort((a, b) => (a.date < b.date ? 1 : -1));
+      .filter((r) => Number(r.SENSOR_NUM) === sensor && Number(r.value) > 0)
+      .sort((a, b) => stamp(b.date) - stamp(a.date));
     return list[0];
   };
 
