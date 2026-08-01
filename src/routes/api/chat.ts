@@ -9,6 +9,7 @@ import {
   banIp,
   countOffenses,
   ipIdentity,
+  isBanExempt,
   isBanned,
   learnedFactsBlock,
   loadRoster,
@@ -19,6 +20,7 @@ import {
   rememberStaffSession,
   staffForSession,
 } from "@/lib/thorn/runtime.server";
+
 
 const MODEL_ID = "google/gemini-3.6-flash";
 
