@@ -120,38 +120,75 @@ export function ThornAdminPanel() {
       )}
 
       {tab === "transcripts" && (
-        <div className="overflow-x-auto rounded-lg border">
-          <table className="w-full text-xs">
-            <thead className="bg-muted/40">
-              <tr>
-                <th className="p-2 text-left">Time</th>
-                <th className="p-2 text-left">Session</th>
-                <th className="p-2 text-left">Role</th>
-                <th className="p-2 text-left">Mode</th>
-                <th className="p-2 text-left">Message</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.messages.map((m) => (
-                <tr key={m.id} className="border-t align-top">
-                  <td className="whitespace-nowrap p-2">{new Date(m.created_at).toLocaleString()}</td>
-                  <td className="p-2 font-mono text-[10px]">{m.session_id.slice(0, 10)}</td>
-                  <td className="p-2">{m.role}</td>
-                  <td className="p-2">{m.mode ?? "—"}</td>
-                  <td className="max-w-[420px] p-2">{m.content}</td>
-                </tr>
-              ))}
-              {data.messages.length === 0 && (
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <label className="flex items-center gap-2 text-xs">
+              <input
+                type="checkbox"
+                checked={hideStaff}
+                onChange={(e) => setHideStaff(e.target.checked)}
+                className="h-3.5 w-3.5"
+              />
+              Hide staff test sessions ({staffSet.size})
+            </label>
+            <button
+              onClick={() => {
+                if (window.confirm("Delete all staff test transcripts?")) clearStaffM.mutate();
+              }}
+              disabled={clearStaffM.isPending}
+              className="rounded-md border px-2.5 py-1 text-xs font-medium text-destructive hover:bg-destructive/10 disabled:opacity-50"
+            >
+              {clearStaffM.isPending ? "Clearing…" : "Clear staff test data"}
+            </button>
+          </div>
+          <div className="overflow-x-auto rounded-lg border">
+            <table className="w-full text-xs">
+              <thead className="bg-muted/40">
                 <tr>
-                  <td colSpan={5} className="p-4 text-center text-muted-foreground">
-                    No conversations logged yet.
-                  </td>
+                  <th className="p-2 text-left">Time</th>
+                  <th className="p-2 text-left">Session</th>
+                  <th className="p-2 text-left">Role</th>
+                  <th className="p-2 text-left">Mode</th>
+                  <th className="p-2 text-left">Message</th>
+                  <th className="p-2 text-left">Actions</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {visibleMessages.map((m) => (
+                  <tr key={m.id} className="border-t align-top">
+                    <td className="whitespace-nowrap p-2">{new Date(m.created_at).toLocaleString()}</td>
+                    <td className="p-2 font-mono text-[10px]">
+                      {m.session_id.slice(0, 10)}
+                      {staffSet.has(m.session_id) && (
+                        <span className="ml-1 rounded bg-muted px-1 text-[9px]">staff</span>
+                      )}
+                    </td>
+                    <td className="p-2">{m.role}</td>
+                    <td className="p-2">{m.mode ?? "—"}</td>
+                    <td className="max-w-[420px] p-2">{m.content}</td>
+                    <td className="p-2">
+                      <button
+                        onClick={() => deleteSessionM.mutate(m.session_id)}
+                        className="rounded-md border px-2 py-0.5 text-[10px] hover:bg-muted"
+                      >
+                        Delete session
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {visibleMessages.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="p-4 text-center text-muted-foreground">
+                      No conversations logged yet.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
+
 
       {tab === "knowledge" && (
         <div className="space-y-3">
