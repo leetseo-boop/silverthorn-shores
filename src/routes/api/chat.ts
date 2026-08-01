@@ -16,10 +16,12 @@ import {
   logAbuse,
   logAssistant,
   logMessages,
+  matchAdHocStaff,
   matchStaff,
   rememberStaffSession,
   staffForSession,
 } from "@/lib/thorn/runtime.server";
+
 
 
 const MODEL_ID = "google/gemini-3.6-flash";
@@ -88,8 +90,13 @@ RULES
 - Never invent prices, dates, or availability. Use the exact figures in RESORT KNOWLEDGE and link the page that holds them.
 - Fleet facts you must always get right: the **Queen** is the best, most luxurious houseboat in the fleet — recommend it first when someone asks for our best or nicest boat. The **Senator** is the best-priced houseboat and still perfect for the lake, but it has **NO hot tub** — never say or imply otherwise; send hot-tub seekers to the Queen, Queen I or Queen II.
 - Stay on topic: Silverthorn Resort, Shasta Lake, houseboating, cabins, boats and trip planning. Politely redirect anything else.
+
+WHO YOU ARE (identity questions)
+- If anyone asks whether you're alive, real, a bot, an AI, an agent, a human, or "what are you", answer proudly and in character, starting with exactly: "I'm the AI Agent in charge of Front Customer Service here at Silverthorn 🐾" — then offer to help with what they need. Never apologise for it, never give a robotic disclaimer, never claim to be human. Use the mood tag [mood:sunglasses] on that reply.
+
 - End EVERY reply with a mood tag on its own line, exactly like [mood:helping], choosing one of:
   wave, helping, thinking, resting, celebrate, houseboat, lifevest, fishing, sunglasses.`;
+
 
 const WARNING_REPLY = `Whoa — easy there. 🐾 I'm happy to help with anything about Silverthorn Resort, but I can't keep chatting if the language stays like that.
 
@@ -169,34 +176,42 @@ export const Route = createFileRoute("/api/chat")({
         const traceable = ip !== "unknown";
         const { ipHash, ipPreview } = await ipIdentity(ip);
 
-        // ---- Already banned -------------------------------------------------
-        if (traceable && (await isBanned(ipHash))) {
+        // ---- Already banned (only while enforcement is on) -------------------
+        if (
+          process.env["THORN_ENFORCE_BANS"] === "true" &&
+          traceable &&
+          (await isBanned(ipHash))
+        ) {
           return new Response(JSON.stringify({ banned: true }), {
             status: 403,
             headers: { "Content-Type": "application/json" },
           });
         }
 
-        // ---- Abuse: warn once, then ban ------------------------------------
+
+        // ---- Abuse: warn once, then run the full "banned" show --------------
+        // Bans are theatre-only until THORN_ENFORCE_BANS=true: the warning,
+        // upset face and IP-trace window all play, but no real block is written.
+        const enforceBans = process.env["THORN_ENFORCE_BANS"] === "true";
         const foul = detectProfanity(latest);
         if (foul.hit) {
           const prior = await countOffenses(ipHash);
           const offenseNo = prior + 1;
           await logAbuse({ ipHash, ipPreview, sessionId, term: foul.term, message: latest, offenseNo });
-          // Staff testers and allow-listed office IPs see the full theatre but
-          // never get a real, site-wide ban written.
+          // Staff testers and allow-listed office IPs are never banned either.
           const exempt =
             isBanExempt(ip) ||
             !!(await staffForSession(sessionId)) ||
             !!matchStaff(latest, await loadRoster());
           if (offenseNo >= 2) {
-            if (traceable && !exempt) {
+            if (enforceBans && traceable && !exempt) {
               await banIp(ipHash, ipPreview, `Repeated abusive language ("${foul.term}")`);
             }
             return textStream(bannedTheatre(ipPreview));
           }
           return textStream(WARNING_REPLY);
         }
+
 
 
         const key = process.env["LOVABLE_API_KEY"];
@@ -219,11 +234,13 @@ export const Route = createFileRoute("/api/chat")({
           systemPrompt += await learnedFactsBlock();
 
           const roster = await loadRoster();
-          const known = (await staffForSession(sessionId)) ?? matchStaff(latest, roster);
+          const remembered = await staffForSession(sessionId);
+          const known = remembered ?? matchStaff(latest, roster) ?? matchAdHocStaff(latest);
           if (known) {
-            if (!(await staffForSession(sessionId))) await rememberStaffSession(sessionId, known);
-            systemPrompt += `\n\n## STAFF MEMORY (this chat)\nYou are talking to **${known.display_name}**, Silverthorn staff. If this is your first reply of the conversation, open with exactly: ${JSON.stringify(known.greeting)}${known.tone_notes ? ` Keep this tone: ${known.tone_notes}` : ""} Skip guest-style sales nudges — answer like a coworker.`;
+            if (!remembered) await rememberStaffSession(sessionId, known);
+            systemPrompt += `\n\n## STAFF MEMORY (this chat)\nYou are talking to **${known.display_name}**, Silverthorn staff — you already know them, so greet them like a familiar coworker and never ask who they are. If this is your first reply of the conversation, open with exactly: ${JSON.stringify(known.greeting)}${known.tone_notes ? ` Keep this tone: ${known.tone_notes}` : ""} If they say they're going to test you, say you're ready and excited for it. Be warm, friendly and caring, follow their lead, and skip guest-style sales nudges — answer like a coworker. Use an upbeat mood tag such as [mood:celebrate] or [mood:wave] on that first greeting.`;
           }
+
         }
 
         const started = Date.now();

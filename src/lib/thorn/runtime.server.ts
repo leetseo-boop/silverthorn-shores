@@ -228,6 +228,40 @@ export function matchStaff(text: string, roster: StaffRow[]): StaffRow | null {
   return null;
 }
 
+const NOT_NAMES = new Set([
+  "staff", "here", "back", "ready", "testing", "just", "the", "your", "and", "with", "from",
+]);
+
+/**
+ * Fallback for staff who aren't on the roster yet:
+ * "hi thorn this is staff Jenna", "hello I am Jenna from Silverthorn".
+ * Thorn assumes he knows them and greets by name.
+ */
+export function matchAdHocStaff(text: string): StaffRow | null {
+  const t = text.replace(/[^A-Za-z0-9\s'’,.!-]/g, " ");
+  const patterns = [
+    /\b(?:this is|it'?s|i am|i'?m)\s+staff\s+([A-Za-z][A-Za-z'’-]{1,20})/i,
+    /\bstaff\s*[:,-]?\s*([A-Za-z][A-Za-z'’-]{1,20})/i,
+    /\b(?:this is|it'?s|i am|i'?m)\s+([A-Za-z][A-Za-z'’-]{1,20})\s*(?:,|\.|!)?\s*(?:from|at|with)\s+silverthorn/i,
+  ];
+  for (const re of patterns) {
+    const m = t.match(re);
+    const raw = m?.[1]?.trim();
+    if (!raw) continue;
+    const lower = raw.toLowerCase();
+    if (NOT_NAMES.has(lower)) continue;
+    const display = raw.charAt(0).toUpperCase() + raw.slice(1);
+    return {
+      staff_key: `adhoc:${lower}`,
+      display_name: display,
+      greeting: `Hi ${display}! 🐾 Tail's wagging — I'm here and ready. Let's do this!`,
+      tone_notes: "Coworker tone: friendly, caring, ready for a test. No guest sales pitch.",
+    };
+  }
+  return null;
+}
+
+
 export async function rememberStaffSession(sessionId: string, staff: StaffRow) {
   try {
     const admin = await getAdmin();
@@ -247,12 +281,22 @@ export async function staffForSession(sessionId: string): Promise<StaffRow | nul
     const admin = await getAdmin();
     const { data } = await admin
       .from("thorn_staff_sessions")
-      .select("staff_key")
+      .select("staff_key, display_name")
       .eq("session_id", sessionId)
       .maybeSingle();
     if (!data?.staff_key) return null;
     const roster = await loadRoster();
-    return roster.find((r) => r.staff_key === data.staff_key) ?? null;
+    const known = roster.find((r) => r.staff_key === data.staff_key);
+    if (known) return known;
+    const display = (data as { display_name?: string }).display_name;
+    if (!display) return null;
+    return {
+      staff_key: data.staff_key,
+      display_name: display,
+      greeting: `Hi ${display}! 🐾 Tail's wagging — I'm here and ready. Let's do this!`,
+      tone_notes: "Coworker tone: friendly, caring, ready for a test. No guest sales pitch.",
+    };
+
   } catch {
     return null;
   }

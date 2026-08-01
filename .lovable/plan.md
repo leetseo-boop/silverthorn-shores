@@ -1,28 +1,40 @@
-## Where Thorn stands right now
+## Goal
 
-I ran live checks against the running app:
+Thorn greets Tessa and staff by name, answers "are you AI?" in character, and still runs the full warning + IP-trace + "banned" show — but nobody actually gets banned for now.
 
-- **Policies mode** — answered the houseboat cancellation policy correctly with exact windows and a `[sources: hb-cancellation]` citation.
-- **General mode** — correctly said the **Senator has no hot tub**, steered to the Queen boats, and quoted **today's live Shasta Lake weather** (high 104°F / low 70°F). Fleet ranking and daily conditions are wired in and working.
-- Transcript logging, learned-facts drafting, staff roster tone, admin panel (overview / transcripts / knowledge / abuse) and the ban gate are all in place.
+## 1. No real bans (show only)
 
-So yes — functionally he's ready for staff to hammer on. Three things I'd fix first, specifically because *staff* are the testers.
+In `src/routes/api/chat.ts`, switch abuse handling to theatre-only:
+- 1st offense → same warning reply as today.
+- 2nd offense → same upset face, hacking/IP-trace window, "access revoked" message.
+- Skip the actual `banIp()` write and the site-wide block entirely, controlled by one flag (`THORN_ENFORCE_BANS`, default off) so it can be turned on later with no code change.
+- Abuse events keep getting logged so the admin panel still shows who did what.
 
-## Recommended pre-test changes
+## 2. Tessa (manager)
 
-**1. Stop staff from banning the resort's own IP (most important)**
-Today, two foul messages from any IP triggers a permanent site-wide block. If staff test the abuse flow from the resort office (or all share one connection), the whole office loses access to silverthornresort.com. Fix: skip the ban for recognized staff sessions and for an allow-listed set of IPs; they still see the warning and the trace theatre, but no real ban is written. Also make the block expire instead of being forever for everyone else.
+Add Tessa to the staff roster (database row, same table as Mike/Paula):
+- Triggers on messages like "Hello I am Tessa", "Hi Thorn is Tessa, I am going to test you".
+- Greeting: **"HI Tessa, I'm here now!! 🐾 Ready to help you with our customers online."** — tail wagging, happy tone, `celebrate`/`wave` mood.
+- If she says she's testing him: "I'm ready — let's do this, Tessa!"
+- Everything after that: friendly, warm, follows her lead, full assistant mode (no guest sales nudges).
 
-**2. One-click "clear my test data" in the admin panel**
-Heavy testing will fill Transcripts and inflate the Overview counters, and will feed junk into the nightly learned-facts job. Add an admin-only action to delete a session's messages (and a "hide staff sessions" toggle on the transcripts tab) so real guest analytics stay clean.
+## 3. Generic staff greeting
 
-**3. Cold-start warm-up**
-My very first request timed out before the server woke up; the next one answered normally. Add a lightweight warm-up ping when the chat widget opens so the first guest message never appears to hang.
+Recognize "Hi Thorn this is staff <name>" / "this is <name> from Silverthorn" even when the name isn't in the roster:
+- Thorn assumes he knows them, greets by that name warmly, says he's ready for the test.
+- Session remembers the name for the rest of the chat.
+- Known roster names (Mike, Paula, reservations, Tessa) keep their custom greetings.
+
+## 4. "Are you alive / are you AI / are you an agent?"
+
+Add a prompt rule: answer exactly in character —
+> "I'm the AI Agent in charge of Front Customer Service here at Silverthorn 🐾"
+
+with the **sunglasses** mood (glasses on), then offer to help. No robotic disclaimers, no denial.
 
 ## Technical notes
 
-- Ban skip logic lives in `src/routes/api/chat.ts` (offense branch) plus `src/lib/thorn/runtime.server.ts` (`banIp`, `isBanned`); staff detection already exists via `staffForSession` / `matchStaff`.
-- Test-data cleanup needs a new admin server fn in `src/lib/thorn-admin.functions.ts` behind the existing `assertAdmin`, plus buttons in `src/components/admin/ThornAdminPanel.tsx`.
-- Warm-up: a no-op GET handler on the chat route, called from `ThornChat.tsx` when the panel opens.
-
-If you'd rather just start testing as-is, say so and I'll only do item 1 — that's the one that can lock your team out of the site.
+- Roster addition = one small migration inserting the Tessa row (plus tone notes).
+- Staff-name detection extends `matchStaff` in `src/lib/thorn/runtime.server.ts` with a "this is staff X / I am X" pattern fallback that stores an ad-hoc staff row for the session.
+- Identity and greeting rules go into `SYSTEM_PROMPT` in `src/routes/api/chat.ts`; mood tags are already parsed by the widget.
+- Ban enforcement flag read inside the POST handler; the warning/theatre replies are unchanged strings.
