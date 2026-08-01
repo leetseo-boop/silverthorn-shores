@@ -184,26 +184,29 @@ export const Route = createFileRoute("/api/chat")({
           });
         }
 
-        // ---- Abuse: warn once, then ban ------------------------------------
+        // ---- Abuse: warn once, then run the full "banned" show --------------
+        // Bans are theatre-only until THORN_ENFORCE_BANS=true: the warning,
+        // upset face and IP-trace window all play, but no real block is written.
+        const enforceBans = process.env["THORN_ENFORCE_BANS"] === "true";
         const foul = detectProfanity(latest);
         if (foul.hit) {
           const prior = await countOffenses(ipHash);
           const offenseNo = prior + 1;
           await logAbuse({ ipHash, ipPreview, sessionId, term: foul.term, message: latest, offenseNo });
-          // Staff testers and allow-listed office IPs see the full theatre but
-          // never get a real, site-wide ban written.
+          // Staff testers and allow-listed office IPs are never banned either.
           const exempt =
             isBanExempt(ip) ||
             !!(await staffForSession(sessionId)) ||
             !!matchStaff(latest, await loadRoster());
           if (offenseNo >= 2) {
-            if (traceable && !exempt) {
+            if (enforceBans && traceable && !exempt) {
               await banIp(ipHash, ipPreview, `Repeated abusive language ("${foul.term}")`);
             }
             return textStream(bannedTheatre(ipPreview));
           }
           return textStream(WARNING_REPLY);
         }
+
 
 
         const key = process.env["LOVABLE_API_KEY"];
