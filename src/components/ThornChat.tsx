@@ -501,15 +501,6 @@ export function ThornChat() {
                 <Send className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
-            <p className="mt-2 text-center text-[11px] text-muted-foreground">
-              Thorn is an AI helper — for availability call{" "}
-              <a
-                href="tel:+18003323044"
-                className="rounded-sm font-semibold text-primary underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                800-332-3044
-              </a>
-            </p>
           </div>
         </div>
       )}
