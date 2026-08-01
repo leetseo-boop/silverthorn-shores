@@ -57,6 +57,18 @@ function loadHistory(): Msg[] {
   }
 }
 
+/** Turn "/houseboats/policy#cancellation" into "Houseboat Policy · Cancellation". */
+function pathLabel(path: string): string {
+  const [p, hash] = path.split("#");
+  const words = p
+    .split("/")
+    .filter(Boolean)
+    .map((s) => s.replace(/-/g, " "))
+    .join(" · ");
+  const pretty = (s: string) => s.replace(/\b\w/g, (c) => c.toUpperCase());
+  return pretty(hash ? `${words} · ${hash.replace(/-/g, " ")}` : words) || path;
+}
+
 /** Very small markdown renderer: links, **bold**, phone numbers, line breaks. */
 function renderRich(text: string) {
   const lines = text.split("\n");
@@ -73,7 +85,7 @@ function renderRich(text: string) {
       const token = m[0];
       const md = token.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
       const linkClass =
-        "rounded-sm font-medium text-primary underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1";
+        "rounded-sm font-medium text-primary underline underline-offset-2 [overflow-wrap:anywhere] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1";
       if (md) {
         const href = md[2];
         parts.push(
@@ -100,15 +112,16 @@ function renderRich(text: string) {
           </a>,
         );
       } else {
+        const isExternal = token.startsWith("http");
         parts.push(
           <a
             key={`${i}-${m.index}`}
             href={token}
-            target={token.startsWith("http") ? "_blank" : undefined}
-            rel={token.startsWith("http") ? "noopener noreferrer" : undefined}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
             className={linkClass}
           >
-            {token}
+            {isExternal ? token : pathLabel(token)}
           </a>,
         );
       }
@@ -125,7 +138,7 @@ function renderRich(text: string) {
 }
 
 const ICON_BTN =
-  "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary";
+  "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary sm:h-11 sm:w-11";
 
 export function ThornChat() {
   const [open, setOpen] = useState(false);
@@ -355,12 +368,12 @@ export function ThornChat() {
           role="dialog"
           aria-modal="false"
           aria-label="Chat with Thorn, the Silverthorn Resort assistant"
-          className="fixed right-2 left-2 z-50 flex max-h-[85dvh] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
+          className="fixed right-2 left-2 z-50 flex h-[min(78dvh,620px)] max-h-[calc(100dvh-5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
           style={{ bottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
           onKeyDown={onPanelKeyDown}
         >
           {/* Header */}
-          <div className="flex items-center gap-3 border-b border-border bg-secondary px-3 py-3 text-secondary-foreground">
+          <div className="flex items-center gap-2 border-b border-border bg-secondary px-2.5 py-2.5 text-secondary-foreground sm:gap-3 sm:px-3 sm:py-3">
             <img
               key={mood}
               src={MOOD_IMAGES[mood]}
@@ -368,13 +381,15 @@ export function ThornChat() {
               width={512}
               height={512}
               loading="lazy"
-              className="h-11 w-11 shrink-0 animate-in fade-in duration-300 motion-reduce:animate-none"
+              className="h-10 w-10 shrink-0 animate-in fade-in duration-300 motion-reduce:animate-none sm:h-11 sm:w-11"
             />
             <div className="min-w-0 flex-1">
-              <p className="font-display text-lg font-semibold leading-tight">Thorn</p>
-              <p className="flex items-center gap-1.5 text-xs text-secondary-foreground">
+              <p className="truncate font-display text-base font-semibold leading-tight sm:text-lg">
+                Thorn
+              </p>
+              <p className="flex min-w-0 items-center gap-1.5 text-xs text-secondary-foreground">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
-                <span aria-live="polite">
+                <span aria-live="polite" className="truncate">
                   {loading ? MOOD_STATUS.thinking : MOOD_STATUS[mood]}
                 </span>
               </p>
@@ -461,13 +476,13 @@ export function ThornChat() {
             {messages.map((m, i) =>
               m.role === "user" ? (
                 <div key={i} className="flex justify-end">
-                  <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-primary px-3.5 py-2 text-sm text-primary-foreground">
+                  <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-primary px-3.5 py-2 text-sm text-primary-foreground [overflow-wrap:anywhere]">
                     <span className="sr-only">You said: </span>
                     {m.content}
                   </p>
                 </div>
               ) : (
-                <div key={i} className="max-w-[95%] space-y-1 text-sm leading-relaxed text-foreground">
+                <div key={i} className="max-w-full space-y-1 text-sm leading-relaxed text-foreground [overflow-wrap:anywhere]">
                   <span className="sr-only">Thorn said: </span>
                   {(() => {
                     const trace = m.content.match(/\[\[TRACE\]\]([^[]*)\[\[\/TRACE\]\]/);
@@ -540,7 +555,7 @@ export function ThornChat() {
                 rows={1}
                 placeholder={policyMode ? "Ask about a policy…" : "Ask Thorn anything…"}
                 aria-label={policyMode ? "Ask Thorn about a policy" : "Message Thorn"}
-                className="max-h-24 flex-1 resize-none rounded-xl border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="max-h-24 min-w-0 flex-1 resize-none rounded-xl border border-input bg-background px-3 py-2.5 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:text-sm"
               />
               <button
                 type="button"
