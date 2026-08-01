@@ -3,6 +3,8 @@ import { clientIp } from "./profanity";
 import { ipIdentity, isBanned } from "./runtime.server";
 
 export async function isVisitorBanned(request: Request): Promise<boolean> {
+  // Bans are theatre-only until THORN_ENFORCE_BANS=true.
+  if (process.env["THORN_ENFORCE_BANS"] !== "true") return false;
   try {
     const { ipHash } = await ipIdentity(clientIp(request));
     return await isBanned(ipHash);
@@ -10,6 +12,7 @@ export async function isVisitorBanned(request: Request): Promise<boolean> {
     return false;
   }
 }
+
 
 export function bannedResponse(): Response {
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8" />
