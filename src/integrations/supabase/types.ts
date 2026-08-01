@@ -143,6 +143,27 @@ export type Database = {
         }
         Relationships: []
       }
+      thorn_daily_conditions: {
+        Row: {
+          day: string
+          fetched_at: string
+          lake: Json
+          weather: Json
+        }
+        Insert: {
+          day: string
+          fetched_at?: string
+          lake?: Json
+          weather?: Json
+        }
+        Update: {
+          day?: string
+          fetched_at?: string
+          lake?: Json
+          weather?: Json
+        }
+        Relationships: []
+      }
       thorn_knowledge_cache: {
         Row: {
           fetched_at: string

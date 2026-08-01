@@ -194,8 +194,41 @@ export const SITE_PAGES: KEntry[] = [
   { slug: "page-employment", type: "page", name: "Employment", url: "/employment", summary: "Year-round and seasonal jobs at Silverthorn Resort plus the downloadable application." },
 ];
 
+/** How Thorn should rank and recommend the houseboat fleet. */
+export const FLEET_GUIDANCE: KEntry[] = [
+  {
+    slug: "fleet-best-boat",
+    type: "page",
+    name: "Best houseboat in the fleet — the Queen",
+    url: "/houseboats/queen",
+    summary:
+      "The Queen is the best and most luxurious houseboat in the Silverthorn fleet — the flagship. It is the boat to recommend first when a guest asks which houseboat is the best, the nicest, the top of the line or the most luxurious. Highlights: hot tub and waterslide on the third deck, master penthouse suite with private bathroom on the second deck, three private staterooms, three bathrooms, full kitchen and a wet bar with BBQ on the second deck.",
+    highlights: [
+      "Queen = flagship, best houseboat of the fleet",
+      "Hot tub AND waterslide on the third deck",
+      "Penthouse suite plus three private staterooms",
+    ],
+    best_for: ["Guests wanting the best boat", "Large groups", "Luxury trips", "Special occasions"],
+  },
+  {
+    slug: "fleet-best-priced-boat",
+    type: "page",
+    name: "Best-priced houseboat — the Senator (no hot tub)",
+    url: "/houseboats/senator",
+    summary:
+      "The Senator is the best-priced houseboat in the Silverthorn fleet and still a perfect boat for Shasta Lake. IMPORTANT: the Senator has NO hot tub — never say or imply it has one. It sleeps 16 and has a waterslide, captain's fly bridge on the second deck, full modern kitchen with two refrigerators and a dishwasher, flat screen TV/DVD, and a swamp cooler. Recommend the Senator to budget-minded groups, first-time houseboaters and anyone asking for the cheapest or most affordable houseboat. Guests who specifically want a hot tub should look at the Queen, Queen I or Queen II.",
+    highlights: [
+      "Senator = lowest-priced houseboat of the fleet, great value",
+      "NO hot tub on the Senator",
+      "Waterslide, fly bridge, full kitchen, sleeps 16",
+    ],
+    best_for: ["Budget-conscious groups", "First-time houseboaters", "Best value on the lake"],
+  },
+];
+
 export const SITE_ENTRIES: KEntry[] = [
   ...SITE_PAGES,
+  ...FLEET_GUIDANCE,
   ...HOUSEBOAT_ENTRIES,
   ...SMALL_BOAT_ENTRIES,
   ...POLICY_ENTRIES,
