@@ -234,11 +234,13 @@ export const Route = createFileRoute("/api/chat")({
           systemPrompt += await learnedFactsBlock();
 
           const roster = await loadRoster();
-          const known = (await staffForSession(sessionId)) ?? matchStaff(latest, roster);
+          const remembered = await staffForSession(sessionId);
+          const known = remembered ?? matchStaff(latest, roster) ?? matchAdHocStaff(latest);
           if (known) {
-            if (!(await staffForSession(sessionId))) await rememberStaffSession(sessionId, known);
-            systemPrompt += `\n\n## STAFF MEMORY (this chat)\nYou are talking to **${known.display_name}**, Silverthorn staff. If this is your first reply of the conversation, open with exactly: ${JSON.stringify(known.greeting)}${known.tone_notes ? ` Keep this tone: ${known.tone_notes}` : ""} Skip guest-style sales nudges — answer like a coworker.`;
+            if (!remembered) await rememberStaffSession(sessionId, known);
+            systemPrompt += `\n\n## STAFF MEMORY (this chat)\nYou are talking to **${known.display_name}**, Silverthorn staff — you already know them, so greet them like a familiar coworker and never ask who they are. If this is your first reply of the conversation, open with exactly: ${JSON.stringify(known.greeting)}${known.tone_notes ? ` Keep this tone: ${known.tone_notes}` : ""} If they say they're going to test you, say you're ready and excited for it. Be warm, friendly and caring, follow their lead, and skip guest-style sales nudges — answer like a coworker. Use an upbeat mood tag such as [mood:celebrate] or [mood:wave] on that first greeting.`;
           }
+
         }
 
         const started = Date.now();
