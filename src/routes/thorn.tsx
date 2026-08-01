@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Camera, Heart, Instagram, Facebook } from "lucide-react";
+import { Camera, Heart } from "lucide-react";
 import { SocialLinks } from "@/components/SocialLinks";
 import heroMarina from "@/assets/home-hero-marina.webp";
 
