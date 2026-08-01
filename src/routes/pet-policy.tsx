@@ -359,14 +359,29 @@ function PetPolicyPage() {
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
       {/* Hero */}
-      <section
-        className="relative"
-        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #24455F 55%, ${ORANGE} 160%)` }}
-      >
-        <div className="max-w-5xl mx-auto px-6 py-16 md:py-24 text-white">
+      {/* Hero */}
+      <section className="relative isolate overflow-hidden" style={{ backgroundColor: NAVY }}>
+        <img
+          src={heroAsset.url}
+          alt="Two dogs in stars-and-stripes life jackets riding a paddleboard on Shasta Lake with the Silverthorn Resort houseboat marina behind them"
+          className="absolute inset-0 w-full h-full object-cover"
+          width={1500}
+          height={1125}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(105deg, ${NAVY}F2 0%, ${NAVY}D9 45%, rgba(27,43,58,0.55) 100%)`,
+          }}
+          aria-hidden="true"
+        />
+        <div className="relative max-w-5xl mx-auto px-6 py-16 md:py-24 text-white">
           <div
             className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide mb-4"
-            style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+            style={{ backgroundColor: "rgba(255,255,255,0.2)" }}
           >
             <PawPrint className="w-4 h-4" aria-hidden="true" /> Pet-Friendly Resort
           </div>
