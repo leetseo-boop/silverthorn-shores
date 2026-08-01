@@ -216,17 +216,22 @@ export async function loadRoster(): Promise<StaffRow[]> {
   }
 }
 
-/** Match "this is mike" / "hey it's paula" against the live roster. */
+/**
+ * Match "this is mike" / "hey it's paula" / "hi thorn is mike reha" against the
+ * live roster. Longest keys win first so "mike reha" never collapses into "mike".
+ */
 export function matchStaff(text: string, roster: StaffRow[]): StaffRow | null {
-  const t = text.toLowerCase();
-  for (const r of roster) {
-    const key = r.staff_key.toLowerCase();
-    if (new RegExp(`\\b${key.replace(/[^a-z0-9]/g, "")}\\b`).test(t.replace(/[^a-z0-9\s]/g, ""))) {
-      return r;
-    }
+  const t = text.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ");
+  const ordered = [...roster].sort((a, b) => b.staff_key.length - a.staff_key.length);
+  for (const r of ordered) {
+    // Keys may be "mike" or "mike-reha"/"mike reha" — match as a word phrase.
+    const phrase = r.staff_key.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    if (!phrase) continue;
+    if (new RegExp(`\\b${phrase.split(" ").join("\\s+")}\\b`).test(t)) return r;
   }
   return null;
 }
+
 
 const NOT_NAMES = new Set([
   "staff", "here", "back", "ready", "testing", "just", "the", "your", "and", "with", "from",
