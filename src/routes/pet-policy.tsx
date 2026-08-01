@@ -19,6 +19,43 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { MobileToc, BackToTop } from "@/components/PolicyMobileHelpers";
+import heroAsset from "@/assets/pets/pet-hero.webp.asset.json";
+import campfireAsset from "@/assets/pets/pet-campfire.webp.asset.json";
+import sunglassesAsset from "@/assets/pets/pet-sunglasses.webp.asset.json";
+import pontoonAsset from "@/assets/pets/pet-pontoon.webp.asset.json";
+import dalmatianAsset from "@/assets/pets/pet-dalmatian.webp.asset.json";
+import frenchieRestAsset from "@/assets/pets/pet-frenchie-rest.webp.asset.json";
+import frenchieOverlookAsset from "@/assets/pets/pet-frenchie-overlook.webp.asset.json";
+
+const GALLERY: { src: string; alt: string; portrait?: boolean }[] = [
+  {
+    src: campfireAsset.url,
+    alt: "Small white poodle mix in a pink harness by a lakeside campfire next to a Silverthorn houseboat on Shasta Lake",
+  },
+  {
+    src: sunglassesAsset.url,
+    alt: "Goldendoodle wearing sunglasses being carried along the Silverthorn Resort dock at sunset on Shasta Lake",
+  },
+  {
+    src: pontoonAsset.url,
+    alt: "Sheltie mix in a red harness sitting on a rental pontoon boat near the Shasta Dam bridge on Shasta Lake",
+    portrait: true,
+  },
+  {
+    src: dalmatianAsset.url,
+    alt: "Dalmatian on a leash walking the boarding ramp at the Silverthorn Resort houseboat marina",
+    portrait: true,
+  },
+  {
+    src: frenchieRestAsset.url,
+    alt: "Black and white French bulldog resting in the sun on the shaded dock walkway at Silverthorn Resort",
+  },
+  {
+    src: frenchieOverlookAsset.url,
+    alt: "Tan French bulldog posing on a stone wall at a Shasta Lake overlook above the Silverthorn Resort marina",
+    portrait: true,
+  },
+];
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -306,9 +343,11 @@ export const Route = createFileRoute("/pet-policy")({
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
       { property: "og:url", content: url },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: `${SITE}${heroAsset.url}` },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Pet Policy — Shasta Lake Houseboats & Cabins" },
       { name: "twitter:description", content: description },
+      { name: "twitter:image", content: `${SITE}${heroAsset.url}` },
     ],
     links: [{ rel: "canonical", href: url }],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(LD) }],
@@ -320,14 +359,28 @@ function PetPolicyPage() {
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
       {/* Hero */}
-      <section
-        className="relative"
-        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #24455F 55%, ${ORANGE} 160%)` }}
-      >
-        <div className="max-w-5xl mx-auto px-6 py-16 md:py-24 text-white">
+      <section className="relative isolate overflow-hidden" style={{ backgroundColor: NAVY }}>
+        <img
+          src={heroAsset.url}
+          alt="Two dogs in stars-and-stripes life jackets riding a paddleboard on Shasta Lake with the Silverthorn Resort houseboat marina behind them"
+          className="absolute inset-0 w-full h-full object-cover"
+          width={1500}
+          height={1125}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(105deg, ${NAVY}F2 0%, ${NAVY}D9 45%, rgba(27,43,58,0.55) 100%)`,
+          }}
+          aria-hidden="true"
+        />
+        <div className="relative max-w-5xl mx-auto px-6 py-16 md:py-24 text-white">
           <div
             className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide mb-4"
-            style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+            style={{ backgroundColor: "rgba(255,255,255,0.2)" }}
           >
             <PawPrint className="w-4 h-4" aria-hidden="true" /> Pet-Friendly Resort
           </div>
@@ -454,6 +507,45 @@ function PetPolicyPage() {
                 </div>
                 <div className="space-y-3 text-gray-700 leading-relaxed text-[15px] md:text-base">{body}</div>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pet gallery */}
+      <section className="py-14 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide mb-3"
+              style={{ backgroundColor: `${ORANGE}1A`, color: ORANGE }}
+            >
+              <PawPrint className="w-4 h-4" aria-hidden="true" /> Good boys &amp; girls
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: DISPLAY, color: NAVY }}>
+              Pets of Silverthorn
+            </h2>
+            <p className="text-gray-600 mt-2 max-w-2xl mx-auto text-[15px] md:text-base">
+              A few of the four-legged guests who have joined their families on Shasta Lake with us.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+            {GALLERY.map(({ src, alt, portrait }) => (
+              <figure
+                key={src}
+                className="group overflow-hidden rounded-2xl border bg-gray-100"
+                style={{ borderColor: "rgba(27,43,58,0.1)" }}
+              >
+                <img
+                  src={src}
+                  alt={alt}
+                  loading="lazy"
+                  decoding="async"
+                  className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                    portrait ? "aspect-[3/4]" : "aspect-[4/3]"
+                  }`}
+                />
+              </figure>
             ))}
           </div>
         </div>
