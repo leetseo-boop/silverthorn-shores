@@ -1,0 +1,23 @@
+/** Citation targets Thorn can link to in Policies & Booking mode. Client-safe. */
+export const POLICY_SOURCES: Record<string, { label: string; href: string }> = {
+  "hb-renter": { label: "Houseboat policy — Rental & deposits", href: "/houseboats/policy#rental-deposits" },
+  "hb-security-deposit": { label: "Houseboat policy — Damage deposit", href: "/houseboats/policy#security-deposit" },
+  "hb-cancellation": { label: "Houseboat policy — Cancellation", href: "/houseboats/policy#cancellation" },
+  "hb-check-in": { label: "Houseboat policy — Check-in", href: "/houseboats/policy#check-in" },
+  "hb-check-out": { label: "Houseboat policy — Check-out", href: "/houseboats/policy#check-out" },
+  "hb-fuel": { label: "Houseboat policy — Fuel", href: "/houseboats/policy#fuel" },
+  "hb-parking": { label: "Houseboat policy — Parking permits", href: "/houseboats/policy#parking" },
+  "hb-travel-insurance": { label: "Houseboat policy — Travel insurance", href: "/houseboats/policy#travel-insurance" },
+  "hb-pets": { label: "Houseboat policy — Pets", href: "/houseboats/policy#pets" },
+  "cab-renter": { label: "Cabin policy — Rental & payment", href: "/cabins/policy#rental-payment" },
+  "cab-deposits": { label: "Cabin policy — Deposits", href: "/cabins/policy#deposits" },
+  "cab-cancellation": { label: "Cabin policy — Cancellation", href: "/cabins/policy#cancellation" },
+  "cab-check-in": { label: "Cabin policy — Check-in", href: "/cabins/policy#check-in" },
+  "cab-check-out": { label: "Cabin policy — Check-out", href: "/cabins/policy#check-out" },
+  "cab-pets": { label: "Cabin policy — Pets", href: "/cabins/policy#pets" },
+  "cab-smoking": { label: "Cabin policy — No smoking", href: "/cabins/policy#no-smoking" },
+  "cab-parking": { label: "Cabin policy — Parking", href: "/cabins/policy#parking" },
+  "guest-info": { label: "Guest information & contracts", href: "/guest-info" },
+  "booking-contact": { label: "Contact & reservations", href: "/contact" },
+  promo: { label: "Queen I vs Queen II & Summer sale", href: "/compare/queens" },
+};
