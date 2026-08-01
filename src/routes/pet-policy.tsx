@@ -19,6 +19,43 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { MobileToc, BackToTop } from "@/components/PolicyMobileHelpers";
+import heroAsset from "@/assets/pets/pet-hero.webp.asset.json";
+import campfireAsset from "@/assets/pets/pet-campfire.webp.asset.json";
+import sunglassesAsset from "@/assets/pets/pet-sunglasses.webp.asset.json";
+import pontoonAsset from "@/assets/pets/pet-pontoon.webp.asset.json";
+import dalmatianAsset from "@/assets/pets/pet-dalmatian.webp.asset.json";
+import frenchieRestAsset from "@/assets/pets/pet-frenchie-rest.webp.asset.json";
+import frenchieOverlookAsset from "@/assets/pets/pet-frenchie-overlook.webp.asset.json";
+
+const GALLERY: { src: string; alt: string; portrait?: boolean }[] = [
+  {
+    src: campfireAsset.url,
+    alt: "Small white poodle mix in a pink harness by a lakeside campfire next to a Silverthorn houseboat on Shasta Lake",
+  },
+  {
+    src: sunglassesAsset.url,
+    alt: "Goldendoodle wearing sunglasses being carried along the Silverthorn Resort dock at sunset on Shasta Lake",
+  },
+  {
+    src: pontoonAsset.url,
+    alt: "Sheltie mix in a red harness sitting on a rental pontoon boat near the Shasta Dam bridge on Shasta Lake",
+    portrait: true,
+  },
+  {
+    src: dalmatianAsset.url,
+    alt: "Dalmatian on a leash walking the boarding ramp at the Silverthorn Resort houseboat marina",
+    portrait: true,
+  },
+  {
+    src: frenchieRestAsset.url,
+    alt: "Black and white French bulldog resting in the sun on the shaded dock walkway at Silverthorn Resort",
+  },
+  {
+    src: frenchieOverlookAsset.url,
+    alt: "Tan French bulldog posing on a stone wall at a Shasta Lake overlook above the Silverthorn Resort marina",
+    portrait: true,
+  },
+];
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
