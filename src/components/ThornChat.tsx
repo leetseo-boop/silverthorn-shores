@@ -163,7 +163,7 @@ export function ThornChat() {
 
   // Thorn dozes off when the panel sits idle.
   useEffect(() => {
-    if (!open || loading) return;
+    if (loading) return;
     const t = window.setTimeout(() => setMood("resting"), 60000);
     return () => window.clearTimeout(t);
   }, [open, loading, messages]);
@@ -287,9 +287,10 @@ export function ThornChat() {
           type="button"
           onClick={() => {
             setOpen(true);
-            setMood("wave");
+            if (messages.length === 0) setMood("wave");
           }}
           aria-label="Chat with Thorn, the Silverthorn Resort assistant"
+          title={`Chat with Thorn — ${MOOD_STATUS[mood]}`}
           className="group fixed right-3 z-40 flex items-end gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:right-5"
           style={{ bottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem))" }}
         >
@@ -297,13 +298,14 @@ export function ThornChat() {
             Chat with Thorn 🐾
           </span>
           <img
-            src={MOOD_IMAGES.wave}
+            key={mood}
+            src={MOOD_IMAGES[mood]}
             alt=""
             aria-hidden="true"
             width={512}
             height={512}
             loading="lazy"
-            className="h-16 w-16 drop-shadow-[0_6px_14px_rgba(0,0,0,0.25)] transition-transform group-hover:-translate-y-1 motion-reduce:transition-none md:h-20 md:w-20"
+            className="h-16 w-16 animate-in fade-in duration-300 motion-reduce:animate-none drop-shadow-[0_6px_14px_rgba(0,0,0,0.25)] transition-transform group-hover:-translate-y-1 motion-reduce:transition-none md:h-20 md:w-20"
           />
         </button>
       )}
