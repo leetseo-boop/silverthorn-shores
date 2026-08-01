@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { X, Send, RotateCcw } from "lucide-react";
+import { getConsent } from "@/lib/cookie-consent";
 import {
   MOOD_ALT,
   MOOD_IMAGES,
