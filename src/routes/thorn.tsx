@@ -130,7 +130,7 @@ function ThornPage() {
 
         <div className="space-y-6 text-base md:text-lg leading-relaxed" style={{ color: "rgba(27,43,58,0.85)" }}>
           <p>
-            If you have visited Silverthorn Resort during the past 10 years, there is a good chance you have seen Thorn — either in one of our social media videos, posing for pictures, walking around the marina, or relaxing near the docks while watching everything like she owns the place. 😊
+            If you have visited Silverthorn Resort during the past 7-8 years, there is a good chance you have seen Thorn — either in one of our social media videos, posing for pictures, walking around the marina, or relaxing near the docks while watching everything like she owns the place. 😊
           </p>
           <p>
             Thorn lives at the marina and is completely at home around the guests, boats, busy summer seasons, and the changing water levels of Shasta Lake. Whether she is enjoying a cool breeze or quietly observing the daily marina activity, Thorn is always close by.
