@@ -111,12 +111,15 @@ export async function getGoogleReviewsPayload(): Promise<ReviewsPayload> {
 
     if (error) throw error;
     if (data && Array.isArray(data.reviews) && data.reviews.length > 0) {
-      return {
-        reviews: data.reviews as unknown as GoogleReview[],
-        rating: data.rating ? Number(data.rating) : null,
-        totalReviews: data.user_ratings_total ?? null,
-        placeId: data.place_id,
-      };
+      const cached = filterReviews(data.reviews as unknown as GoogleReview[]);
+      if (cached.length > 0) {
+        return {
+          reviews: cached,
+          rating: data.rating ? Number(data.rating) : null,
+          totalReviews: data.user_ratings_total ?? null,
+          placeId: data.place_id,
+        };
+      }
     }
   } catch (err) {
     console.error("[getGoogleReviewsPayload] cache read failed:", err);
