@@ -1,23 +1,18 @@
 ## Goal
-Make Thorn clearly visible in the hero section of `/thorn`.
+Change one line of copy in the `/thorn` social CTA section.
 
-## Current issue
-The marina hero photo is cropped with `object-cover` centered, so Thorn — lying in the sandy foreground/bottom of the image — is hidden below the visible area and behind the dark gradient overlay.
+## Current text
+> "Caught Thorn on camera? Tag us and she might become the next star of our social feed."
 
-## Proposed fix
-1. **Adjust focal point** in `src/routes/thorn.tsx`
-   - Change the hero `<img>` from default `object-cover` center crop to `object-cover object-bottom` (or a custom `object-[center_70%]`) so the bottom of the image where Thorn sits is pulled into view.
-   - Keep `object-cover` and responsive height so the layout doesn’t break on mobile/desktop.
-
-2. **Lighten the overlay**
-   - Reduce the bottom/lower gradient opacity so Thorn is not silhouetted by the dark navy wash.
-   - Keep enough contrast for the white hero text to remain readable.
-
-3. **Verify**
-   - Check the preview at `/thorn` on desktop and mobile to confirm Thorn is visible and text remains legible.
+## New text
+> "Caught Thorn on camera? Tag us and she might become the next star of your social feed."
 
 ## Files to edit
-- `src/routes/thorn.tsx` (hero image + overlay only)
+- `src/routes/thorn.tsx` (line inside the "Share Your Thorn Sightings" card)
 
 ## Out of scope
-- No copy changes, no new assets, no footer/header edits.
+- No layout, styling, link, or SEO changes.
+
+## Verification
+- Typecheck after edit.
+- Confirm the updated sentence renders in the preview.
