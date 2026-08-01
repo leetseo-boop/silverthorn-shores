@@ -44,6 +44,7 @@ import { Route as CabinsPolicyRouteImport } from './routes/cabins_.policy'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AboutHistoryRouteImport } from './routes/about.history'
 import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
+import { Route as ApiPublicHooksThornLearnRouteImport } from './routes/api/public/hooks/thorn-learn'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
 
 const ThornRoute = ThornRouteImport.update({
@@ -221,6 +222,12 @@ const ApiPublicGoogleReviewsRoute = ApiPublicGoogleReviewsRouteImport.update({
   path: '/api/public/google-reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksThornLearnRoute =
+  ApiPublicHooksThornLearnRouteImport.update({
+    id: '/api/public/hooks/thorn-learn',
+    path: '/api/public/hooks/thorn-learn',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksRefreshReviewsRoute =
   ApiPublicHooksRefreshReviewsRouteImport.update({
     id: '/api/public/hooks/refresh-reviews',
@@ -265,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/houseboats/': typeof HouseboatsIndexRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
+  '/api/public/hooks/thorn-learn': typeof ApiPublicHooksThornLearnRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -303,6 +311,7 @@ export interface FileRoutesByTo {
   '/houseboats': typeof HouseboatsIndexRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
+  '/api/public/hooks/thorn-learn': typeof ApiPublicHooksThornLearnRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -342,6 +351,7 @@ export interface FileRoutesById {
   '/houseboats/': typeof HouseboatsIndexRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
+  '/api/public/hooks/thorn-learn': typeof ApiPublicHooksThornLearnRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -382,6 +392,7 @@ export interface FileRouteTypes {
     | '/houseboats/'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
+    | '/api/public/hooks/thorn-learn'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -420,6 +431,7 @@ export interface FileRouteTypes {
     | '/houseboats'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
+    | '/api/public/hooks/thorn-learn'
   id:
     | '__root__'
     | '/'
@@ -458,6 +470,7 @@ export interface FileRouteTypes {
     | '/houseboats/'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
+    | '/api/public/hooks/thorn-learn'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -497,6 +510,7 @@ export interface RootRouteChildren {
   HouseboatsIndexRoute: typeof HouseboatsIndexRoute
   ApiPublicGoogleReviewsRoute: typeof ApiPublicGoogleReviewsRoute
   ApiPublicHooksRefreshReviewsRoute: typeof ApiPublicHooksRefreshReviewsRoute
+  ApiPublicHooksThornLearnRoute: typeof ApiPublicHooksThornLearnRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -746,6 +760,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicGoogleReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/thorn-learn': {
+      id: '/api/public/hooks/thorn-learn'
+      path: '/api/public/hooks/thorn-learn'
+      fullPath: '/api/public/hooks/thorn-learn'
+      preLoaderRoute: typeof ApiPublicHooksThornLearnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/refresh-reviews': {
       id: '/api/public/hooks/refresh-reviews'
       path: '/api/public/hooks/refresh-reviews'
@@ -793,6 +814,7 @@ const rootRouteChildren: RootRouteChildren = {
   HouseboatsIndexRoute: HouseboatsIndexRoute,
   ApiPublicGoogleReviewsRoute: ApiPublicGoogleReviewsRoute,
   ApiPublicHooksRefreshReviewsRoute: ApiPublicHooksRefreshReviewsRoute,
+  ApiPublicHooksThornLearnRoute: ApiPublicHooksThornLearnRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
