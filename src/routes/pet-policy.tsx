@@ -512,6 +512,45 @@ function PetPolicyPage() {
         </div>
       </section>
 
+      {/* Pet gallery */}
+      <section className="py-14 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide mb-3"
+              style={{ backgroundColor: `${ORANGE}1A`, color: ORANGE }}
+            >
+              <PawPrint className="w-4 h-4" aria-hidden="true" /> Good boys &amp; girls
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: DISPLAY, color: NAVY }}>
+              Pets of Silverthorn
+            </h2>
+            <p className="text-gray-600 mt-2 max-w-2xl mx-auto text-[15px] md:text-base">
+              A few of the four-legged guests who have joined their families on Shasta Lake with us.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+            {GALLERY.map(({ src, alt, portrait }) => (
+              <figure
+                key={src}
+                className="group overflow-hidden rounded-2xl border bg-gray-100"
+                style={{ borderColor: "rgba(27,43,58,0.1)" }}
+              >
+                <img
+                  src={src}
+                  alt={alt}
+                  loading="lazy"
+                  decoding="async"
+                  className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                    portrait ? "aspect-[3/4]" : "aspect-[4/3]"
+                  }`}
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Related */}
       <section className="py-14" style={{ backgroundColor: SAND }}>
         <div className="max-w-6xl mx-auto px-6">
