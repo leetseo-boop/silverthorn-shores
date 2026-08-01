@@ -1,0 +1,156 @@
+/**
+ * Policy facts Thorn is allowed to quote in "Policies & Booking" mode.
+ * Every entry mirrors what is published on the policy pages and carries the
+ * anchor it came from, so answers can cite the exact section.
+ *
+ * Server-only: imported by src/routes/api/chat.ts.
+ * If a policy page changes, update the matching entry here.
+ */
+
+export type PolicyFact = {
+  /** Short id the model cites, e.g. hb-cancellation */
+  id: string;
+  /** Human label shown on the citation chip */
+  label: string;
+  /** Page + anchor the fact lives on */
+  href: string;
+  /** The fact itself, plain text */
+  text: string;
+};
+
+export const POLICY_FACTS: PolicyFact[] = [
+  // ---------- Houseboats ----------
+  {
+    id: "hb-renter",
+    label: "Houseboat policy — Rental & deposits",
+    href: "/houseboats/policy#rental-deposits",
+    text: "Houseboats: the Charter Captain and Co-Captain must each be at least 21 years old and hold a valid driver's license. Rental fees must be paid in full at least 75 days before arrival. A booking deposit is due at booking and applies to the rental fee. Visa, MasterCard, American Express, Discover or cash accepted; refundable cash payments are returned by mailed check (no cash refunds).",
+  },
+  {
+    id: "hb-security-deposit",
+    label: "Houseboat policy — Security / damage deposit",
+    href: "/houseboats/policy#security-deposit",
+    text: "Refundable security/damage deposit is collected on arrival and returned if the boat comes back undamaged, clean and with all inventory. Standard amounts: Queen, Queen I and Queen II $1,000 (holiday $5,000 cash); Presidential and Senator $500 (holiday $3,000 cash); wakeboard boats $500; patio and fishing boats $200; cabins $100.",
+  },
+  {
+    id: "hb-cancellation",
+    label: "Houseboat policy — Cancellation",
+    href: "/houseboats/policy#cancellation",
+    text: "Houseboat cancellation tiers (written cancellation required): within 5 days of booking — full deposit refund if booked 75+ days before arrival; more than 75 days before arrival — 50% of the deposit refundable; 46–74 days before arrival — full deposit forfeited; less than 45 days before arrival — full deposit plus all rental fees forfeited; after a date change — full deposit plus all additional rental fees forfeited.",
+  },
+  {
+    id: "hb-check-in",
+    label: "Houseboat policy — Check-in & boarding",
+    href: "/houseboats/policy#check-in",
+    text: "Houseboat check-in: May–September 3:00–6:00 PM, October–April 1:00–4:00 PM. No boarding until all paperwork is complete and the operating instructions have finished.",
+  },
+  {
+    id: "hb-check-out",
+    label: "Houseboat policy — Check-out",
+    href: "/houseboats/policy#check-out",
+    text: "Houseboat check-out: the vessel must be unloaded, cleaned and back at the gas dock between 9:00 AM and 10:00 AM on the return date. Late returns may be charged and deducted from the damage deposit or the card on file.",
+  },
+  {
+    id: "hb-fuel",
+    label: "Houseboat policy — Fuel",
+    href: "/houseboats/policy#fuel",
+    text: "Fuel tanks are full at departure and are refilled at the primary renter's expense on return. All gas used is the renter's responsibility.",
+  },
+  {
+    id: "hb-parking",
+    label: "Houseboat policy — Parking permits",
+    href: "/houseboats/policy#parking",
+    text: "Parking passes are issued per houseboat: Queen / Queen I get 5; Queen II, Presidential and Senator get 4. Extra permits may not be available in peak season and unpermitted vehicles are towed at the owner's expense — carpool when possible.",
+  },
+  {
+    id: "hb-travel-insurance",
+    label: "Houseboat policy — Travel insurance",
+    href: "/houseboats/policy#travel-insurance",
+    text: "Travel insurance is offered and recommended because cancellation penalties are strict; details are on the houseboat policy page.",
+  },
+  {
+    id: "hb-pets",
+    label: "Houseboat policy — Pets",
+    href: "/houseboats/policy#pets",
+    text: "Silverthorn is pet friendly: one pet at no charge, each additional pet is a non-refundable $35.00 paid before boarding. Excessive cleaning (pet hair, urine) is charged at $25.00 per hour to the card on file; damages are charged at replacement cost.",
+  },
+
+  // ---------- Cabins ----------
+  {
+    id: "cab-renter",
+    label: "Cabin policy — Rental & payment",
+    href: "/cabins/policy#rental-payment",
+    text: "Cabins: the primary renter must be at least 21 years old and hold a valid state-issued driver's license. Rental fees plus the security/damage deposit must be paid in full at least 75 days before arrival. No cash refunds — refundable cash payments are returned by check.",
+  },
+  {
+    id: "cab-deposits",
+    label: "Cabin policy — Deposits",
+    href: "/cabins/policy#deposits",
+    text: "Cabin booking deposit is $100. Other deposits: Queen, Queen I, Queen II $1,000; Presidential and Senator $500; wakeboard boats $500; Tahoe boats $500; patio and fishing boats $200.",
+  },
+  {
+    id: "cab-cancellation",
+    label: "Cabin policy — Cancellation",
+    href: "/cabins/policy#cancellation",
+    text: "Cabin cancellation tiers (written cancellation required): within 5 days of booking — full refund if booked 75+ days before arrival; more than 75 days before arrival — 50% of the deposit refundable; 46–74 days before arrival — full deposit forfeited; less than 45 days before arrival — the entire rental fee is retained.",
+  },
+  {
+    id: "cab-check-in",
+    label: "Cabin policy — Check-in",
+    href: "/cabins/policy#check-in",
+    text: "Cabin check-in: May–September 3:00–6:00 PM, October–April 1:00–4:00 PM.",
+  },
+  {
+    id: "cab-check-out",
+    label: "Cabin policy — Check-out",
+    href: "/cabins/policy#check-out",
+    text: "Cabin check-out is no later than 11:00 AM on the departure date, with the cabin left in the same general condition as on arrival.",
+  },
+  {
+    id: "cab-pets",
+    label: "Cabin policy — Pets",
+    href: "/cabins/policy#pets",
+    text: "Cabins are pet friendly: one pet at no charge, each additional pet is a non-refundable $35.00 paid before occupancy. Excessive cleaning is $25.00 per hour; damages at replacement cost.",
+  },
+  {
+    id: "cab-smoking",
+    label: "Cabin policy — No smoking",
+    href: "/cabins/policy#no-smoking",
+    text: "Cabins are non-smoking; the no-smoking rule and related charges are on the cabin policy page.",
+  },
+  {
+    id: "cab-parking",
+    label: "Cabin policy — Parking",
+    href: "/cabins/policy#parking",
+    text: "Cabin parking is limited and permit-controlled; see the cabin policy page for the current allocation.",
+  },
+
+  // ---------- Booking & documents ----------
+  {
+    id: "guest-info",
+    label: "Guest information & contracts",
+    href: "/guest-info",
+    text: "Rental contracts, the houseboat check-in process, cleaning lists and cabin/small-boat documents are all downloadable on the guest information page.",
+  },
+  {
+    id: "booking-contact",
+    label: "Contact & reservations",
+    href: "/contact",
+    text: "Reservations and availability: call 800-332-3044 or email reserve1@houseboats.com. Marina store hours are Mon–Sun 8:00 AM–6:30 PM (seasonal).",
+  },
+  {
+    id: "promo",
+    label: "Queen I vs Queen II & Summer Fun Sale",
+    href: "/compare/queens",
+    text: "Summer Fun Sale: 20% off the Queen I and Queen II with promo code BREAK20 for stays booked July 12 – August 25, 2026. The comparison page shows both boats side by side with pricing.",
+  },
+];
+
+/** Facts block injected into the policy-mode system prompt. */
+export const POLICY_FACTS_BLOCK = POLICY_FACTS.map(
+  (f) => `- [${f.id}] (${f.label} — ${f.href}) ${f.text}`,
+).join("\n");
+
+/** id -> { label, href } lookup used to render citation chips. */
+export const POLICY_SOURCE_INDEX: Record<string, { label: string; href: string }> =
+  Object.fromEntries(POLICY_FACTS.map((f) => [f.id, { label: f.label, href: f.href }]));
