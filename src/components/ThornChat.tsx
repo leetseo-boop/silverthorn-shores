@@ -38,19 +38,35 @@ function renderRich(text: string) {
   const lines = text.split("\n");
   return lines.map((line, i) => {
     const parts: React.ReactNode[] = [];
-    const rx = /(\*\*[^*]+\*\*)|(https?:\/\/[^\s)]+)|(\/[a-z0-9-]+(?:\/[a-z0-9-]+)*)|(\b\d{3}-\d{3}-\d{4}\b)/gi;
+    const rx =
+      /(\[[^\]]+\]\([^)\s]+\))|(\*\*[^*]+\*\*)|(https?:\/\/[^\s)]+)|(\/[a-z0-9-]+(?:\/[a-z0-9-]+)*)|(\b\d{3}-\d{3}-\d{4}\b)/gi;
     let last = 0;
     let m: RegExpExecArray | null;
     while ((m = rx.exec(line)) !== null) {
       if (m.index > last) parts.push(line.slice(last, m.index));
       const token = m[0];
-      if (token.startsWith("**")) {
+      const md = token.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+      if (md) {
+        const href = md[2];
+        parts.push(
+          <a
+            key={`${i}-${m.index}`}
+            href={href}
+            target={href.startsWith("http") ? "_blank" : undefined}
+            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+            className="font-medium text-primary underline underline-offset-2"
+          >
+            {md[1]}
+          </a>,
+        );
+      } else if (token.startsWith("**")) {
         parts.push(
           <strong key={`${i}-${m.index}`} className="font-semibold">
             {token.slice(2, -2)}
           </strong>,
         );
       } else if (/^\d{3}-\d{3}-\d{4}$/.test(token)) {
+
         parts.push(
           <a
             key={`${i}-${m.index}`}
