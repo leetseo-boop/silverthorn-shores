@@ -72,9 +72,9 @@ export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        let body: { messages?: ChatMessage[] };
+        let body: { messages?: ChatMessage[]; mode?: string };
         try {
-          body = (await request.json()) as { messages?: ChatMessage[] };
+          body = (await request.json()) as { messages?: ChatMessage[]; mode?: string };
         } catch {
           return new Response("Invalid request", { status: 400 });
         }
@@ -108,7 +108,7 @@ export const Route = createFileRoute("/api/chat")({
           const gateway = createLovableAiGatewayProvider(key);
           const result = streamText({
             model: gateway("google/gemini-3.6-flash"),
-            system: SYSTEM_PROMPT,
+            system: body.mode === "policy" ? POLICY_PROMPT : SYSTEM_PROMPT,
             messages: safeMessages,
           });
 
