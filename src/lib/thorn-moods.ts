@@ -82,6 +82,7 @@ const PATTERNS: { mood: ThornMood; rx: RegExp }[] = [
     mood: "sunglasses",
     rx: /\b(directions?|drive|driving|driv(e|ing) time|how far|how long.*(drive|get there)|map|address|gps|route|i-?5|freeway|exit|gilman|redding|sacramento|bay area|airport|park(ing)?\b.*(lot|where)|get (there|here))\b/i,
   },
+  { mood: "helping", rx: /\b(pet|pets|dog|dogs|puppy|puppies|cat|cats|leash|kennel|pet[- ]?friendly)\b/i },
   { mood: "houseboat", rx: /\b(houseboat|queen|senator|presidential|sleep\s*\d+|deck|slide)\b/i },
   { mood: "fishing", rx: /\b(fish|fishing|bass|trout|salmon|catfish)\b/i },
   {
