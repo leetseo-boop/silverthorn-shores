@@ -378,10 +378,33 @@ export function Nav() {
   );
 }
 
+const YT_VIDEO_ID = "ISEDmsezjSM";
+
+function loadYouTubeApi(): Promise<any> {
+  const w = window as any;
+  if (w.YT && w.YT.Player) return Promise.resolve(w.YT);
+  if (!w.__ytApiPromise) {
+    w.__ytApiPromise = new Promise((resolve) => {
+      const prev = w.onYouTubeIframeAPIReady;
+      w.onYouTubeIframeAPIReady = () => {
+        if (typeof prev === "function") prev();
+        resolve(w.YT);
+      };
+      const s = document.createElement("script");
+      s.src = "https://www.youtube.com/iframe_api";
+      s.async = true;
+      document.head.appendChild(s);
+    });
+  }
+  return w.__ytApiPromise;
+}
+
 function Hero() {
   // The static hero image renders immediately; the heavy YouTube embed is
   // mounted only after the page has finished loading so it can't delay LCP.
   const [showVideo, setShowVideo] = useState(false);
+  const playerHostRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     const mount = () => setShowVideo(true);
     if (document.readyState === "complete") {
@@ -391,6 +414,83 @@ function Hero() {
     window.addEventListener("load", mount, { once: true });
     return () => window.removeEventListener("load", mount);
   }, []);
+
+  // Create the player through the IFrame API so we can force playback on
+  // mobile browsers that ignore autoplay params, and retry on first gesture.
+  useEffect(() => {
+    if (!showVideo || !playerHostRef.current) return;
+    let player: any;
+    let cancelled = false;
+    const timers: number[] = [];
+    const cleanups: Array<() => void> = [];
+
+    const tryPlay = () => {
+      try {
+        player?.mute?.();
+        player?.playVideo?.();
+      } catch {
+        /* ignore */
+      }
+    };
+
+    loadYouTubeApi().then((YT) => {
+      if (cancelled || !playerHostRef.current) return;
+      player = new YT.Player(playerHostRef.current, {
+        videoId: YT_VIDEO_ID,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          loop: 1,
+          playlist: YT_VIDEO_ID,
+          controls: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          rel: 0,
+          showinfo: 0,
+          iv_load_policy: 3,
+          disablekb: 1,
+        },
+        events: {
+          onReady: (e: any) => {
+            const iframe: HTMLIFrameElement | undefined = e.target?.getIframe?.();
+            if (iframe) {
+              iframe.setAttribute("title", "Shasta Lake background video");
+              iframe.setAttribute("aria-hidden", "true");
+              iframe.setAttribute("tabindex", "-1");
+              iframe.className =
+                "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none border-0";
+              iframe.style.width = "max(100vw, 177.78vh)";
+              iframe.style.height = "max(56.25vw, 100vh)";
+            }
+            tryPlay();
+            timers.push(window.setTimeout(tryPlay, 1200));
+          },
+          onStateChange: (e: any) => {
+            // Loop safety net in case the loop param is ignored.
+            if (e.data === 0) tryPlay();
+          },
+        },
+      });
+
+      const onGesture = () => tryPlay();
+      const opts: AddEventListenerOptions = { once: true, passive: true };
+      ["touchstart", "pointerdown", "scroll"].forEach((ev) => {
+        window.addEventListener(ev, onGesture, opts);
+        cleanups.push(() => window.removeEventListener(ev, onGesture));
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      timers.forEach(clearTimeout);
+      cleanups.forEach((fn) => fn());
+      try {
+        player?.destroy?.();
+      } catch {
+        /* ignore */
+      }
+    };
+  }, [showVideo]);
 
   return (
     <section
@@ -405,23 +505,11 @@ function Hero() {
     >
       {/* YouTube video background (deferred until window load) */}
       {showVideo && (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <iframe
-          src="https://www.youtube.com/embed/ISEDmsezjSM?autoplay=1&mute=1&loop=1&playlist=ISEDmsezjSM&controls=0&modestbranding=1&playsinline=1&rel=0&showinfo=0&iv_load_policy=3"
-          title="Shasta Lake background video"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen
-          tabIndex={-1}
-          aria-hidden="true"
-          loading="eager"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none border-0"
-          style={{
-            width: "max(100vw, 177.78vh)",
-            height: "max(56.25vw, 100vh)",
-          }}
-        />
-      </div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div ref={playerHostRef} className="absolute top-1/2 left-1/2" />
+        </div>
       )}
+
 
       {/* Subtle dark gradient for text legibility only */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
