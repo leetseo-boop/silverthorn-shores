@@ -176,13 +176,18 @@ export const Route = createFileRoute("/api/chat")({
         const traceable = ip !== "unknown";
         const { ipHash, ipPreview } = await ipIdentity(ip);
 
-        // ---- Already banned -------------------------------------------------
-        if (traceable && (await isBanned(ipHash))) {
+        // ---- Already banned (only while enforcement is on) -------------------
+        if (
+          process.env["THORN_ENFORCE_BANS"] === "true" &&
+          traceable &&
+          (await isBanned(ipHash))
+        ) {
           return new Response(JSON.stringify({ banned: true }), {
             status: 403,
             headers: { "Content-Type": "application/json" },
           });
         }
+
 
         // ---- Abuse: warn once, then run the full "banned" show --------------
         // Bans are theatre-only until THORN_ENFORCE_BANS=true: the warning,
