@@ -171,12 +171,21 @@ export const Route = createFileRoute("/api/chat")({
           const prior = await countOffenses(ipHash);
           const offenseNo = prior + 1;
           await logAbuse({ ipHash, ipPreview, sessionId, term: foul.term, message: latest, offenseNo });
-          if (offenseNo >= 2 && traceable) {
-            await banIp(ipHash, ipPreview, `Repeated abusive language ("${foul.term}")`);
+          // Staff testers and allow-listed office IPs see the full theatre but
+          // never get a real, site-wide ban written.
+          const exempt =
+            isBanExempt(ip) ||
+            !!(await staffForSession(sessionId)) ||
+            !!matchStaff(latest, await loadRoster());
+          if (offenseNo >= 2) {
+            if (traceable && !exempt) {
+              await banIp(ipHash, ipPreview, `Repeated abusive language ("${foul.term}")`);
+            }
             return textStream(bannedTheatre(ipPreview));
           }
           return textStream(WARNING_REPLY);
         }
+
 
         const key = process.env["LOVABLE_API_KEY"];
         if (!key) {
