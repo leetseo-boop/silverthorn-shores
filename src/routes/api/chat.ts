@@ -12,6 +12,7 @@ import {
   learnedFactsBlock,
   loadRoster,
   logAbuse,
+  logAssistant,
   logMessages,
   matchStaff,
   rememberStaffSession,
