@@ -94,7 +94,6 @@ export async function fetchLakeLevel(): Promise<LakeLevel> {
     return list[0];
   };
 
-  if (!rows.length) console.error("[thorn] CDEC empty response");
   const elev = latest(6);
   const stor = latest(15);
   const out: LakeLevel = {};
@@ -104,7 +103,6 @@ export async function fetchLakeLevel(): Promise<LakeLevel> {
     out.as_of = elev.date.split(" ")[0];
   }
   if (stor) out.storage_af = Math.round(Number(stor.value));
-  if (!elev) (out as Record<string, unknown>)["debug_rows"] = rows.length;
   return out;
 }
 

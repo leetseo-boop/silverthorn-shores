@@ -24,7 +24,7 @@ export const Route = createFileRoute("/api/public/hooks/thorn-conditions")({
           }),
           fetchLakeLevel().catch((e) => {
             console.error("[thorn-conditions] lake level failed", e.message);
-            return { debug: e.message };
+            return {};
           }),
         ]);
 
