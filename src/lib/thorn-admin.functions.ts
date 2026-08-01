@@ -130,6 +130,8 @@ export const getThornAdmin = createServerFn({ method: "GET" })
       facts: (factRes.data ?? []) as LearnedFact[],
       abuse: (abuseRes.data ?? []) as AbuseEvent[],
       bans: (banRes.data ?? []) as BannedIp[],
+      staffSessions: (staffRes.data ?? []).map((s: { session_id: string }) => s.session_id),
+
     };
   });
 
