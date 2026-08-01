@@ -1,35 +1,34 @@
 ## Goal
-Polish the Thorn chat widget on mobile (iPhone/small screens) only:
-1. Make the chat panel feel smaller / better scaled on phones.
-2. Show the “Chat with Thorn 🐾” label next to the launcher avatar on mobile.
+When Paula, Keri, or Ryan talk to Thorn, he recognizes them as Silverthorn staff, greets them warmly, says hi to his brother Boatie, and follows the conversation like a friendly coworker.
 
-## Current state
-From `src/components/ThornChat.tsx`:
-- Launcher bubble: `<span className="hidden ... sm:inline-block">Chat with Thorn 🐾</span>` — hidden on mobile.
-- Chat panel: `fixed right-2 left-2 ... h-[min(78dvh,620px)] ... sm:left-auto sm:right-5 sm:w-[390px]` — full-width minus small margins on mobile.
+## Current state (verified)
+- Thorn's staff greetings live in the `thorn_staff_roster` table.
+- `paula` already exists but has a generic greeting.
+- `keri` and `ryan` are not in the roster.
+- Matching already works for first names via `matchStaff()` in `src/lib/thorn/runtime.server.ts`.
 
 ## Plan
+1. **Update Paula's row**
+   - Change greeting to: *"Hi Paula! It's so nice to see you here visiting me — thank you! 🐾 Say hi to my brother Boatie for me. Tail's wagging and I'm ready to help!"*
+   - Update tone notes to: coworker/friendly, no guest sales pitch.
 
-### 1. Scale the panel down on mobile
-Update the panel wrapper so mobile gets a tighter footprint while desktop keeps the existing `390px` width:
-- Change mobile horizontal margins from `right-2 left-2` to `right-3 left-3` (or similar) so the panel floats inside the screen.
-- Slightly reduce mobile max-height, e.g. `h-[min(72dvh,560px)]` vs. the current `h-[min(78dvh,620px)]`.
-- Keep desktop rules untouched: `sm:left-auto sm:right-5 sm:w-[390px]`.
+2. **Insert Keri's row**
+   - `staff_key`: `keri`
+   - `display_name`: `Keri`
+   - `greeting`: *"Hi Keri! It's so nice to see you here visiting me — thank you! 🐾 Say hi to my brother Boatie for me. Tail's wagging and I'm ready to help!"*
+   - `tone_notes`: friendly coworker tone, follow her lead, no guest sales pitch.
 
-### 2. Add the chat bubble on mobile
-- Remove `hidden sm:inline-block` from the launcher label.
-- Make the label always render, but style it mobile-first:
-  - Smaller text/padding on mobile (`text-[11px]` / `px-2.5 py-1`).
-  - Position it so it sits next to the avatar without overflowing the viewport (the launcher is `right-3`, so the pill extends leftward).
-  - Keep the existing larger pill on `sm:` screens.
-- Ensure the launcher container still fits within ~320 px width (avatar + pill + safe-area margins).
+3. **Insert Ryan's row**
+   - `staff_key`: `ryan`
+   - `display_name`: `Ryan`
+   - `greeting`: same pattern as Keri/Paula with Ryan's name.
+   - `tone_notes`: same friendly coworker guidance.
 
-### 3. Verify mobile framing
-- Capture mobile screenshots at 375px and 320px viewports.
-- Confirm no horizontal overflow, the bubble is readable, and the panel height leaves room for the on-screen keyboard.
+4. **Verify**
+   - Re-query `thorn_staff_roster` to confirm the three names are active with the new greetings.
+   - Run a quick chat test message like "Hi Thorn this is Paula" and confirm Thorn replies with the Boatie greeting.
 
-## Files to edit
-- `src/components/ThornChat.tsx` — launcher bubble visibility and panel mobile sizing.
-
-## Out of scope
-- No changes to Thorn logic, moods, admin, or desktop layout beyond the launcher/panel polish.
+## Notes
+- No code changes are required; the existing staff-matching logic will pick these up from the database.
+- Staff testers are already exempt from real bans, so the new rows inherit that safety.
+- If any of these staff prefer a different nickname or greeting wording, we can adjust after testing.
