@@ -476,13 +476,13 @@ export function ThornChat() {
             {messages.map((m, i) =>
               m.role === "user" ? (
                 <div key={i} className="flex justify-end">
-                  <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-primary px-3.5 py-2 text-sm text-primary-foreground">
+                  <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-primary px-3.5 py-2 text-sm text-primary-foreground [overflow-wrap:anywhere]">
                     <span className="sr-only">You said: </span>
                     {m.content}
                   </p>
                 </div>
               ) : (
-                <div key={i} className="max-w-[95%] space-y-1 text-sm leading-relaxed text-foreground">
+                <div key={i} className="max-w-full space-y-1 text-sm leading-relaxed text-foreground [overflow-wrap:anywhere]">
                   <span className="sr-only">Thorn said: </span>
                   {(() => {
                     const trace = m.content.match(/\[\[TRACE\]\]([^[]*)\[\[\/TRACE\]\]/);
