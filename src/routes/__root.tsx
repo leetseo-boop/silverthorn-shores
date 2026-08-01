@@ -152,6 +152,7 @@ function RootComponent() {
       <Outlet />
       {!isAdmin && <Footer />}
       {!isAdmin && <CookieBanner />}
+      {!isAdmin && <ThornChat />}
     </QueryClientProvider>
   );
 }
