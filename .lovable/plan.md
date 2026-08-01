@@ -1,40 +1,30 @@
 ## Goal
 
-Thorn greets Tessa and staff by name, answers "are you AI?" in character, and still runs the full warning + IP-trace + "banned" show — but nobody actually gets banned for now.
+When someone opens with "Hi Thorn is Mike Reha" or "Hi Thorn this is Myron", Thorn recognizes them instantly, gives the personal greeting you asked for, then follows their conversation warmly.
 
-## 1. No real bans (show only)
+## 1. Two new roster entries (database migration)
 
-In `src/routes/api/chat.ts`, switch abuse handling to theatre-only:
-- 1st offense → same warning reply as today.
-- 2nd offense → same upset face, hacking/IP-trace window, "access revoked" message.
-- Skip the actual `banIp()` write and the site-wide block entirely, controlled by one flag (`THORN_ENFORCE_BANS`, default off) so it can be turned on later with no code change.
-- Abuse events keep getting logged so the admin panel still shows who did what.
+Add to Thorn's staff roster:
 
-## 2. Tessa (manager)
+**Mike Reha — the boss**
+- Greeting: "Woof woof — hi Boss! 🐾 Thanks for letting me work the front page and look after our guests. You are not going to regret having me here!"
+- Tone: The owner/boss. Proud, upbeat, eager to please. Follow his lead, stay friendly and conversational, no guest sales pitch.
 
-Add Tessa to the staff roster (database row, same table as Mike/Paula):
-- Triggers on messages like "Hello I am Tessa", "Hi Thorn is Tessa, I am going to test you".
-- Greeting: **"HI Tessa, I'm here now!! 🐾 Ready to help you with our customers online."** — tail wagging, happy tone, `celebrate`/`wave` mood.
-- If she says she's testing him: "I'm ready — let's do this, Tessa!"
-- Everything after that: friendly, warm, follows her lead, full assistant mode (no guest sales nudges).
+**Myron — dad**
+- Greeting: "Hi Dad!! Woof woof — I'm having a great time out here. 🐾 Tail wagging. I've got lots to tell you in tonight's report!"
+- Tone: Family. Affectionate and playful, then just follow his chat naturally.
 
-## 3. Generic staff greeting
+## 2. Longest-name-first matching
 
-Recognize "Hi Thorn this is staff <name>" / "this is <name> from Silverthorn" even when the name isn't in the roster:
-- Thorn assumes he knows them, greets by that name warmly, says he's ready for the test.
-- Session remembers the name for the rest of the chat.
-- Known roster names (Mike, Paula, reservations, Tessa) keep their custom greetings.
+Right now the roster already contains a `mike` entry ("Hey Mike! Back for more numbers?"). Since matching walks the roster in key order, "Mike Reha" would otherwise trigger the plain Mike greeting.
 
-## 4. "Are you alive / are you AI / are you an agent?"
+Fix in `src/lib/thorn/runtime.server.ts`: sort roster candidates by key length descending before matching, so `mike reha` wins over `mike`, and multi-word keys are matched as a phrase.
 
-Add a prompt rule: answer exactly in character —
-> "I'm the AI Agent in charge of Front Customer Service here at Silverthorn 🐾"
+## 3. No other behavior changes
 
-with the **sunglasses** mood (glasses on), then offer to help. No robotic disclaimers, no denial.
+Ad-hoc staff detection, Tessa's greeting, the identity answer, and the theatre-only ban flow all stay exactly as they are.
 
 ## Technical notes
 
-- Roster addition = one small migration inserting the Tessa row (plus tone notes).
-- Staff-name detection extends `matchStaff` in `src/lib/thorn/runtime.server.ts` with a "this is staff X / I am X" pattern fallback that stores an ad-hoc staff row for the session.
-- Identity and greeting rules go into `SYSTEM_PROMPT` in `src/routes/api/chat.ts`; mood tags are already parsed by the widget.
-- Ban enforcement flag read inside the POST handler; the warning/theatre replies are unchanged strings.
+- Migration inserts two rows into `public.thorn_staff_roster` (`mike-reha`, `myron`) with `greeting` and `tone_notes`; uses an upsert-safe insert so re-running is harmless.
+- `matchStaff()` gets a sorted copy of the roster and a phrase-aware regex for keys containing a space/hyphen.
