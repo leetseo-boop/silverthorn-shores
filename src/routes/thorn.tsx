@@ -163,7 +163,7 @@ function ThornPage() {
             Share Your Thorn Sightings
           </h3>
           <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: "rgba(27,43,58,0.75)" }}>
-            Caught Thorn on camera? Tag us and she might become the next star of our social feed.
+            Caught Thorn on camera? Tag us and she might become the next star of your social feed.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <SocialLinks />
