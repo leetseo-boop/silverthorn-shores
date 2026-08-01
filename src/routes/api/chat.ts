@@ -9,6 +9,7 @@ import {
   banIp,
   countOffenses,
   ipIdentity,
+  isBanExempt,
   isBanned,
   learnedFactsBlock,
   loadRoster,
@@ -19,6 +20,7 @@ import {
   rememberStaffSession,
   staffForSession,
 } from "@/lib/thorn/runtime.server";
+
 
 const MODEL_ID = "google/gemini-3.6-flash";
 
@@ -122,7 +124,17 @@ type ChatMessage = { role: "user" | "assistant"; content: string };
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
+      // Warm-up ping: the widget calls this when it opens so the first real
+      // guest message never waits on a cold server start.
+      GET: async () => {
+        void loadRoster();
+        void conditionsBlock();
+        return new Response(JSON.stringify({ ok: true }), {
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+        });
+      },
       POST: async ({ request }) => {
+
         let body: { messages?: ChatMessage[]; mode?: string; sessionId?: string };
         try {
           body = (await request.json()) as typeof body;
@@ -171,12 +183,21 @@ export const Route = createFileRoute("/api/chat")({
           const prior = await countOffenses(ipHash);
           const offenseNo = prior + 1;
           await logAbuse({ ipHash, ipPreview, sessionId, term: foul.term, message: latest, offenseNo });
-          if (offenseNo >= 2 && traceable) {
-            await banIp(ipHash, ipPreview, `Repeated abusive language ("${foul.term}")`);
+          // Staff testers and allow-listed office IPs see the full theatre but
+          // never get a real, site-wide ban written.
+          const exempt =
+            isBanExempt(ip) ||
+            !!(await staffForSession(sessionId)) ||
+            !!matchStaff(latest, await loadRoster());
+          if (offenseNo >= 2) {
+            if (traceable && !exempt) {
+              await banIp(ipHash, ipPreview, `Repeated abusive language ("${foul.term}")`);
+            }
             return textStream(bannedTheatre(ipPreview));
           }
           return textStream(WARNING_REPLY);
         }
+
 
         const key = process.env["LOVABLE_API_KEY"];
         if (!key) {

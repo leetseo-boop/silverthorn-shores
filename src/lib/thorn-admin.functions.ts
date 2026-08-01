@@ -48,6 +48,7 @@ export type ThornAdminData = {
   facts: LearnedFact[];
   abuse: AbuseEvent[];
   bans: BannedIp[];
+  staffSessions: string[];
 };
 
 const EMPTY: ThornAdminData = {
@@ -58,7 +59,9 @@ const EMPTY: ThornAdminData = {
   facts: [],
   abuse: [],
   bans: [],
+  staffSessions: [],
 };
+
 
 export const getThornAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -72,7 +75,7 @@ export const getThornAdmin = createServerFn({ method: "GET" })
       .maybeSingle();
     if (!adminRow) return EMPTY;
 
-    const [msgRes, factRes, abuseRes, banRes] = await Promise.all([
+    const [msgRes, factRes, abuseRes, banRes, staffRes] = await Promise.all([
       supabase
         .from("thorn_messages")
         .select("id, session_id, role, content, mode, ip_preview, handoff, latency_ms, created_at")
@@ -94,7 +97,9 @@ export const getThornAdmin = createServerFn({ method: "GET" })
         .select("ip_hash, ip_preview, reason, banned_at")
         .order("banned_at", { ascending: false })
         .limit(100),
+      supabase.from("thorn_staff_sessions").select("session_id").limit(200),
     ]);
+
 
     const messages = (msgRes.data ?? []) as ThornMessage[];
     const dayAgo = Date.now() - 86_400_000;
@@ -125,6 +130,8 @@ export const getThornAdmin = createServerFn({ method: "GET" })
       facts: (factRes.data ?? []) as LearnedFact[],
       abuse: (abuseRes.data ?? []) as AbuseEvent[],
       bans: (banRes.data ?? []) as BannedIp[],
+      staffSessions: (staffRes.data ?? []).map((s: { session_id: string }) => s.session_id),
+
     };
   });
 
@@ -173,3 +180,35 @@ export const unbanIp = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+/** Wipe one test conversation (transcript + any abuse rows it produced). */
+export const deleteSession = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { sessionId: string }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { error } = await context.supabase
+      .from("thorn_messages")
+      .delete()
+      .eq("session_id", data.sessionId);
+    if (error) throw new Error(error.message);
+    await context.supabase.from("thorn_abuse_events").delete().eq("session_id", data.sessionId);
+    return { ok: true };
+  });
+
+/** Clear every transcript belonging to a recognised staff session. */
+export const clearStaffTestData = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { data: sessions } = await context.supabase
+      .from("thorn_staff_sessions")
+      .select("session_id");
+    const ids = (sessions ?? []).map((s: { session_id: string }) => s.session_id);
+    if (ids.length === 0) return { ok: true, cleared: 0 };
+    const { error } = await context.supabase.from("thorn_messages").delete().in("session_id", ids);
+    if (error) throw new Error(error.message);
+    await context.supabase.from("thorn_abuse_events").delete().in("session_id", ids);
+    return { ok: true, cleared: ids.length };
+  });
+

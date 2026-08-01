@@ -169,6 +169,14 @@ export function ThornChat() {
     inputRef.current?.focus();
   }, [messages, open, loading]);
 
+  // Wake the assistant endpoint as soon as the panel opens.
+  const warmed = useRef(false);
+  useEffect(() => {
+    if (!open || warmed.current) return;
+    warmed.current = true;
+    fetch("/api/chat", { method: "GET" }).catch(() => {});
+  }, [open]);
+
   // Return focus to the launcher when the panel closes.
   useEffect(() => {
     if (!open && restoreFocus.current) {
@@ -176,6 +184,7 @@ export function ThornChat() {
       launcherRef.current?.focus();
     }
   }, [open]);
+
 
   // Thorn dozes off when the panel sits idle.
   useEffect(() => {
