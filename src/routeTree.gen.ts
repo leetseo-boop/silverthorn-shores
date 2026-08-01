@@ -45,6 +45,7 @@ import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AboutHistoryRouteImport } from './routes/about.history'
 import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
 import { Route as ApiPublicHooksThornLearnRouteImport } from './routes/api/public/hooks/thorn-learn'
+import { Route as ApiPublicHooksThornConditionsRouteImport } from './routes/api/public/hooks/thorn-conditions'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
 
 const ThornRoute = ThornRouteImport.update({
@@ -228,6 +229,12 @@ const ApiPublicHooksThornLearnRoute =
     path: '/api/public/hooks/thorn-learn',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksThornConditionsRoute =
+  ApiPublicHooksThornConditionsRouteImport.update({
+    id: '/api/public/hooks/thorn-conditions',
+    path: '/api/public/hooks/thorn-conditions',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksRefreshReviewsRoute =
   ApiPublicHooksRefreshReviewsRouteImport.update({
     id: '/api/public/hooks/refresh-reviews',
@@ -272,6 +279,7 @@ export interface FileRoutesByFullPath {
   '/houseboats/': typeof HouseboatsIndexRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
+  '/api/public/hooks/thorn-conditions': typeof ApiPublicHooksThornConditionsRoute
   '/api/public/hooks/thorn-learn': typeof ApiPublicHooksThornLearnRoute
 }
 export interface FileRoutesByTo {
@@ -311,6 +319,7 @@ export interface FileRoutesByTo {
   '/houseboats': typeof HouseboatsIndexRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
+  '/api/public/hooks/thorn-conditions': typeof ApiPublicHooksThornConditionsRoute
   '/api/public/hooks/thorn-learn': typeof ApiPublicHooksThornLearnRoute
 }
 export interface FileRoutesById {
@@ -351,6 +360,7 @@ export interface FileRoutesById {
   '/houseboats/': typeof HouseboatsIndexRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
+  '/api/public/hooks/thorn-conditions': typeof ApiPublicHooksThornConditionsRoute
   '/api/public/hooks/thorn-learn': typeof ApiPublicHooksThornLearnRoute
 }
 export interface FileRouteTypes {
@@ -392,6 +402,7 @@ export interface FileRouteTypes {
     | '/houseboats/'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
+    | '/api/public/hooks/thorn-conditions'
     | '/api/public/hooks/thorn-learn'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -431,6 +442,7 @@ export interface FileRouteTypes {
     | '/houseboats'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
+    | '/api/public/hooks/thorn-conditions'
     | '/api/public/hooks/thorn-learn'
   id:
     | '__root__'
@@ -470,6 +482,7 @@ export interface FileRouteTypes {
     | '/houseboats/'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
+    | '/api/public/hooks/thorn-conditions'
     | '/api/public/hooks/thorn-learn'
   fileRoutesById: FileRoutesById
 }
@@ -510,6 +523,7 @@ export interface RootRouteChildren {
   HouseboatsIndexRoute: typeof HouseboatsIndexRoute
   ApiPublicGoogleReviewsRoute: typeof ApiPublicGoogleReviewsRoute
   ApiPublicHooksRefreshReviewsRoute: typeof ApiPublicHooksRefreshReviewsRoute
+  ApiPublicHooksThornConditionsRoute: typeof ApiPublicHooksThornConditionsRoute
   ApiPublicHooksThornLearnRoute: typeof ApiPublicHooksThornLearnRoute
 }
 
@@ -767,6 +781,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksThornLearnRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/thorn-conditions': {
+      id: '/api/public/hooks/thorn-conditions'
+      path: '/api/public/hooks/thorn-conditions'
+      fullPath: '/api/public/hooks/thorn-conditions'
+      preLoaderRoute: typeof ApiPublicHooksThornConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/refresh-reviews': {
       id: '/api/public/hooks/refresh-reviews'
       path: '/api/public/hooks/refresh-reviews'
@@ -814,6 +835,7 @@ const rootRouteChildren: RootRouteChildren = {
   HouseboatsIndexRoute: HouseboatsIndexRoute,
   ApiPublicGoogleReviewsRoute: ApiPublicGoogleReviewsRoute,
   ApiPublicHooksRefreshReviewsRoute: ApiPublicHooksRefreshReviewsRoute,
+  ApiPublicHooksThornConditionsRoute: ApiPublicHooksThornConditionsRoute,
   ApiPublicHooksThornLearnRoute: ApiPublicHooksThornLearnRoute,
 }
 export const routeTree = rootRouteImport
