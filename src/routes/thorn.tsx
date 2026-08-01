@@ -79,7 +79,7 @@ function ThornPage() {
           <img
             src={heroMarina}
             alt="Thorn, the white fluffy Silverthorn Resort dog, relaxing on the marina beach with houseboats and Shasta Lake in the background"
-            className="w-full h-full object-cover object-[center_70%] md:object-[center_60%]"
+            className="w-full h-full object-cover object-bottom"
             loading="eager"
             decoding="async"
             fetchPriority="high"
