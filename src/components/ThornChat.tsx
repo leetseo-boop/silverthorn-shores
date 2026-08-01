@@ -368,12 +368,12 @@ export function ThornChat() {
           role="dialog"
           aria-modal="false"
           aria-label="Chat with Thorn, the Silverthorn Resort assistant"
-          className="fixed right-2 left-2 z-50 flex max-h-[85dvh] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
+          className="fixed right-2 left-2 z-50 flex h-[min(78dvh,620px)] max-h-[calc(100dvh-5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
           style={{ bottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
           onKeyDown={onPanelKeyDown}
         >
           {/* Header */}
-          <div className="flex items-center gap-3 border-b border-border bg-secondary px-3 py-3 text-secondary-foreground">
+          <div className="flex items-center gap-2 border-b border-border bg-secondary px-2.5 py-2.5 text-secondary-foreground sm:gap-3 sm:px-3 sm:py-3">
             <img
               key={mood}
               src={MOOD_IMAGES[mood]}
@@ -381,13 +381,15 @@ export function ThornChat() {
               width={512}
               height={512}
               loading="lazy"
-              className="h-11 w-11 shrink-0 animate-in fade-in duration-300 motion-reduce:animate-none"
+              className="h-10 w-10 shrink-0 animate-in fade-in duration-300 motion-reduce:animate-none sm:h-11 sm:w-11"
             />
             <div className="min-w-0 flex-1">
-              <p className="font-display text-lg font-semibold leading-tight">Thorn</p>
-              <p className="flex items-center gap-1.5 text-xs text-secondary-foreground">
+              <p className="truncate font-display text-base font-semibold leading-tight sm:text-lg">
+                Thorn
+              </p>
+              <p className="flex min-w-0 items-center gap-1.5 text-xs text-secondary-foreground">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
-                <span aria-live="polite">
+                <span aria-live="polite" className="truncate">
                   {loading ? MOOD_STATUS.thinking : MOOD_STATUS[mood]}
                 </span>
               </p>
