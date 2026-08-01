@@ -75,7 +75,7 @@ export const getThornAdmin = createServerFn({ method: "GET" })
       .maybeSingle();
     if (!adminRow) return EMPTY;
 
-    const [msgRes, factRes, abuseRes, banRes] = await Promise.all([
+    const [msgRes, factRes, abuseRes, banRes, staffRes] = await Promise.all([
       supabase
         .from("thorn_messages")
         .select("id, session_id, role, content, mode, ip_preview, handoff, latency_ms, created_at")
@@ -97,7 +97,9 @@ export const getThornAdmin = createServerFn({ method: "GET" })
         .select("ip_hash, ip_preview, reason, banned_at")
         .order("banned_at", { ascending: false })
         .limit(100),
+      supabase.from("thorn_staff_sessions").select("session_id").limit(200),
     ]);
+
 
     const messages = (msgRes.data ?? []) as ThornMessage[];
     const dayAgo = Date.now() - 86_400_000;
