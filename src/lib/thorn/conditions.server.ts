@@ -75,7 +75,9 @@ export async function fetchLakeLevel(): Promise<LakeLevel> {
   const url =
     `https://cdec.water.ca.gov/dynamicapp/req/JSONDataServlet?Stations=SHA` +
     `&SensorNums=6,15&dur_code=D&Start=${start}&End=${end}`;
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    headers: { Accept: "application/json", "User-Agent": "SilverthornResortBot/1.0" },
+  });
   if (!res.ok) throw new Error(`CDEC ${res.status}`);
   const rows = (await res.json()) as {
     SENSOR_NUM: number;
