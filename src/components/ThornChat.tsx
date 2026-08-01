@@ -85,7 +85,7 @@ function renderRich(text: string) {
       const token = m[0];
       const md = token.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
       const linkClass =
-        "rounded-sm font-medium text-primary underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1";
+        "rounded-sm font-medium text-primary underline underline-offset-2 [overflow-wrap:anywhere] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1";
       if (md) {
         const href = md[2];
         parts.push(
