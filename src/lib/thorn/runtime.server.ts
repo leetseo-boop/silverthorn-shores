@@ -116,6 +116,35 @@ export async function logMessages(rows: {
   }
 }
 
+export async function logAssistant(rows: {
+  sessionId: string;
+  ipHash: string;
+  ipPreview: string;
+  mode: string;
+  model?: string;
+  assistantText: string;
+  latencyMs?: number;
+  handoff?: boolean;
+}) {
+  try {
+    const admin = await getAdmin();
+    const { error } = await admin.from("thorn_messages").insert({
+      session_id: rows.sessionId,
+      ip_hash: rows.ipHash,
+      ip_preview: rows.ipPreview,
+      mode: rows.mode,
+      model: rows.model ?? null,
+      role: "assistant",
+      content: rows.assistantText.slice(0, 8000),
+      latency_ms: rows.latencyMs ?? null,
+      handoff: rows.handoff ?? false,
+    });
+    if (error) console.error("[thorn] assistant log failed", error.message);
+  } catch (err) {
+    console.error("[thorn] assistant log threw", err instanceof Error ? err.message : err);
+  }
+}
+
 /* --------------------------- learned facts --------------------------- */
 
 let factsCache: { fetched: number; text: string } | null = null;

@@ -202,20 +202,22 @@ export const Route = createFileRoute("/api/chat")({
         }
 
         const started = Date.now();
+        // Log the guest turn up front: the worker may end the request before a
+        // post-stream callback settles.
+        await logMessages({ sessionId, ipHash, ipPreview, mode, model: MODEL_ID, userText: latest });
         try {
           const gateway = createLovableAiGatewayProvider(key);
           const result = streamText({
             model: gateway(MODEL_ID),
             system: systemPrompt,
             messages: safeMessages,
-            onFinish: ({ text }) => {
-              void logMessages({
+            onFinish: async ({ text }) => {
+              await logAssistant({
                 sessionId,
                 ipHash,
                 ipPreview,
                 mode,
                 model: MODEL_ID,
-                userText: latest,
                 assistantText: text,
                 latencyMs: Date.now() - started,
                 handoff: /800-332-3044|reserve1@houseboats\.com/.test(text),
