@@ -48,6 +48,7 @@ export type ThornAdminData = {
   facts: LearnedFact[];
   abuse: AbuseEvent[];
   bans: BannedIp[];
+  staffSessions: string[];
 };
 
 const EMPTY: ThornAdminData = {
@@ -58,7 +59,9 @@ const EMPTY: ThornAdminData = {
   facts: [],
   abuse: [],
   bans: [],
+  staffSessions: [],
 };
+
 
 export const getThornAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
