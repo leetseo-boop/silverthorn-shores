@@ -151,10 +151,11 @@ export const Route = createFileRoute("/api/chat")({
         const sessionId = (body.sessionId || "anon").toString().slice(0, 64);
         const mode = body.mode === "policy" ? "policy" : "general";
         const ip = clientIp(request);
+        const traceable = ip !== "unknown";
         const { ipHash, ipPreview } = await ipIdentity(ip);
 
         // ---- Already banned -------------------------------------------------
-        if (await isBanned(ipHash)) {
+        if (traceable && (await isBanned(ipHash))) {
           return new Response(JSON.stringify({ banned: true }), {
             status: 403,
             headers: { "Content-Type": "application/json" },
@@ -167,7 +168,7 @@ export const Route = createFileRoute("/api/chat")({
           const prior = await countOffenses(ipHash);
           const offenseNo = prior + 1;
           await logAbuse({ ipHash, ipPreview, sessionId, term: foul.term, message: latest, offenseNo });
-          if (offenseNo >= 2) {
+          if (offenseNo >= 2 && traceable) {
             await banIp(ipHash, ipPreview, `Repeated abusive language ("${foul.term}")`);
             return textStream(bannedTheatre(ipPreview));
           }
