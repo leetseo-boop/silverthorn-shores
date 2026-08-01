@@ -55,6 +55,7 @@ const GROUPS: { title: string; links: { label: string; to: string }[] }[] = [
     links: [
       { label: "Houseboat Policy", to: "/houseboats/policy" },
       { label: "Cabin Policy", to: "/cabins/policy" },
+      { label: "Pet Policy", to: "/pet-policy" },
     ],
   },
   {
