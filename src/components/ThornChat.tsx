@@ -345,7 +345,7 @@ export function ThornChat() {
           className="group fixed right-3 z-40 flex items-end gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:right-5"
           style={{ bottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem))" }}
         >
-          <span className="hidden rounded-full border border-primary/40 bg-card px-3 py-1.5 text-xs font-semibold text-secondary shadow-md transition-transform group-hover:scale-105 motion-reduce:transition-none sm:inline-block">
+          <span className="whitespace-nowrap rounded-full border border-primary/40 bg-card px-2.5 py-1 text-[11px] font-semibold text-secondary shadow-md transition-transform group-hover:scale-105 motion-reduce:transition-none sm:px-3 sm:py-1.5 sm:text-xs">
             Chat with Thorn 🐾
           </span>
           <img
