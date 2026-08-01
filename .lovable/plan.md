@@ -1,27 +1,35 @@
 ## Goal
-Make Thorn look correctly framed and readable on phones without changing desktop.
+Polish the Thorn chat widget on mobile (iPhone/small screens) only:
+1. Make the chat panel feel smaller / better scaled on phones.
+2. Show the “Chat with Thorn 🐾” label next to the launcher avatar on mobile.
 
-## What I found on a 360×740 phone viewport
-- The header status line ("Looking that up") **wraps to two lines**, which grows the header and crowds the three icon buttons next to the avatar.
-- Answer links render as **raw paths** (`/houseboats/policy#cancellation`) — long, unbroken strings that can push the bubble wide; no word-breaking safety net.
-- No horizontal scrolling and the panel is correctly inset (8px each side, sits above the safe area) — that part is already fine.
+## Current state
+From `src/components/ThornChat.tsx`:
+- Launcher bubble: `<span className="hidden ... sm:inline-block">Chat with Thorn 🐾</span>` — hidden on mobile.
+- Chat panel: `fixed right-2 left-2 ... h-[min(78dvh,620px)] ... sm:left-auto sm:right-5 sm:w-[390px]` — full-width minus small margins on mobile.
 
-## Changes (all in `src/components/ThornChat.tsx`, plus a small tweak in `ThornTrace.tsx`)
-1. **Header**
-   - Single-line status with `truncate`, avatar `shrink-0`, buttons `shrink-0`.
-   - Slightly smaller avatar and icon buttons under `sm:` so avatar + 3 buttons always fit at 320px.
-2. **Message bubbles**
-   - Add `break-words` / `overflow-wrap:anywhere` to user and assistant text so long URLs, codes and emails never overflow.
-   - Render inline links with a friendly label instead of the bare path, and wrap long ones.
-3. **Panel sizing**
-   - Use `h-[min(85dvh,640px)]` style clamping so the transcript area keeps a stable height and the composer never gets pushed off when the mobile keyboard opens.
-   - Keep bottom safe-area inset; ensure `max-h` accounts for the mobile URL bar via `dvh`.
-4. **Composer**
-   - Ensure 16px font size on the textarea at mobile widths so iOS doesn't zoom in on focus; keep 44px tap target on send.
-5. **Launcher**
-   - Keep it clear of the cookie banner and any sticky footer CTA on small screens; verify the 64px avatar doesn't overlap page content.
-6. **Trace terminal** (`ThornTrace.tsx`)
-   - Add `overflow-x-auto` + smaller mono text on mobile so the fake IP-trace lines don't stretch the panel.
+## Plan
 
-## Verification
-Re-run the phone-viewport screenshots (360px and 320px) for: launcher, empty state, long policy answer, trace sequence — checking no wrap-breaks, no horizontal scroll, composer visible.
+### 1. Scale the panel down on mobile
+Update the panel wrapper so mobile gets a tighter footprint while desktop keeps the existing `390px` width:
+- Change mobile horizontal margins from `right-2 left-2` to `right-3 left-3` (or similar) so the panel floats inside the screen.
+- Slightly reduce mobile max-height, e.g. `h-[min(72dvh,560px)]` vs. the current `h-[min(78dvh,620px)]`.
+- Keep desktop rules untouched: `sm:left-auto sm:right-5 sm:w-[390px]`.
+
+### 2. Add the chat bubble on mobile
+- Remove `hidden sm:inline-block` from the launcher label.
+- Make the label always render, but style it mobile-first:
+  - Smaller text/padding on mobile (`text-[11px]` / `px-2.5 py-1`).
+  - Position it so it sits next to the avatar without overflowing the viewport (the launcher is `right-3`, so the pill extends leftward).
+  - Keep the existing larger pill on `sm:` screens.
+- Ensure the launcher container still fits within ~320 px width (avatar + pill + safe-area margins).
+
+### 3. Verify mobile framing
+- Capture mobile screenshots at 375px and 320px viewports.
+- Confirm no horizontal overflow, the bubble is readable, and the panel height leaves room for the on-screen keyboard.
+
+## Files to edit
+- `src/components/ThornChat.tsx` — launcher bubble visibility and panel mobile sizing.
+
+## Out of scope
+- No changes to Thorn logic, moods, admin, or desktop layout beyond the launcher/panel polish.
