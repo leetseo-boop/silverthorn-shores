@@ -18,6 +18,7 @@ import { Route as ShastaLakeRouteImport } from './routes/shasta-lake'
 import { Route as ProShopRouteImport } from './routes/pro-shop'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PlanningRouteImport } from './routes/planning'
+import { Route as PetPolicyRouteImport } from './routes/pet-policy'
 import { Route as MoorageRouteImport } from './routes/moorage'
 import { Route as GuestInfoRouteImport } from './routes/guest-info'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -87,6 +88,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PlanningRoute = PlanningRouteImport.update({
   id: '/planning',
   path: '/planning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PetPolicyRoute = PetPolicyRouteImport.update({
+  id: '/pet-policy',
+  path: '/pet-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoorageRoute = MoorageRouteImport.update({
@@ -229,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
   '/moorage': typeof MoorageRoute
+  '/pet-policy': typeof PetPolicyRoute
   '/planning': typeof PlanningRoute
   '/privacy': typeof PrivacyRoute
   '/pro-shop': typeof ProShopRoute
@@ -265,6 +272,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
   '/moorage': typeof MoorageRoute
+  '/pet-policy': typeof PetPolicyRoute
   '/planning': typeof PlanningRoute
   '/privacy': typeof PrivacyRoute
   '/pro-shop': typeof ProShopRoute
@@ -302,6 +310,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
   '/moorage': typeof MoorageRoute
+  '/pet-policy': typeof PetPolicyRoute
   '/planning': typeof PlanningRoute
   '/privacy': typeof PrivacyRoute
   '/pro-shop': typeof ProShopRoute
@@ -340,6 +349,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/guest-info'
     | '/moorage'
+    | '/pet-policy'
     | '/planning'
     | '/privacy'
     | '/pro-shop'
@@ -376,6 +386,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/guest-info'
     | '/moorage'
+    | '/pet-policy'
     | '/planning'
     | '/privacy'
     | '/pro-shop'
@@ -412,6 +423,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/guest-info'
     | '/moorage'
+    | '/pet-policy'
     | '/planning'
     | '/privacy'
     | '/pro-shop'
@@ -449,6 +461,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   GuestInfoRoute: typeof GuestInfoRoute
   MoorageRoute: typeof MoorageRoute
+  PetPolicyRoute: typeof PetPolicyRoute
   PlanningRoute: typeof PlanningRoute
   PrivacyRoute: typeof PrivacyRoute
   ProShopRoute: typeof ProShopRoute
@@ -536,6 +549,13 @@ declare module '@tanstack/react-router' {
       path: '/planning'
       fullPath: '/planning'
       preLoaderRoute: typeof PlanningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pet-policy': {
+      id: '/pet-policy'
+      path: '/pet-policy'
+      fullPath: '/pet-policy'
+      preLoaderRoute: typeof PetPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/moorage': {
@@ -729,6 +749,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   GuestInfoRoute: GuestInfoRoute,
   MoorageRoute: MoorageRoute,
+  PetPolicyRoute: PetPolicyRoute,
   PlanningRoute: PlanningRoute,
   PrivacyRoute: PrivacyRoute,
   ProShopRoute: ProShopRoute,
