@@ -1,15 +1,11 @@
 ## Goal
+Remove the flower/plant box from Thorn's "houseboat" mood illustration, leaving everything else identical, and keep it saved as the `houseboat` Thorn mood.
 
-The floating Thorn launcher in the corner currently always shows the static "wave" pose. Make it show his live mood, the same one the chat header shows.
+## Steps
+1. Take the current `houseboat` mood image (`src/assets/thorn/houseboat.webp.asset.json` → CDN URL) as the edit source, so the result matches the existing art exactly.
+2. Run an AI image edit with the instruction: remove the hanging flower/planter box on the houseboat's side wall, replace with the plain white hull/wall surface. No other changes — same dog pose, boat, life ring, railing, transparent background.
+3. Upload the edited PNG/WebP via `lovable-assets create` and overwrite `src/assets/thorn/houseboat.webp.asset.json` with the new pointer.
+4. Visually verify the result (plants gone, nothing else altered, background still transparent). Re-run the edit if artifacts appear.
 
-## Changes — `src/components/ThornChat.tsx`
-
-1. **Launcher uses live mood**: swap the hardcoded `MOOD_IMAGES.wave` on the launcher button for `MOOD_IMAGES[mood]`, so whatever pose Thorn is in (thinking, helping, lifevest, houseboat, fishing, sunglasses, celebrate, resting) shows in the corner too.
-2. **Smooth swap**: key the image by mood and add the same short fade-in used in the header so the pose changes gently instead of popping. Respect `prefers-reduced-motion`.
-3. **Accessible label**: keep the button's `aria-label` stable ("Chat with Thorn…") so screen-reader users don't get a changing target, but let the mood come through in the button title/tooltip.
-4. **Mood persists after closing**: right now closing and reopening leaves the mood wherever it was, which is what we want — but the launcher currently resets to `wave` only when reopened. Keep the last mood on the corner badge after the panel closes, and let the idle timer drift Thorn to `resting` after a minute of no activity even while closed, so an untouched page shows a napping Thorn rather than a frozen pose.
-5. **Fresh visits**: with no conversation yet, the corner starts on `wave` exactly as today.
-
-## Verify
-
-Screenshot the corner launcher on desktop and mobile in three states — fresh page (wave), mid-answer (thinking), and after a policy answer (lifevest) — to confirm the pose changes, the size and drop shadow stay identical, and nothing shifts layout.
+## Notes
+No code changes needed — `thorn-moods.ts` and `ThornChat.tsx` read the pointer file, so the new image flows through automatically to both the chat panel and the corner launcher.
