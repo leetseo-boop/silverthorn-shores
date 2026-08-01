@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ThornRouteImport } from './routes/thorn'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SmallBoatsRouteImport } from './routes/small-boats'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -45,6 +46,11 @@ import { Route as AboutHistoryRouteImport } from './routes/about.history'
 import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
 
+const ThornRoute = ThornRouteImport.update({
+  id: '/thorn',
+  path: '/thorn',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -245,6 +251,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
+  '/thorn': typeof ThornRoute
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins/policy': typeof CabinsPolicyRoute
@@ -282,6 +289,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
+  '/thorn': typeof ThornRoute
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins/policy': typeof CabinsPolicyRoute
@@ -320,6 +328,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
+  '/thorn': typeof ThornRoute
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins_/policy': typeof CabinsPolicyRoute
@@ -359,6 +368,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/small-boats'
     | '/terms'
+    | '/thorn'
     | '/about/history'
     | '/api/chat'
     | '/cabins/policy'
@@ -396,6 +406,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/small-boats'
     | '/terms'
+    | '/thorn'
     | '/about/history'
     | '/api/chat'
     | '/cabins/policy'
@@ -433,6 +444,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/small-boats'
     | '/terms'
+    | '/thorn'
     | '/about/history'
     | '/api/chat'
     | '/cabins_/policy'
@@ -471,6 +483,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SmallBoatsRoute: typeof SmallBoatsRoute
   TermsRoute: typeof TermsRoute
+  ThornRoute: typeof ThornRoute
   AboutHistoryRoute: typeof AboutHistoryRoute
   ApiChatRoute: typeof ApiChatRoute
   CabinsPolicyRoute: typeof CabinsPolicyRoute
@@ -488,6 +501,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/thorn': {
+      id: '/thorn'
+      path: '/thorn'
+      fullPath: '/thorn'
+      preLoaderRoute: typeof ThornRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -759,6 +779,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SmallBoatsRoute: SmallBoatsRoute,
   TermsRoute: TermsRoute,
+  ThornRoute: ThornRoute,
   AboutHistoryRoute: AboutHistoryRoute,
   ApiChatRoute: ApiChatRoute,
   CabinsPolicyRoute: CabinsPolicyRoute,

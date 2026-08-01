@@ -950,6 +950,7 @@ export function Footer() {
                   { label: "Shasta Lake",    href: "/shasta-lake" },
                   { label: "Planning Guide", href: "/planning" },
                   { label: "Pet Policy",     href: "/pet-policy" },
+                  { label: "Meet Thorn",     href: "/thorn" },
                   { label: "Directions",     href: "/directions" },
                   { label: "FAQ",            href: "/faq" },
                   { label: "Contact",        href: "/contact" },
