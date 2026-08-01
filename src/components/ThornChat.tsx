@@ -112,15 +112,16 @@ function renderRich(text: string) {
           </a>,
         );
       } else {
+        const isExternal = token.startsWith("http");
         parts.push(
           <a
             key={`${i}-${m.index}`}
             href={token}
-            target={token.startsWith("http") ? "_blank" : undefined}
-            rel={token.startsWith("http") ? "noopener noreferrer" : undefined}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
             className={linkClass}
           >
-            {token}
+            {isExternal ? token : pathLabel(token)}
           </a>,
         );
       }
