@@ -57,6 +57,18 @@ function loadHistory(): Msg[] {
   }
 }
 
+/** Turn "/houseboats/policy#cancellation" into "Houseboat Policy · Cancellation". */
+function pathLabel(path: string): string {
+  const [p, hash] = path.split("#");
+  const words = p
+    .split("/")
+    .filter(Boolean)
+    .map((s) => s.replace(/-/g, " "))
+    .join(" · ");
+  const pretty = (s: string) => s.replace(/\b\w/g, (c) => c.toUpperCase());
+  return pretty(hash ? `${words} · ${hash.replace(/-/g, " ")}` : words) || path;
+}
+
 /** Very small markdown renderer: links, **bold**, phone numbers, line breaks. */
 function renderRich(text: string) {
   const lines = text.split("\n");
