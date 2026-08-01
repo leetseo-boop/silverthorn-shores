@@ -1,31 +1,15 @@
 ## Goal
 
-Thorn should feel like a capable assistant that answers everything he can, instead of a widget that constantly points people to the phone.
+The floating Thorn launcher in the corner currently always shows the static "wave" pose. Make it show his live mood, the same one the chat header shows.
 
-## 1. Remove the footer line
+## Changes — `src/components/ThornChat.tsx`
 
-In `src/components/ThornChat.tsx`, delete the composer footer paragraph "Thorn is an AI helper — for availability call 800-332-3044" and tighten the surrounding spacing so the input sits cleanly at the bottom on mobile and desktop.
+1. **Launcher uses live mood**: swap the hardcoded `MOOD_IMAGES.wave` on the launcher button for `MOOD_IMAGES[mood]`, so whatever pose Thorn is in (thinking, helping, lifevest, houseboat, fishing, sunglasses, celebrate, resting) shows in the corner too.
+2. **Smooth swap**: key the image by mood and add the same short fade-in used in the header so the pose changes gently instead of popping. Respect `prefers-reduced-motion`.
+3. **Accessible label**: keep the button's `aria-label` stable ("Chat with Thorn…") so screen-reader users don't get a changing target, but let the mood come through in the button title/tooltip.
+4. **Mood persists after closing**: right now closing and reopening leaves the mood wherever it was, which is what we want — but the launcher currently resets to `wave` only when reopened. Keep the last mood on the corner badge after the panel closes, and let the idle timer drift Thorn to `resting` after a minute of no activity even while closed, so an untouched page shows a napping Thorn rather than a frozen pose.
+5. **Fresh visits**: with no conversation yet, the corner starts on `wave` exactly as today.
 
-## 2. Retune the general prompt (`src/routes/api/chat.ts`)
+## Verify
 
-Current rules force a phone nudge into most answers. Change them to:
-
-- Answer the guest's question fully and directly from the resort knowledge first. Never end an answer with a phone number by reflex.
-- Only surface the reservations line (800-332-3044 / reserve1@houseboats.com) when one of these is true:
-  - the guest asks to speak to a person or a real human,
-  - the guest wants live availability, a custom quote, or to change/cancel an existing booking,
-  - the answer genuinely isn't in Thorn's knowledge.
-- For booking intent, prefer linking the on-site booking pages over the phone number.
-- Keep "never invent prices, dates, or availability" — but instead of deflecting to the phone, point to the specific rate/boat page that holds the real numbers.
-
-## 3. Retune the Policies & Booking prompt
-
-Same principle in strict mode: answer from the policy facts and cite the source pages. Only mention the phone number when the detail truly isn't in the facts, or when the guest asks for a human.
-
-## 4. Verify
-
-Run a few live prompts against `/api/chat` (a rate question, a policy question, a "can I talk to someone" question) and confirm the phone number appears only in the human-handoff case, then screenshot the widget to confirm the footer is gone and layout is correct on mobile.
-
-## Technical notes
-
-Only `src/components/ThornChat.tsx` (footer removal) and `src/routes/api/chat.ts` (`SYSTEM_PROMPT` and `POLICY_PROMPT` wording) change. No schema, routing, or knowledge-base changes.
+Screenshot the corner launcher on desktop and mobile in three states — fresh page (wave), mid-answer (thinking), and after a policy answer (lifevest) — to confirm the pose changes, the size and drop shadow stay identical, and nothing shifts layout.
