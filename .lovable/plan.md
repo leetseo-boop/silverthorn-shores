@@ -1,30 +1,14 @@
-## Goal
+## Ready to publish — yes
 
-When someone opens with "Hi Thorn is Mike Reha" or "Hi Thorn this is Myron", Thorn recognizes them instantly, gives the personal greeting you asked for, then follows their conversation warmly.
+Security scan came back clean: no findings from the app, database, connector, or agent scanners. The only item flagged is a transitive advisory in the TanStack framework packages (seroval deserialization), which is a framework-level dependency issue, not something in your code, and it's rated a warning rather than a blocker.
 
-## 1. Two new roster entries (database migration)
+## What I'll do when you approve
 
-Add to Thorn's staff roster:
+1. Re-run the security scan so the result is fresh at publish time.
+2. Publish the site to the Lovable URL, which also serves your connected domains (silverthornresort.com / www).
 
-**Mike Reha — the boss**
-- Greeting: "Woof woof — hi Boss! 🐾 Thanks for letting me work the front page and look after our guests. You are not going to regret having me here!"
-- Tone: The owner/boss. Proud, upbeat, eager to please. Follow his lead, stay friendly and conversational, no guest sales pitch.
+## Notes
 
-**Myron — dad**
-- Greeting: "Hi Dad!! Woof woof — I'm having a great time out here. 🐾 Tail wagging. I've got lots to tell you in tonight's report!"
-- Tone: Family. Affectionate and playful, then just follow his chat naturally.
-
-## 2. Longest-name-first matching
-
-Right now the roster already contains a `mike` entry ("Hey Mike! Back for more numbers?"). Since matching walks the roster in key order, "Mike Reha" would otherwise trigger the plain Mike greeting.
-
-Fix in `src/lib/thorn/runtime.server.ts`: sort roster candidates by key length descending before matching, so `mike reha` wins over `mike`, and multi-word keys are matched as a phrase.
-
-## 3. No other behavior changes
-
-Ad-hoc staff detection, Tessa's greeting, the identity answer, and the theatre-only ban flow all stay exactly as they are.
-
-## Technical notes
-
-- Migration inserts two rows into `public.thorn_staff_roster` (`mike-reha`, `myron`) with `greeting` and `tone_notes`; uses an upsert-safe insert so re-running is harmless.
-- `matchStaff()` gets a sorted copy of the roster and a phrase-aware regex for keys containing a space/hyphen.
+- Backend work (database, Thorn's server functions, cron jobs) is already live — publishing pushes the frontend.
+- Thorn's ban enforcement stays in theatre mode: the warning, upset face and IP-trace window all play, but no real block is written until `THORN_ENFORCE_BANS` is set to `true`. Say the word if you want that flipped on before or after launch.
+- Staff greetings (Tessa, Mike Reha, Myron, ad-hoc "this is staff X") are in place and ship with this build.
