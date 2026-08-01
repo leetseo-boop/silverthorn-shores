@@ -1,31 +1,23 @@
 ## Goal
-Create a new, SEO-friendly "Meet Thorn" page using the uploaded marina photo as the hero, and add it to the footer under the Resort column only.
+Make Thorn clearly visible in the hero section of `/thorn`.
 
-## Proposed URL
-`/thorn` (e.g., `https://silverthornresort.com/thorn`).
+## Current issue
+The marina hero photo is cropped with `object-cover` centered, so Thorn — lying in the sandy foreground/bottom of the image — is hidden below the visible area and behind the dark gradient overlay.
 
-## What we will build
-1. **New route file**: `src/routes/thorn.tsx`
-   - Exports a TanStack `Route` at `/thorn` with full `head()` metadata (title, description, OG/Twitter tags, canonical, JSON-LD `WebPage` + `BreadcrumbList`).
-   - Uses the existing `src/assets/home-hero-marina.webp` as the hero image (the marina shot with Thorn). The image will be rendered normally with a subtle gradient overlay, not as a transparent PNG.
-   - Page content follows the user's copy exactly, with light Silverthorn styling:
-     - Warm intro block with the provided prose.
-     - A small "Snap a picture & tag us" CTA card with social links.
-     - Breadcrumb: Home / Meet Thorn.
-   - Uses the same design tokens as other resort pages: `NAVY #1B2B3A`, `ORANGE #E8640A`, `SAND #F4EFE6`, `DISPLAY 'Playfair Display'`.
+## Proposed fix
+1. **Adjust focal point** in `src/routes/thorn.tsx`
+   - Change the hero `<img>` from default `object-cover` center crop to `object-cover object-bottom` (or a custom `object-[center_70%]`) so the bottom of the image where Thorn sits is pulled into view.
+   - Keep `object-cover` and responsive height so the layout doesn’t break on mobile/desktop.
 
-2. **Footer update**: `src/components/SilverthornHomePage.tsx`
-   - Add `{ label: "Meet Thorn", href: "/thorn" }` to the **Resort** footer column only.
-   - No changes to the main header navigation.
+2. **Lighten the overlay**
+   - Reduce the bottom/lower gradient opacity so Thorn is not silhouetted by the dark navy wash.
+   - Keep enough contrast for the white hero text to remain readable.
 
-3. **Route registration**: TanStack Start file-based routing will auto-register `src/routes/thorn.tsx`; no manual `routeTree.gen.ts` edits.
+3. **Verify**
+   - Check the preview at `/thorn` on desktop and mobile to confirm Thorn is visible and text remains legible.
+
+## Files to edit
+- `src/routes/thorn.tsx` (hero image + overlay only)
 
 ## Out of scope
-- Header navigation (explicitly requested as footer-only).
-- New image generation or Thorn cartoon assets (the user supplied the hero photo and wants it used as-is).
-- Changes to Thorn AI chat behavior.
-
-## Verification
-- Typecheck the project after edits.
-- Confirm the new `/thorn` route resolves and renders the hero image, breadcrumb, body copy, and footer link.
-- Confirm the footer Resort column includes "Meet Thorn" and no other columns are changed.
+- No copy changes, no new assets, no footer/header edits.
