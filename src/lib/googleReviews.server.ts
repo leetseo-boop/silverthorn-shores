@@ -19,6 +19,20 @@ function publicSupabase() {
   });
 }
 
+// Only 5-star reviews published within the last 5 months, newest first.
+const MAX_AGE_MS = 5 * 30 * 24 * 60 * 60 * 1000;
+
+function filterReviews(reviews: GoogleReview[]): GoogleReview[] {
+  const cutoff = Date.now() - MAX_AGE_MS;
+  return reviews
+    .filter((r) => r.rating === 5)
+    .filter((r) => {
+      const t = r.publishTime ? Date.parse(r.publishTime) : NaN;
+      return Number.isNaN(t) ? false : t >= cutoff;
+    })
+    .sort((a, b) => Date.parse(b.publishTime) - Date.parse(a.publishTime));
+}
+
 async function fetchFromGoogle(placeId: string): Promise<ReviewsPayload> {
   const lovableKey = process.env.LOVABLE_API_KEY;
   const mapsKey = process.env.GOOGLE_MAPS_API_KEY;
@@ -75,7 +89,8 @@ async function fetchFromGoogle(placeId: string): Promise<ReviewsPayload> {
       publishTime: r.publishTime ?? "",
       googleMapsUri: r.googleMapsUri ?? null,
     }))
-    .filter((r) => r.text.length > 0);
+      .filter((r) => r.text.length > 0),
+  );
 
   return {
     reviews,
