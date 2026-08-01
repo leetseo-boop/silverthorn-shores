@@ -33,15 +33,15 @@ export function ThornTrace({ ip }: { ip: string }) {
           silverthorn · security
         </span>
       </div>
-      <div className="space-y-0.5 px-3 py-2.5">
+      <div className="space-y-0.5 overflow-x-auto px-3 py-2.5">
         {LINES.slice(0, shown).map((l) => (
-          <p key={l} className="text-white/85">
+          <p key={l} className="whitespace-pre-wrap break-words text-white/85">
             {l}
           </p>
         ))}
         {shown >= LINES.length && (
           <>
-            <p className="text-white/85">&gt; client address: {ip}</p>
+            <p className="break-all text-white/85">&gt; client address: {ip}</p>
             <p className="font-semibold text-destructive">&gt; ACCESS REVOKED</p>
           </>
         )}
