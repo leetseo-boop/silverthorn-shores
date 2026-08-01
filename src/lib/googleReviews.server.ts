@@ -63,8 +63,8 @@ async function fetchFromGoogle(placeId: string): Promise<ReviewsPayload> {
     }>;
   };
 
-  const reviews: GoogleReview[] = (data.reviews ?? [])
-    .filter((r) => (r.rating ?? 0) >= 4)
+  const reviews: GoogleReview[] = filterReviews(
+    (data.reviews ?? [])
     .map((r) => ({
       author: r.authorAttribution?.displayName ?? "Google User",
       authorUrl: r.authorAttribution?.uri ?? null,
