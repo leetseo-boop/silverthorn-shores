@@ -98,7 +98,7 @@ export async function logMessages(rows: {
       mode: rows.mode,
       model: rows.model ?? null,
     };
-    const payload: Record<string, unknown>[] = [
+    const payload = [
       { ...base, role: "user", content: rows.userText.slice(0, 4000) },
     ];
     if (rows.assistantText) {
@@ -108,7 +108,7 @@ export async function logMessages(rows: {
         content: rows.assistantText.slice(0, 8000),
         latency_ms: rows.latencyMs ?? null,
         handoff: rows.handoff ?? false,
-      });
+      } as (typeof payload)[number]);
     }
     await admin.from("thorn_messages").insert(payload);
   } catch (err) {
