@@ -1,0 +1,202 @@
+// Silverthorn site knowledge for Thorn: every public page, the full fleet with
+// live prices from the same data the site renders, and the on-site FAQs.
+import { houseboats } from "@/data/houseboats";
+import { BOATS } from "@/data/silverthorn-boats";
+import { POLICY_FACTS } from "@/lib/thorn-knowledge";
+import { POLICY_SOURCES } from "@/lib/thorn-sources";
+import type { KEntry } from "./kb-types";
+
+const money = (n: number) =>
+  `$${n.toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
+
+/** Houseboats — specs, layout, amenities, pricing and page FAQs. */
+export const HOUSEBOAT_ENTRIES: KEntry[] = houseboats.map((b) => ({
+  slug: `houseboat-${b.slug}`,
+  type: "houseboat",
+  name: b.name,
+  url: `/houseboats/${b.slug}`,
+  summary: `${b.tagline}. ${b.description}`,
+  highlights: b.highlights,
+  best_for: b.bestFor,
+  layout: `Main deck: ${b.layout.mainDeck} Upper deck: ${b.layout.upperDeck} Sleeping: ${b.layout.sleepingAreas}`,
+  amenities: b.amenities,
+  specs: {
+    sleeps: b.sleeps,
+    beds: b.beds,
+    staterooms: b.staterooms,
+    bathrooms: b.bathrooms,
+    length: b.length,
+    from: money(b.priceFrom),
+    seven_night_low: money(b.pricing.sevenNight.low),
+    seven_night_high: money(b.pricing.sevenNight.high),
+    seven_night_holiday: money(b.pricing.sevenNight.holiday),
+    three_night_low: money(b.extendedPricing.threeNight.low),
+    three_night_high: money(b.extendedPricing.threeNight.high),
+    booking_url: b.bookingUrl,
+  },
+  faqs: b.faqs.map((f) => ({ q: f.question, a: f.answer })),
+}));
+
+/** Small boats — jet skis, patio boats, ski boats, fishing boats. */
+export const SMALL_BOAT_ENTRIES: KEntry[] = BOATS.map((b) => ({
+  slug: `small-boat-${b.slug}`,
+  type: "small_boat",
+  name: b.name,
+  url: `/small-boats/${b.slug}`,
+  summary: `${b.tagline} ${b.intro.join(" ")}`,
+  highlights: b.highlights.map((h) => `${h.title}: ${h.desc}`),
+  specs: {
+    category: b.category,
+    capacity: b.capacity,
+    daily: `${money(b.dailyPrice)} per day`,
+    weekly: `${money(b.weeklyPrice)} per week`,
+    deposit: money(b.deposit),
+    booking_url: `https://rentals.silverthornresort.com/details/${b.bookingId}`,
+  },
+  faqs: [
+    ...b.faqs,
+    { q: `${b.name} rental policies`, a: b.policies.join(" ") },
+    { q: `${b.name} safety requirements`, a: b.safety.join(" ") },
+  ],
+}));
+
+/** Policy facts reused from the policy pages, each carrying its citation page. */
+export const POLICY_ENTRIES: KEntry[] = POLICY_FACTS.map((f) => ({
+  slug: `policy-${f.id}`,
+  type: "page",
+  name: POLICY_SOURCES[f.id]?.label ?? f.id,
+  url: POLICY_SOURCES[f.id]?.href ?? "/faq",
+  summary: f.text,
+}));
+
+/** Every other public page on silverthornresort.com. */
+export const SITE_PAGES: KEntry[] = [
+  {
+    slug: "page-home",
+    type: "page",
+    name: "Silverthorn Resort — home",
+    url: "/",
+    summary:
+      "Family-run resort and marina on the Pit River Arm of Shasta Lake, on the water since 1986 (40 years). Houseboat and cabin rentals, small boat rentals, moorage, pro shop and marina store. 16250 Silverthorn Road, Redding, CA 96003. Reservations 800-332-3044, reserve1@houseboats.com.",
+    highlights: [
+      "Summer Fun Sale: 20% off Queen I and Queen II with code BREAK20 for stays booked July 12 – August 25, 2026",
+      "Marina store open Mon–Sun 8:00 AM – 6:30 PM (seasonal)",
+      "Sister marina: Jones Valley Resort (houseboats.com)",
+    ],
+  },
+  {
+    slug: "page-houseboats",
+    type: "page",
+    name: "Houseboat fleet",
+    url: "/houseboats",
+    summary:
+      "The Silverthorn houseboat fleet: Queen, Queen I, Queen II and Senator. Each page has photos, layout, amenities, 3D tours and season pricing. Rental policies live at /houseboats/policy.",
+  },
+  {
+    slug: "page-compare-queens",
+    type: "page",
+    name: "Queen I vs Queen II comparison",
+    url: "/compare/queens",
+    summary:
+      "Side-by-side comparison of the Queen I and Queen II — capacity, beds, features and low/high season pricing — plus the 20% Summer Fun Sale (code BREAK20) and a book-now link for each boat.",
+  },
+  {
+    slug: "page-cabins",
+    type: "page",
+    name: "Cabins",
+    url: "/cabins",
+    summary:
+      "Lakeside cabins at Silverthorn Resort with availability and booking at rentals.silverthornresort.com/category/15. Cabin rules, deposits, check-in and cancellation are on /cabins/policy.",
+  },
+  {
+    slug: "page-small-boats",
+    type: "page",
+    name: "Small boat rentals",
+    url: "/small-boats",
+    summary:
+      "Patio boats, ski and wake boats, fishing boats and SeaDoo jet skis by the day or week. All rentals are full-day or multi-day — no hourly or half-day rentals. Primary operator must be 21+.",
+  },
+  {
+    slug: "page-moorage",
+    type: "page",
+    name: "Silverthorn moorage and boat slips",
+    url: "/moorage",
+    summary:
+      "Covered and open boat slips at the Silverthorn marina with slip pricing, waiting list information and marina services.",
+  },
+  {
+    slug: "page-pro-shop",
+    type: "page",
+    name: "Pro shop and marina store",
+    url: "/pro-shop",
+    summary:
+      "The marina store carries groceries, ice, drinks, fuel, fishing tackle, apparel and accessories. Hours Mon–Sun 8:00 AM – 6:30 PM (seasonal).",
+  },
+  {
+    slug: "page-guest-info",
+    type: "page",
+    name: "Guest information and documents",
+    url: "/guest-info",
+    summary:
+      "Downloadable houseboat and small boat rental contracts, the houseboat check-in process, cabin documents, cleaning lists and suggested supply lists.",
+  },
+  {
+    slug: "page-pet-policy",
+    type: "page",
+    name: "Pet policy",
+    url: "/pet-policy",
+    summary:
+      "Dogs only, maximum 2 dogs per houseboat or cabin. First dog free, second dog a non-refundable $50.00 before boarding. Excessive cleaning $95.00 per hour, damages at replacement cost. Dogs must be declared at booking, leashed on shore, never left unattended, and are not allowed inside the marina store.",
+  },
+  {
+    slug: "page-planning",
+    type: "page",
+    name: "Planning your vacation",
+    url: "/planning",
+    summary:
+      "Trip planning guide: what to bring, boat rentals, marina market, local phone numbers, grocery and fuel stops, and a link to the pet policy.",
+  },
+  {
+    slug: "page-shasta-lake",
+    type: "page",
+    name: "About Shasta Lake",
+    url: "/shasta-lake",
+    summary:
+      "Shasta Lake overview — California's largest reservoir with 365 miles of shoreline, four main arms (Sacramento, McCloud, Pit and Squaw Creek), fishing, swimming and group trips.",
+  },
+  {
+    slug: "page-exploring",
+    type: "page",
+    name: "Exploring Shasta Lake",
+    url: "/exploring-shasta-lake",
+    summary:
+      "Arm-by-arm guide to Shasta Lake with waterfalls, caverns, coves and landmarks worth a houseboat detour.",
+  },
+  {
+    slug: "page-shasta-vs-powell",
+    type: "page",
+    name: "Shasta Lake vs Lake Powell",
+    url: "/shasta-vs-lake-powell",
+    summary: "Comparison guide for travellers deciding between a Shasta Lake and a Lake Powell houseboat trip.",
+  },
+  {
+    slug: "page-directions",
+    type: "page",
+    name: "Directions",
+    url: "/directions",
+    summary:
+      "Silverthorn Resort is at 16250 Silverthorn Road, Redding, CA 96003, on the Pit River Arm — about 20 minutes from Redding via I-5 exit 687 (Oasis Road) to Bear Mountain Road and Dry Creek Road.",
+  },
+  { slug: "page-contact", type: "page", name: "Contact and reservations", url: "/contact", summary: "Reservations 800-332-3044, reserve1@houseboats.com, contact form and marina address." },
+  { slug: "page-faq", type: "page", name: "Frequently asked questions", url: "/faq", summary: "Answers on booking, pets, deposits, what to bring, licensing, fuel and check-in." },
+  { slug: "page-history", type: "page", name: "Our history", url: "/about/history", summary: "Silverthorn Resort's story on Shasta Lake since 1986 — 40 years of houseboating." },
+  { slug: "page-thorn", type: "page", name: "Meet Thorn", url: "/thorn", summary: "The page about Thorn, the resort dog who has lived at the marina for over ten years and inspired this assistant." },
+  { slug: "page-employment", type: "page", name: "Employment", url: "/employment", summary: "Year-round and seasonal jobs at Silverthorn Resort plus the downloadable application." },
+];
+
+export const SITE_ENTRIES: KEntry[] = [
+  ...SITE_PAGES,
+  ...HOUSEBOAT_ENTRIES,
+  ...SMALL_BOAT_ENTRIES,
+  ...POLICY_ENTRIES,
+];
