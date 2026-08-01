@@ -342,10 +342,10 @@ export function ThornChat() {
           }}
           aria-label="Chat with Thorn, the Silverthorn Resort assistant"
           title={`Chat with Thorn — ${MOOD_STATUS[mood]}`}
-          className="group fixed right-3 z-40 flex items-end gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:right-5"
+          className="group fixed right-3 z-40 flex flex-col-reverse items-end gap-1.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:flex-row sm:items-end sm:gap-2 md:right-5"
           style={{ bottom: "max(1rem, calc(env(safe-area-inset-bottom) + 0.75rem))" }}
         >
-          <span className="hidden rounded-full border border-primary/40 bg-card px-3 py-1.5 text-xs font-semibold text-secondary shadow-md transition-transform group-hover:scale-105 motion-reduce:transition-none sm:inline-block">
+          <span className="whitespace-nowrap rounded-full border border-primary/40 bg-card px-2.5 py-1 text-[11px] font-semibold text-secondary shadow-md transition-transform group-hover:scale-105 motion-reduce:transition-none sm:px-3 sm:py-1.5 sm:text-xs">
             Chat with Thorn 🐾
           </span>
           <img
@@ -368,7 +368,7 @@ export function ThornChat() {
           role="dialog"
           aria-modal="false"
           aria-label="Chat with Thorn, the Silverthorn Resort assistant"
-          className="fixed right-2 left-2 z-50 flex h-[min(78dvh,620px)] max-h-[calc(100dvh-5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
+          className="fixed right-3 left-3 z-50 flex h-[min(72dvh,560px)] max-h-[calc(100dvh-6rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:left-auto sm:right-5 sm:w-[390px]"
           style={{ bottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
           onKeyDown={onPanelKeyDown}
         >
