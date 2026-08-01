@@ -44,7 +44,9 @@ function loadHistory(): Msg[] {
 /** Very small markdown renderer: links, **bold**, phone numbers, line breaks. */
 function renderRich(text: string) {
   const lines = text.split("\n");
-  return lines.map((line, i) => {
+  return lines.map((rawLine, i) => {
+    const bullet = /^\s*[*-]\s+/.test(rawLine);
+    const line = bullet ? rawLine.replace(/^\s*[*-]\s+/, "") : rawLine;
     const parts: React.ReactNode[] = [];
     const rx =
       /(\[[^\]]+\]\([^)\s]+\))|(\*\*[^*]+\*\*)|(https?:\/\/[^\s)]+)|(\/[a-z0-9-]+(?:\/[a-z0-9-]+)*)|(\b\d{3}-\d{3}-\d{4}\b)/gi;
@@ -98,8 +100,9 @@ function renderRich(text: string) {
     }
     if (last < line.length) parts.push(line.slice(last));
     return (
-      <span key={i} className="block">
-        {parts.length ? parts : "\u00A0"}
+      <span key={i} className={bullet ? "flex gap-2 pl-1" : "block"}>
+        {bullet && <span aria-hidden="true" className="text-primary">•</span>}
+        <span>{parts.length ? parts : "\u00A0"}</span>
       </span>
     );
   });
