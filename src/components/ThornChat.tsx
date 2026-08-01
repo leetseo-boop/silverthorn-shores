@@ -138,7 +138,7 @@ function renderRich(text: string) {
 }
 
 const ICON_BTN =
-  "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary";
+  "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-secondary sm:h-11 sm:w-11";
 
 export function ThornChat() {
   const [open, setOpen] = useState(false);
