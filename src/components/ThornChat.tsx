@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { X, Send, RotateCcw, ScrollText, ExternalLink } from "lucide-react";
 import { getConsent } from "@/lib/cookie-consent";
+import { ThornTrace } from "@/components/ThornTrace";
 import { POLICY_SOURCES } from "@/lib/thorn-sources";
 import {
   MOOD_ALT,
@@ -16,6 +17,7 @@ import {
 type Msg = { role: "user" | "assistant"; content: string; sources?: string[] };
 
 const STORAGE_KEY = "thorn-chat-history";
+const SESSION_KEY = "thorn-session-id";
 const MAX_STORED = 30;
 
 const QUICK_ASKS = ["Houseboat rates", "Cabins", "Pet policy", "Directions", "Summer sale"];
@@ -29,6 +31,20 @@ const POLICY_ASKS = [
 
 const FOCUSABLE =
   'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),[tabindex]:not([tabindex="-1"])';
+
+function getSessionId(): string {
+  if (typeof window === "undefined") return "anon";
+  try {
+    let id = window.localStorage.getItem(SESSION_KEY);
+    if (!id) {
+      id = `s_${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
+      window.localStorage.setItem(SESSION_KEY, id);
+    }
+    return id;
+  } catch {
+    return "anon";
+  }
+}
 
 function loadHistory(): Msg[] {
   if (typeof window === "undefined") return [];
@@ -221,9 +237,22 @@ export function ThornChat() {
           body: JSON.stringify({
             messages: next.map(({ role, content }) => ({ role, content })),
             mode: policyMode ? "policy" : "general",
+            sessionId: getSessionId(),
           }),
         });
 
+        if (res.status === 403) {
+          setMessages((m) => [
+            ...m,
+            {
+              role: "assistant",
+              content:
+                "Your access to this site has been revoked after repeated abusive language.",
+            },
+          ]);
+          setMood("upset");
+          return;
+        }
         if (res.status === 429)
           throw new Error("Thorn is getting a lot of belly rubs right now — try again in a minute.");
         if (res.status === 402)
@@ -431,7 +460,18 @@ export function ThornChat() {
               ) : (
                 <div key={i} className="max-w-[95%] space-y-1 text-sm leading-relaxed text-foreground">
                   <span className="sr-only">Thorn said: </span>
-                  {renderRich(m.content)}
+                  {(() => {
+                    const trace = m.content.match(/\[\[TRACE\]\]([^[]*)\[\[\/TRACE\]\]/);
+                    if (!trace) return renderRich(m.content);
+                    const [before, after] = m.content.split(trace[0]);
+                    return (
+                      <>
+                        {renderRich(before)}
+                        <ThornTrace ip={trace[1].trim()} />
+                        {renderRich(after ?? "")}
+                      </>
+                    );
+                  })()}
                   {m.sources && m.sources.length > 0 && (
                     <div className="pt-2">
                       <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
