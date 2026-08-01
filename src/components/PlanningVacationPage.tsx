@@ -392,6 +392,9 @@ export function PlanningVacationPage() {
               <Link to="/houseboats">Book a Houseboat <ArrowRight className="ml-1" /></Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="bg-transparent text-white border-white/40 hover:bg-white hover:text-[var(--navy)]">
+              <Link to="/pet-policy">Bringing a dog? Pet Policy</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="bg-transparent text-white border-white/40 hover:bg-white hover:text-[var(--navy)]">
               <Link to="/contact">Contact Silverthorn</Link>
             </Button>
           </div>

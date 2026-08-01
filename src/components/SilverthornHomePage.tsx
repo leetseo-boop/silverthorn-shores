@@ -149,6 +149,7 @@ const NAV_LINKS = [
       { label: "Explore Shasta Lake", href: "/exploring-shasta-lake" },
       { label: "Planning Guide",      href: "/planning" },
       { label: "Shasta vs Lake Powell", href: "/shasta-vs-lake-powell" },
+      { label: "Pet Policy",          href: "/pet-policy" },
     ],
   },
   {
@@ -948,6 +949,7 @@ export function Footer() {
                   { label: "Our History",    href: "/about/history" },
                   { label: "Shasta Lake",    href: "/shasta-lake" },
                   { label: "Planning Guide", href: "/planning" },
+                  { label: "Pet Policy",     href: "/pet-policy" },
                   { label: "Directions",     href: "/directions" },
                   { label: "FAQ",            href: "/faq" },
                   { label: "Contact",        href: "/contact" },

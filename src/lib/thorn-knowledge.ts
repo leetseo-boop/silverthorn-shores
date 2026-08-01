@@ -51,8 +51,12 @@ export const POLICY_FACTS: PolicyFact[] = [
     text: "Travel insurance is offered and recommended because cancellation penalties are strict; details are on the houseboat policy page.",
   },
   {
+    id: "pet-policy",
+    text: "Pet policy (houseboats and cabins): Silverthorn is pet friendly — dogs only, no cats or exotic pets. Maximum 2 dogs per houseboat; the 1st dog stays free and the 2nd dog is a non-refundable $50.00 paid before occupancy/boarding. Pets must be declared at booking, must be house-trained and well behaved, must never be left unattended on the boat, and must be leashed on shore and at the dock (health ordinances mean no pets inside the marina store). Aggressive breeds or dogs with a bite history are not permitted. Excessive cleaning (pet hair, urine) is charged to the card on file at $95.00 per hour and damages at replacement cost. Tips: bring a pet life jacket, familiar bedding/toys/bowls, shade and plenty of water, a plan for bathroom breaks, a dog ladder or ramp, and vaccination paperwork. The dock and parking area get extremely hot for paws in peak season.",
+  },
+  {
     id: "hb-pets",
-    text: "Silverthorn is pet friendly: one pet at no charge, each additional pet is a non-refundable $35.00 paid before boarding. Excessive cleaning (pet hair, urine) is charged at $25.00 per hour to the card on file; damages are charged at replacement cost.",
+    text: "Houseboats are pet friendly: maximum 2 dogs per boat — the 1st dog stays free and the 2nd dog is a non-refundable $50.00 paid before boarding. Excessive cleaning (pet hair, urine) is $95.00 per hour charged to the card on file; damages at replacement cost.",
   },
 
   // ---------- Cabins ----------
@@ -78,7 +82,7 @@ export const POLICY_FACTS: PolicyFact[] = [
   },
   {
     id: "cab-pets",
-    text: "Cabins are pet friendly: one pet at no charge, each additional pet is a non-refundable $35.00 paid before occupancy. Excessive cleaning is $25.00 per hour; damages at replacement cost.",
+    text: "Cabins are pet friendly: maximum 2 dogs — the 1st dog stays free and the 2nd dog is a non-refundable $50.00 paid before occupancy. Excessive cleaning is $95.00 per hour; damages at replacement cost.",
   },
   {
     id: "cab-smoking",
