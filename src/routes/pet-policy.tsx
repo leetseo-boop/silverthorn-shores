@@ -359,7 +359,6 @@ function PetPolicyPage() {
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
       {/* Hero */}
-      {/* Hero */}
       <section className="relative isolate overflow-hidden" style={{ backgroundColor: NAVY }}>
         <img
           src={heroAsset.url}
