@@ -1,34 +1,22 @@
-## Goal
-When Paula, Keri, or Ryan talk to Thorn, he recognizes them as Silverthorn staff, greets them warmly, says hi to his brother Boatie, and follows the conversation like a friendly coworker.
+## Problem
 
-## Current state (verified)
-- Thorn's staff greetings live in the `thorn_staff_roster` table.
-- `paula` already exists but has a generic greeting.
-- `keri` and `ryan` are not in the roster.
-- Matching already works for first names via `matchStaff()` in `src/lib/thorn/runtime.server.ts`.
+The homepage hero uses a YouTube iframe as a background video. On mobile (especially iOS Safari and Android Chrome with data-saver / low-power mode), the embed loads and shows its first frame but never starts playing. Two things in the current setup make that likely:
 
-## Plan
-1. **Update Paula's row**
-   - Change greeting to: *"Hi Paula! It's so nice to see you here visiting me — thank you! 🐾 Say hi to my brother Boatie for me. Tail's wagging and I'm ready to help!"*
-   - Update tone notes to: coworker/friendly, no guest sales pitch.
+- The iframe is inside a `pointer-events-none` wrapper, so the browser can never register a user gesture on the player — and mobile browsers frequently require one before starting playback, even when muted.
+- The embed is mounted only after `window load` with plain URL params and no player API, so there's no way to detect "not playing" and retry.
 
-2. **Insert Keri's row**
-   - `staff_key`: `keri`
-   - `display_name`: `Keri`
-   - `greeting`: *"Hi Keri! It's so nice to see you here visiting me — thank you! 🐾 Say hi to my brother Boatie for me. Tail's wagging and I'm ready to help!"*
-   - `tone_notes`: friendly coworker tone, follow her lead, no guest sales pitch.
+## Fix
 
-3. **Insert Ryan's row**
-   - `staff_key`: `ryan`
-   - `display_name`: `Ryan`
-   - `greeting`: same pattern as Keri/Paula with Ryan's name.
-   - `tone_notes`: same friendly coworker guidance.
+1. Load the YouTube IFrame Player API and create the hero player through it (instead of a bare `<iframe src>`), keeping the same video, mute, loop, and `playsinline` behavior.
+2. After the player reports ready, explicitly call `mute()` + `playVideo()`. Re-check state shortly after; if it is still not playing, retry once.
+3. Add a one-time gesture fallback: listen for the first `touchstart` / `pointerdown` / `scroll` on the page and call `playVideo()` again, then remove the listeners. This satisfies the mobile gesture requirement without any visible UI change.
+4. Keep the existing static hero image as the background behind the player, so the hero always looks correct whether or not video plays (no layout shift, no LCP regression).
+5. Leave the overlay gradient, promo pill, and all hero content untouched; the player stays non-interactive and `aria-hidden`.
 
-4. **Verify**
-   - Re-query `thorn_staff_roster` to confirm the three names are active with the new greetings.
-   - Run a quick chat test message like "Hi Thorn this is Paula" and confirm Thorn replies with the Boatie greeting.
+## Verification
 
-## Notes
-- No code changes are required; the existing staff-matching logic will pick these up from the database.
-- Staff testers are already exempt from real bans, so the new rows inherit that safety.
-- If any of these staff prefer a different nickname or greeting wording, we can adjust after testing.
+Load the homepage in a mobile-sized Chromium session, wait past load, and confirm the player reports a playing state and the frame advances; also confirm desktop still autoplays and no console errors or horizontal scroll appear.
+
+## Technical notes
+
+Changes are confined to the `Hero` component in `src/components/SilverthornHomePage.tsx` (plus a small API-loader helper). No backend, routing, or SEO changes.
