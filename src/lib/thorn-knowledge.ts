@@ -56,7 +56,7 @@ export const POLICY_FACTS: PolicyFact[] = [
   },
   {
     id: "hb-pets",
-    text: "Houseboats: maximum 2 dogs per boat — 1st dog free, 2nd dog a non-refundable $50.00 before boarding. Excessive cleaning $25.00 is not used; the rate is $95.00 per hour, damages at replacement cost.",
+    text: "Houseboats are pet friendly: maximum 2 dogs per boat — the 1st dog stays free and the 2nd dog is a non-refundable $50.00 paid before boarding. Excessive cleaning (pet hair, urine) is $95.00 per hour charged to the card on file; damages at replacement cost.",
   },
 
   // ---------- Cabins ----------
@@ -82,7 +82,7 @@ export const POLICY_FACTS: PolicyFact[] = [
   },
   {
     id: "cab-pets",
-    text: "Cabins are pet friendly: one pet at no charge, each additional pet is a non-refundable $35.00 paid before occupancy. Excessive cleaning is $25.00 per hour; damages at replacement cost.",
+    text: "Cabins are pet friendly: maximum 2 dogs — the 1st dog stays free and the 2nd dog is a non-refundable $50.00 paid before occupancy. Excessive cleaning is $95.00 per hour; damages at replacement cost.",
   },
   {
     id: "cab-smoking",
