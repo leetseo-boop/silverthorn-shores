@@ -140,7 +140,7 @@ export function ThornAdminPanel() {
         <div className="space-y-3">
           <p className="text-xs text-muted-foreground">
             Thorn drafts these every night at 00:00 PST from questions he couldn't fully answer. Approved
-            facts go straight into his答 knowledge for the next chat.
+            facts go straight into his knowledge for the next chat.
           </p>
           {data.facts.length === 0 && (
             <p className="text-xs text-muted-foreground">Nothing drafted yet.</p>
