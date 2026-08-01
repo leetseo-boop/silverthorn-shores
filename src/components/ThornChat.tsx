@@ -111,10 +111,17 @@ export function ThornChat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const [consentDecided, setConsentDecided] = useState(true);
+
   useEffect(() => {
     setMounted(true);
     setMessages(loadHistory());
+    setConsentDecided(getConsent() !== null);
+    const onConsent = () => setConsentDecided(true);
+    window.addEventListener("str-consent-change", onConsent);
+    return () => window.removeEventListener("str-consent-change", onConsent);
   }, []);
+
 
   useEffect(() => {
     if (!mounted) return;
