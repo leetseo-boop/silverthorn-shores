@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
+  clearStaffTestData,
   deleteFact,
+  deleteSession,
   getThornAdmin,
   setFactApproval,
   unbanIp,
@@ -21,6 +23,7 @@ const TABS: { id: Tab; label: string }[] = [
 export function ThornAdminPanel() {
   const fetchData = useServerFn(getThornAdmin);
   const [tab, setTab] = useState<Tab>("overview");
+  const [hideStaff, setHideStaff] = useState(false);
   const qc = useQueryClient();
   const { data, isLoading, error } = useQuery<ThornAdminData>({
     queryKey: ["thorn-admin"],
@@ -30,6 +33,8 @@ export function ThornAdminPanel() {
   const approve = useServerFn(setFactApproval);
   const remove = useServerFn(deleteFact);
   const lift = useServerFn(unbanIp);
+  const dropSession = useServerFn(deleteSession);
+  const clearStaff = useServerFn(clearStaffTestData);
   const invalidate = () => qc.invalidateQueries({ queryKey: ["thorn-admin"] });
 
   const approveM = useMutation({
@@ -44,6 +49,18 @@ export function ThornAdminPanel() {
     mutationFn: (ipHash: string) => lift({ data: { ipHash } }),
     onSuccess: invalidate,
   });
+  const deleteSessionM = useMutation({
+    mutationFn: (sessionId: string) => dropSession({ data: { sessionId } }),
+    onSuccess: invalidate,
+  });
+  const clearStaffM = useMutation({ mutationFn: () => clearStaff(), onSuccess: invalidate });
+
+  const staffSet = useMemo(() => new Set(data?.staffSessions ?? []), [data?.staffSessions]);
+  const visibleMessages = useMemo(
+    () => (data?.messages ?? []).filter((m) => !hideStaff || !staffSet.has(m.session_id)),
+    [data?.messages, hideStaff, staffSet],
+  );
+
 
   if (isLoading) return <p className="text-sm text-muted-foreground">Loading Thorn data…</p>;
   if (error) return <p className="text-sm text-red-600">{(error as Error).message}</p>;
