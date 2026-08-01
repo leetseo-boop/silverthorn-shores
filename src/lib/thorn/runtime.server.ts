@@ -281,12 +281,22 @@ export async function staffForSession(sessionId: string): Promise<StaffRow | nul
     const admin = await getAdmin();
     const { data } = await admin
       .from("thorn_staff_sessions")
-      .select("staff_key")
+      .select("staff_key, display_name")
       .eq("session_id", sessionId)
       .maybeSingle();
     if (!data?.staff_key) return null;
     const roster = await loadRoster();
-    return roster.find((r) => r.staff_key === data.staff_key) ?? null;
+    const known = roster.find((r) => r.staff_key === data.staff_key);
+    if (known) return known;
+    const display = (data as { display_name?: string }).display_name;
+    if (!display) return null;
+    return {
+      staff_key: data.staff_key,
+      display_name: display,
+      greeting: `Hi ${display}! 🐾 Tail's wagging — I'm here and ready. Let's do this!`,
+      tone_notes: "Coworker tone: friendly, caring, ready for a test. No guest sales pitch.",
+    };
+
   } catch {
     return null;
   }
