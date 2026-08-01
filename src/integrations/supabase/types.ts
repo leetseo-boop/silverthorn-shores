@@ -89,6 +89,219 @@ export type Database = {
         }
         Relationships: []
       }
+      thorn_abuse_events: {
+        Row: {
+          created_at: string
+          id: string
+          ip_hash: string
+          ip_preview: string | null
+          message: string | null
+          offense_no: number
+          session_id: string | null
+          term: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip_hash: string
+          ip_preview?: string | null
+          message?: string | null
+          offense_no?: number
+          session_id?: string | null
+          term?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip_hash?: string
+          ip_preview?: string | null
+          message?: string | null
+          offense_no?: number
+          session_id?: string | null
+          term?: string | null
+        }
+        Relationships: []
+      }
+      thorn_banned_ips: {
+        Row: {
+          banned_at: string
+          ip_hash: string
+          ip_preview: string | null
+          reason: string | null
+        }
+        Insert: {
+          banned_at?: string
+          ip_hash: string
+          ip_preview?: string | null
+          reason?: string | null
+        }
+        Update: {
+          banned_at?: string
+          ip_hash?: string
+          ip_preview?: string | null
+          reason?: string | null
+        }
+        Relationships: []
+      }
+      thorn_knowledge_cache: {
+        Row: {
+          fetched_at: string
+          slug: string
+          snippet: string
+          title: string | null
+          url: string
+        }
+        Insert: {
+          fetched_at?: string
+          slug: string
+          snippet: string
+          title?: string | null
+          url: string
+        }
+        Update: {
+          fetched_at?: string
+          slug?: string
+          snippet?: string
+          title?: string | null
+          url?: string
+        }
+        Relationships: []
+      }
+      thorn_learned_facts: {
+        Row: {
+          answer: string
+          approved: boolean
+          created_at: string
+          hits: number
+          id: string
+          question: string | null
+          source: string | null
+          topic: string
+          updated_at: string
+        }
+        Insert: {
+          answer: string
+          approved?: boolean
+          created_at?: string
+          hits?: number
+          id?: string
+          question?: string | null
+          source?: string | null
+          topic: string
+          updated_at?: string
+        }
+        Update: {
+          answer?: string
+          approved?: boolean
+          created_at?: string
+          hits?: number
+          id?: string
+          question?: string | null
+          source?: string | null
+          topic?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      thorn_messages: {
+        Row: {
+          content: string
+          created_at: string
+          handoff: boolean
+          id: string
+          ip_hash: string | null
+          ip_preview: string | null
+          latency_ms: number | null
+          mode: string | null
+          model: string | null
+          role: string
+          session_id: string
+          tokens_in: number | null
+          tokens_out: number | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          handoff?: boolean
+          id?: string
+          ip_hash?: string | null
+          ip_preview?: string | null
+          latency_ms?: number | null
+          mode?: string | null
+          model?: string | null
+          role: string
+          session_id: string
+          tokens_in?: number | null
+          tokens_out?: number | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          handoff?: boolean
+          id?: string
+          ip_hash?: string | null
+          ip_preview?: string | null
+          latency_ms?: number | null
+          mode?: string | null
+          model?: string | null
+          role?: string
+          session_id?: string
+          tokens_in?: number | null
+          tokens_out?: number | null
+        }
+        Relationships: []
+      }
+      thorn_staff_roster: {
+        Row: {
+          created_at: string
+          display_name: string
+          greeting: string
+          id: string
+          is_active: boolean
+          staff_key: string
+          tone_notes: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          greeting: string
+          id?: string
+          is_active?: boolean
+          staff_key: string
+          tone_notes?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          greeting?: string
+          id?: string
+          is_active?: boolean
+          staff_key?: string
+          tone_notes?: string | null
+        }
+        Relationships: []
+      }
+      thorn_staff_sessions: {
+        Row: {
+          display_name: string | null
+          last_seen_at: string
+          session_id: string
+          staff_key: string | null
+        }
+        Insert: {
+          display_name?: string | null
+          last_seen_at?: string
+          session_id: string
+          staff_key?: string | null
+        }
+        Update: {
+          display_name?: string | null
+          last_seen_at?: string
+          session_id?: string
+          staff_key?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

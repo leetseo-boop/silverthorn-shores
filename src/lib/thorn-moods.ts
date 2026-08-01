@@ -7,6 +7,7 @@ import houseboat from "@/assets/thorn/houseboat.webp.asset.json";
 import lifevest from "@/assets/thorn/lifevest.webp.asset.json";
 import fishing from "@/assets/thorn/fishing.webp.asset.json";
 import sunglasses from "@/assets/thorn/sunglasses.webp.asset.json";
+import upsetImg from "@/assets/thorn/upset.webp";
 
 export type ThornMood =
   | "wave"
@@ -17,7 +18,8 @@ export type ThornMood =
   | "houseboat"
   | "lifevest"
   | "fishing"
-  | "sunglasses";
+  | "sunglasses"
+  | "upset";
 
 export const MOOD_IMAGES: Record<ThornMood, string> = {
   wave: wave.url,
@@ -29,6 +31,7 @@ export const MOOD_IMAGES: Record<ThornMood, string> = {
   lifevest: lifevest.url,
   fishing: fishing.url,
   sunglasses: sunglasses.url,
+  upset: upsetImg,
 };
 
 export const MOOD_ALT: Record<ThornMood, string> = {
@@ -41,6 +44,7 @@ export const MOOD_ALT: Record<ThornMood, string> = {
   lifevest: "Thorn wearing an orange life vest",
   fishing: "Thorn holding a fishing rod on Shasta Lake",
   sunglasses: "Thorn in sunglasses at the Silverthorn marina",
+  upset: "Thorn looking upset, one paw raised to say stop",
 };
 
 /** Short status line announced next to the avatar so the mood isn't colour/art only. */
@@ -54,6 +58,7 @@ export const MOOD_STATUS: Record<ThornMood, string> = {
   lifevest: "Going over the rules",
   fishing: "Talking fishing",
   sunglasses: "Feeling the summer sun",
+  upset: "Not happy",
 };
 
 const MOOD_LIST: ThornMood[] = [
@@ -66,6 +71,7 @@ const MOOD_LIST: ThornMood[] = [
   "lifevest",
   "fishing",
   "sunglasses",
+  "upset",
 ];
 
 const PATTERNS: { mood: ThornMood; rx: RegExp }[] = [

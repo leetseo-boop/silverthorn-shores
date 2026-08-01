@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS thorn_learned_facts_topic_key ON public.thorn_learned_facts (topic);

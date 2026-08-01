@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { getAdminStats, type AdminStats } from "@/lib/admin-stats.functions";
+import { ThornAdminPanel } from "@/components/admin/ThornAdminPanel";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -141,6 +142,8 @@ function Dashboard({ email }: { email: string | null }) {
           <button onClick={signOut} className="text-xs px-3 py-1.5 rounded-md border">Sign out</button>
         </div>
       </header>
+
+      <ThornAdminPanel />
 
       <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Stat label="Today" value={data.totals.today} />

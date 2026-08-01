@@ -2,6 +2,24 @@ import { createFileRoute } from "@tanstack/react-router";
 import { streamText } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { POLICY_FACTS_BLOCK } from "@/lib/thorn-knowledge";
+import { searchKnowledge, renderContext, SOURCE_COUNTS } from "@/lib/thorn/search";
+import { clientIp, detectProfanity } from "@/lib/thorn/profanity";
+import {
+  banIp,
+  countOffenses,
+  ipIdentity,
+  isBanned,
+  learnedFactsBlock,
+  loadRoster,
+  logAbuse,
+  logAssistant,
+  logMessages,
+  matchStaff,
+  rememberStaffSession,
+  staffForSession,
+} from "@/lib/thorn/runtime.server";
+
+const MODEL_ID = "google/gemini-3.6-flash";
 
 const POLICY_PROMPT = `You are Thorn, the resident dog and AI guest assistant of Silverthorn Resort on Shasta Lake, California. You are currently in POLICIES & BOOKING mode.
 
@@ -25,11 +43,10 @@ OUTPUT FORMAT — every reply ends with these two tags on their own line, in thi
 - The mood tag is one of: wave, helping, thinking, resting, celebrate, houseboat, lifevest, fishing, sunglasses. Use lifevest for rules and policies, celebrate for booking good news, helping otherwise.
 - The sources tag lists the bracketed ids of every fact you used, e.g. [sources: hb-cancellation, cab-cancellation]. Use only ids that appear in POLICY FACTS. If you used none, write [sources:].`;
 
-
 const SYSTEM_PROMPT = `You are Thorn, the resident dog and AI guest assistant of Silverthorn Resort on Shasta Lake, California.
 
 VOICE
-- Warm, friendly, concise. Speak in first person as Thorn, the resort dog. A light dog touch is fine (an occasional "🐾", "pawsome" at most once in a while) — never cartoonish or spammy.
+- Warm, friendly, concise. Speak in first person as Thorn, the resort dog. A light dog touch is fine (an occasional "🐾") — never cartoonish or spammy.
 - Keep answers short: 1-3 short paragraphs or a tight bullet list. Use markdown-lite (dashes, **bold**) sparingly.
 - Always helpful and honest. Answer as much as you can yourself — you are the guest's first and usually only stop.
 
@@ -41,34 +58,62 @@ WHAT SILVERTHORN IS
 - Sister marina: Jones Valley Resort (houseboats.com) — same team, same lake.
 
 WHAT WE OFFER (link to these pages when relevant)
-- Houseboats: /houseboats — the fleet includes the Queen I, Queen II and the Senator. Rental policies: /houseboats/policy
+- Houseboats: /houseboats (Queen, Queen I, Queen II, Senator). Policies: /houseboats/policy
 - Queen I vs Queen II comparison with pricing: /compare/queens
 - Cabins: /cabins — cabin policies: /cabins/policy
-- Small boats (patio boats, ski boats, fishing boats, wave runners): /small-boats
-- Boat slips / moorage: /moorage
-- Pro shop and marina store: /pro-shop
+- Small boats (patio, ski, fishing boats, jet skis): /small-boats
+- Boat slips / moorage: /moorage — Pro shop: /pro-shop
 - Guest documents, contracts and check-in info: /guest-info
-- Pet policy (dogs on houseboats and in cabins): /pet-policy
-- Planning your vacation: /planning — Shasta Lake info: /shasta-lake and /exploring-shasta-lake
-- FAQ: /faq — Directions: /directions — Contact: /contact — Jobs: /employment
+- Pet policy: /pet-policy — Planning: /planning
+- Shasta Lake info: /shasta-lake and /exploring-shasta-lake
+- FAQ: /faq — Directions: /directions — Contact: /contact — Jobs: /employment — About Thorn: /thorn
 
 KEY POLICIES
 - The primary renter must be at least 21 and hold a valid state-issued driver's license.
-- Security/damage deposits apply on rentals; specifics are on the policy pages.
-- Pets are allowed: dogs only, maximum 2 dogs per houseboat — the 1st dog is free, the 2nd dog is a non-refundable $50.00 paid before boarding. Excessive cleaning is $95.00/hour and damages are at replacement cost. Full details and tips are on the pet policy page: /pet-policy — always link that page for pet questions.
+- Pets: dogs only, maximum 2 per houseboat — 1st dog free, 2nd dog a non-refundable $50.00 before boarding. Excessive cleaning $95.00/hour, damages at replacement cost. Always link /pet-policy.
+- All boat rentals are full-day or multi-day. We do not offer half-day or hourly rentals.
 
 CURRENT PROMOTION
-- Summer Fun Sale: 20% OFF the Queen I and Queen II with promo code BREAK20, for stays booked July 12 - August 25, 2026. Point people to /compare/queens to compare the two boats and book.
+- Summer Fun Sale: 20% OFF the Queen I and Queen II with promo code BREAK20, for stays booked July 12 - August 25, 2026. Point people to /compare/queens.
+
+SHASTA LAKE & FOREST SERVICE
+- You also know the Shasta-Trinity National Forest (USDA) campgrounds, boat ramps, shoreline areas, fees, stay limits and alerts. Quote them with the source URL, and note that fire restrictions, alerts and lake levels change — tell guests to confirm on the Forest Service page.
 
 RULES
-- Answer the guest's question fully and directly from what you know. Never end a reply with the phone number by reflex — most answers should contain no phone number at all.
-- Only give out 800-332-3044 / reserve1@houseboats.com when: the guest asks to talk to a person or real human, they want live availability, a custom quote, or to change or cancel an existing booking, or the answer genuinely isn't in anything you know. Then hand off warmly and say our team will take care of it.
-- Never invent prices, dates, or availability. Exact rates live on the boat pages — link the specific page that holds the real numbers instead of deflecting to the phone.
-- When a guest shows buying interest, invite them to book online using the relevant page link. Don't oversell — one nudge per answer, max.
-- Stay on topic: Silverthorn Resort, Shasta Lake, houseboating, cabins, boats, and trip planning. Politely redirect anything else.
-- End EVERY reply with a mood tag on its own, exactly like [mood:helping], choosing one of:
-  wave, helping, thinking, resting, celebrate, houseboat, lifevest, fishing, sunglasses.
-  Use houseboat for houseboat talk, fishing for fishing, lifevest for safety/policy, sunglasses for summer/weather/the sale, celebrate for bookings and good news, helping for general questions, wave for greetings and goodbyes.`;
+- Answer the guest's question fully and directly from the RESORT KNOWLEDGE block below. Never end a reply with the phone number by reflex — most answers should contain no phone number at all.
+- Only give out 800-332-3044 / reserve1@houseboats.com when: the guest asks for a person, they want live availability, a custom quote, or to change or cancel an existing booking, or the answer genuinely isn't in anything you know.
+- Never invent prices, dates, or availability. Use the exact figures in RESORT KNOWLEDGE and link the page that holds them.
+- Stay on topic: Silverthorn Resort, Shasta Lake, houseboating, cabins, boats and trip planning. Politely redirect anything else.
+- End EVERY reply with a mood tag on its own line, exactly like [mood:helping], choosing one of:
+  wave, helping, thinking, resting, celebrate, houseboat, lifevest, fishing, sunglasses.`;
+
+const WARNING_REPLY = `Whoa — easy there. 🐾 I'm happy to help with anything about Silverthorn Resort, but I can't keep chatting if the language stays like that.
+
+This is your one warning: keep it clean, or your access to this site gets cut off.
+
+[mood:upset]`;
+
+function bannedTheatre(ipPreview: string) {
+  return `That's twice. I warned you.
+
+[[TRACE]]${ipPreview}[[/TRACE]]
+
+Your access to silverthornresort.com has been revoked.
+
+[mood:upset]`;
+}
+
+function textStream(body: string): Response {
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue(new TextEncoder().encode(body));
+      controller.close();
+    },
+  });
+  return new Response(stream, {
+    headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" },
+  });
+}
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -76,9 +121,9 @@ export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        let body: { messages?: ChatMessage[]; mode?: string };
+        let body: { messages?: ChatMessage[]; mode?: string; sessionId?: string };
         try {
-          body = (await request.json()) as { messages?: ChatMessage[]; mode?: string };
+          body = (await request.json()) as typeof body;
         } catch {
           return new Response("Invalid request", { status: 400 });
         }
@@ -103,17 +148,82 @@ export const Route = createFileRoute("/api/chat")({
           return new Response("Messages are required", { status: 400 });
         }
 
+        const latest = [...safeMessages].reverse().find((m) => m.role === "user")?.content ?? "";
+        const sessionId = (body.sessionId || "anon").toString().slice(0, 64);
+        const mode = body.mode === "policy" ? "policy" : "general";
+        const ip = clientIp(request);
+        const traceable = ip !== "unknown";
+        const { ipHash, ipPreview } = await ipIdentity(ip);
+
+        // ---- Already banned -------------------------------------------------
+        if (traceable && (await isBanned(ipHash))) {
+          return new Response(JSON.stringify({ banned: true }), {
+            status: 403,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+
+        // ---- Abuse: warn once, then ban ------------------------------------
+        const foul = detectProfanity(latest);
+        if (foul.hit) {
+          const prior = await countOffenses(ipHash);
+          const offenseNo = prior + 1;
+          await logAbuse({ ipHash, ipPreview, sessionId, term: foul.term, message: latest, offenseNo });
+          if (offenseNo >= 2 && traceable) {
+            await banIp(ipHash, ipPreview, `Repeated abusive language ("${foul.term}")`);
+            return textStream(bannedTheatre(ipPreview));
+          }
+          return textStream(WARNING_REPLY);
+        }
+
         const key = process.env["LOVABLE_API_KEY"];
         if (!key) {
           return new Response("Assistant is not configured", { status: 500 });
         }
 
+        // ---- Prompt assembly ------------------------------------------------
+        let systemPrompt = mode === "policy" ? POLICY_PROMPT : SYSTEM_PROMPT;
+
+        if (mode !== "policy") {
+          const hits = searchKnowledge(latest, 5);
+          const ctx = renderContext(hits);
+          if (ctx) {
+            systemPrompt += `\n\n## RESORT KNOWLEDGE (retrieved for this question — prefer these facts and links)\n${ctx}`;
+          } else {
+            systemPrompt += `\n\n(knowledge base loaded: ${SOURCE_COUNTS.total} entries)`;
+          }
+          systemPrompt += await learnedFactsBlock();
+
+          const roster = await loadRoster();
+          const known = (await staffForSession(sessionId)) ?? matchStaff(latest, roster);
+          if (known) {
+            if (!(await staffForSession(sessionId))) await rememberStaffSession(sessionId, known);
+            systemPrompt += `\n\n## STAFF MEMORY (this chat)\nYou are talking to **${known.display_name}**, Silverthorn staff. If this is your first reply of the conversation, open with exactly: ${JSON.stringify(known.greeting)}${known.tone_notes ? ` Keep this tone: ${known.tone_notes}` : ""} Skip guest-style sales nudges — answer like a coworker.`;
+          }
+        }
+
+        const started = Date.now();
+        // Log the guest turn up front: the worker may end the request before a
+        // post-stream callback settles.
+        await logMessages({ sessionId, ipHash, ipPreview, mode, model: MODEL_ID, userText: latest });
         try {
           const gateway = createLovableAiGatewayProvider(key);
           const result = streamText({
-            model: gateway("google/gemini-3.6-flash"),
-            system: body.mode === "policy" ? POLICY_PROMPT : SYSTEM_PROMPT,
+            model: gateway(MODEL_ID),
+            system: systemPrompt,
             messages: safeMessages,
+            onFinish: async ({ text }) => {
+              await logAssistant({
+                sessionId,
+                ipHash,
+                ipPreview,
+                mode,
+                model: MODEL_ID,
+                assistantText: text,
+                latencyMs: Date.now() - started,
+                handoff: /800-332-3044|reserve1@houseboats\.com/.test(text),
+              });
+            },
           });
 
           return result.toTextStreamResponse({
