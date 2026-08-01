@@ -22,13 +22,20 @@ export async function ipIdentity(ip: string) {
 
 /* ------------------------------ bans ------------------------------ */
 
+/** Bans expire on their own so a shared/rotating IP isn't blocked forever. */
+export const BAN_TTL_DAYS = 30;
+
 let banCache: { fetched: number; set: Set<string> } | null = null;
 
 export async function loadBannedHashes(force = false): Promise<Set<string>> {
   if (!force && banCache && Date.now() - banCache.fetched < 60_000) return banCache.set;
   try {
     const admin = await getAdmin();
-    const { data } = await admin.from("thorn_banned_ips").select("ip_hash");
+    const cutoff = new Date(Date.now() - BAN_TTL_DAYS * 86_400_000).toISOString();
+    const { data } = await admin
+      .from("thorn_banned_ips")
+      .select("ip_hash, banned_at")
+      .gte("banned_at", cutoff);
     const set = new Set((data ?? []).map((r: { ip_hash: string }) => r.ip_hash));
     banCache = { fetched: Date.now(), set };
     return set;
@@ -43,9 +50,25 @@ export async function isBanned(ipHash: string): Promise<boolean> {
 
 export async function banIp(ipHash: string, ipPreview: string, reason: string) {
   const admin = await getAdmin();
-  await admin.from("thorn_banned_ips").upsert({ ip_hash: ipHash, ip_preview: ipPreview, reason });
+  await admin
+    .from("thorn_banned_ips")
+    .upsert({ ip_hash: ipHash, ip_preview: ipPreview, reason, banned_at: new Date().toISOString() });
   banCache = null;
 }
+
+/**
+ * Staff and allow-listed office IPs can exercise the abuse flow (warning +
+ * trace theatre) without ever writing a real, site-wide ban.
+ */
+export function isBanExempt(ip: string): boolean {
+  const raw = process.env["THORN_BAN_ALLOWLIST"] || "";
+  return raw
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .includes(ip);
+}
+
 
 /** Count prior offenses for this IP so we can warn once, then ban. */
 export async function countOffenses(ipHash: string): Promise<number> {
