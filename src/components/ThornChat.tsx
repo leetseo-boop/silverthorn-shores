@@ -204,7 +204,7 @@ export function ThornChat() {
     [loading, messages],
   );
 
-  if (!mounted) return null;
+  if (!mounted || (!consentDecided && !open)) return null;
 
   return (
     <>
