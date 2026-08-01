@@ -19,6 +19,20 @@ function publicSupabase() {
   });
 }
 
+// Only 5-star reviews published within the last 5 months, newest first.
+const MAX_AGE_MS = 5 * 30 * 24 * 60 * 60 * 1000;
+
+function filterReviews(reviews: GoogleReview[]): GoogleReview[] {
+  const cutoff = Date.now() - MAX_AGE_MS;
+  return reviews
+    .filter((r) => r.rating === 5)
+    .filter((r) => {
+      const t = r.publishTime ? Date.parse(r.publishTime) : NaN;
+      return Number.isNaN(t) ? false : t >= cutoff;
+    })
+    .sort((a, b) => Date.parse(b.publishTime) - Date.parse(a.publishTime));
+}
+
 async function fetchFromGoogle(placeId: string): Promise<ReviewsPayload> {
   const lovableKey = process.env.LOVABLE_API_KEY;
   const mapsKey = process.env.GOOGLE_MAPS_API_KEY;
@@ -63,8 +77,8 @@ async function fetchFromGoogle(placeId: string): Promise<ReviewsPayload> {
     }>;
   };
 
-  const reviews: GoogleReview[] = (data.reviews ?? [])
-    .filter((r) => (r.rating ?? 0) >= 4)
+  const reviews: GoogleReview[] = filterReviews(
+    (data.reviews ?? [])
     .map((r) => ({
       author: r.authorAttribution?.displayName ?? "Google User",
       authorUrl: r.authorAttribution?.uri ?? null,
@@ -75,7 +89,8 @@ async function fetchFromGoogle(placeId: string): Promise<ReviewsPayload> {
       publishTime: r.publishTime ?? "",
       googleMapsUri: r.googleMapsUri ?? null,
     }))
-    .filter((r) => r.text.length > 0);
+      .filter((r) => r.text.length > 0),
+  );
 
   return {
     reviews,
@@ -96,12 +111,15 @@ export async function getGoogleReviewsPayload(): Promise<ReviewsPayload> {
 
     if (error) throw error;
     if (data && Array.isArray(data.reviews) && data.reviews.length > 0) {
-      return {
-        reviews: data.reviews as unknown as GoogleReview[],
-        rating: data.rating ? Number(data.rating) : null,
-        totalReviews: data.user_ratings_total ?? null,
-        placeId: data.place_id,
-      };
+      const cached = filterReviews(data.reviews as unknown as GoogleReview[]);
+      if (cached.length > 0) {
+        return {
+          reviews: cached,
+          rating: data.rating ? Number(data.rating) : null,
+          totalReviews: data.user_ratings_total ?? null,
+          placeId: data.place_id,
+        };
+      }
     }
   } catch (err) {
     console.error("[getGoogleReviewsPayload] cache read failed:", err);
