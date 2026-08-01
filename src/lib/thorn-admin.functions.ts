@@ -128,10 +128,17 @@ export const getThornAdmin = createServerFn({ method: "GET" })
     };
   });
 
+
+async function assertAdmin(supabase: any, userId: string) {
+  const { data } = await supabase.from("admin_users").select("user_id").eq("user_id", userId).maybeSingle();
+  if (!data) throw new Error("Not authorized");
+}
+
 export const setFactApproval = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string; approved: boolean; answer?: string }) => data)
   .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
     const { error } = await context.supabase
       .from("thorn_learned_facts")
       .update({
@@ -148,6 +155,7 @@ export const deleteFact = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => data)
   .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
     const { error } = await context.supabase.from("thorn_learned_facts").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -157,6 +165,7 @@ export const unbanIp = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { ipHash: string }) => data)
   .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
     const { error } = await context.supabase
       .from("thorn_banned_ips")
       .delete()
