@@ -185,6 +185,7 @@ export const Route = createFileRoute("/api/chat")({
 
         // ---- Prompt assembly ------------------------------------------------
         let systemPrompt = mode === "policy" ? POLICY_PROMPT : SYSTEM_PROMPT;
+        systemPrompt += await conditionsBlock();
 
         if (mode !== "policy") {
           const hits = searchKnowledge(latest, 5);
