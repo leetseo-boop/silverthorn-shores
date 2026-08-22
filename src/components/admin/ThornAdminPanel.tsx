@@ -54,6 +54,11 @@ export function ThornAdminPanel() {
     onSuccess: invalidate,
   });
   const clearStaffM = useMutation({ mutationFn: () => clearStaff(), onSuccess: invalidate });
+  const upsertM = useMutation({
+    mutationFn: (v: FactDraft) => saveFact({ data: v }),
+    onSuccess: invalidate,
+  });
+
 
   const staffSet = useMemo(() => new Set(data?.staffSessions ?? []), [data?.staffSessions]);
   const visibleMessages = useMemo(
