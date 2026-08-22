@@ -8,8 +8,13 @@ import {
   getThornAdmin,
   setFactApproval,
   unbanIp,
+  upsertFact,
+  type LearnedFact,
   type ThornAdminData,
+  type UnansweredQuestion,
 } from "@/lib/thorn-admin.functions";
+
+type FactDraft = { id?: string; topic: string; question?: string; answer: string; approved?: boolean };
 
 type Tab = "overview" | "transcripts" | "knowledge" | "abuse";
 
@@ -19,6 +24,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "knowledge", label: "Knowledge" },
   { id: "abuse", label: "Abuse & bans" },
 ];
+
 
 export function ThornAdminPanel() {
   const fetchData = useServerFn(getThornAdmin);
