@@ -41,6 +41,8 @@ export function ThornAdminPanel() {
   const lift = useServerFn(unbanIp);
   const dropSession = useServerFn(deleteSession);
   const clearStaff = useServerFn(clearStaffTestData);
+  const saveFact = useServerFn(upsertFact);
+
   const invalidate = () => qc.invalidateQueries({ queryKey: ["thorn-admin"] });
 
   const approveM = useMutation({
