@@ -191,47 +191,16 @@ export function ThornAdminPanel() {
 
 
       {tab === "knowledge" && (
-        <div className="space-y-3">
-          <p className="text-xs text-muted-foreground">
-            Thorn drafts these every night at 00:00 PST from questions he couldn't fully answer. Approved
-            facts go straight into his knowledge for the next chat.
-          </p>
-          {data.facts.length === 0 && (
-            <p className="text-xs text-muted-foreground">Nothing drafted yet.</p>
-          )}
-          {data.facts.map((f) => (
-            <div key={f.id} className="rounded-lg border bg-card p-4 text-xs">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="font-semibold text-sm">{f.topic}</span>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                    f.approved ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"
-                  }`}
-                >
-                  {f.approved ? "Approved" : "Pending"}
-                </span>
-                {f.hits ? <span className="text-muted-foreground">{f.hits} asks</span> : null}
-              </div>
-              {f.question && <p className="mt-2 text-muted-foreground">Q: {f.question}</p>}
-              <p className="mt-1">{f.answer}</p>
-              <div className="mt-3 flex gap-2">
-                <button
-                  onClick={() => approveM.mutate({ id: f.id, approved: !f.approved })}
-                  className="rounded-md border px-2.5 py-1 font-medium hover:bg-muted"
-                >
-                  {f.approved ? "Unapprove" : "Approve"}
-                </button>
-                <button
-                  onClick={() => deleteM.mutate(f.id)}
-                  className="rounded-md border px-2.5 py-1 font-medium text-destructive hover:bg-destructive/10"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <KnowledgeTab
+          facts={data.facts}
+          unanswered={data.unanswered ?? []}
+          onApprove={(id, approved) => approveM.mutate({ id, approved })}
+          onDelete={(id) => deleteM.mutate(id)}
+          onSave={(v) => upsertM.mutate(v)}
+          saving={upsertM.isPending}
+        />
       )}
+
 
       {tab === "abuse" && (
         <div className="grid gap-6 md:grid-cols-2">
