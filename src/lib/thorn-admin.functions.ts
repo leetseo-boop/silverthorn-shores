@@ -118,6 +118,33 @@ export const getThornAdmin = createServerFn({ method: "GET" })
       questionTally.set(key, (questionTally.get(key) ?? 0) + 1);
     }
 
+    // Questions Thorn couldn't fully answer: user turns immediately followed by a
+    // hand-off reply or an "I don't know / call the team" style answer (last 7 days).
+    const weekAgo = Date.now() - 7 * 86_400_000;
+    const asc = [...messages]
+      .filter((m) => new Date(m.created_at).getTime() >= weekAgo)
+      .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+    const UNSURE = /(i'?m not sure|i don'?t know|not certain|can'?t confirm|give (us|our team) a call|call (us|our team)|reach out to our team|800-332-3044)/i;
+    const staffIds = new Set((staffRes.data ?? []).map((s: { session_id: string }) => s.session_id));
+    const unansweredMap = new Map<string, UnansweredQuestion>();
+    for (let i = 0; i < asc.length; i++) {
+      const m = asc[i]!;
+      if (m.role !== "assistant") continue;
+      if (!m.handoff && !UNSURE.test(m.content)) continue;
+      if (staffIds.has(m.session_id)) continue;
+      for (let j = i - 1; j >= 0; j--) {
+        const prev = asc[j]!;
+        if (prev.session_id !== m.session_id) continue;
+        if (prev.role !== "user") continue;
+        const q = prev.content.trim().slice(0, 300);
+        const key = q.toLowerCase();
+        if (q && !unansweredMap.has(key)) {
+          unansweredMap.set(key, { question: q, created_at: prev.created_at, session_id: prev.session_id });
+        }
+        break;
+      }
+    }
+
     return {
       isAdmin: true,
       totals: {
@@ -136,8 +163,11 @@ export const getThornAdmin = createServerFn({ method: "GET" })
       abuse: (abuseRes.data ?? []) as AbuseEvent[],
       bans: (banRes.data ?? []) as BannedIp[],
       staffSessions: (staffRes.data ?? []).map((s: { session_id: string }) => s.session_id),
-
+      unanswered: Array.from(unansweredMap.values())
+        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+        .slice(0, 25),
     };
+
   });
 
 
