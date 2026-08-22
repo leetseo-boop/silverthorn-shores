@@ -247,3 +247,33 @@ export const clearStaffTestData = createServerFn({ method: "POST" })
     return { ok: true, cleared: ids.length };
   });
 
+
+/** Staff-authored knowledge: create a new approved fact, or edit an existing one. */
+export const upsertFact = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id?: string; topic: string; question?: string; answer: string; approved?: boolean }) => data)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const topic = data.topic.trim().slice(0, 120);
+    const answer = data.answer.trim().slice(0, 2000);
+    if (!topic || !answer) throw new Error("Topic and answer are required");
+    const question = data.question?.trim().slice(0, 300) || null;
+    const approved = data.approved ?? true;
+
+    if (data.id) {
+      const { error } = await context.supabase
+        .from("thorn_learned_facts")
+        .update({ topic, question, answer, approved, source: "staff", updated_at: new Date().toISOString() })
+        .eq("id", data.id);
+      if (error) throw new Error(error.message);
+      return { ok: true, id: data.id };
+    }
+
+    const { data: row, error } = await context.supabase
+      .from("thorn_learned_facts")
+      .insert({ topic, question, answer, approved, source: "staff" })
+      .select("id")
+      .single();
+    if (error) throw new Error(error.message);
+    return { ok: true, id: row?.id as string };
+  });
