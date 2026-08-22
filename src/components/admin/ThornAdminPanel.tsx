@@ -8,8 +8,13 @@ import {
   getThornAdmin,
   setFactApproval,
   unbanIp,
+  upsertFact,
+  type LearnedFact,
   type ThornAdminData,
+  type UnansweredQuestion,
 } from "@/lib/thorn-admin.functions";
+
+type FactDraft = { id?: string; topic: string; question?: string; answer: string; approved?: boolean };
 
 type Tab = "overview" | "transcripts" | "knowledge" | "abuse";
 
@@ -19,6 +24,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "knowledge", label: "Knowledge" },
   { id: "abuse", label: "Abuse & bans" },
 ];
+
 
 export function ThornAdminPanel() {
   const fetchData = useServerFn(getThornAdmin);
@@ -35,6 +41,8 @@ export function ThornAdminPanel() {
   const lift = useServerFn(unbanIp);
   const dropSession = useServerFn(deleteSession);
   const clearStaff = useServerFn(clearStaffTestData);
+  const saveFact = useServerFn(upsertFact);
+
   const invalidate = () => qc.invalidateQueries({ queryKey: ["thorn-admin"] });
 
   const approveM = useMutation({
@@ -54,6 +62,11 @@ export function ThornAdminPanel() {
     onSuccess: invalidate,
   });
   const clearStaffM = useMutation({ mutationFn: () => clearStaff(), onSuccess: invalidate });
+  const upsertM = useMutation({
+    mutationFn: (v: FactDraft) => saveFact({ data: v }),
+    onSuccess: invalidate,
+  });
+
 
   const staffSet = useMemo(() => new Set(data?.staffSessions ?? []), [data?.staffSessions]);
   const visibleMessages = useMemo(
@@ -191,47 +204,16 @@ export function ThornAdminPanel() {
 
 
       {tab === "knowledge" && (
-        <div className="space-y-3">
-          <p className="text-xs text-muted-foreground">
-            Thorn drafts these every night at 00:00 PST from questions he couldn't fully answer. Approved
-            facts go straight into his knowledge for the next chat.
-          </p>
-          {data.facts.length === 0 && (
-            <p className="text-xs text-muted-foreground">Nothing drafted yet.</p>
-          )}
-          {data.facts.map((f) => (
-            <div key={f.id} className="rounded-lg border bg-card p-4 text-xs">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="font-semibold text-sm">{f.topic}</span>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                    f.approved ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"
-                  }`}
-                >
-                  {f.approved ? "Approved" : "Pending"}
-                </span>
-                {f.hits ? <span className="text-muted-foreground">{f.hits} asks</span> : null}
-              </div>
-              {f.question && <p className="mt-2 text-muted-foreground">Q: {f.question}</p>}
-              <p className="mt-1">{f.answer}</p>
-              <div className="mt-3 flex gap-2">
-                <button
-                  onClick={() => approveM.mutate({ id: f.id, approved: !f.approved })}
-                  className="rounded-md border px-2.5 py-1 font-medium hover:bg-muted"
-                >
-                  {f.approved ? "Unapprove" : "Approve"}
-                </button>
-                <button
-                  onClick={() => deleteM.mutate(f.id)}
-                  className="rounded-md border px-2.5 py-1 font-medium text-destructive hover:bg-destructive/10"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <KnowledgeTab
+          facts={data.facts}
+          unanswered={data.unanswered ?? []}
+          onApprove={(id, approved) => approveM.mutate({ id, approved })}
+          onDelete={(id) => deleteM.mutate(id)}
+          onSave={(v) => upsertM.mutate(v)}
+          saving={upsertM.isPending}
+        />
       )}
+
 
       {tab === "abuse" && (
         <div className="grid gap-6 md:grid-cols-2">
@@ -292,6 +274,229 @@ function Stat({ label, value }: { label: string; value: number | string }) {
     <div className="rounded-lg border bg-card p-4">
       <div className="text-xs text-muted-foreground">{label}</div>
       <div className="mt-1 text-2xl font-bold">{value}</div>
+    </div>
+  );
+}
+
+type Filter = "all" | "pending" | "approved";
+
+function KnowledgeTab({
+  facts,
+  unanswered,
+  onApprove,
+  onDelete,
+  onSave,
+  saving,
+}: {
+  facts: LearnedFact[];
+  unanswered: UnansweredQuestion[];
+  onApprove: (id: string, approved: boolean) => void;
+  onDelete: (id: string) => void;
+  onSave: (v: FactDraft) => void;
+  saving: boolean;
+}) {
+  const [filter, setFilter] = useState<Filter>("all");
+  const [editing, setEditing] = useState<string | null>(null);
+  const [draftAnswer, setDraftAnswer] = useState("");
+  const [showAdd, setShowAdd] = useState(false);
+  const [newFact, setNewFact] = useState<FactDraft>({ topic: "", question: "", answer: "" });
+
+  const pendingCount = facts.filter((f) => !f.approved).length;
+  const visible = facts.filter((f) =>
+    filter === "all" ? true : filter === "pending" ? !f.approved : !!f.approved,
+  );
+
+  const startAnswer = (question: string) => {
+    setNewFact({ topic: question.slice(0, 60), question, answer: "" });
+    setShowAdd(true);
+    requestAnimationFrame(() =>
+      document.getElementById("thorn-add-answer")?.scrollIntoView({ behavior: "smooth", block: "center" }),
+    );
+  };
+
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-muted-foreground">
+        Thorn drafts answers every night at 00:00 PST from questions he couldn&apos;t fully answer. Anything
+        marked <strong>Needs your answer</strong> is waiting on you — edit the answer, then approve it and
+        Thorn uses your wording from the next chat on.
+      </p>
+
+      {/* Add / staff-authored knowledge */}
+      <div className="rounded-lg border bg-card p-4" id="thorn-add-answer">
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="text-sm font-semibold">Teach Thorn something</h3>
+          <button
+            onClick={() => setShowAdd((v) => !v)}
+            className="rounded-md border px-2.5 py-1 text-xs font-medium hover:bg-muted"
+          >
+            {showAdd ? "Close" : "Add knowledge"}
+          </button>
+        </div>
+        {showAdd && (
+          <div className="mt-3 space-y-2">
+            <input
+              value={newFact.topic}
+              onChange={(e) => setNewFact({ ...newFact, topic: e.target.value })}
+              placeholder="Topic (e.g. Late check-out)"
+              className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+            />
+            <input
+              value={newFact.question ?? ""}
+              onChange={(e) => setNewFact({ ...newFact, question: e.target.value })}
+              placeholder="Guest question (optional)"
+              className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+            />
+            <textarea
+              value={newFact.answer}
+              onChange={(e) => setNewFact({ ...newFact, answer: e.target.value })}
+              rows={4}
+              placeholder="The answer Thorn should give…"
+              className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+            />
+            <button
+              disabled={saving || !newFact.topic.trim() || !newFact.answer.trim()}
+              onClick={() => {
+                onSave({ ...newFact, approved: true });
+                setNewFact({ topic: "", question: "", answer: "" });
+                setShowAdd(false);
+              }}
+              className="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground disabled:opacity-50"
+            >
+              {saving ? "Saving…" : "Save & approve"}
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Questions Thorn couldn't answer */}
+      {unanswered.length > 0 && (
+        <div className="rounded-lg border bg-card p-4">
+          <h3 className="mb-2 text-sm font-semibold">Guest questions Thorn couldn&apos;t answer (7 days)</h3>
+          <ul className="space-y-1.5 text-xs">
+            {unanswered.map((u) => (
+              <li key={u.created_at + u.question} className="flex items-start justify-between gap-3">
+                <span className="min-w-0 flex-1">{u.question}</span>
+                <button
+                  onClick={() => startAnswer(u.question)}
+                  className="shrink-0 rounded-md border px-2 py-0.5 font-medium hover:bg-muted"
+                >
+                  Answer this
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Filters */}
+      <div className="flex flex-wrap gap-2">
+        {(
+          [
+            ["all", `All (${facts.length})`],
+            ["pending", `Needs your answer (${pendingCount})`],
+            ["approved", `Approved (${facts.length - pendingCount})`],
+          ] as [Filter, string][]
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            onClick={() => setFilter(id)}
+            className={`rounded-full border px-3 py-1 text-[11px] font-medium ${
+              filter === id ? "bg-primary text-primary-foreground border-primary" : "bg-card hover:bg-muted"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {visible.length === 0 && <p className="text-xs text-muted-foreground">Nothing here yet.</p>}
+
+      {visible.map((f) => (
+        <div key={f.id} className="rounded-lg border bg-card p-4 text-xs">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-sm font-semibold">{f.topic}</span>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                f.approved ? "bg-primary/15 text-primary" : "bg-amber-500/15 text-amber-700"
+              }`}
+            >
+              {f.approved ? "Approved" : "Needs your answer"}
+            </span>
+            {f.hits ? <span className="text-muted-foreground">{f.hits} asks</span> : null}
+            {f.source === "staff" && (
+              <span className="rounded-full bg-muted px-2 py-0.5 text-[10px]">staff-written</span>
+            )}
+          </div>
+          {f.question && <p className="mt-2 text-muted-foreground">Q: {f.question}</p>}
+
+          {editing === f.id ? (
+            <div className="mt-2 space-y-2">
+              <textarea
+                value={draftAnswer}
+                onChange={(e) => setDraftAnswer(e.target.value)}
+                rows={5}
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+              <div className="flex flex-wrap gap-2">
+                <button
+                  disabled={saving || !draftAnswer.trim()}
+                  onClick={() => {
+                    onSave({ id: f.id, topic: f.topic, question: f.question ?? "", answer: draftAnswer, approved: !!f.approved });
+                    setEditing(null);
+                  }}
+                  className="rounded-md border px-2.5 py-1 font-medium hover:bg-muted disabled:opacity-50"
+                >
+                  Save
+                </button>
+                <button
+                  disabled={saving || !draftAnswer.trim()}
+                  onClick={() => {
+                    onSave({ id: f.id, topic: f.topic, question: f.question ?? "", answer: draftAnswer, approved: true });
+                    setEditing(null);
+                  }}
+                  className="rounded-md bg-primary px-2.5 py-1 font-semibold text-primary-foreground disabled:opacity-50"
+                >
+                  Save &amp; approve
+                </button>
+                <button
+                  onClick={() => setEditing(null)}
+                  className="rounded-md border px-2.5 py-1 font-medium hover:bg-muted"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <p className="mt-1 whitespace-pre-wrap">{f.answer}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  onClick={() => {
+                    setEditing(f.id);
+                    setDraftAnswer(f.answer);
+                  }}
+                  className="rounded-md border px-2.5 py-1 font-medium hover:bg-muted"
+                >
+                  Edit answer
+                </button>
+                <button
+                  onClick={() => onApprove(f.id, !f.approved)}
+                  className="rounded-md border px-2.5 py-1 font-medium hover:bg-muted"
+                >
+                  {f.approved ? "Unapprove" : "Approve"}
+                </button>
+                <button
+                  onClick={() => onDelete(f.id)}
+                  className="rounded-md border px-2.5 py-1 font-medium text-destructive hover:bg-destructive/10"
+                >
+                  Delete
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
