@@ -40,6 +40,8 @@ export type BannedIp = {
   banned_at: string;
 };
 
+export type UnansweredQuestion = { question: string; created_at: string; session_id: string };
+
 export type ThornAdminData = {
   isAdmin: boolean;
   totals: { messages24h: number; sessions24h: number; handoffs24h: number; avgLatencyMs: number };
@@ -49,6 +51,7 @@ export type ThornAdminData = {
   abuse: AbuseEvent[];
   bans: BannedIp[];
   staffSessions: string[];
+  unanswered: UnansweredQuestion[];
 };
 
 const EMPTY: ThornAdminData = {
@@ -60,7 +63,9 @@ const EMPTY: ThornAdminData = {
   abuse: [],
   bans: [],
   staffSessions: [],
+  unanswered: [],
 };
+
 
 
 export const getThornAdmin = createServerFn({ method: "GET" })
