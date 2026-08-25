@@ -440,16 +440,21 @@ export function QueenComparePage() {
         >
           <Sun aria-hidden className="pointer-events-none absolute -left-4 -top-4 hidden h-24 w-24 text-amber-400/40 promo-float md:block" />
           <Waves aria-hidden className="pointer-events-none absolute -right-4 -bottom-4 hidden h-24 w-24 text-sky-500/30 promo-bob md:block" />
+          {promoOn && (
           <span
             className="mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-md promo-badge-glow"
             style={{ background: "linear-gradient(135deg, #FFC24B 0%, #FF8A1F 45%, #E23E57 100%)" }}
           >
             <Sun className="h-3.5 w-3.5" aria-hidden /> 20% OFF · Code {PROMO.code}
           </span>
+          )}
           <h2 className="text-2xl font-bold text-foreground md:text-3xl">Ready to book?</h2>
           <p className="mt-2 text-sm text-muted-foreground md:text-base">
-            Reserve directly with Silverthorn Resort — apply promo code <strong>{PROMO.code}</strong>{" "}
-            at checkout on eligible dates.
+            {promoOn ? (
+              <>Reserve directly with Silverthorn Resort — apply promo code <strong>{PROMO.code}</strong> at checkout on eligible dates.</>
+            ) : (
+              <>Reserve directly with Silverthorn Resort.</>
+            )}
           </p>
           <div className="relative mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <BookButton boat={q1} size="lg" />
