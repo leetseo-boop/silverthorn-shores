@@ -137,6 +137,7 @@ function PricingTable({ season }: { season: SeasonKey }) {
 }
 
 export function QueenComparePage() {
+  const promoOn = isPromoActive();
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-12">
       {/* Hero */}
