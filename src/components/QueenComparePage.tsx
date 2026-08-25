@@ -181,9 +181,11 @@ export function QueenComparePage() {
             Two luxury Silverthorn Resort houseboats, side by side. Compare capacity,
             features, and seasonal pricing to pick the right Shasta Lake getaway.
           </p>
+          {promoOn && (
           <p className="mt-2 text-sm text-muted-foreground">
             Promo valid {PROMO.dateLabel}. {PROMO.fineprint}
           </p>
+          )}
 
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {[q1, q2].map((boat) => (
