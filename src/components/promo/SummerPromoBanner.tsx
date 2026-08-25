@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import promoBanner from "@/assets/silverthorn-promo-summer-2026.webp.asset.json";
+import { isPromoActive } from "@/lib/promo";
 
 /**
  * Homepage "Summer Fun Sale" static banner.
