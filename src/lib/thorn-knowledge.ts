@@ -102,10 +102,14 @@ export const POLICY_FACTS: PolicyFact[] = [
     id: "booking-contact",
     text: "Reservations and availability: call 800-332-3044 or email reserve1@houseboats.com. Marina store hours are Mon–Sun 8:00 AM–6:30 PM (seasonal).",
   },
-  {
-    id: "promo",
-    text: "Summer Fun Sale: 20% off the Queen I and Queen II with promo code BREAK20 for stays booked July 12 – August 25, 2026. The comparison page shows both boats side by side with pricing.",
-  },
+  ...(isPromoActive()
+    ? [
+        {
+          id: "promo",
+          text: "Summer Fun Sale: 20% off the Queen I and Queen II with promo code BREAK20 for stays booked July 12 – August 25, 2026. The comparison page shows both boats side by side with pricing.",
+        },
+      ]
+    : []),
 ];
 
 /** Facts block injected into the policy-mode system prompt. */

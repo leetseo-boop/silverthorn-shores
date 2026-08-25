@@ -79,7 +79,9 @@ export const SITE_PAGES: KEntry[] = [
     summary:
       "Family-run resort and marina on the Pit River Arm of Shasta Lake, on the water since 1986 (40 years). Houseboat and cabin rentals, small boat rentals, moorage, pro shop and marina store. 16250 Silverthorn Road, Redding, CA 96003. Reservations 800-332-3044, reserve1@houseboats.com.",
     highlights: [
-      "Summer Fun Sale: 20% off Queen I and Queen II with code BREAK20 for stays booked July 12 – August 25, 2026",
+      ...(isPromoActive()
+        ? ["Summer Fun Sale: 20% off Queen I and Queen II with code BREAK20 for stays booked July 12 – August 25, 2026"]
+        : []),
       "Marina store open Mon–Sun 8:00 AM – 6:30 PM (seasonal)",
       "Sister marina: Jones Valley Resort (houseboats.com)",
     ],
@@ -98,7 +100,7 @@ export const SITE_PAGES: KEntry[] = [
     name: "Queen I vs Queen II comparison",
     url: "/compare/queens",
     summary:
-      "Side-by-side comparison of the Queen I and Queen II — capacity, beds, features and low/high season pricing — plus the 20% Summer Fun Sale (code BREAK20) and a book-now link for each boat.",
+      `Side-by-side comparison of the Queen I and Queen II — capacity, beds, features and low/high season pricing${isPromoActive() ? " — plus the 20% Summer Fun Sale (code BREAK20)" : ""} and a book-now link for each boat.`,
   },
   {
     slug: "page-cabins",
