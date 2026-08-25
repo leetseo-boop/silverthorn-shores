@@ -162,6 +162,7 @@ export function QueenComparePage() {
         </div>
 
         <div className="relative mx-auto max-w-6xl px-4 py-10 md:py-14">
+          {promoOn && (
           <span
             className="mb-3 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md ring-2 ring-white/60 promo-badge-glow"
             style={{
@@ -172,6 +173,7 @@ export function QueenComparePage() {
             <Sun className="h-3.5 w-3.5" aria-hidden />
             Summer Fun Sale · {PROMO.discount} · Code {PROMO.code}
           </span>
+          )}
           <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             Queen I <span className="text-primary">vs</span> Queen II
           </h1>
