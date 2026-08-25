@@ -14,7 +14,10 @@ const OG_IMAGE = `${SITE}${heroMarina}`;
 
 export const Route = createFileRoute("/")({
   component: SilverthornHomePage,
-  head: () => ({
+  head: () => {
+    const promoOn = isPromoActive();
+    const DESCRIPTION = promoOn ? PROMO_DESCRIPTION : BASE_DESCRIPTION;
+    return {
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
