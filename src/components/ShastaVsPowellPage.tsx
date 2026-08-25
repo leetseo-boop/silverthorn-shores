@@ -90,7 +90,7 @@ const FAQS = [
   },
   {
     q: "When is the best time to houseboat at Shasta?",
-    a: "Late June through Labor Day for warm water and long days. May–early June and September–October offer lower rates, smaller crowds and still-warm swimming. Silverthorn runs a 20% off summer sale (code BREAK20) for July 12–August 25, 2026.",
+    a: "Late June through Labor Day for warm water and long days. May–early June and September–October offer lower rates, smaller crowds and still-warm swimming.",
   },
   {
     q: "Are pets allowed on Shasta houseboats?",
@@ -373,9 +373,8 @@ export function ShastaVsPowellPage() {
               Skip the 13-hour drive.
             </h2>
             <p className="mt-3 text-white/90 max-w-2xl mx-auto">
-              Book a Queen I or Queen II houseboat at Silverthorn and use promo code{" "}
-              <span className="font-bold text-amber-300">BREAK20</span> for 20% off
-              summer 2026 stays.
+              Book a Queen I or Queen II houseboat at Silverthorn — just a few hours
+              from the Bay Area and Sacramento.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Link

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/compare/queens")({
       {
         name: "description",
         content:
-          "Compare the Queen I and Queen II luxury houseboats at Silverthorn Resort — capacity, beds, amenities, low & high season pricing side by side. Book with 20% off promo BREAK20.",
+          "Compare the Queen I and Queen II luxury houseboats at Silverthorn Resort — capacity, beds, amenities, low & high season pricing side by side.",
       },
       { property: "og:title", content: "Queen I vs Queen II — Shasta Lake Houseboat Comparison" },
       {
