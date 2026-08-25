@@ -5,6 +5,7 @@ import { BOATS } from "@/data/silverthorn-boats";
 import { POLICY_FACTS } from "@/lib/thorn-knowledge";
 import { POLICY_SOURCES } from "@/lib/thorn-sources";
 import type { KEntry } from "./kb-types";
+import { isPromoActive } from "@/lib/promo";
 
 const money = (n: number) =>
   `$${n.toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;

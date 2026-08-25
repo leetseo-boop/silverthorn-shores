@@ -8,6 +8,7 @@
  */
 
 import { POLICY_SOURCES } from "./thorn-sources";
+import { isPromoActive } from "@/lib/promo";
 
 export type PolicyFact = {
   /** Source id from POLICY_SOURCES, e.g. hb-cancellation */

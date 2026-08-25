@@ -5,6 +5,7 @@ import { POLICY_FACTS_BLOCK } from "@/lib/thorn-knowledge";
 import { searchKnowledge, renderContext, SOURCE_COUNTS } from "@/lib/thorn/search";
 import { clientIp, detectProfanity } from "@/lib/thorn/profanity";
 import { conditionsBlock } from "@/lib/thorn/conditions.server";
+import { isPromoActive } from "@/lib/promo";
 import {
   banIp,
   countOffenses,
