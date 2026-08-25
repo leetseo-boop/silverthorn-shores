@@ -26,7 +26,7 @@ import fleetSenator from "@/assets/fleet-senator.webp";
 import { SummerPromoBanner } from "@/components/promo/SummerPromoBanner";
 import { PromoBadge } from "@/components/promo/PromoBadge";
 import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
-import { isPromoBoat } from "@/lib/promo";
+import { isPromoBoat, isPromoActive } from "@/lib/promo";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import { SocialLinks } from "@/components/SocialLinks";
 
