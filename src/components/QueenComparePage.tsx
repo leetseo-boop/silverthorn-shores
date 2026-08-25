@@ -194,6 +194,7 @@ export function QueenComparePage() {
                   {/* Top-right 20% OFF badge */}
                   <PromoBadge slug={boat.slug} />
                   {/* Top-left "Save 20%" ribbon */}
+                  {promoOn && (
                   <div
                     aria-hidden
                     className="pointer-events-none absolute left-[-38px] top-4 z-20 -rotate-45 px-10 py-1 text-[10px] font-extrabold uppercase tracking-widest text-white shadow-md"
@@ -204,6 +205,7 @@ export function QueenComparePage() {
                   >
                     ☀ Save 20%
                   </div>
+                  )}
                   <img
                     src={boat.heroImages[0]}
                     alt={boat.heroAltTexts[0]}
