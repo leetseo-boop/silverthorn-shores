@@ -27,7 +27,7 @@ import {
 import type { Houseboat } from "@/data/houseboats";
 import { getHouseboatBySlug } from "@/data/houseboats";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { PROMO } from "@/lib/promo";
+import { PROMO, isPromoActive } from "@/lib/promo";
 import { PromoBadge } from "@/components/promo/PromoBadge";
 import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
 
