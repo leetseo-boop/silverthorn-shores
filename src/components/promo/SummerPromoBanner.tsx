@@ -7,6 +7,7 @@ import { isPromoActive } from "@/lib/promo";
  * Links to the internal Queen I vs Queen II comparison page.
  */
 export function SummerPromoBanner() {
+  if (!isPromoActive()) return null;
   return (
     <section
       className="mx-auto max-w-6xl px-4 py-6"
