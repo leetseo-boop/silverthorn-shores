@@ -380,8 +380,13 @@ export function QueenComparePage() {
         </Tabs>
 
         <p className="mt-3 text-xs text-muted-foreground">
-          Prices shown before taxes, fees, and fuel. Use code <strong>{PROMO.code}</strong> at
-          checkout for {PROMO.discount} on eligible {PROMO.dateLabel} bookings.
+          Prices shown before taxes, fees, and fuel.
+          {promoOn && (
+            <>
+              {" "}Use code <strong>{PROMO.code}</strong> at checkout for {PROMO.discount} on
+              eligible {PROMO.dateLabel} bookings.
+            </>
+          )}
         </p>
       </section>
 
