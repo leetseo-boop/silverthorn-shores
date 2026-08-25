@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import promoBanner from "@/assets/silverthorn-promo-summer-2026.webp.asset.json";
+import { isPromoActive } from "@/lib/promo";
 
 /**
  * Homepage "Summer Fun Sale" static banner.
  * Links to the internal Queen I vs Queen II comparison page.
  */
 export function SummerPromoBanner() {
+  if (!isPromoActive()) return null;
   return (
     <section
       className="mx-auto max-w-6xl px-4 py-6"

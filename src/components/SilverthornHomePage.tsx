@@ -26,7 +26,7 @@ import fleetSenator from "@/assets/fleet-senator.webp";
 import { SummerPromoBanner } from "@/components/promo/SummerPromoBanner";
 import { PromoBadge } from "@/components/promo/PromoBadge";
 import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
-import { isPromoBoat } from "@/lib/promo";
+import { isPromoBoat, isPromoActive } from "@/lib/promo";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import { SocialLinks } from "@/components/SocialLinks";
 
@@ -516,6 +516,7 @@ function Hero() {
 
       {/* Content */}
       <div className="relative z-10 max-w-3xl mx-auto" style={{ textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
+        {isPromoActive() && (
         <a
           href="/compare/queens"
           data-cta="hero-summer-promo"
@@ -534,6 +535,8 @@ function Hero() {
           </span>
           <span className="relative z-10 transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
         </a>
+        )}
+
 
         <p
           className="text-xs font-medium tracking-widest uppercase mb-5"

@@ -20,5 +20,5 @@ export const POLICY_SOURCES: Record<string, { label: string; href: string }> = {
   "cab-parking": { label: "Cabin policy — Parking", href: "/cabins/policy#parking" },
   "guest-info": { label: "Guest information & contracts", href: "/guest-info" },
   "booking-contact": { label: "Contact & reservations", href: "/contact" },
-  promo: { label: "Queen I vs Queen II & Summer sale", href: "/compare/queens" },
+  promo: { label: "Queen I vs Queen II comparison", href: "/compare/queens" },
 };

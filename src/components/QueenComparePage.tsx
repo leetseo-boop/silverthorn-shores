@@ -27,7 +27,7 @@ import {
 import type { Houseboat } from "@/data/houseboats";
 import { getHouseboatBySlug } from "@/data/houseboats";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { PROMO } from "@/lib/promo";
+import { PROMO, isPromoActive } from "@/lib/promo";
 import { PromoBadge } from "@/components/promo/PromoBadge";
 import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
 
@@ -137,6 +137,7 @@ function PricingTable({ season }: { season: SeasonKey }) {
 }
 
 export function QueenComparePage() {
+  const promoOn = isPromoActive();
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-12">
       {/* Hero */}
@@ -161,6 +162,7 @@ export function QueenComparePage() {
         </div>
 
         <div className="relative mx-auto max-w-6xl px-4 py-10 md:py-14">
+          {promoOn && (
           <span
             className="mb-3 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md ring-2 ring-white/60 promo-badge-glow"
             style={{
@@ -171,6 +173,7 @@ export function QueenComparePage() {
             <Sun className="h-3.5 w-3.5" aria-hidden />
             Summer Fun Sale · {PROMO.discount} · Code {PROMO.code}
           </span>
+          )}
           <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             Queen I <span className="text-primary">vs</span> Queen II
           </h1>
@@ -178,9 +181,11 @@ export function QueenComparePage() {
             Two luxury Silverthorn Resort houseboats, side by side. Compare capacity,
             features, and seasonal pricing to pick the right Shasta Lake getaway.
           </p>
+          {promoOn && (
           <p className="mt-2 text-sm text-muted-foreground">
             Promo valid {PROMO.dateLabel}. {PROMO.fineprint}
           </p>
+          )}
 
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {[q1, q2].map((boat) => (
@@ -189,6 +194,7 @@ export function QueenComparePage() {
                   {/* Top-right 20% OFF badge */}
                   <PromoBadge slug={boat.slug} />
                   {/* Top-left "Save 20%" ribbon */}
+                  {promoOn && (
                   <div
                     aria-hidden
                     className="pointer-events-none absolute left-[-38px] top-4 z-20 -rotate-45 px-10 py-1 text-[10px] font-extrabold uppercase tracking-widest text-white shadow-md"
@@ -199,6 +205,7 @@ export function QueenComparePage() {
                   >
                     ☀ Save 20%
                   </div>
+                  )}
                   <img
                     src={boat.heroImages[0]}
                     alt={boat.heroAltTexts[0]}
@@ -373,8 +380,13 @@ export function QueenComparePage() {
         </Tabs>
 
         <p className="mt-3 text-xs text-muted-foreground">
-          Prices shown before taxes, fees, and fuel. Use code <strong>{PROMO.code}</strong> at
-          checkout for {PROMO.discount} on eligible {PROMO.dateLabel} bookings.
+          Prices shown before taxes, fees, and fuel.
+          {promoOn && (
+            <>
+              {" "}Use code <strong>{PROMO.code}</strong> at checkout for {PROMO.discount} on
+              eligible {PROMO.dateLabel} bookings.
+            </>
+          )}
         </p>
       </section>
 
@@ -428,16 +440,21 @@ export function QueenComparePage() {
         >
           <Sun aria-hidden className="pointer-events-none absolute -left-4 -top-4 hidden h-24 w-24 text-amber-400/40 promo-float md:block" />
           <Waves aria-hidden className="pointer-events-none absolute -right-4 -bottom-4 hidden h-24 w-24 text-sky-500/30 promo-bob md:block" />
+          {promoOn && (
           <span
             className="mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-md promo-badge-glow"
             style={{ background: "linear-gradient(135deg, #FFC24B 0%, #FF8A1F 45%, #E23E57 100%)" }}
           >
             <Sun className="h-3.5 w-3.5" aria-hidden /> 20% OFF · Code {PROMO.code}
           </span>
+          )}
           <h2 className="text-2xl font-bold text-foreground md:text-3xl">Ready to book?</h2>
           <p className="mt-2 text-sm text-muted-foreground md:text-base">
-            Reserve directly with Silverthorn Resort — apply promo code <strong>{PROMO.code}</strong>{" "}
-            at checkout on eligible dates.
+            {promoOn ? (
+              <>Reserve directly with Silverthorn Resort — apply promo code <strong>{PROMO.code}</strong> at checkout on eligible dates.</>
+            ) : (
+              <>Reserve directly with Silverthorn Resort.</>
+            )}
           </p>
           <div className="relative mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <BookButton boat={q1} size="lg" />
@@ -457,7 +474,7 @@ export function QueenComparePage() {
             className="inline-flex items-center justify-center rounded-lg px-3 py-2.5 text-sm font-extrabold text-white shadow-md"
             style={{ background: "linear-gradient(135deg, #FFC24B 0%, #FF8A1F 55%, #E23E57 100%)" }}
           >
-            ☀ Book Queen I · 20% OFF
+            {promoOn ? "☀ Book Queen I · 20% OFF" : "Book Queen I"}
           </a>
           <a
             href={q2.bookingUrl}
@@ -466,7 +483,7 @@ export function QueenComparePage() {
             data-cta="compare-sticky-queen-ii"
             className="inline-flex items-center justify-center rounded-lg border-2 border-primary px-3 py-2.5 text-sm font-semibold text-primary"
           >
-            ☀ Book Queen II
+            {promoOn ? "☀ Book Queen II" : "Book Queen II"}
           </a>
         </div>
       </div>

@@ -1,18 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import SilverthornHomePage, { HOME_FAQS } from "@/components/SilverthornHomePage";
 import heroMarina from "@/assets/home-hero-marina.webp";
-import { PROMO } from "@/lib/promo";
+import { PROMO, isPromoActive } from "@/lib/promo";
 
 const SITE = "https://silverthornresort.com";
 const URL = `${SITE}/`;
 const TITLE = "Silverthorn Resort — Shasta Lake Houseboats & Cabins";
-const DESCRIPTION =
+const PROMO_DESCRIPTION =
   "Family-run Shasta Lake resort. Houseboats, cabins & boat rentals. Summer 2026: 20% off Queen I & Queen II — code BREAK20 (Jul 12–Aug 25).";
+const BASE_DESCRIPTION =
+  "Family-run Shasta Lake resort on the Pit River Arm. Luxury houseboat rentals, lakeside cabins, ski boats, patio boats & jet skis. Book your 2026 getaway.";
 const OG_IMAGE = `${SITE}${heroMarina}`;
 
 export const Route = createFileRoute("/")({
   component: SilverthornHomePage,
-  head: () => ({
+  head: () => {
+    const promoOn = isPromoActive();
+    const DESCRIPTION = promoOn ? PROMO_DESCRIPTION : BASE_DESCRIPTION;
+    return {
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
@@ -43,24 +48,29 @@ export const Route = createFileRoute("/")({
           })),
         }),
       },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Offer",
-          name: "Summer Fun Sale — 20% Off Queen I & Queen II Houseboats",
-          description: `Save 20% on Queen I & Queen II houseboat rentals at Silverthorn Resort on Shasta Lake. Use code ${PROMO.code} on new reservations booked ${PROMO.dateLabel}.`,
-          url: `${SITE}/compare/queens`,
-          priceCurrency: "USD",
-          category: "Houseboat Rental",
-          couponCode: PROMO.code,
-          validFrom: PROMO.startsOn,
-          validThrough: PROMO.endsOn,
-          eligibleCustomerType: "NewCustomer",
-          availability: "https://schema.org/InStock",
-          seller: { "@type": "Organization", name: "Silverthorn Resort", url: SITE },
-        }),
-      },
+      ...(promoOn
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Offer",
+                name: "Summer Fun Sale — 20% Off Queen I & Queen II Houseboats",
+                description: `Save 20% on Queen I & Queen II houseboat rentals at Silverthorn Resort on Shasta Lake. Use code ${PROMO.code} on new reservations booked ${PROMO.dateLabel}.`,
+                url: `${SITE}/compare/queens`,
+                priceCurrency: "USD",
+                category: "Houseboat Rental",
+                couponCode: PROMO.code,
+                validFrom: PROMO.startsOn,
+                validThrough: PROMO.endsOn,
+                eligibleCustomerType: "NewCustomer",
+                availability: "https://schema.org/InStock",
+                seller: { "@type": "Organization", name: "Silverthorn Resort", url: SITE },
+              }),
+            },
+          ]
+        : []),
     ],
-  }),
+    };
+  },
 });

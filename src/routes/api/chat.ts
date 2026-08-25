@@ -5,6 +5,7 @@ import { POLICY_FACTS_BLOCK } from "@/lib/thorn-knowledge";
 import { searchKnowledge, renderContext, SOURCE_COUNTS } from "@/lib/thorn/search";
 import { clientIp, detectProfanity } from "@/lib/thorn/profanity";
 import { conditionsBlock } from "@/lib/thorn/conditions.server";
+import { isPromoActive } from "@/lib/promo";
 import {
   banIp,
   countOffenses,
@@ -78,10 +79,10 @@ KEY POLICIES
 - Pets: dogs only, maximum 2 per houseboat — 1st dog free, 2nd dog a non-refundable $50.00 before boarding. Excessive cleaning $95.00/hour, damages at replacement cost. Always link /pet-policy.
 - All boat rentals are full-day or multi-day. We do not offer half-day or hourly rentals.
 
-CURRENT PROMOTION
+${isPromoActive() ? `CURRENT PROMOTION
 - Summer Fun Sale: 20% OFF the Queen I and Queen II with promo code BREAK20, for stays booked July 12 - August 25, 2026. Point people to /compare/queens.
 
-SHASTA LAKE & FOREST SERVICE
+` : ""}SHASTA LAKE & FOREST SERVICE
 - You also know the Shasta-Trinity National Forest (USDA) campgrounds, boat ramps, shoreline areas, fees, stay limits and alerts. Quote them with the source URL, and note that fire restrictions, alerts and lake levels change — tell guests to confirm on the Forest Service page.
 
 RULES
