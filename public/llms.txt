@@ -6,13 +6,12 @@ Silverthorn Resort has operated on Shasta Lake for 40 years. The marina is on th
 
 ## Pages
 
-- [Home](/): Overview of the resort, fleet, and summer promotions.
+- [Home](/): Overview of the resort, fleet and rentals.
 - [Houseboats](/houseboats): All houseboat models with capacity, features and rates.
 - [Queen I Houseboat](/houseboats/queen-i): Luxury three-deck houseboat, sleeps 16.
 - [Queen II Houseboat](/houseboats/queen-ii): Luxury three-deck houseboat, sleeps 16.
 - [Queen Houseboat](/houseboats/queen): Mid-size houseboat.
 - [Senator Houseboat](/houseboats/senator): Value-class houseboat.
-- [Queen I vs Queen II](/compare/queens): Side-by-side spec and price comparison.
 - [Shasta vs Lake Powell](/shasta-vs-lake-powell): Honest comparison for California houseboat renters.
 - [Houseboat Rental Policy](/houseboats/policy): Rental terms, deposits and requirements.
 - [Cabins](/cabins): Lakeside cabin rentals.

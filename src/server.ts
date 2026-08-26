@@ -101,6 +101,7 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 }
 
 const LEGACY_REDIRECTS: Record<string, string> = {
+  "/compare/queens": "/houseboats",
   // Static/legacy Bluehost paths
   "/index.html": "/",
   "/home": "/",

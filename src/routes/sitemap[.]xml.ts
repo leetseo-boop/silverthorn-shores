@@ -18,7 +18,6 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/houseboats/queen", changefreq: "monthly", priority: "0.7" },
   { path: "/houseboats/senator", changefreq: "monthly", priority: "0.7" },
   { path: "/houseboats/policy", changefreq: "monthly", priority: "0.5" },
-  { path: "/compare/queens", changefreq: "weekly", priority: "0.9" },
   { path: "/cabins", changefreq: "weekly", priority: "0.9" },
   { path: "/cabins/policy", changefreq: "monthly", priority: "0.5" },
   { path: "/small-boats", changefreq: "weekly", priority: "0.9" },

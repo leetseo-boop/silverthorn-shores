@@ -19,7 +19,7 @@ Redirect 301 /houseboats/queen-ii https://silverthornresort.com/houseboats/queen
 Redirect 301 /houseboats/queen https://silverthornresort.com/houseboats/queen
 Redirect 301 /houseboats/senator https://silverthornresort.com/houseboats/senator
 Redirect 301 /houseboats/policy https://silverthornresort.com/houseboats/policy
-Redirect 301 /compare/queens https://silverthornresort.com/compare/queens
+Redirect 301 /compare/queens https://silverthornresort.com/houseboats
 
 # Cabins
 Redirect 301 /cabins https://silverthornresort.com/cabins

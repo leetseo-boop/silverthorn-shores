@@ -5,7 +5,6 @@ import { BOATS } from "@/data/silverthorn-boats";
 import { POLICY_FACTS } from "@/lib/thorn-knowledge";
 import { POLICY_SOURCES } from "@/lib/thorn-sources";
 import type { KEntry } from "./kb-types";
-import { isPromoActive } from "@/lib/promo";
 
 const money = (n: number) =>
   `$${n.toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
@@ -80,9 +79,6 @@ export const SITE_PAGES: KEntry[] = [
     summary:
       "Family-run resort and marina on the Pit River Arm of Shasta Lake, on the water since 1986 (40 years). Houseboat and cabin rentals, small boat rentals, moorage, pro shop and marina store. 16250 Silverthorn Road, Redding, CA 96003. Reservations 800-332-3044, reserve1@houseboats.com.",
     highlights: [
-      ...(isPromoActive()
-        ? ["Summer Fun Sale: 20% off Queen I and Queen II with code BREAK20 for stays booked July 12 – August 25, 2026"]
-        : []),
       "Marina store open Mon–Sun 8:00 AM – 6:30 PM (seasonal)",
       "Sister marina: Jones Valley Resort (houseboats.com)",
     ],
@@ -94,14 +90,6 @@ export const SITE_PAGES: KEntry[] = [
     url: "/houseboats",
     summary:
       "The Silverthorn houseboat fleet: Queen, Queen I, Queen II and Senator. Each page has photos, layout, amenities, 3D tours and season pricing. Rental policies live at /houseboats/policy.",
-  },
-  {
-    slug: "page-compare-queens",
-    type: "page",
-    name: "Queen I vs Queen II comparison",
-    url: "/compare/queens",
-    summary:
-      `Side-by-side comparison of the Queen I and Queen II — capacity, beds, features and low/high season pricing${isPromoActive() ? " — plus the 20% Summer Fun Sale (code BREAK20)" : ""} and a book-now link for each boat.`,
   },
   {
     slug: "page-cabins",
