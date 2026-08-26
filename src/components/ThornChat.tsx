@@ -125,8 +125,10 @@ function renderRich(text: string) {
             {token}
           </a>,
         );
+      } else if (!isSafeHref(token)) {
+        parts.push(token);
       } else {
-        const isExternal = token.startsWith("http");
+        const isExternal = /^https?:\/\//i.test(token);
         parts.push(
           <a
             key={`${i}-${m.index}`}
