@@ -70,6 +70,15 @@ function pathLabel(path: string): string {
 }
 
 /** Very small markdown renderer: links, **bold**, phone numbers, line breaks. */
+/** Only allow safe, non-script URL schemes in AI-generated links. */
+function isSafeHref(href: string): boolean {
+  const url = href.trim();
+  if (/^(https?:\/\/|tel:|mailto:)/i.test(url)) return true;
+  // Site-relative paths, but not protocol-relative ("//evil.com") URLs.
+  if (url.startsWith("/") && !url.startsWith("//")) return true;
+  return false;
+}
+
 function renderRich(text: string) {
   const lines = text.split("\n");
   return lines.map((rawLine, i) => {
@@ -88,17 +97,22 @@ function renderRich(text: string) {
         "rounded-sm font-medium text-primary underline underline-offset-2 [overflow-wrap:anywhere] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1";
       if (md) {
         const href = md[2];
-        parts.push(
-          <a
-            key={`${i}-${m.index}`}
-            href={href}
-            target={href.startsWith("http") ? "_blank" : undefined}
-            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-            className={linkClass}
-          >
-            {md[1]}
-          </a>,
-        );
+        if (!isSafeHref(href)) {
+          // Unsafe scheme (javascript:, data:, etc.) — render as plain text.
+          parts.push(<span key={`${i}-${m.index}`}>{md[1]}</span>);
+        } else {
+          parts.push(
+            <a
+              key={`${i}-${m.index}`}
+              href={href}
+              target={/^https?:\/\//i.test(href) ? "_blank" : undefined}
+              rel={/^https?:\/\//i.test(href) ? "noopener noreferrer" : undefined}
+              className={linkClass}
+            >
+              {md[1]}
+            </a>,
+          );
+        }
       } else if (token.startsWith("**")) {
         parts.push(
           <strong key={`${i}-${m.index}`} className="font-semibold">
@@ -111,8 +125,10 @@ function renderRich(text: string) {
             {token}
           </a>,
         );
+      } else if (!isSafeHref(token)) {
+        parts.push(token);
       } else {
-        const isExternal = token.startsWith("http");
+        const isExternal = /^https?:\/\//i.test(token);
         parts.push(
           <a
             key={`${i}-${m.index}`}
