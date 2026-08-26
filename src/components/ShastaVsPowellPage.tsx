@@ -378,12 +378,6 @@ export function ShastaVsPowellPage() {
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Link
-                to="/compare/queens"
-                className="inline-flex items-center gap-2 rounded-full bg-amber-400 text-slate-900 font-semibold px-6 py-3 hover:bg-amber-300 transition"
-              >
-                Compare Queen I & II <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
                 to="/houseboats"
                 className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/30 text-white font-semibold px-6 py-3 hover:bg-white/20 transition"
               >

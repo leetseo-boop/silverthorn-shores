@@ -23,10 +23,6 @@ import fleetQueen from "@/assets/fleet-queen.webp";
 import fleetQueenI from "@/assets/fleet-queen-i.webp";
 import fleetQueenII from "@/assets/fleet-queen-ii.webp";
 import fleetSenator from "@/assets/fleet-senator.webp";
-import { SummerPromoBanner } from "@/components/promo/SummerPromoBanner";
-import { PromoBadge } from "@/components/promo/PromoBadge";
-import { PromoCardFrame } from "@/components/promo/PromoCardFrame";
-import { isPromoBoat, isPromoActive } from "@/lib/promo";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import { SocialLinks } from "@/components/SocialLinks";
 
@@ -516,26 +512,6 @@ function Hero() {
 
       {/* Content */}
       <div className="relative z-10 max-w-3xl mx-auto" style={{ textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
-        {isPromoActive() && (
-        <a
-          href="/compare/queens"
-          data-cta="hero-summer-promo"
-          aria-label="Summer Fun Sale: 20% off Queen I and Queen II houseboats with code BREAK20. Compare the Queens."
-          className="promo-sunset-bg promo-badge-glow group relative inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full text-white text-xs sm:text-sm font-semibold overflow-hidden ring-1 ring-white/30 hover:ring-white/60 transition-all"
-          style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}
-        >
-          <span className="promo-float relative z-10" aria-hidden="true">☀️</span>
-          <span className="relative z-10 rounded-full bg-white/95 text-[#E23E57] px-2 py-0.5 text-[11px] sm:text-xs font-black tracking-wide" style={{ textShadow: "none" }}>
-            20% OFF
-          </span>
-          <span className="relative z-10">
-            <span className="hidden sm:inline">Summer Fun Sale — Queen I &amp; Queen II · Code </span>
-            <span className="sm:hidden">Queens · Code </span>
-            <span className="font-black tracking-wider">BREAK20</span>
-          </span>
-          <span className="relative z-10 transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
-        </a>
-        )}
 
 
         <p
@@ -607,12 +583,10 @@ function Hero() {
 }
 
 function FleetCard({ boat }: { boat: any }) {
-  const promo = isPromoBoat(boat.slug);
   return (
-    <PromoCardFrame slug={boat.slug}>
     <div
       className="rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1"
-      style={{ backgroundColor: "#fff", borderColor: promo ? "transparent" : "#E2DED6" }}
+      style={{ backgroundColor: "#fff", borderColor: "#E2DED6" }}
     >
       <div
         className="h-56 relative overflow-hidden"
@@ -633,7 +607,6 @@ function FleetCard({ boat }: { boat: any }) {
         >
           {boat.badge}
         </span>
-        <PromoBadge slug={boat.slug} />
       </div>
 
       <div className="p-4">
@@ -673,7 +646,6 @@ function FleetCard({ boat }: { boat: any }) {
         </a>
       </div>
     </div>
-    </PromoCardFrame>
   );
 }
 
@@ -1204,7 +1176,6 @@ export default function SilverthornHomePage() {
     <main>
       
       <Hero />
-      <SummerPromoBanner />
       <FleetSection />
       <StatsBar />
       <AboutSection />

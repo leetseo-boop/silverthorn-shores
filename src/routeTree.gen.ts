@@ -39,7 +39,6 @@ import { Route as HouseboatsQueenIiRouteImport } from './routes/houseboats.queen
 import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
 import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
 import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy'
-import { Route as CompareQueensRouteImport } from './routes/compare.queens'
 import { Route as CabinsPolicyRouteImport } from './routes/cabins_.policy'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AboutHistoryRouteImport } from './routes/about.history'
@@ -198,11 +197,6 @@ const HouseboatsPolicyRoute = HouseboatsPolicyRouteImport.update({
   path: '/houseboats/policy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CompareQueensRoute = CompareQueensRouteImport.update({
-  id: '/compare/queens',
-  path: '/compare/queens',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CabinsPolicyRoute = CabinsPolicyRouteImport.update({
   id: '/cabins_/policy',
   path: '/cabins/policy',
@@ -269,7 +263,6 @@ export interface FileRoutesByFullPath {
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins/policy': typeof CabinsPolicyRoute
-  '/compare/queens': typeof CompareQueensRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -309,7 +302,6 @@ export interface FileRoutesByTo {
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins/policy': typeof CabinsPolicyRoute
-  '/compare/queens': typeof CompareQueensRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -350,7 +342,6 @@ export interface FileRoutesById {
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins_/policy': typeof CabinsPolicyRoute
-  '/compare/queens': typeof CompareQueensRoute
   '/houseboats/policy': typeof HouseboatsPolicyRoute
   '/houseboats/queen': typeof HouseboatsQueenRoute
   '/houseboats/queen-i': typeof HouseboatsQueenIRoute
@@ -392,7 +383,6 @@ export interface FileRouteTypes {
     | '/about/history'
     | '/api/chat'
     | '/cabins/policy'
-    | '/compare/queens'
     | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -432,7 +422,6 @@ export interface FileRouteTypes {
     | '/about/history'
     | '/api/chat'
     | '/cabins/policy'
-    | '/compare/queens'
     | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -472,7 +461,6 @@ export interface FileRouteTypes {
     | '/about/history'
     | '/api/chat'
     | '/cabins_/policy'
-    | '/compare/queens'
     | '/houseboats/policy'
     | '/houseboats/queen'
     | '/houseboats/queen-i'
@@ -513,7 +501,6 @@ export interface RootRouteChildren {
   AboutHistoryRoute: typeof AboutHistoryRoute
   ApiChatRoute: typeof ApiChatRoute
   CabinsPolicyRoute: typeof CabinsPolicyRoute
-  CompareQueensRoute: typeof CompareQueensRoute
   HouseboatsPolicyRoute: typeof HouseboatsPolicyRoute
   HouseboatsQueenRoute: typeof HouseboatsQueenRoute
   HouseboatsQueenIRoute: typeof HouseboatsQueenIRoute
@@ -739,13 +726,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HouseboatsPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/compare/queens': {
-      id: '/compare/queens'
-      path: '/compare/queens'
-      fullPath: '/compare/queens'
-      preLoaderRoute: typeof CompareQueensRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/cabins_/policy': {
       id: '/cabins_/policy'
       path: '/cabins/policy'
@@ -825,7 +805,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutHistoryRoute: AboutHistoryRoute,
   ApiChatRoute: ApiChatRoute,
   CabinsPolicyRoute: CabinsPolicyRoute,
-  CompareQueensRoute: CompareQueensRoute,
   HouseboatsPolicyRoute: HouseboatsPolicyRoute,
   HouseboatsQueenRoute: HouseboatsQueenRoute,
   HouseboatsQueenIRoute: HouseboatsQueenIRoute,

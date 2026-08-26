@@ -23,7 +23,6 @@ const GROUPS: { title: string; links: { label: string; to: string }[] }[] = [
       { label: "Queen II", to: "/houseboats/queen-ii" },
       { label: "Queen", to: "/houseboats/queen" },
       { label: "Senator", to: "/houseboats/senator" },
-      { label: "Compare Queens", to: "/compare/queens" },
       { label: "Cabins", to: "/cabins" },
       { label: "Small Boats", to: "/small-boats" },
       { label: "Moorage", to: "/moorage" },
