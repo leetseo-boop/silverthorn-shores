@@ -171,11 +171,6 @@ export const BOATS: BoatConfig[] = [
     gallery: [
       { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-riders-aerial-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat with riders cruising on Shasta Lake near Silverthorn Resort" },
       { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-side-profile-open-water-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat side profile at full speed on open water at Shasta Lake" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-stern-swim-platform-docked-shasta-lake.webp", alt: "Centurion T-5 stern swim platform and seating while docked at Silverthorn Resort on Shasta Lake" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-overhead-bow-docked-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat overhead bow view docked at Silverthorn Resort marina" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-top-down-bimini-cover-shasta-lake.webp", alt: "Centurion T-5 top-down aerial view with bimini cover at Silverthorn Resort on Shasta Lake" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cockpit-interior-helm-shasta-lake.webp", alt: "Centurion T-5 cockpit interior and helm station at Silverthorn Resort on Shasta Lake" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cockpit-seating-marina-shasta-lake.webp", alt: "Centurion T-5 cockpit seating layout at Silverthorn Resort marina on Shasta Lake" },
       { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cruising-mountain-backdrop-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat cruising with mountain backdrop on Shasta Lake" },
     ],
     intro: [
