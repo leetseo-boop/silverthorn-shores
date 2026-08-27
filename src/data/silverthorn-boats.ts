@@ -170,7 +170,6 @@ export const BOATS: BoatConfig[] = [
     heroAlt: "Centurion T-5 wakeboard boat cruising on Shasta Lake at Silverthorn Resort",
     gallery: [
       { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-riders-aerial-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat with riders cruising on Shasta Lake near Silverthorn Resort" },
-      { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-side-profile-open-water-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat side profile at full speed on open water at Shasta Lake" },
       { src: "/images/silverthorn/centurion-t5-gallery/centurion-t5-cruising-mountain-backdrop-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat cruising with mountain backdrop on Shasta Lake" },
       { src: "/__l5e/assets-v1/f6673bc9-33c0-45b0-82bb-a910591a127b/centurion-t5-rear-quarter-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat cruising on Shasta Lake with forested mountain shoreline at Silverthorn Resort" },
       { src: "/__l5e/assets-v1/3f14fbc6-cd4f-417e-b4ce-ca65f2e00d54/centurion-t5-aerial-open-water-shasta-lake.webp", alt: "Centurion T-5 wakeboard boat speeding across open water on Shasta Lake viewed from above at Silverthorn Resort" },
