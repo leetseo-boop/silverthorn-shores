@@ -19,8 +19,8 @@ function publicSupabase() {
   });
 }
 
-// Only 5-star reviews published within the last 5 months, newest first.
-const MAX_AGE_MS = 5 * 30 * 24 * 60 * 60 * 1000;
+// Only 5-star reviews published within the last 3 months, newest first.
+const MAX_AGE_MS = 3 * 30 * 24 * 60 * 60 * 1000;
 
 function filterReviews(reviews: GoogleReview[]): GoogleReview[] {
   const cutoff = Date.now() - MAX_AGE_MS;
