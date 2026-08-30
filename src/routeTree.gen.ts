@@ -47,6 +47,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as ApiPublicHooksThornLearnRouteImport } from './routes/api/public/hooks/thorn-learn'
 import { Route as ApiPublicHooksThornConditionsRouteImport } from './routes/api/public/hooks/thorn-conditions'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
@@ -244,6 +245,11 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicHooksThornLearnRoute =
   ApiPublicHooksThornLearnRouteImport.update({
     id: '/api/public/hooks/thorn-learn',
@@ -300,6 +306,7 @@ export interface FileRoutesByFullPath {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats/$slug': typeof SmallBoatsSlugRoute
   '/houseboats/': typeof HouseboatsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
@@ -343,6 +350,7 @@ export interface FileRoutesByTo {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats/$slug': typeof SmallBoatsSlugRoute
   '/houseboats': typeof HouseboatsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
@@ -387,6 +395,7 @@ export interface FileRoutesById {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats_/$slug': typeof SmallBoatsSlugRoute
   '/houseboats/': typeof HouseboatsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
@@ -432,6 +441,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats/$slug'
     | '/houseboats/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
@@ -475,6 +485,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats/$slug'
     | '/houseboats'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
@@ -518,6 +529,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats_/$slug'
     | '/houseboats/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
@@ -562,6 +574,7 @@ export interface RootRouteChildren {
   HouseboatsSenatorRoute: typeof HouseboatsSenatorRoute
   SmallBoatsSlugRoute: typeof SmallBoatsSlugRoute
   HouseboatsIndexRoute: typeof HouseboatsIndexRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicGoogleReviewsRoute: typeof ApiPublicGoogleReviewsRoute
   ApiPublicHooksRefreshReviewsRoute: typeof ApiPublicHooksRefreshReviewsRoute
@@ -837,6 +850,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/thorn-learn': {
       id: '/api/public/hooks/thorn-learn'
       path: '/api/public/hooks/thorn-learn'
@@ -899,6 +919,7 @@ const rootRouteChildren: RootRouteChildren = {
   HouseboatsSenatorRoute: HouseboatsSenatorRoute,
   SmallBoatsSlugRoute: SmallBoatsSlugRoute,
   HouseboatsIndexRoute: HouseboatsIndexRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicGoogleReviewsRoute: ApiPublicGoogleReviewsRoute,
   ApiPublicHooksRefreshReviewsRoute: ApiPublicHooksRefreshReviewsRoute,
