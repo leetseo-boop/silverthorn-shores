@@ -21,6 +21,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PlanningRouteImport } from './routes/planning'
 import { Route as PetPolicyRouteImport } from './routes/pet-policy'
 import { Route as MoorageRouteImport } from './routes/moorage'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as GuestInfoRouteImport } from './routes/guest-info'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExploringShastaLakeRouteImport } from './routes/exploring-shasta-lake'
@@ -42,7 +43,10 @@ import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy
 import { Route as CabinsPolicyRouteImport } from './routes/cabins_.policy'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AboutHistoryRouteImport } from './routes/about.history'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as ApiPublicHooksThornLearnRouteImport } from './routes/api/public/hooks/thorn-learn'
 import { Route as ApiPublicHooksThornConditionsRouteImport } from './routes/api/public/hooks/thorn-conditions'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
@@ -105,6 +109,11 @@ const PetPolicyRoute = PetPolicyRouteImport.update({
 const MoorageRoute = MoorageRouteImport.update({
   id: '/moorage',
   path: '/moorage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuestInfoRoute = GuestInfoRouteImport.update({
@@ -212,11 +221,29 @@ const AboutHistoryRoute = AboutHistoryRouteImport.update({
   path: '/about/history',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicGoogleReviewsRoute = ApiPublicGoogleReviewsRouteImport.update({
   id: '/api/public/google-reviews',
   path: '/api/public/google-reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksThornLearnRoute =
   ApiPublicHooksThornLearnRouteImport.update({
     id: '/api/public/hooks/thorn-learn',
@@ -248,6 +275,7 @@ export interface FileRoutesByFullPath {
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
+  '/mcp': typeof McpRoute
   '/moorage': typeof MoorageRoute
   '/pet-policy': typeof PetPolicyRoute
   '/planning': typeof PlanningRoute
@@ -260,6 +288,8 @@ export interface FileRoutesByFullPath {
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
   '/thorn': typeof ThornRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins/policy': typeof CabinsPolicyRoute
@@ -270,6 +300,7 @@ export interface FileRoutesByFullPath {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats/$slug': typeof SmallBoatsSlugRoute
   '/houseboats/': typeof HouseboatsIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
   '/api/public/hooks/thorn-conditions': typeof ApiPublicHooksThornConditionsRoute
@@ -287,6 +318,7 @@ export interface FileRoutesByTo {
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
+  '/mcp': typeof McpRoute
   '/moorage': typeof MoorageRoute
   '/pet-policy': typeof PetPolicyRoute
   '/planning': typeof PlanningRoute
@@ -299,6 +331,8 @@ export interface FileRoutesByTo {
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
   '/thorn': typeof ThornRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins/policy': typeof CabinsPolicyRoute
@@ -309,6 +343,7 @@ export interface FileRoutesByTo {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats/$slug': typeof SmallBoatsSlugRoute
   '/houseboats': typeof HouseboatsIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
   '/api/public/hooks/thorn-conditions': typeof ApiPublicHooksThornConditionsRoute
@@ -327,6 +362,7 @@ export interface FileRoutesById {
   '/exploring-shasta-lake': typeof ExploringShastaLakeRoute
   '/faq': typeof FaqRoute
   '/guest-info': typeof GuestInfoRoute
+  '/mcp': typeof McpRoute
   '/moorage': typeof MoorageRoute
   '/pet-policy': typeof PetPolicyRoute
   '/planning': typeof PlanningRoute
@@ -339,6 +375,8 @@ export interface FileRoutesById {
   '/small-boats': typeof SmallBoatsRoute
   '/terms': typeof TermsRoute
   '/thorn': typeof ThornRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/about/history': typeof AboutHistoryRoute
   '/api/chat': typeof ApiChatRoute
   '/cabins_/policy': typeof CabinsPolicyRoute
@@ -349,6 +387,7 @@ export interface FileRoutesById {
   '/houseboats/senator': typeof HouseboatsSenatorRoute
   '/small-boats_/$slug': typeof SmallBoatsSlugRoute
   '/houseboats/': typeof HouseboatsIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/google-reviews': typeof ApiPublicGoogleReviewsRoute
   '/api/public/hooks/refresh-reviews': typeof ApiPublicHooksRefreshReviewsRoute
   '/api/public/hooks/thorn-conditions': typeof ApiPublicHooksThornConditionsRoute
@@ -368,6 +407,7 @@ export interface FileRouteTypes {
     | '/exploring-shasta-lake'
     | '/faq'
     | '/guest-info'
+    | '/mcp'
     | '/moorage'
     | '/pet-policy'
     | '/planning'
@@ -380,6 +420,8 @@ export interface FileRouteTypes {
     | '/small-boats'
     | '/terms'
     | '/thorn'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/about/history'
     | '/api/chat'
     | '/cabins/policy'
@@ -390,6 +432,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats/$slug'
     | '/houseboats/'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
     | '/api/public/hooks/thorn-conditions'
@@ -407,6 +450,7 @@ export interface FileRouteTypes {
     | '/exploring-shasta-lake'
     | '/faq'
     | '/guest-info'
+    | '/mcp'
     | '/moorage'
     | '/pet-policy'
     | '/planning'
@@ -419,6 +463,8 @@ export interface FileRouteTypes {
     | '/small-boats'
     | '/terms'
     | '/thorn'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/about/history'
     | '/api/chat'
     | '/cabins/policy'
@@ -429,6 +475,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats/$slug'
     | '/houseboats'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
     | '/api/public/hooks/thorn-conditions'
@@ -446,6 +493,7 @@ export interface FileRouteTypes {
     | '/exploring-shasta-lake'
     | '/faq'
     | '/guest-info'
+    | '/mcp'
     | '/moorage'
     | '/pet-policy'
     | '/planning'
@@ -458,6 +506,8 @@ export interface FileRouteTypes {
     | '/small-boats'
     | '/terms'
     | '/thorn'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/about/history'
     | '/api/chat'
     | '/cabins_/policy'
@@ -468,6 +518,7 @@ export interface FileRouteTypes {
     | '/houseboats/senator'
     | '/small-boats_/$slug'
     | '/houseboats/'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/google-reviews'
     | '/api/public/hooks/refresh-reviews'
     | '/api/public/hooks/thorn-conditions'
@@ -486,6 +537,7 @@ export interface RootRouteChildren {
   ExploringShastaLakeRoute: typeof ExploringShastaLakeRoute
   FaqRoute: typeof FaqRoute
   GuestInfoRoute: typeof GuestInfoRoute
+  McpRoute: typeof McpRoute
   MoorageRoute: typeof MoorageRoute
   PetPolicyRoute: typeof PetPolicyRoute
   PlanningRoute: typeof PlanningRoute
@@ -498,6 +550,8 @@ export interface RootRouteChildren {
   SmallBoatsRoute: typeof SmallBoatsRoute
   TermsRoute: typeof TermsRoute
   ThornRoute: typeof ThornRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AboutHistoryRoute: typeof AboutHistoryRoute
   ApiChatRoute: typeof ApiChatRoute
   CabinsPolicyRoute: typeof CabinsPolicyRoute
@@ -508,6 +562,7 @@ export interface RootRouteChildren {
   HouseboatsSenatorRoute: typeof HouseboatsSenatorRoute
   SmallBoatsSlugRoute: typeof SmallBoatsSlugRoute
   HouseboatsIndexRoute: typeof HouseboatsIndexRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicGoogleReviewsRoute: typeof ApiPublicGoogleReviewsRoute
   ApiPublicHooksRefreshReviewsRoute: typeof ApiPublicHooksRefreshReviewsRoute
   ApiPublicHooksThornConditionsRoute: typeof ApiPublicHooksThornConditionsRoute
@@ -598,6 +653,13 @@ declare module '@tanstack/react-router' {
       path: '/moorage'
       fullPath: '/moorage'
       preLoaderRoute: typeof MoorageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guest-info': {
@@ -747,11 +809,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/google-reviews': {
       id: '/api/public/google-reviews'
       path: '/api/public/google-reviews'
       fullPath: '/api/public/google-reviews'
       preLoaderRoute: typeof ApiPublicGoogleReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/hooks/thorn-learn': {
@@ -790,6 +873,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploringShastaLakeRoute: ExploringShastaLakeRoute,
   FaqRoute: FaqRoute,
   GuestInfoRoute: GuestInfoRoute,
+  McpRoute: McpRoute,
   MoorageRoute: MoorageRoute,
   PetPolicyRoute: PetPolicyRoute,
   PlanningRoute: PlanningRoute,
@@ -802,6 +886,9 @@ const rootRouteChildren: RootRouteChildren = {
   SmallBoatsRoute: SmallBoatsRoute,
   TermsRoute: TermsRoute,
   ThornRoute: ThornRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AboutHistoryRoute: AboutHistoryRoute,
   ApiChatRoute: ApiChatRoute,
   CabinsPolicyRoute: CabinsPolicyRoute,
@@ -812,6 +899,7 @@ const rootRouteChildren: RootRouteChildren = {
   HouseboatsSenatorRoute: HouseboatsSenatorRoute,
   SmallBoatsSlugRoute: SmallBoatsSlugRoute,
   HouseboatsIndexRoute: HouseboatsIndexRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicGoogleReviewsRoute: ApiPublicGoogleReviewsRoute,
   ApiPublicHooksRefreshReviewsRoute: ApiPublicHooksRefreshReviewsRoute,
   ApiPublicHooksThornConditionsRoute: ApiPublicHooksThornConditionsRoute,
