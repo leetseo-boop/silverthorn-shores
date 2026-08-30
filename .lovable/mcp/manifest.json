@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "sdk_version": "0.28.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://mpcgoonguuhcjndzvsgp.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "silverthorn-shores",
+      "version": "0.1.0",
+      "title": "Silverthorn Shores"
+    },
+    "tools": [
+      {
+        "name": "search_resort_knowledge",
+        "title": "Search resort knowledge",
+        "description": "Search Silverthorn Resort's public knowledge base (houseboats, cabins, small boats, marina pages, FAQs, Shasta Lake and Forest Service info) and return the best matching entries with their page URLs.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 2,
+              "description": "What to look up, e.g. 'Queen houseboat hot tub' or 'boat ramps'."
+            },
+            "limit": {
+              "default": 5,
+              "description": "Maximum entries to return.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_resort_policies",
+        "title": "Get resort policies",
+        "description": "Return Silverthorn Resort's exact published policy facts (deposits, cancellation, check-in/out, fuel, pets, parking) for houseboats and cabins, with the page each fact lives on.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "topic": {
+              "description": "Optional filter, e.g. 'cancellation', 'pets', 'deposit'. Omit to return every policy fact.",
+              "type": "string"
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_fleet",
+        "title": "List rental fleet",
+        "description": "List Silverthorn Resort's rental fleet: houseboats (Queen, Queen I, Queen II, Senator) and small boats (patio, ski, fishing boats, jet skis) with capacity, pricing and page URLs.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "default": "all",
+              "description": "Which part of the fleet to list.",
+              "type": "string",
+              "enum": [
+                "houseboats",
+                "small_boats",
+                "all"
+              ]
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
