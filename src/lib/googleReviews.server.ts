@@ -19,19 +19,22 @@ function publicSupabase() {
   });
 }
 
-// Only 5-star reviews published within the last 5 months, newest first.
-const MAX_AGE_MS = 5 * 30 * 24 * 60 * 60 * 1000;
+// Only 5-star reviews published within the last 3 months, newest first.
+const MAX_AGE_MS = 3 * 30 * 24 * 60 * 60 * 1000;
 
 function filterReviews(reviews: GoogleReview[]): GoogleReview[] {
   const cutoff = Date.now() - MAX_AGE_MS;
-  return reviews
+  const fiveStar = reviews
     .filter((r) => r.rating === 5)
-    .filter((r) => {
-      const t = r.publishTime ? Date.parse(r.publishTime) : NaN;
-      return Number.isNaN(t) ? false : t >= cutoff;
-    })
+    .filter((r) => !Number.isNaN(Date.parse(r.publishTime || "")))
     .sort((a, b) => Date.parse(b.publishTime) - Date.parse(a.publishTime));
+
+  const recent = fiveStar.filter((r) => Date.parse(r.publishTime) >= cutoff);
+  // If Google has no 5-star review inside the window, show the newest real
+  // 5-star reviews instead of an empty carousel.
+  return recent.length > 0 ? recent : fiveStar.slice(0, 5);
 }
+
 
 async function fetchFromGoogle(placeId: string): Promise<ReviewsPayload> {
   const lovableKey = process.env.LOVABLE_API_KEY;
