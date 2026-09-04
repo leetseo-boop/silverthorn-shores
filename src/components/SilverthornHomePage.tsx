@@ -638,6 +638,17 @@ function FleetCard({ boat }: { boat: any }) {
           </span>
         </div>
 
+        {(() => {
+          const data = HOUSEBOAT_DATA.find((h) => h.slug === boat.id);
+          if (!data) return null;
+          return (
+            <div className="mb-4 flex items-baseline gap-2">
+              <span className="text-xs uppercase tracking-wide" style={{ color: "#7a8a9a" }}>From</span>
+              <PromoPrice price={data.priceFrom} />
+            </div>
+          );
+        })()}
+
         <a
           href={boat.slug}
           className="block w-full text-center px-4 py-2.5 rounded-lg text-white text-sm font-semibold tracking-wide transition-colors"
