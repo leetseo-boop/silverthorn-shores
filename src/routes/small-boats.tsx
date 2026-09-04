@@ -120,18 +120,24 @@ const ldGraph = {
 };
 
 export const Route = createFileRoute("/small-boats")({
-  head: () => ({
+  head: () => {
+    const promo = isPromoActive();
+    const T = promo ? "20% Off Shasta Lake Boat Rentals | Silverthorn Sale" : TITLE;
+    const D = promo
+      ? `End of Summer Sale at Silverthorn Resort: 20% off Shasta Lake pontoon, wakeboard, deck and fishing boat rentals with code ${PROMO.code} through September 30. Jet skis excluded. New reservations only.`
+      : DESC;
+    return ({
     meta: [
-      { title: TITLE },
-      { name: "description", content: DESC },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESC },
+      { title: T },
+      { name: "description", content: D },
+      { property: "og:title", content: T },
+      { property: "og:description", content: D },
       { property: "og:type", content: "website" },
       { property: "og:url", content: PATH },
       { property: "og:image", content: HERO_ABS },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESC },
+      { name: "twitter:title", content: T },
+      { name: "twitter:description", content: D },
       { name: "twitter:image", content: HERO_ABS },
     ],
     links: [
