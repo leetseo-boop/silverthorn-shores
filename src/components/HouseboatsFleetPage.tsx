@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { houseboats } from "@/data/houseboats";
+import { PromoBadge, PromoPrice, PromoBanner } from "@/components/promo/PromoBits";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -147,6 +148,8 @@ export function HouseboatsFleetPage() {
             </p>
           </div>
 
+          <PromoBanner what="all Silverthorn houseboats" className="mt-10" />
+
           <div className="mt-14 space-y-16">
             {houseboats.map((boat, i) => {
               const reverse = i % 2 === 1;
@@ -191,7 +194,13 @@ export function HouseboatsFleetPage() {
                       ))}
                     </ul>
 
-                    <div className="mt-7 flex flex-wrap gap-3">
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                      <PromoBadge />
+                      <span className="text-sm text-muted-foreground">From</span>
+                      <PromoPrice price={boat.priceFrom} />
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap gap-3">
                       <Button asChild className="rounded-full">
                         <Link
                           to={

@@ -5,6 +5,7 @@ import { BOATS } from "@/data/silverthorn-boats";
 import { POLICY_FACTS } from "@/lib/thorn-knowledge";
 import { POLICY_SOURCES } from "@/lib/thorn-sources";
 import type { KEntry } from "./kb-types";
+import { PROMO, isPromoActive } from "@/lib/promo";
 
 const money = (n: number) =>
   `$${n.toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
@@ -217,7 +218,34 @@ export const FLEET_GUIDANCE: KEntry[] = [
   },
 ];
 
+/** Active promotions. Empty automatically once the sale window closes. */
+export const PROMO_ENTRIES: KEntry[] = isPromoActive()
+  ? [
+      {
+        slug: "promo-end-of-summer-2026",
+        type: "page",
+        name: "End of Summer Sale — 20% off",
+        url: "/",
+        summary:
+          `Silverthorn Resort's End of Summer Sale is running right now: 20% off with promo code ${PROMO.code}, extended through September 30, 2026. The discount applies to ALL houseboats (Queen, Queen I, Queen II, Senator), lakeside cabins, and small boat rentals — patio boats, Sun Tracker pontoon, Party Cruiser I, Tahoe deck boat, Axis T220-R, Centurion T-5 and fishing boats. Jet skis (SeaDoo), kayaks and stand-up paddle boards are NOT included in the sale. New reservations only. The discount applies to the rental rate; taxes, fuel and deposits are not discounted. Guests book at rentals.silverthornresort.com or call 800-332-3044 and mention code ${PROMO.code}.`,
+        highlights: [
+          `Promo code ${PROMO.code} — 20% off`,
+          "Valid through September 30, 2026",
+          "Houseboats, cabins and most small boats included",
+          "Jet skis, kayaks and paddle boards excluded",
+          "New reservations only",
+        ],
+        faqs: [
+          { q: "What is the promo code for the End of Summer Sale?", a: `The code is ${PROMO.code}. Mention it when you book online or call 800-332-3044.` },
+          { q: "Does the 20% off apply to jet skis?", a: "No — jet skis, kayaks and stand-up paddle boards are excluded. Houseboats, cabins and our other small boats are all 20% off." },
+          { q: "When does the End of Summer Sale end?", a: "It runs through September 30, 2026, for new reservations only." },
+        ],
+      },
+    ]
+  : [];
+
 export const SITE_ENTRIES: KEntry[] = [
+  ...PROMO_ENTRIES,
   ...SITE_PAGES,
   ...FLEET_GUIDANCE,
   ...HOUSEBOAT_ENTRIES,

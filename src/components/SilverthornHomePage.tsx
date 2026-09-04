@@ -25,6 +25,8 @@ import fleetQueenII from "@/assets/fleet-queen-ii.webp";
 import fleetSenator from "@/assets/fleet-senator.webp";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import { SocialLinks } from "@/components/SocialLinks";
+import { PromoHeroStrip, PromoBannerImage, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { houseboats as HOUSEBOAT_DATA } from "@/data/houseboats";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
@@ -607,6 +609,7 @@ function FleetCard({ boat }: { boat: any }) {
         >
           {boat.badge}
         </span>
+        <PromoBadge className="absolute top-2.5 right-2.5" />
       </div>
 
       <div className="p-4">
@@ -634,6 +637,17 @@ function FleetCard({ boat }: { boat: any }) {
             ✨ {boat.feature}
           </span>
         </div>
+
+        {(() => {
+          const data = HOUSEBOAT_DATA.find((h) => h.slug === boat.id);
+          if (!data) return null;
+          return (
+            <div className="mb-4 flex items-baseline gap-2">
+              <span className="text-xs uppercase tracking-wide" style={{ color: "#7a8a9a" }}>From</span>
+              <PromoPrice price={data.priceFrom} />
+            </div>
+          );
+        })()}
 
         <a
           href={boat.slug}
@@ -1175,7 +1189,9 @@ export default function SilverthornHomePage() {
   return (
     <main>
       
+      <PromoHeroStrip />
       <Hero />
+      <PromoBannerImage />
       <FleetSection />
       <StatsBar />
       <AboutSection />

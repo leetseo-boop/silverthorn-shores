@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import type { Houseboat } from "@/data/houseboats";
 import { houseboats } from "@/data/houseboats";
+import { PromoBanner, PromoPrice, PromoBadge } from "@/components/promo/PromoBits";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -142,7 +143,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
             <div className="flex items-center gap-3">
               <div className="text-right hidden sm:block">
                 <div className="text-xs uppercase tracking-wide text-gray-500">From</div>
-                <div className="text-xl font-bold" style={{ color: NAVY }}>${boat.priceFrom.toLocaleString()}</div>
+                <div className="text-xl font-bold" style={{ color: NAVY }}><PromoPrice price={boat.priceFrom} /></div>
               </div>
               <a
                 href={boat.bookingUrl}
@@ -163,6 +164,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
       {/* Main content + sidebar */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6">
+          <PromoBanner what={`the ${boat.name} houseboat`} className="mb-8" />
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Left: tabs */}
             <div className="lg:col-span-2">
@@ -429,9 +431,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
                 <div className="rounded-2xl p-6 shadow-lg border border-gray-200 bg-white">
                   <div className="text-center mb-6">
                     <div className="text-xs uppercase tracking-wide text-gray-500">Starting From</div>
-                    <div className="text-4xl font-bold mt-1" style={{ color: NAVY, fontFamily: DISPLAY }}>
-                      ${boat.priceFrom.toLocaleString()}
-                    </div>
+                    <div className="mt-1 flex justify-center"><PromoPrice price={boat.priceFrom} size="lg" /></div>
                     <div className="text-xs text-gray-500 italic mt-1">3 Nights Low Season</div>
                   </div>
                   <a

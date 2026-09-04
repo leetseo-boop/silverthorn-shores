@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PromoBanner } from "@/components/promo/PromoBits";
+import { isPromoActive } from "@/lib/promo";
 import {
   Users,
   BedDouble,
@@ -218,23 +220,29 @@ const PAGE_DESC =
   "8 lakeside cabins on Shasta Lake sleeping 4–8. Full kitchens, BBQs, DirecTV, one boat slip per cabin. Bring your own boat or rent at the marina.";
 
 export const Route = createFileRoute("/cabins")({
-  head: () => ({
+  head: () => {
+    const promo = isPromoActive();
+    const PAGE_TITLE_X = promo ? "20% Off Shasta Lake Cabins | Silverthorn End of Summer" : PAGE_TITLE;
+    const PAGE_DESC_X = promo
+      ? "End of Summer Sale: 20% off Silverthorn Resort's 8 lakeside Shasta Lake cabins with code LABOR26 through September 30. Full kitchens, BBQs and a boat slip per cabin. New reservations only."
+      : PAGE_DESC;
+    return ({
     meta: [
-      { title: PAGE_TITLE },
-      { name: "description", content: PAGE_DESC },
+      { title: PAGE_TITLE_X },
+      { name: "description", content: PAGE_DESC_X },
       {
         name: "keywords",
         content:
           "Shasta Lake cabins, Silverthorn cabins, lake cabins, Shasta Lake lodging, cabin rentals Shasta Lake, family cabin rentals, bring your own boat, lakeside cabin rentals California",
       },
-      { property: "og:title", content: PAGE_TITLE },
-      { property: "og:description", content: PAGE_DESC },
+      { property: "og:title", content: PAGE_TITLE_X },
+      { property: "og:description", content: PAGE_DESC_X },
       { property: "og:type", content: "website" },
       { property: "og:url", content: PAGE_URL },
       { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: PAGE_TITLE },
-      { name: "twitter:description", content: PAGE_DESC },
+      { name: "twitter:title", content: PAGE_TITLE_X },
+      { name: "twitter:description", content: PAGE_DESC_X },
       { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
@@ -286,7 +294,8 @@ export const Route = createFileRoute("/cabins")({
         }),
       },
     ],
-  }),
+  });
+  },
   component: CabinsPage,
 });
 
@@ -329,6 +338,13 @@ function CabinsPage() {
               <Phone className="h-4 w-4" /> Call {PHONE}
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* End of Summer Sale */}
+      <section className="border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <PromoBanner what="Silverthorn lakeside cabins" />
         </div>
       </section>
 

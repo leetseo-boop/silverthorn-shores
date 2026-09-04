@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HouseboatsFleetPage } from "@/components/HouseboatsFleetPage";
 import { houseboats } from "@/data/houseboats";
+import { isPromoActive, PROMO } from "@/lib/promo";
 
 const SITE = "https://silverthornresort.com";
 const path = `${SITE}/houseboats`;
@@ -16,18 +17,24 @@ const FAQS = [
 ];
 
 export const Route = createFileRoute("/houseboats/")({
-  head: () => ({
+  head: () => {
+    const promo = isPromoActive();
+    const t = promo ? "20% Off Shasta Lake Houseboats | Silverthorn Sale" : title;
+    const d = promo
+      ? `End of Summer Sale: 20% off every Silverthorn Resort houseboat on Shasta Lake with code ${PROMO.code} through September 30. Queen, Queen I, Queen II and Senator. New reservations only.`
+      : description;
+    return ({
     meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
+      { title: t },
+      { name: "description", content: d },
+      { property: "og:title", content: t },
+      { property: "og:description", content: d },
       { property: "og:type", content: "website" },
       { property: "og:url", content: path },
       { property: "og:image", content: ogImage },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: title },
-      { name: "twitter:description", content: description },
+      { name: "twitter:title", content: t },
+      { name: "twitter:description", content: d },
       { name: "twitter:image", content: ogImage },
     ],
     links: [{ rel: "canonical", href: path }],
@@ -75,6 +82,7 @@ export const Route = createFileRoute("/houseboats/")({
         }),
       },
     ],
-  }),
+    });
+  },
   component: HouseboatsFleetPage,
 });

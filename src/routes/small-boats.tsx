@@ -6,6 +6,8 @@ import {
   Anchor, Car, Fuel, ShoppingBag, Users, MapPin, Phone, Heart, Fish,
   Calendar, Home, ChevronDown, Zap, Waves,
 } from "lucide-react";
+import { PromoBanner, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { isPromoActive, isBoatIncluded, PROMO } from "@/lib/promo";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -118,18 +120,24 @@ const ldGraph = {
 };
 
 export const Route = createFileRoute("/small-boats")({
-  head: () => ({
+  head: () => {
+    const promo = isPromoActive();
+    const T = promo ? "20% Off Shasta Lake Boat Rentals | Silverthorn Sale" : TITLE;
+    const D = promo
+      ? `End of Summer Sale at Silverthorn Resort: 20% off Shasta Lake pontoon, wakeboard, deck and fishing boat rentals with code ${PROMO.code} through September 30. Jet skis excluded. New reservations only.`
+      : DESC;
+    return ({
     meta: [
-      { title: TITLE },
-      { name: "description", content: DESC },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESC },
+      { title: T },
+      { name: "description", content: D },
+      { property: "og:title", content: T },
+      { property: "og:description", content: D },
       { property: "og:type", content: "website" },
       { property: "og:url", content: PATH },
       { property: "og:image", content: HERO_ABS },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESC },
+      { name: "twitter:title", content: T },
+      { name: "twitter:description", content: D },
       { name: "twitter:image", content: HERO_ABS },
     ],
     links: [
@@ -139,7 +147,8 @@ export const Route = createFileRoute("/small-boats")({
     scripts: [
       { type: "application/ld+json", children: JSON.stringify(ldGraph) },
     ],
-  }),
+  });
+  },
   component: SmallBoatsPage,
 });
 
@@ -237,6 +246,7 @@ function SmallBoatsPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: DISPLAY, color: NAVY }}>The Fleet</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">Ten boats covering every speed, group size and budget — all bookable online.</p>
           </div>
+          <PromoBanner what="small boat rentals (jet skis and paddle toys excluded)" className="mb-10" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {fleet.map((b) => (
               <article key={b.id} className="group rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-md transition-all flex flex-col" style={{ borderColor: "rgba(27,43,58,0.08)" }}>
@@ -244,8 +254,9 @@ function SmallBoatsPage() {
                   <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                     <img src={b.img} alt={b.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white shadow" style={{ backgroundColor: ORANGE }}>
-                      ${b.price.toFixed(2)}/day
+                      ${(isPromoActive() && isBoatIncluded(b.id) ? b.price * 0.8 : b.price).toFixed(2)}/day
                     </div>
+                    {isPromoActive() && isBoatIncluded(b.id) && <PromoBadge className="absolute top-3 right-3" />}
                   </div>
                 </Link>
                 <div className="p-5 flex flex-col flex-1">
@@ -255,7 +266,9 @@ function SmallBoatsPage() {
                   <p className="text-sm text-gray-600 mb-3">{b.use}</p>
                   <div className="flex items-center justify-between text-sm mb-4">
                     <span className="inline-flex items-center gap-1 text-gray-700"><Users className="w-4 h-4" /> Up to {b.capacity}</span>
-                    <span className="font-bold" style={{ color: NAVY }}>${b.price.toFixed(2)}</span>
+                    {isPromoActive() && isBoatIncluded(b.id)
+                      ? <PromoPrice price={b.price} decimals size="sm" />
+                      : <span className="font-bold" style={{ color: NAVY }}>${b.price.toFixed(2)}</span>}
                   </div>
                   <div className="mt-auto grid grid-cols-2 gap-2">
                     <Link to="/small-boats/$slug" params={{ slug: b.id }}
