@@ -26,6 +26,7 @@ import fleetSenator from "@/assets/fleet-senator.webp";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import { SocialLinks } from "@/components/SocialLinks";
 import { PromoHeroStrip, PromoBannerImage, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { isPromoActive, PROMO } from "@/lib/promo";
 import { houseboats as HOUSEBOAT_DATA } from "@/data/houseboats";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
