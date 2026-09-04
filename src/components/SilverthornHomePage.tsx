@@ -773,6 +773,14 @@ function FleetSection() {
                 </div>
               </div>
               <div className="px-5 py-4">
+                {isPromoActive() && (
+                  <p
+                    className="text-xs font-semibold mb-3 text-center"
+                    style={{ color: "#E8640A" }}
+                  >
+                    {PROMO.percentLabel} with code {PROMO.code} · new reservations only
+                  </p>
+                )}
                 <a
                   href={c.learn}
                   className="block w-full text-center px-4 py-2.5 rounded-lg text-white text-sm font-semibold tracking-wide transition-colors"
