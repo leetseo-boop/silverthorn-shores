@@ -164,6 +164,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
       {/* Main content + sidebar */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6">
+          <PromoBanner what={`the ${boat.name} houseboat`} className="mb-8" />
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Left: tabs */}
             <div className="lg:col-span-2">
