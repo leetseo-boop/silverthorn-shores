@@ -25,6 +25,8 @@ import fleetQueenII from "@/assets/fleet-queen-ii.webp";
 import fleetSenator from "@/assets/fleet-senator.webp";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import { SocialLinks } from "@/components/SocialLinks";
+import { PromoHeroStrip, PromoBannerImage, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { houseboats as HOUSEBOAT_DATA } from "@/data/houseboats";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const BOOKING_URL   = "https://rentals.silverthornresort.com";
