@@ -124,7 +124,7 @@ export const Route = createFileRoute("/small-boats")({
     const promo = isPromoActive();
     const T = promo ? "20% Off Shasta Lake Boat Rentals | Silverthorn Sale" : TITLE;
     const D = promo
-      ? `End of Summer Sale at Silverthorn Resort: 20% off Shasta Lake pontoon, wakeboard, deck and fishing boat rentals with code ${PROMO.code} through September 30. Jet skis excluded. New reservations only.`
+      ? `End of Summer Sale at Silverthorn Resort: 20% off Shasta Lake pontoon, wakeboard, deck and fishing boats plus kayaks and paddle boards with code ${PROMO.code} through September 30. Jet skis excluded. New reservations only.`
       : DESC;
     return ({
     meta: [
@@ -246,7 +246,7 @@ function SmallBoatsPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: DISPLAY, color: NAVY }}>The Fleet</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">Ten boats covering every speed, group size and budget — all bookable online.</p>
           </div>
-          <PromoBanner what="small boat rentals (jet skis and paddle toys excluded)" className="mb-10" />
+          <PromoBanner what="small boat rentals, kayaks and paddle boards (jet skis excluded)" className="mb-10" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {fleet.map((b) => (
               <article key={b.id} className="group rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-md transition-all flex flex-col" style={{ borderColor: "rgba(27,43,58,0.08)" }}>
