@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { houseboats } from "@/data/houseboats";
+import { PromoBadge, PromoPrice, PromoBanner } from "@/components/promo/PromoBits";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -146,6 +147,8 @@ export function HouseboatsFleetPage() {
               Every houseboat at Silverthorn Resort is maintained to the highest standards. Whether you're planning a romantic getaway or a 20-person family reunion, we have the perfect vessel for your Shasta Lake adventure.
             </p>
           </div>
+
+          <PromoBanner what="all Silverthorn houseboats" className="mt-10" />
 
           <div className="mt-14 space-y-16">
             {houseboats.map((boat, i) => {
