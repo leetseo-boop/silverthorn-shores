@@ -26,6 +26,7 @@ import fleetSenator from "@/assets/fleet-senator.webp";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import { SocialLinks } from "@/components/SocialLinks";
 import { PromoHeroStrip, PromoBannerImage, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { isPromoActive, PROMO } from "@/lib/promo";
 import { houseboats as HOUSEBOAT_DATA } from "@/data/houseboats";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -760,6 +761,7 @@ function FleetSection() {
                 >
                   {c.chip}
                 </span>
+                <PromoBadge className="absolute top-3 right-3 z-10" />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-5 pt-16">
                   <h3
                     className="text-2xl font-bold text-white mb-1"
@@ -771,6 +773,14 @@ function FleetSection() {
                 </div>
               </div>
               <div className="px-5 py-4">
+                {isPromoActive() && (
+                  <p
+                    className="text-xs font-semibold mb-3 text-center"
+                    style={{ color: "#E8640A" }}
+                  >
+                    {PROMO.percentLabel} with code {PROMO.code} · new reservations only
+                  </p>
+                )}
                 <a
                   href={c.learn}
                   className="block w-full text-center px-4 py-2.5 rounded-lg text-white text-sm font-semibold tracking-wide transition-colors"
