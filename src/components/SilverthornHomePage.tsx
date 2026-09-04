@@ -609,6 +609,7 @@ function FleetCard({ boat }: { boat: any }) {
         >
           {boat.badge}
         </span>
+        <PromoBadge className="absolute top-2.5 right-2.5" />
       </div>
 
       <div className="p-4">
