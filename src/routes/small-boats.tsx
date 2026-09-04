@@ -147,7 +147,8 @@ export const Route = createFileRoute("/small-boats")({
     scripts: [
       { type: "application/ld+json", children: JSON.stringify(ldGraph) },
     ],
-  }),
+  });
+  },
   component: SmallBoatsPage,
 });
 
