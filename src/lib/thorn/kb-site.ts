@@ -227,17 +227,17 @@ export const PROMO_ENTRIES: KEntry[] = isPromoActive()
         name: "End of Summer Sale — 20% off",
         url: "/",
         summary:
-          `Silverthorn Resort's End of Summer Sale is running right now: 20% off with promo code ${PROMO.code}, extended through September 30, 2026. The discount applies to ALL houseboats (Queen, Queen I, Queen II, Senator), lakeside cabins, and small boat rentals — patio boats, Sun Tracker pontoon, Party Cruiser I, Tahoe deck boat, Axis T220-R, Centurion T-5 and fishing boats. Jet skis (SeaDoo), kayaks and stand-up paddle boards are NOT included in the sale. New reservations only. The discount applies to the rental rate; taxes, fuel and deposits are not discounted. Guests book at rentals.silverthornresort.com or call 800-332-3044 and mention code ${PROMO.code}.`,
+          `Silverthorn Resort's End of Summer Sale is running right now: 20% off with promo code ${PROMO.code}, extended through September 30, 2026. The discount applies to ALL houseboats (Queen, Queen I, Queen II, Senator), lakeside cabins, and small boat rentals — patio boats, Sun Tracker pontoon, Party Cruiser I, Tahoe deck boat, Axis T220-R, Centurion T-5, fishing boats, kayaks and stand-up paddle boards. Only jet skis (SeaDoo) are NOT included in the sale. New reservations only. The discount applies to the rental rate; taxes, fuel and deposits are not discounted. Guests book at rentals.silverthornresort.com or call 800-332-3044 and mention code ${PROMO.code}.`,
         highlights: [
           `Promo code ${PROMO.code} — 20% off`,
           "Valid through September 30, 2026",
-          "Houseboats, cabins and most small boats included",
-          "Jet skis, kayaks and paddle boards excluded",
+          "Houseboats, cabins, small boats, kayaks and paddle boards included",
+          "Only jet skis are excluded",
           "New reservations only",
         ],
         faqs: [
           { q: "What is the promo code for the End of Summer Sale?", a: `The code is ${PROMO.code}. Mention it when you book online or call 800-332-3044.` },
-          { q: "Does the 20% off apply to jet skis?", a: "No — jet skis, kayaks and stand-up paddle boards are excluded. Houseboats, cabins and our other small boats are all 20% off." },
+          { q: "Does the 20% off apply to jet skis?", a: "No — jet skis are the only rental excluded. Houseboats, cabins, our other small boats, kayaks and stand-up paddle boards are all 20% off." },
           { q: "When does the End of Summer Sale end?", a: "It runs through September 30, 2026, for new reservations only." },
         ],
       },

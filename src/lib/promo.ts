@@ -13,8 +13,8 @@ export const PROMO = {
   fineprint: "New reservations only. Discount applies to the rental rate; taxes, fuel and deposits are not discounted.",
   // 11:59:59 PM Pacific on Sept 30, 2026 = 2026-10-01T06:59:59Z
   endsAt: Date.parse("2026-10-01T06:59:59Z"),
-  /** Small boats that are NOT part of the sale (jet skis and paddle toys). */
-  excludedBoatSlugs: ["jet-ski", "kayak", "sup"] as string[],
+  /** Small boats that are NOT part of the sale (jet skis only). */
+  excludedBoatSlugs: ["jet-ski"] as string[],
 } as const;
 
 export function isPromoActive(now: number = Date.now()): boolean {
