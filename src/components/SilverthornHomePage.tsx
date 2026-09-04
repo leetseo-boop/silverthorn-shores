@@ -761,6 +761,7 @@ function FleetSection() {
                 >
                   {c.chip}
                 </span>
+                <PromoBadge className="absolute top-3 right-3 z-10" />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-5 pt-16">
                   <h3
                     className="text-2xl font-bold text-white mb-1"
