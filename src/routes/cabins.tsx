@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PromoBanner } from "@/components/promo/PromoBits";
 import {
   Users,
   BedDouble,
@@ -329,6 +330,13 @@ function CabinsPage() {
               <Phone className="h-4 w-4" /> Call {PHONE}
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* End of Summer Sale */}
+      <section className="border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <PromoBanner what="Silverthorn lakeside cabins" />
         </div>
       </section>
 
