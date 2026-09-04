@@ -1189,7 +1189,9 @@ export default function SilverthornHomePage() {
   return (
     <main>
       
+      <PromoHeroStrip />
       <Hero />
+      <PromoBannerImage />
       <FleetSection />
       <StatsBar />
       <AboutSection />
