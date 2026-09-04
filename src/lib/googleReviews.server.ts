@@ -24,15 +24,11 @@ const MAX_AGE_MS = 3 * 30 * 24 * 60 * 60 * 1000;
 
 function filterReviews(reviews: GoogleReview[]): GoogleReview[] {
   const cutoff = Date.now() - MAX_AGE_MS;
-  const fiveStar = reviews
+  return reviews
     .filter((r) => r.rating === 5)
     .filter((r) => !Number.isNaN(Date.parse(r.publishTime || "")))
+    .filter((r) => Date.parse(r.publishTime) >= cutoff)
     .sort((a, b) => Date.parse(b.publishTime) - Date.parse(a.publishTime));
-
-  const recent = fiveStar.filter((r) => Date.parse(r.publishTime) >= cutoff);
-  // If Google has no 5-star review inside the window, show the newest real
-  // 5-star reviews instead of an empty carousel.
-  return recent.length > 0 ? recent : fiveStar.slice(0, 5);
 }
 
 
