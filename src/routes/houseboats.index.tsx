@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HouseboatsFleetPage } from "@/components/HouseboatsFleetPage";
 import { houseboats } from "@/data/houseboats";
-import { isPromoActive, PROMO } from "@/lib/promo";
+import { isPromoActive, PROMO, rentalAggregateOffer, saleEventJsonLd } from "@/lib/promo";
 
 const SITE = "https://silverthornresort.com";
 const path = `${SITE}/houseboats`;
@@ -39,6 +39,16 @@ export const Route = createFileRoute("/houseboats/")({
     ],
     links: [{ rel: "canonical", href: path }],
     scripts: [
+      ...(promo
+        ? [{
+            type: "application/ld+json",
+            children: JSON.stringify(saleEventJsonLd({
+              url: path,
+              name: `${PROMO.title} — ${PROMO.percentLabel} Shasta Lake Houseboats`,
+              description: `${PROMO.percentLabel} every Silverthorn Resort houseboat on Shasta Lake — Queen, Queen I, Queen II and Senator — with code ${PROMO.code}, September 1 through September 30, 2026. New reservations only.`,
+            })),
+          }]
+        : []),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -54,6 +64,7 @@ export const Route = createFileRoute("/houseboats/")({
               url: `/houseboats/${b.slug}`,
               image: b.heroImages[0],
               aggregateRating: { "@type": "AggregateRating", ratingValue: b.rating, reviewCount: b.reviews },
+              offers: rentalAggregateOffer(b.priceFrom, b.extendedPricing.sevenNight.holiday, `${SITE}/houseboats/${b.slug}`),
             },
           })),
         }),

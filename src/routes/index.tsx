@@ -47,7 +47,7 @@ export const Route = createFileRoute("/")({
               "@type": "SaleEvent",
               name: "Silverthorn Resort End of Summer Sale — 20% Off",
               description: `20% off Shasta Lake houseboats, small boat rentals including kayaks and paddle boards (jet skis excluded) and lakeside cabins at Silverthorn Resort. Use code ${PROMO.code}. New reservations only.`,
-              startDate: "2026-09-01",
+              startDate: PROMO.startDate,
               endDate: PROMO.validThrough,
               eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
               location: {

@@ -218,7 +218,7 @@ export const FLEET_GUIDANCE: KEntry[] = [
   },
 ];
 
-/** Active promotions. Empty automatically once the sale window closes. */
+/** Active promotions. Swaps to a "sale ended" entry once the window closes. */
 export const PROMO_ENTRIES: KEntry[] = isPromoActive()
   ? [
       {
@@ -227,22 +227,40 @@ export const PROMO_ENTRIES: KEntry[] = isPromoActive()
         name: "End of Summer Sale — 20% off",
         url: "/",
         summary:
-          `Silverthorn Resort's End of Summer Sale is running right now: 20% off with promo code ${PROMO.code}, extended through September 30, 2026. The discount applies to ALL houseboats (Queen, Queen I, Queen II, Senator), lakeside cabins, and small boat rentals — patio boats, Sun Tracker pontoon, Party Cruiser I, Tahoe deck boat, Axis T220-R, Centurion T-5, fishing boats, kayaks and stand-up paddle boards. Only jet skis (SeaDoo) are NOT included in the sale. New reservations only. The discount applies to the rental rate; taxes, fuel and deposits are not discounted. Guests book at rentals.silverthornresort.com or call 800-332-3044 and mention code ${PROMO.code}.`,
+          `Silverthorn Resort's End of Summer Sale is running right now: 20% off with promo code ${PROMO.code}. The sale started ${PROMO.startsLabel} and ends ${PROMO.endsFullLabel} — after that the sale and every promo banner on the site are gone. The discount applies to ALL houseboats (Queen, Queen I, Queen II, Senator), lakeside cabins, and small boat rentals — patio boats, Sun Tracker pontoon, Party Cruiser I, Tahoe deck boat, Axis T220-R, Centurion T-5, fishing boats, kayaks and stand-up paddle boards. Only jet skis (SeaDoo) are NOT included in the sale. New reservations only. The discount applies to the rental rate; taxes, fuel and deposits are not discounted. Guests book at rentals.silverthornresort.com or call 800-332-3044 and mention code ${PROMO.code}.`,
         highlights: [
           `Promo code ${PROMO.code} — 20% off`,
-          "Valid through September 30, 2026",
+          `Sale window: ${PROMO.startsLabel} through ${PROMO.endsFullLabel}`,
           "Houseboats, cabins, small boats, kayaks and paddle boards included",
           "Only jet skis are excluded",
           "New reservations only",
         ],
         faqs: [
           { q: "What is the promo code for the End of Summer Sale?", a: `The code is ${PROMO.code}. Mention it when you book online or call 800-332-3044.` },
+          { q: "When did the End of Summer Sale start?", a: `It started ${PROMO.startsLabel}.` },
           { q: "Does the 20% off apply to jet skis?", a: "No — jet skis are the only rental excluded. Houseboats, cabins, our other small boats, kayaks and stand-up paddle boards are all 20% off." },
-          { q: "When does the End of Summer Sale end?", a: "It runs through September 30, 2026, for new reservations only." },
+          { q: "When does the End of Summer Sale end?", a: `It runs through ${PROMO.endsFullLabel}, for new reservations only. After that the sale is over.` },
         ],
       },
     ]
-  : [];
+  : [
+      {
+        slug: "promo-end-of-summer-2026-ended",
+        type: "page",
+        name: "End of Summer Sale — ended",
+        url: "/",
+        summary:
+          `The End of Summer Sale (20% off with code ${PROMO.code}) ran from ${PROMO.startsLabel} through ${PROMO.endsFullLabel} and has ENDED. Code ${PROMO.code} is no longer valid and there is no discount on current bookings. Never quote the 20% off or the code as active. Guests can still book houseboats, cabins and small boats at regular rates at rentals.silverthornresort.com or by calling 800-332-3044, and can ask to be told about future specials.`,
+        highlights: [
+          `Sale ended ${PROMO.endsFullLabel}`,
+          `Code ${PROMO.code} is expired — do not offer it`,
+        ],
+        faqs: [
+          { q: `Is promo code ${PROMO.code} still good?`, a: `No — the End of Summer Sale ended ${PROMO.endsFullLabel}. Call 800-332-3044 and we'll let you know about any current specials.` },
+        ],
+      },
+    ];
+
 
 export const SITE_ENTRIES: KEntry[] = [
   ...PROMO_ENTRIES,

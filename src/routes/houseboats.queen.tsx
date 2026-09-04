@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HouseboatDetail } from "@/components/HouseboatDetail";
 import { getHouseboatBySlug } from "@/data/houseboats";
+import { PROMO, isPromoActive, rentalAggregateOffer, saleEventJsonLd } from "@/lib/promo";
 
 const boat = getHouseboatBySlug("queen")!;
 const path = "/houseboats/queen";
@@ -23,6 +24,9 @@ export const Route = createFileRoute("/houseboats/queen")({
       { type: "application/ld+json", children: JSON.stringify(productJsonLd(boat, path)) },
       { type: "application/ld+json", children: JSON.stringify(faqJsonLd(boat)) },
       { type: "application/ld+json", children: JSON.stringify(breadcrumbJsonLd(boat, path)) },
+      ...(isPromoActive()
+        ? [{ type: "application/ld+json", children: JSON.stringify(saleEventJsonLd({ url: path, name: `${PROMO.title} — ${PROMO.percentLabel} the ${boat.name} Houseboat`, description: `${PROMO.percentLabel} the ${boat.name} houseboat at Silverthorn Resort on Shasta Lake with code ${PROMO.code}, through September 30, 2026. New reservations only.` })) }]
+        : []),
     ],
   }),
   component: () => <HouseboatDetail boat={boat} />,
@@ -34,7 +38,7 @@ function productJsonLd(b: typeof boat, url: string) {
     name: `${b.name} Houseboat`, description: b.description, image: b.heroImages,
     brand: { "@type": "Brand", name: "Silverthorn Resort" },
     aggregateRating: { "@type": "AggregateRating", ratingValue: b.rating, reviewCount: b.reviews },
-    offers: { "@type": "AggregateOffer", priceCurrency: "USD", lowPrice: b.priceFrom, highPrice: b.extendedPricing.sevenNight.holiday, url, availability: "https://schema.org/InStock" },
+    offers: rentalAggregateOffer(b.priceFrom, b.extendedPricing.sevenNight.holiday, url),
   };
 }
 function faqJsonLd(b: typeof boat) {

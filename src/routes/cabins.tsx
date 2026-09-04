@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PromoBanner } from "@/components/promo/PromoBits";
-import { isPromoActive } from "@/lib/promo";
+import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd } from "@/lib/promo";
 import {
   Users,
   BedDouble,
@@ -268,8 +268,33 @@ export const Route = createFileRoute("/cabins")({
             name: a.label,
             value: true,
           })),
+          ...(promo
+            ? {
+                makesOffer: {
+                  "@type": "Offer",
+                  name: `${PROMO.title} — ${PROMO.percentLabel} Shasta Lake Cabins`,
+                  url: PAGE_URL,
+                  priceCurrency: "USD",
+                  availability: "https://schema.org/InStock",
+                  validFrom: PROMO.startDate,
+                  validThrough: PROMO.validThrough,
+                  priceValidUntil: PROMO.validThrough,
+                  description: PROMO_OFFER_DESCRIPTION,
+                },
+              }
+            : {}),
         }),
       },
+      ...(promo
+        ? [{
+            type: "application/ld+json",
+            children: JSON.stringify(saleEventJsonLd({
+              url: PAGE_URL,
+              name: `${PROMO.title} — ${PROMO.percentLabel} Silverthorn Resort Cabins`,
+              description: `${PROMO.percentLabel} lakeside cabin rentals at Silverthorn Resort on Shasta Lake with code ${PROMO.code}, September 1 through September 30, 2026. New reservations only.`,
+            })),
+          }]
+        : []),
       {
         type: "application/ld+json",
         children: JSON.stringify({
