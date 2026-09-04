@@ -191,7 +191,13 @@ export function HouseboatsFleetPage() {
                       ))}
                     </ul>
 
-                    <div className="mt-7 flex flex-wrap gap-3">
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                      <PromoBadge />
+                      <span className="text-sm text-muted-foreground">From</span>
+                      <PromoPrice price={boat.priceFrom} />
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap gap-3">
                       <Button asChild className="rounded-full">
                         <Link
                           to={
