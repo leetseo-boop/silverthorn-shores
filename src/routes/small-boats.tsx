@@ -6,6 +6,8 @@ import {
   Anchor, Car, Fuel, ShoppingBag, Users, MapPin, Phone, Heart, Fish,
   Calendar, Home, ChevronDown, Zap, Waves,
 } from "lucide-react";
+import { PromoBanner, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { isPromoActive, isBoatIncluded } from "@/lib/promo";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
