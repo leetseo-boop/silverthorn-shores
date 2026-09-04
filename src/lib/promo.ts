@@ -41,3 +41,81 @@ export function money(n: number, decimals = false): string {
     maximumFractionDigits: decimals ? 2 : 0,
   })}`;
 }
+
+/* ------------------------------------------------------------------ */
+/* Structured data helpers — shared by every promo page.               */
+/* Reuses the resort's real NAP so Google can tie the offer to the     */
+/* Silverthorn Resort local entity.                                    */
+/* ------------------------------------------------------------------ */
+
+export const RESORT_PLACE = {
+  "@type": "Place",
+  name: "Silverthorn Resort",
+  telephone: "+1-800-332-3044",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "16250 Silverthorn Road",
+    addressLocality: "Redding",
+    addressRegion: "CA",
+    postalCode: "96003",
+    addressCountry: "US",
+  },
+} as const;
+
+export const RESORT_ORG = {
+  "@type": "Organization",
+  name: "Silverthorn Resort",
+  url: "https://silverthornresort.com",
+  telephone: "+1-800-332-3044",
+} as const;
+
+export const PROMO_OFFER_DESCRIPTION = `${PROMO.percentLabel} with code ${PROMO.code}. New reservations only; discount applies to the rental rate.`;
+
+/** SaleEvent node for a specific page. Returns null when the promo is over. */
+export function saleEventJsonLd(opts: { url: string; name: string; description: string }) {
+  if (!isPromoActive()) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "SaleEvent",
+    name: opts.name,
+    description: opts.description,
+    startDate: PROMO.startDate,
+    endDate: PROMO.validThrough,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: RESORT_PLACE,
+    organizer: RESORT_ORG,
+    offers: {
+      "@type": "Offer",
+      url: opts.url,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      validFrom: PROMO.startDate,
+      validThrough: PROMO.validThrough,
+      priceValidUntil: PROMO.validThrough,
+      description: PROMO_OFFER_DESCRIPTION,
+    },
+  };
+}
+
+/** AggregateOffer for a rental, discounted while the promo runs. */
+export function rentalAggregateOffer(low: number, high: number, url: string) {
+  const promo = isPromoActive();
+  return {
+    "@type": "AggregateOffer",
+    priceCurrency: "USD",
+    lowPrice: Math.round(promo ? discounted(low) : low),
+    highPrice: Math.round(promo ? discounted(high) : high),
+    url,
+    availability: "https://schema.org/InStock",
+    ...(promo
+      ? {
+          validFrom: PROMO.startDate,
+          validThrough: PROMO.validThrough,
+          priceValidUntil: PROMO.validThrough,
+          description: PROMO_OFFER_DESCRIPTION,
+          offeredBy: RESORT_ORG,
+        }
+      : {}),
+  };
+}
