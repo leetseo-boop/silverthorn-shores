@@ -84,10 +84,10 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-6 max-w-2xl">{boat.tagline}</p>
             <div className="inline-flex flex-wrap items-baseline gap-x-4 gap-y-2 bg-white/15 backdrop-blur-sm rounded-xl px-5 py-3 mb-8">
-              <span className="text-3xl font-bold" style={{ color: "#FFB36B" }}>${boat.dailyPrice.toFixed(2)}</span>
+              {promo ? <PromoPrice price={boat.dailyPrice} decimals size="lg" tone="dark" /> : <span className="text-3xl font-bold" style={{ color: "#FFB36B" }}>${boat.dailyPrice.toFixed(2)}</span>}
               <span className="text-white/80">/day</span>
               <span className="text-white/30 mx-1">|</span>
-              <span className="text-xl font-semibold text-white">${boat.weeklyPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+              {promo ? <PromoPrice price={boat.weeklyPrice} decimals tone="dark" /> : <span className="text-xl font-semibold text-white">${boat.weeklyPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>}
               <span className="text-white/80">/week</span>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -126,8 +126,8 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
             <div className="grid grid-cols-2 md:grid-cols-4 bg-white">
               <div className="px-5 py-4 font-medium">{boat.name} ({boat.capacity})</div>
               <div className="px-5 py-4">${boat.deposit.toFixed(2)}</div>
-              <div className="px-5 py-4 font-bold" style={{ color: ORANGE }}>${boat.dailyPrice.toFixed(2)}</div>
-              <div className="px-5 py-4 font-bold" style={{ color: ORANGE }}>${boat.weeklyPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}</div>
+              <div className="px-5 py-4 font-bold" style={{ color: ORANGE }}>{promo ? <PromoPrice price={boat.dailyPrice} decimals size="sm" /> : `$${boat.dailyPrice.toFixed(2)}`}</div>
+              <div className="px-5 py-4 font-bold" style={{ color: ORANGE }}>{promo ? <PromoPrice price={boat.weeklyPrice} decimals size="sm" /> : `$${boat.weeklyPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}</div>
             </div>
           </div>
           <p className="text-sm text-gray-600 mt-3">Prices per day plus tax. Refundable deposit required at booking. Weekly rate applies to 7-day rentals (subject to availability).</p>
