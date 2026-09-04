@@ -237,6 +237,7 @@ function SmallBoatsPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: DISPLAY, color: NAVY }}>The Fleet</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">Ten boats covering every speed, group size and budget — all bookable online.</p>
           </div>
+          <PromoBanner what="small boat rentals (jet skis and paddle toys excluded)" className="mb-10" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {fleet.map((b) => (
               <article key={b.id} className="group rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-md transition-all flex flex-col" style={{ borderColor: "rgba(27,43,58,0.08)" }}>
@@ -244,8 +245,9 @@ function SmallBoatsPage() {
                   <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                     <img src={b.img} alt={b.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white shadow" style={{ backgroundColor: ORANGE }}>
-                      ${b.price.toFixed(2)}/day
+                      ${(isPromoActive() && isBoatIncluded(b.id) ? b.price * 0.8 : b.price).toFixed(2)}/day
                     </div>
+                    {isPromoActive() && isBoatIncluded(b.id) && <PromoBadge className="absolute top-3 right-3" />}
                   </div>
                 </Link>
                 <div className="p-5 flex flex-col flex-1">
@@ -255,7 +257,9 @@ function SmallBoatsPage() {
                   <p className="text-sm text-gray-600 mb-3">{b.use}</p>
                   <div className="flex items-center justify-between text-sm mb-4">
                     <span className="inline-flex items-center gap-1 text-gray-700"><Users className="w-4 h-4" /> Up to {b.capacity}</span>
-                    <span className="font-bold" style={{ color: NAVY }}>${b.price.toFixed(2)}</span>
+                    {isPromoActive() && isBoatIncluded(b.id)
+                      ? <PromoPrice price={b.price} decimals size="sm" />
+                      : <span className="font-bold" style={{ color: NAVY }}>${b.price.toFixed(2)}</span>}
                   </div>
                   <div className="mt-auto grid grid-cols-2 gap-2">
                     <Link to="/small-boats/$slug" params={{ slug: b.id }}

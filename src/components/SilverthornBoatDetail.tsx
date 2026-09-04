@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import { Nav, Footer } from "@/components/SilverthornHomePage";
 import { BOATS, bookingUrl, type BoatConfig } from "@/data/silverthorn-boats";
+import { PromoBanner, PromoPrice } from "@/components/promo/PromoBits";
+import { isPromoActive, isBoatIncluded } from "@/lib/promo";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -30,6 +32,7 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const url = bookingUrl(boat.bookingId);
+  const promo = isPromoActive() && isBoatIncluded(boat.slug);
   const related = BOATS.filter((b) => b.slug !== boat.slug).slice(0, 3);
 
   useEffect(() => {
@@ -130,6 +133,7 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
               <div className="px-5 py-4 font-bold" style={{ color: ORANGE }}>{promo ? <PromoPrice price={boat.weeklyPrice} decimals size="sm" /> : `$${boat.weeklyPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}</div>
             </div>
           </div>
+          {promo && <PromoBanner what={`the ${boat.shortName}`} className="mt-6" />}
           <p className="text-sm text-gray-600 mt-3">Prices per day plus tax. Refundable deposit required at booking. Weekly rate applies to 7-day rentals (subject to availability).</p>
         </div>
       </section>
