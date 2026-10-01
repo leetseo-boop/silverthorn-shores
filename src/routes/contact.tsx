@@ -55,7 +55,7 @@ const LOCAL_BUSINESS_JSONLD = {
         "Sunday",
       ],
       opens: "08:00",
-      closes: "18:30",
+      closes: "16:30",
     },
   ],
   sameAs: [
@@ -176,7 +176,7 @@ function ContactPage() {
               <Clock className="h-5 w-5 text-primary" />
               <h3 className="font-display text-xl font-semibold">Marina Store Hours</h3>
             </div>
-            <p className="mt-3 text-lg">Mon–Sun 8:00 AM – 6:30 PM</p>
+            <p className="mt-3 text-lg">Fall / Winter: 7 days a week, 8:00 AM – 4:30 PM</p>
             <p className="mt-1 text-sm opacity-80">
               Seasonal — hours may vary, call to confirm.
             </p>

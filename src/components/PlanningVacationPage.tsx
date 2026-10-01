@@ -250,7 +250,7 @@ export function PlanningVacationPage() {
               </div>
               <ul className="text-sm space-y-1 text-muted-foreground">
                 <li><strong className="text-[var(--navy)]">Summer:</strong> 8:00 a.m. – 6:30 p.m., 7 days a week</li>
-                <li><strong className="text-[var(--navy)]">Off-season:</strong> 8:00 a.m. – 4:30 p.m., 7 days a week</li>
+                <li><strong className="text-[var(--navy)]">Fall / Winter (current):</strong> 8:00 a.m. – 4:30 p.m., 7 days a week</li>
               </ul>
             </div>
 

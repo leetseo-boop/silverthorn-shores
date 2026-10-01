@@ -80,7 +80,7 @@ export const SITE_PAGES: KEntry[] = [
     summary:
       "Family-run resort and marina on the Pit River Arm of Shasta Lake, on the water since 1986 (40 years). Houseboat and cabin rentals, small boat rentals, moorage, pro shop and marina store. 16250 Silverthorn Road, Redding, CA 96003. Reservations 800-332-3044, reserve1@houseboats.com.",
     highlights: [
-      "Marina store open Mon–Sun 8:00 AM – 6:30 PM (seasonal)",
+      "Fall/Winter hours: open 7 days a week, 8:00 AM – 4:30 PM",
       "Sister marina: Jones Valley Resort (houseboats.com)",
     ],
   },
@@ -122,7 +122,7 @@ export const SITE_PAGES: KEntry[] = [
     name: "Pro shop and marina store",
     url: "/pro-shop",
     summary:
-      "The marina store carries groceries, ice, drinks, fuel, fishing tackle, apparel and accessories. Hours Mon–Sun 8:00 AM – 6:30 PM (seasonal).",
+      "The marina store carries groceries, ice, drinks, fuel, fishing tackle, apparel and accessories. Fall/Winter hours: 7 days a week, 8:00 AM – 4:30 PM.",
   },
   {
     slug: "page-guest-info",
