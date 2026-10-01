@@ -7,7 +7,7 @@ import {
   Calendar, Home, ChevronDown, Zap, Waves,
 } from "lucide-react";
 import { PromoBanner, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
-import { isPromoActive, isBoatIncluded, PROMO } from "@/lib/promo";
+import { discounted, isPromoActive, isBoatIncluded, PROMO, saleEventJsonLd } from "@/lib/promo";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -61,7 +61,7 @@ const faqs = [
 const TITLE = "Shasta Lake Boat Rentals | Pontoons & Wakeboards";
 const DESC = "Daily rentals on Shasta Lake — pontoons, jet skis, wakeboard & deck boats, fishing boats, kayaks & SUPs from $78/day at Silverthorn Resort marina.";
 
-const ldGraph = {
+function buildLdGraph() { return {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -100,7 +100,14 @@ const ldGraph = {
           image: b.img,
           description: b.use,
           brand: { "@type": "Brand", name: "Silverthorn Resort" },
-          offers: { "@type": "Offer", price: b.price.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url: BOOKING_URL },
+           offers: {
+             "@type": "Offer",
+             price: (isPromoActive() && isBoatIncluded(b.id) ? discounted(b.price) : b.price).toFixed(2),
+             priceCurrency: "USD",
+             availability: "https://schema.org/InStock",
+             url: BOOKING_URL,
+             ...(isPromoActive() && isBoatIncluded(b.id) ? { validFrom: PROMO.startDate, priceValidUntil: PROMO.validThrough, description: `20% off with code ${PROMO.code}. New reservations only; restrictions apply.` } : {}),
+           },
         },
       })),
     },
@@ -117,14 +124,14 @@ const ldGraph = {
       ],
     },
   ],
-};
+}; }
 
 export const Route = createFileRoute("/small-boats")({
   head: () => {
     const promo = isPromoActive();
     const T = promo ? "20% Off Shasta Lake Boat Rentals | Silverthorn Sale" : TITLE;
     const D = promo
-      ? `End of Summer Sale at Silverthorn Resort: 20% off Shasta Lake pontoon, wakeboard, deck and fishing boats plus kayaks and paddle boards with code ${PROMO.code} through September 30. Jet skis excluded. New reservations only.`
+      ? `Shasta Lake Fall Sale 2026: 20% off Sun Tracker and patio pontoons, Party Cruiser I, fishing boats and kayaks at Silverthorn Resort with code ${PROMO.code}, October 1–31. New reservations only; restrictions apply.`
       : DESC;
     return ({
     meta: [
@@ -145,7 +152,8 @@ export const Route = createFileRoute("/small-boats")({
       { rel: "preload", as: "image", href: HERO, fetchPriority: "high" },
     ],
     scripts: [
-      { type: "application/ld+json", children: JSON.stringify(ldGraph) },
+       { type: "application/ld+json", children: JSON.stringify(buildLdGraph()) },
+       ...(promo ? [{ type: "application/ld+json", children: JSON.stringify(saleEventJsonLd({ url: PATH, name: `${PROMO.title} — Selected Shasta Lake Boat Rentals`, description: `20% off Sun Tracker Pontoon, Patio Boat, Party Cruiser I, Aluminum Fishing Boat and Kayak rentals with code ${PROMO.code}, October 1–31, 2026. New reservations only; restrictions apply.` })) }] : []),
     ],
   });
   },
@@ -246,7 +254,7 @@ function SmallBoatsPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: DISPLAY, color: NAVY }}>The Fleet</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">Ten boats covering every speed, group size and budget — all bookable online.</p>
           </div>
-          <PromoBanner what="small boat rentals, kayaks and paddle boards (jet skis excluded)" className="mb-10" />
+          <PromoBanner what="Sun Tracker and patio pontoons, Party Cruiser I, fishing boats & kayaks" className="mb-10" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {fleet.map((b) => (
               <article key={b.id} className="group rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-md transition-all flex flex-col" style={{ borderColor: "rgba(27,43,58,0.08)" }}>

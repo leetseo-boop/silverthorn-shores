@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HouseboatsFleetPage } from "@/components/HouseboatsFleetPage";
 import { houseboats } from "@/data/houseboats";
-import { isPromoActive, PROMO, rentalAggregateOffer, saleEventJsonLd } from "@/lib/promo";
+import { isHouseboatIncluded, isPromoActive, PROMO, rentalAggregateOffer, saleEventJsonLd } from "@/lib/promo";
 
 const SITE = "https://silverthornresort.com";
 const path = `${SITE}/houseboats`;
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/houseboats/")({
     const promo = isPromoActive();
     const t = promo ? "20% Off Shasta Lake Houseboats | Silverthorn Sale" : title;
     const d = promo
-      ? `End of Summer Sale: 20% off every Silverthorn Resort houseboat on Shasta Lake with code ${PROMO.code} through September 30. Queen, Queen I, Queen II and Senator. New reservations only.`
+      ? `Shasta Lake Fall Sale 2026: 20% off the Queen houseboat's low-season rates at Silverthorn Resort with code ${PROMO.code}, October 1–31. New reservations only; restrictions apply.`
       : description;
     return ({
     meta: [
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/houseboats/")({
             children: JSON.stringify(saleEventJsonLd({
               url: path,
               name: `${PROMO.title} — ${PROMO.percentLabel} Shasta Lake Houseboats`,
-              description: `${PROMO.percentLabel} every Silverthorn Resort houseboat on Shasta Lake — Queen, Queen I, Queen II and Senator — with code ${PROMO.code}, September 1 through September 30, 2026. New reservations only.`,
+              description: `${PROMO.percentLabel} the Queen houseboat's low-season rates at Silverthorn Resort on Shasta Lake with code ${PROMO.code}, October 1 through October 31, 2026. New reservations only; restrictions apply.`,
             })),
           }]
         : []),
@@ -64,7 +64,7 @@ export const Route = createFileRoute("/houseboats/")({
               url: `/houseboats/${b.slug}`,
               image: b.heroImages[0],
               aggregateRating: { "@type": "AggregateRating", ratingValue: b.rating, reviewCount: b.reviews },
-              offers: rentalAggregateOffer(b.priceFrom, b.extendedPricing.sevenNight.holiday, `${SITE}/houseboats/${b.slug}`),
+               offers: rentalAggregateOffer(b.priceFrom, b.extendedPricing.sevenNight.holiday, `${SITE}/houseboats/${b.slug}`, isHouseboatIncluded(b.slug)),
             },
           })),
         }),

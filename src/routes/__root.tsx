@@ -16,6 +16,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { ThornChat } from "@/components/ThornChat";
 import { initBookingTracker } from "@/lib/booking-tracker";
 import { applyConsent } from "@/lib/cookie-consent";
+import { isPromoActive } from "@/lib/promo";
 
 const GA_ID = "G-QT7MJVJMQM";
 
@@ -41,7 +42,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
 
@@ -128,7 +129,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className={isPromoActive() ? "fall-season" : undefined}>
         {children}
         <Scripts />
       </body>

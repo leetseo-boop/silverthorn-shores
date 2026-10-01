@@ -1,33 +1,36 @@
-// End of Summer Sale 2026 — single source of truth.
-// Everything promo-related renders only while this window is open and
-// disappears automatically after Sept 30, 2026 at 11:59 PM Pacific.
+// Shasta Lake Fall Sale 2026 — single source of truth.
+// Everything promotion-related is limited to the October Pacific-time window.
 
 export const PROMO = {
-  id: "end-of-summer-2026",
-  code: "LABOR26",
+  id: "shasta-lake-fall-sale-2026",
+  code: "fall26",
   rate: 0.2,
   percentLabel: "20% OFF",
-  title: "End of Summer Sale",
-  endsLabel: "Extended through September 30",
-  startDate: "2026-09-01",
-  validThrough: "2026-09-30",
-  startsLabel: "September 1, 2026",
-  endsFullLabel: "September 30, 2026 at 11:59 PM Pacific",
-  fineprint: "New reservations only. Discount applies to the rental rate; taxes, fuel and deposits are not discounted.",
-  // 11:59:59 PM Pacific on Sept 30, 2026 = 2026-10-01T06:59:59Z
-  endsAt: Date.parse("2026-10-01T06:59:59Z"),
-  startsAt: Date.parse("2026-09-01T07:00:00Z"),
-  /** Small boats that are NOT part of the sale (jet skis only). */
-  excludedBoatSlugs: ["jet-ski"] as string[],
+  title: "Shasta Lake Fall Sale 2026",
+  endsLabel: "October 1–31, 2026",
+  startDate: "2026-10-01",
+  validThrough: "2026-10-31",
+  startsLabel: "October 1, 2026",
+  endsFullLabel: "October 31, 2026 at 11:59 PM Pacific",
+  fineprint: "New reservations only. Restrictions apply. Discount applies to the rental rate; taxes, fuel and deposits are not discounted.",
+  // October 1 begins in PDT at 07:00 UTC; October 31 ends in PDT at 06:59:59 UTC November 1.
+  startsAt: Date.parse("2026-10-01T07:00:00Z"),
+  endsAt: Date.parse("2026-11-01T06:59:59Z"),
+  includedHouseboatSlugs: ["queen"] as string[],
+  includedBoatSlugs: ["sun-tracker", "patio-boat", "party-cruiser-i", "fishing-boat", "kayak"] as string[],
 } as const;
 
 
 export function isPromoActive(now: number = Date.now()): boolean {
-  return now <= PROMO.endsAt;
+  return now >= PROMO.startsAt && now <= PROMO.endsAt;
 }
 
 export function isBoatIncluded(slug: string): boolean {
-  return !PROMO.excludedBoatSlugs.includes(slug);
+  return PROMO.includedBoatSlugs.includes(slug);
+}
+
+export function isHouseboatIncluded(slug: string): boolean {
+  return PROMO.includedHouseboatSlugs.includes(slug);
 }
 
 /** Discounted value for a price. */
@@ -99,8 +102,8 @@ export function saleEventJsonLd(opts: { url: string; name: string; description: 
 }
 
 /** AggregateOffer for a rental, discounted while the promo runs. */
-export function rentalAggregateOffer(low: number, high: number, url: string) {
-  const promo = isPromoActive();
+export function rentalAggregateOffer(low: number, high: number, url: string, eligible = true) {
+  const promo = eligible && isPromoActive();
   return {
     "@type": "AggregateOffer",
     priceCurrency: "USD",

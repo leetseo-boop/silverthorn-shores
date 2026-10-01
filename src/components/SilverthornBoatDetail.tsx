@@ -7,7 +7,7 @@ import {
 import { Nav, Footer } from "@/components/SilverthornHomePage";
 import { BOATS, bookingUrl, type BoatConfig } from "@/data/silverthorn-boats";
 import { PromoBanner, PromoPrice } from "@/components/promo/PromoBits";
-import { isPromoActive, isBoatIncluded } from "@/lib/promo";
+import { discounted, isPromoActive, isBoatIncluded, PROMO, saleEventJsonLd } from "@/lib/promo";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -303,7 +303,8 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
 export function buildBoatHeadConfig(boat: BoatConfig) {
   const path = `/small-boats/${boat.slug}`;
   const url = bookingUrl(boat.bookingId);
-  const graph = [
+  const promo = isPromoActive() && isBoatIncluded(boat.slug);
+  const graph: Array<Record<string, unknown>> = [
     {
       "@type": "Product",
       "@id": `${path}#product`,
@@ -315,12 +316,12 @@ export function buildBoatHeadConfig(boat: BoatConfig) {
       offers: {
         "@type": "AggregateOffer",
         priceCurrency: "USD",
-        lowPrice: boat.dailyPrice.toFixed(2),
-        highPrice: boat.weeklyPrice.toFixed(2),
+         lowPrice: (promo ? discounted(boat.dailyPrice) : boat.dailyPrice).toFixed(2),
+         highPrice: (promo ? discounted(boat.weeklyPrice) : boat.weeklyPrice).toFixed(2),
         offerCount: 2,
         offers: [
-          { "@type": "Offer", name: "Daily Rental", price: boat.dailyPrice.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url },
-          { "@type": "Offer", name: "Weekly Rental", price: boat.weeklyPrice.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url },
+           { "@type": "Offer", name: "Daily Rental", price: (promo ? discounted(boat.dailyPrice) : boat.dailyPrice).toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url, ...(promo ? { validFrom: PROMO.startDate, priceValidUntil: PROMO.validThrough, description: `20% off with code ${PROMO.code}. New reservations only; restrictions apply.` } : {}) },
+           { "@type": "Offer", name: "Weekly Rental", price: (promo ? discounted(boat.weeklyPrice) : boat.weeklyPrice).toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url, ...(promo ? { validFrom: PROMO.startDate, priceValidUntil: PROMO.validThrough, description: `20% off with code ${PROMO.code}. New reservations only; restrictions apply.` } : {}) },
         ],
       },
     },
@@ -356,19 +357,21 @@ export function buildBoatHeadConfig(boat: BoatConfig) {
       openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "08:00", closes: "16:30" },
     },
   ];
+  const saleEvent = promo ? saleEventJsonLd({ url: path, name: `${PROMO.title} — ${PROMO.percentLabel} ${boat.shortName}`, description: `${PROMO.percentLabel} the ${boat.shortName} at Silverthorn Resort with code ${PROMO.code}, October 1–31, 2026. New reservations only; restrictions apply.` }) : null;
+  if (saleEvent) graph.push(saleEvent);
   const ld = { "@context": "https://schema.org", "@graph": graph };
   return {
     meta: [
-      { title: boat.metaTitle },
-      { name: "description", content: boat.metaDescription },
-      { property: "og:title", content: boat.metaTitle },
-      { property: "og:description", content: boat.metaDescription },
+      { title: promo ? `20% Off ${boat.shortName} | Shasta Lake Fall Sale` : boat.metaTitle },
+      { name: "description", content: promo ? `${PROMO.title}: 20% off the ${boat.shortName} with code ${PROMO.code}, October 1–31. New reservations only; restrictions apply.` : boat.metaDescription },
+      { property: "og:title", content: promo ? `20% Off ${boat.shortName} | Shasta Lake Fall Sale` : boat.metaTitle },
+      { property: "og:description", content: promo ? `${PROMO.title}: 20% off with code ${PROMO.code}, October 1–31, 2026.` : boat.metaDescription },
       { property: "og:type", content: "product" },
       { property: "og:url", content: path },
       { property: "og:image", content: boat.hero },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: boat.metaTitle },
-      { name: "twitter:description", content: boat.metaDescription },
+      { name: "twitter:title", content: promo ? `20% Off ${boat.shortName} | Shasta Lake Fall Sale` : boat.metaTitle },
+      { name: "twitter:description", content: promo ? `${PROMO.title}: 20% off with code ${PROMO.code}, October 1–31, 2026.` : boat.metaDescription },
       { name: "twitter:image", content: boat.hero },
     ],
     links: [
