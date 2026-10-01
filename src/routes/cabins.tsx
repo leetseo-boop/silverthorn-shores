@@ -697,6 +697,47 @@ function CabinsPage() {
         </div>
       </section>
 
+      {/* Quick answers — AI-search friendly */}
+      <section className="border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "var(--navy)" }}>
+            Why stay in a Silverthorn cabin?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="font-semibold mb-2" style={{ color: "var(--navy)" }}>
+                Where are the cabins?
+              </h3>
+              <p className="text-sm text-foreground/85 leading-relaxed">
+                Silverthorn Resort's cabins sit in the pines on the Pit River Arm of Shasta Lake,
+                about 20 minutes from Redding, California — roughly 3.5 hours from the Bay Area and
+                2.5 hours from Sacramento.
+              </p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="font-semibold mb-2" style={{ color: "var(--navy)" }}>
+                What's included with every cabin?
+              </h3>
+              <p className="text-sm text-foreground/85 leading-relaxed">
+                Every cabin includes a full kitchen, full bathroom, DirecTV, outdoor gas BBQ, linens,
+                and one complimentary boat slip at the private marina — rates include all booking
+                fees and taxes.
+              </p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="font-semibold mb-2" style={{ color: "var(--navy)" }}>
+                Which cabin should I choose?
+              </h3>
+              <p className="text-sm text-foreground/85 leading-relaxed">
+                Couples and small families love the studios (sleep 4). Cabin #7 adds a lake-view
+                deck, Cabin #3 is fully ADA accessible, and Cabin #8 sleeps 8 with a wood stove and
+                Jacuzzi tub for big family trips.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="border-b border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
