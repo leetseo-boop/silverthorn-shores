@@ -13,8 +13,8 @@ export const PROMO = {
   startsLabel: "October 1, 2026",
   endsFullLabel: "October 31, 2026 at 11:59 PM Pacific",
   fineprint: "New reservations only. Restrictions apply. Discount applies to the rental rate; taxes, fuel and deposits are not discounted.",
-  // October 1 begins in PDT at 07:00 UTC; October 31 ends in PDT at 06:59:59 UTC November 1.
-  startsAt: Date.parse("2026-10-01T07:00:00Z"),
+  // Activated early at 10:36 PM PDT on September 30 so the October campaign is visible immediately.
+  startsAt: Date.parse("2026-10-01T05:36:00Z"),
   endsAt: Date.parse("2026-11-01T06:59:59Z"),
   includedHouseboatSlugs: ["queen"] as string[],
   includedBoatSlugs: ["sun-tracker", "patio-boat", "party-cruiser-i", "fishing-boat", "kayak"] as string[],
