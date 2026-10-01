@@ -7,12 +7,16 @@ const boat = getHouseboatBySlug("queen")!;
 const path = "/houseboats/queen";
 
 export const Route = createFileRoute("/houseboats/queen")({
-  head: () => ({
+  head: () => {
+    const promo = isPromoActive();
+    const title = promo ? "20% Off Queen Houseboat | Shasta Lake Fall Sale" : "Queen Houseboat Rental on Shasta Lake | Silverthorn Resort";
+    const description = promo ? `Shasta Lake Fall Sale 2026: 20% off Queen houseboat low-season rates with code ${PROMO.code}, October 1–31. New reservations only; restrictions apply.` : "Rent the Queen — the most elite houseboat at Silverthorn Resort on Shasta Lake. Sleeps 20, master penthouse, hot tub, waterslide, fireplace, 3 baths. Book online.";
+    return ({
     meta: [
-      { title: `Queen Houseboat Rental on Shasta Lake | Silverthorn Resort` },
-      { name: "description", content: "Rent the Queen — the most elite houseboat at Silverthorn Resort on Shasta Lake. Sleeps 20, master penthouse, hot tub, waterslide, fireplace, 3 baths. Book online." },
-      { property: "og:title", content: "Queen Houseboat Rental on Shasta Lake | Silverthorn Resort" },
-      { property: "og:description", content: "Most elite luxury houseboat at Silverthorn Resort. Sleeps 20 with master penthouse, hot tub, waterslide & gourmet kitchen." },
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
       { property: "og:type", content: "product" },
       { property: "og:url", content: path },
       { property: "og:image", content: boat.heroImages[0] },
@@ -24,11 +28,12 @@ export const Route = createFileRoute("/houseboats/queen")({
       { type: "application/ld+json", children: JSON.stringify(productJsonLd(boat, path)) },
       { type: "application/ld+json", children: JSON.stringify(faqJsonLd(boat)) },
       { type: "application/ld+json", children: JSON.stringify(breadcrumbJsonLd(boat, path)) },
-      ...(isPromoActive()
+      ...(promo
         ? [{ type: "application/ld+json", children: JSON.stringify(saleEventJsonLd({ url: path, name: `${PROMO.title} — ${PROMO.percentLabel} the ${boat.name} Houseboat`, description: `${PROMO.percentLabel} the ${boat.name} houseboat's low-season rates at Silverthorn Resort on Shasta Lake with code ${PROMO.code}, October 1–31, 2026. New reservations only; restrictions apply.` })) }]
         : []),
     ],
-  }),
+    });
+  },
   component: () => <HouseboatDetail boat={boat} />,
 });
 

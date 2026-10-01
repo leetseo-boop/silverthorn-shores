@@ -304,7 +304,7 @@ export function buildBoatHeadConfig(boat: BoatConfig) {
   const path = `/small-boats/${boat.slug}`;
   const url = bookingUrl(boat.bookingId);
   const promo = isPromoActive() && isBoatIncluded(boat.slug);
-  const graph = [
+  const graph: Array<Record<string, unknown>> = [
     {
       "@type": "Product",
       "@id": `${path}#product`,
@@ -357,20 +357,21 @@ export function buildBoatHeadConfig(boat: BoatConfig) {
       openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "08:00", closes: "16:30" },
     },
   ];
-  if (promo) graph.push(saleEventJsonLd({ url: path, name: `${PROMO.title} — ${PROMO.percentLabel} ${boat.shortName}`, description: `${PROMO.percentLabel} the ${boat.shortName} at Silverthorn Resort with code ${PROMO.code}, October 1–31, 2026. New reservations only; restrictions apply.` }) as (typeof graph)[number]);
+  const saleEvent = promo ? saleEventJsonLd({ url: path, name: `${PROMO.title} — ${PROMO.percentLabel} ${boat.shortName}`, description: `${PROMO.percentLabel} the ${boat.shortName} at Silverthorn Resort with code ${PROMO.code}, October 1–31, 2026. New reservations only; restrictions apply.` }) : null;
+  if (saleEvent) graph.push(saleEvent);
   const ld = { "@context": "https://schema.org", "@graph": graph };
   return {
     meta: [
-      { title: boat.metaTitle },
-      { name: "description", content: boat.metaDescription },
-      { property: "og:title", content: boat.metaTitle },
-      { property: "og:description", content: boat.metaDescription },
+      { title: promo ? `20% Off ${boat.shortName} | Shasta Lake Fall Sale` : boat.metaTitle },
+      { name: "description", content: promo ? `${PROMO.title}: 20% off the ${boat.shortName} with code ${PROMO.code}, October 1–31. New reservations only; restrictions apply.` : boat.metaDescription },
+      { property: "og:title", content: promo ? `20% Off ${boat.shortName} | Shasta Lake Fall Sale` : boat.metaTitle },
+      { property: "og:description", content: promo ? `${PROMO.title}: 20% off with code ${PROMO.code}, October 1–31, 2026.` : boat.metaDescription },
       { property: "og:type", content: "product" },
       { property: "og:url", content: path },
       { property: "og:image", content: boat.hero },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: boat.metaTitle },
-      { name: "twitter:description", content: boat.metaDescription },
+      { name: "twitter:title", content: promo ? `20% Off ${boat.shortName} | Shasta Lake Fall Sale` : boat.metaTitle },
+      { name: "twitter:description", content: promo ? `${PROMO.title}: 20% off with code ${PROMO.code}, October 1–31, 2026.` : boat.metaDescription },
       { name: "twitter:image", content: boat.hero },
     ],
     links: [

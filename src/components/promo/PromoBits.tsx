@@ -63,7 +63,7 @@ export function PromoBanner({
           <p className="mt-1.5 text-xl sm:text-2xl font-black leading-tight">
             <span className="text-fall-gold">{PROMO.percentLabel}</span> {what}
           </p>
-          <p className="mt-1 text-xs sm:text-sm text-white/80">{PROMO.fineprint}</p>
+          <p className="mt-1 text-xs text-fall-cream/80 sm:text-sm">{PROMO.fineprint}</p>
         </div>
         <div className="shrink-0">
           <div className="inline-flex items-center gap-2 rounded-lg bg-fall-cream px-4 py-3 font-black tracking-widest text-fall-forest">

@@ -91,6 +91,13 @@
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
+  .fall-season {
+    accent-color: var(--fall-rust);
+  }
+  .fall-season ::selection {
+    background-color: color-mix(in oklab, var(--fall-gold) 55%, white);
+    color: var(--fall-forest);
+  }
 }
 
 
