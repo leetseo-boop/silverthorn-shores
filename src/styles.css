@@ -32,6 +32,10 @@
   --color-navy-dark: var(--navy-dark);
   --color-lake: var(--lake);
   --color-sand: var(--sand);
+  --color-fall-rust: var(--fall-rust);
+  --color-fall-gold: var(--fall-gold);
+  --color-fall-forest: var(--fall-forest);
+  --color-fall-cream: var(--fall-cream);
   --font-display: "Playfair Display", ui-serif, Georgia, serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
 }
@@ -44,6 +48,10 @@
   --navy-dark: #111d28;
   --lake: #1A6FA8;
   --sand: #F4EFE6;
+  --fall-rust: #A84416;
+  --fall-gold: #F6C453;
+  --fall-forest: #244A38;
+  --fall-cream: #FFF8E8;
 
   --background: #ffffff;
   --foreground: #1B2B3A;

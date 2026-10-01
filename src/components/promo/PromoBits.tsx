@@ -1,9 +1,5 @@
-import promoBanner from "@/assets/promo/end-of-summer-2026.webp.asset.json";
+import promoBanner from "@/assets/promo/fall-lake-getaway-2026.png.asset.json";
 import { PROMO, isPromoActive, discounted, money } from "@/lib/promo";
-
-const ORANGE = "#E8640A";
-const NAVY = "#0D2030";
-const TEAL = "#3FBFB0";
 
 /** Vivid strip that sits at the very top of a hero. */
 export function PromoHeroStrip({ href = "/houseboats" }: { href?: string }) {
@@ -11,19 +7,16 @@ export function PromoHeroStrip({ href = "/houseboats" }: { href?: string }) {
   return (
     <a
       href={href}
-      className="group relative z-30 block w-full text-center px-4 py-2.5 sm:py-3 text-white no-underline"
-      style={{
-        background: `linear-gradient(90deg, ${ORANGE} 0%, #F59E0B 35%, ${TEAL} 100%)`,
-      }}
+      className="group relative z-30 block w-full bg-fall-rust px-4 py-2.5 text-center text-fall-cream no-underline sm:py-3"
     >
       <span className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] sm:text-sm font-semibold leading-tight">
-        <span aria-hidden="true">🌞</span>
+        <span aria-hidden="true">🍂</span>
         <span className="uppercase tracking-wide">{PROMO.title}</span>
         <span className="hidden sm:inline" aria-hidden="true">·</span>
-        <span>{PROMO.percentLabel} select houseboats &amp; small boats</span>
+        <span>{PROMO.percentLabel} Queen, select boats &amp; cabins</span>
         <span
           className="rounded-full px-2.5 py-0.5 text-[11px] sm:text-xs font-bold tracking-wider"
-          style={{ backgroundColor: NAVY, color: "#FFD9A0" }}
+          className="rounded-full bg-navy px-2.5 py-0.5 text-[11px] font-bold tracking-wider text-fall-cream sm:text-xs"
         >
           CODE {PROMO.code}
         </span>
@@ -36,11 +29,11 @@ export function PromoHeroStrip({ href = "/houseboats" }: { href?: string }) {
 export function PromoBannerImage({ href = "/houseboats" }: { href?: string }) {
   if (!isPromoActive()) return null;
   return (
-    <section className="bg-white px-3 sm:px-6 py-5 sm:py-8" aria-label="End of Summer Sale">
-      <a href={href} className="block max-w-6xl mx-auto overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5">
+    <section className="bg-fall-cream px-3 py-5 sm:px-6 sm:py-8" aria-label="Shasta Lake Fall Sale 2026">
+      <a href={href} className="mx-auto block max-w-6xl overflow-hidden rounded-lg shadow-lg ring-1 ring-border">
         <img
           src={promoBanner.url}
-          alt="Silverthorn Resort End of Summer Deals — 20% off all houseboats, 20% off small boats except jet skis, and 20% off cabins, extended through September 30, code LABOR26"
+          alt="Shasta Lake Fall Sale 2026 at Silverthorn Resort — 20% off the Queen houseboat, selected boats and cabins, October 1 through 31, code fall26"
           width={1920}
           height={630}
           loading="lazy"
@@ -63,23 +56,22 @@ export function PromoBanner({
   if (!isPromoActive()) return null;
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl px-5 py-5 sm:px-7 sm:py-6 text-white shadow-md ${className}`}
-      style={{ background: `linear-gradient(115deg, ${NAVY} 0%, #14486B 55%, ${ORANGE} 130%)` }}
+      className={`relative overflow-hidden rounded-lg bg-fall-forest px-5 py-5 text-fall-cream shadow-md sm:px-7 sm:py-6 ${className}`}
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em]" style={{ color: "#7FE3D6" }}>
-            {PROMO.title} · {PROMO.endsLabel}
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-fall-gold">
+            🍁 {PROMO.title} · {PROMO.endsLabel}
           </p>
           <p className="mt-1.5 text-xl sm:text-2xl font-black leading-tight">
-            <span style={{ color: "#FFB36B" }}>{PROMO.percentLabel}</span> {what}
+            <span className="text-fall-gold">{PROMO.percentLabel}</span> {what}
           </p>
           <p className="mt-1 text-xs sm:text-sm text-white/80">{PROMO.fineprint}</p>
         </div>
         <div className="shrink-0">
           <div
             className="inline-flex items-center gap-2 rounded-xl px-4 py-3 font-black tracking-widest"
-            style={{ backgroundColor: "#fff", color: NAVY }}
+            className="inline-flex items-center gap-2 rounded-lg bg-fall-cream px-4 py-3 font-black tracking-widest text-fall-forest"
           >
             <span className="text-[10px] font-semibold tracking-normal uppercase opacity-70">Code</span>
             <span className="text-lg">{PROMO.code}</span>
@@ -95,10 +87,9 @@ export function PromoBadge({ className = "" }: { className?: string }) {
   if (!isPromoActive()) return null;
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-white shadow ${className}`}
-      style={{ background: `linear-gradient(90deg, ${ORANGE}, #F59E0B)` }}
+      className={`inline-flex items-center gap-1 rounded-full bg-fall-rust px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-fall-cream shadow ${className}`}
     >
-      🌞 {PROMO.percentLabel}
+      🍂 {PROMO.percentLabel}
     </span>
   );
 }
@@ -118,13 +109,13 @@ export function PromoPrice({
   tone?: "light" | "dark";
 }) {
   const active = isPromoActive();
-  const strike = tone === "dark" ? "rgba(255,255,255,0.6)" : "#8A94A0";
-  const accent = tone === "dark" ? "#FFB36B" : ORANGE;
+  const strike = tone === "dark" ? "text-fall-cream/65" : "text-muted-foreground";
+  const accent = tone === "dark" ? "text-fall-gold" : "text-fall-rust";
   const sizes = { sm: "text-sm", md: "text-lg", lg: "text-3xl" }[size];
 
   if (!active) {
     return (
-      <span className={`font-bold ${sizes}`} style={{ color: tone === "dark" ? "#FFB36B" : NAVY }}>
+      <span className={`font-bold ${sizes} ${tone === "dark" ? "text-fall-gold" : "text-navy"}`}>
         {money(price, decimals)}
         {suffix ? <span className="text-xs font-medium opacity-70">{suffix}</span> : null}
       </span>
@@ -133,10 +124,10 @@ export function PromoPrice({
 
   return (
     <span className="inline-flex items-baseline gap-2">
-      <span className="line-through text-xs sm:text-sm font-medium" style={{ color: strike }}>
+      <span className={`text-xs font-medium line-through sm:text-sm ${strike}`}>
         {money(price, decimals)}
       </span>
-      <span className={`font-black ${sizes}`} style={{ color: accent }}>
+      <span className={`font-black ${sizes} ${accent}`}>
         {money(discounted(price), decimals)}
         {suffix ? <span className="text-xs font-medium opacity-80">{suffix}</span> : null}
       </span>
