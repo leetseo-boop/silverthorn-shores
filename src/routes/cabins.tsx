@@ -176,6 +176,14 @@ const CABINS: Cabin[] = [
 
 const FAQS = [
   {
+    q: "Are there cabins on Shasta Lake?",
+    a: "Yes — Silverthorn Resort offers 8 lakeside cabins on the Pit River Arm of Shasta Lake, from cozy studios sleeping 4 to a two-bedroom family cabin sleeping 8. Every cabin includes a full kitchen, full bathroom, DirecTV, outdoor BBQ and a complimentary boat slip.",
+  },
+  {
+    q: "Are Shasta Lake cabins pet friendly?",
+    a: "Silverthorn Resort's cabins are dog-friendly. Up to 2 dogs per cabin are welcome — the first dog stays free and the second is a one-time $50 fee. Dogs must be declared at booking and leashed on shore.",
+  },
+  {
     q: "How much are cabin rentals at Shasta Lake?",
     a: "Silverthorn Resort cabins start at $649.22 for a 3-night off-season stay and $1,514.84 per week for a studio sleeping 4. Two-bedroom family cabins sleeping up to 8 run $2,316.34 per week. Rates include all mandatory booking fees and 10% occupancy taxes.",
   },
@@ -219,9 +227,9 @@ const AMENITIES = [
 const SITE = "https://silverthornresort.com";
 const PAGE_URL = `${SITE}/cabins`;
 const OG_IMAGE = `${SITE}${cabin8Img}`;
-const PAGE_TITLE = "Shasta Lake Cabin Rentals — Lakeside Cabins with Boat Slips | Silverthorn Resort";
+const PAGE_TITLE = "Shasta Lake Cabins & Cabin Rentals — Lakeside Lodging | Silverthorn Resort";
 const PAGE_DESC =
-  "8 lakeside cabin rentals on Shasta Lake's Pit River Arm, sleeping 4–8. Full kitchens, BBQs, DirecTV and a free boat slip with every cabin. Dog-friendly, ADA unit, 20 min from Redding.";
+  "Book Shasta Lake cabin rentals at Silverthorn Resort. 8 lakeside cabins with full kitchens, BBQs, DirecTV and a boat slip per cabin. Pet-friendly. Reserve online or call 800-332-3044.";
 
 export const Route = createFileRoute("/cabins")({
   head: () => {
@@ -237,7 +245,7 @@ export const Route = createFileRoute("/cabins")({
       {
         name: "keywords",
         content:
-          "Shasta Lake cabins, Silverthorn cabins, lake cabins, Shasta Lake lodging, cabin rentals Shasta Lake, family cabin rentals, bring your own boat, lakeside cabin rentals California",
+          "shasta lake cabins, shasta lake cabin rentals, cabins on shasta lake, silverthorn resort cabins, silverthorn cabins, pet friendly cabins shasta lake, shasta lake lodging, lake shasta cabins, cabin rentals shasta lake ca, lakeside cabin rentals northern california, family cabin rentals, bring your own boat",
       },
       { property: "og:title", content: PAGE_TITLE_X },
       { property: "og:description", content: PAGE_DESC_X },
@@ -256,7 +264,9 @@ export const Route = createFileRoute("/cabins")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LodgingBusiness",
-          name: "Silverthorn Resort Cabins",
+          name: "Silverthorn Resort — Shasta Lake Cabins",
+          alternateName: "Silverthorn Resort Cabins",
+          slogan: "Lakeside cabin rentals on Shasta Lake since 1986",
           description: PAGE_DESC,
           url: PAGE_URL,
           telephone: "+1-800-332-3044",
@@ -406,9 +416,11 @@ function CabinsPage() {
             Shasta Lake Cabins at Silverthorn Resort
           </h1>
           <p className="mt-4 max-w-3xl text-base sm:text-lg text-muted-foreground">
-            Eight lakeside cabins nestled in the pines — studios sleeping 4 up to a two-bedroom family
-            cabin sleeping 8. Full kitchens, gas BBQs, DirecTV, and a complimentary boat slip with
-            every cabin. Bring your own boat or rent one of ours and step right onto the dock.
+            Eight lakeside cabins on Shasta Lake nestled in the pines — studios sleeping 4 up to a
+            two-bedroom family cabin sleeping 8. Full kitchens, gas BBQs, DirecTV, and a complimentary
+            boat slip with every cabin. Bring your own boat or rent one of ours and step right onto the
+            dock. Silverthorn Resort's cabin rentals sit on the Pit River Arm in the Shasta-Trinity
+            National Forest, just 20 minutes from Redding, California.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
