@@ -264,7 +264,9 @@ export const Route = createFileRoute("/cabins")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LodgingBusiness",
-          name: "Silverthorn Resort Cabins",
+          name: "Silverthorn Resort — Shasta Lake Cabins",
+          alternateName: "Silverthorn Resort Cabins",
+          slogan: "Lakeside cabin rentals on Shasta Lake since 1986",
           description: PAGE_DESC,
           url: PAGE_URL,
           telephone: "+1-800-332-3044",
