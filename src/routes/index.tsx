@@ -15,10 +15,10 @@ export const Route = createFileRoute("/")({
   head: () => {
     const promo = isPromoActive();
     const DESCRIPTION = promo
-      ? "End of Summer Sale at Silverthorn Resort on Shasta Lake: 20% off houseboats, small boats and lakeside cabins with code LABOR26, through September 30. New reservations only."
+      ? `Shasta Lake Fall Sale 2026: 20% off the Queen houseboat, selected pontoon and fishing boats, kayaks and lakeside cabins at Silverthorn Resort with code ${PROMO.code}, October 1–31. New reservations only.`
       : BASE_DESCRIPTION;
     const PAGE_TITLE = promo
-      ? "End of Summer Sale 20% Off | Silverthorn Resort Shasta Lake"
+      ? "Shasta Lake Fall Sale 2026 | 20% Off Silverthorn Rentals"
       : TITLE;
     return {
     meta: [
@@ -45,8 +45,8 @@ export const Route = createFileRoute("/")({
             children: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SaleEvent",
-              name: "Silverthorn Resort End of Summer Sale — 20% Off",
-              description: `20% off Shasta Lake houseboats, small boat rentals including kayaks and paddle boards (jet skis excluded) and lakeside cabins at Silverthorn Resort. Use code ${PROMO.code}. New reservations only.`,
+              name: `${PROMO.title} — 20% Off`,
+              description: `20% off the Queen houseboat, Sun Tracker Pontoon, Patio Boat, Party Cruiser I, Aluminum Fishing Boat, Kayak and lakeside cabins at Silverthorn Resort. Use code ${PROMO.code}. New reservations only. Restrictions apply.`,
               startDate: PROMO.startDate,
               endDate: PROMO.validThrough,
               eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",

@@ -25,7 +25,7 @@ export const Route = createFileRoute("/houseboats/queen")({
       { type: "application/ld+json", children: JSON.stringify(faqJsonLd(boat)) },
       { type: "application/ld+json", children: JSON.stringify(breadcrumbJsonLd(boat, path)) },
       ...(isPromoActive()
-        ? [{ type: "application/ld+json", children: JSON.stringify(saleEventJsonLd({ url: path, name: `${PROMO.title} — ${PROMO.percentLabel} the ${boat.name} Houseboat`, description: `${PROMO.percentLabel} the ${boat.name} houseboat at Silverthorn Resort on Shasta Lake with code ${PROMO.code}, through September 30, 2026. New reservations only.` })) }]
+        ? [{ type: "application/ld+json", children: JSON.stringify(saleEventJsonLd({ url: path, name: `${PROMO.title} — ${PROMO.percentLabel} the ${boat.name} Houseboat`, description: `${PROMO.percentLabel} the ${boat.name} houseboat's low-season rates at Silverthorn Resort on Shasta Lake with code ${PROMO.code}, October 1–31, 2026. New reservations only; restrictions apply.` })) }]
         : []),
     ],
   }),

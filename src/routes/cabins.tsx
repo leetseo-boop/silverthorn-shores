@@ -222,9 +222,9 @@ const PAGE_DESC =
 export const Route = createFileRoute("/cabins")({
   head: () => {
     const promo = isPromoActive();
-    const PAGE_TITLE_X = promo ? "20% Off Shasta Lake Cabins | Silverthorn End of Summer" : PAGE_TITLE;
+    const PAGE_TITLE_X = promo ? "20% Off Shasta Lake Cabins | Silverthorn Fall Sale" : PAGE_TITLE;
     const PAGE_DESC_X = promo
-      ? "End of Summer Sale: 20% off Silverthorn Resort's 8 lakeside Shasta Lake cabins with code LABOR26 through September 30. Full kitchens, BBQs and a boat slip per cabin. New reservations only."
+      ? `Shasta Lake Fall Sale 2026: 20% off Silverthorn Resort's 8 lakeside cabins with code ${PROMO.code}, October 1–31. Full kitchens, BBQs and a boat slip per cabin. New reservations only; restrictions apply.`
       : PAGE_DESC;
     return ({
     meta: [
@@ -291,7 +291,7 @@ export const Route = createFileRoute("/cabins")({
             children: JSON.stringify(saleEventJsonLd({
               url: PAGE_URL,
               name: `${PROMO.title} — ${PROMO.percentLabel} Silverthorn Resort Cabins`,
-              description: `${PROMO.percentLabel} lakeside cabin rentals at Silverthorn Resort on Shasta Lake with code ${PROMO.code}, September 1 through September 30, 2026. New reservations only.`,
+              description: `${PROMO.percentLabel} lakeside cabin rentals at Silverthorn Resort on Shasta Lake with code ${PROMO.code}, October 1 through October 31, 2026. New reservations only; restrictions apply.`,
             })),
           }]
         : []),
@@ -366,10 +366,10 @@ function CabinsPage() {
         </div>
       </section>
 
-      {/* End of Summer Sale */}
+      {/* Shasta Lake Fall Sale */}
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <PromoBanner what="Silverthorn lakeside cabins" />
+          <PromoBanner what="all Silverthorn lakeside cabins" />
         </div>
       </section>
 
