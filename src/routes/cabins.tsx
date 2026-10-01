@@ -176,6 +176,10 @@ const CABINS: Cabin[] = [
 
 const FAQS = [
   {
+    q: "How much are cabin rentals at Shasta Lake?",
+    a: "Silverthorn Resort cabins start at $649.22 for a 3-night off-season stay and $1,514.84 per week for a studio sleeping 4. Two-bedroom family cabins sleeping up to 8 run $2,316.34 per week. Rates include all mandatory booking fees and 10% occupancy taxes.",
+  },
+  {
     q: "Is a boat slip included with each cabin rental?",
     a: "Yes — one boat slip is included with every cabin rental at Silverthorn Resort, so you can bring your own boat right up to the dock. Additional slips can be reserved based on availability.",
   },
@@ -188,8 +192,8 @@ const FAQS = [
     a: "Off-season the minimum stay is 3 nights. During peak high season (June 11 – August 19, 2026) we book by the week only — 7-night minimum.",
   },
   {
-    q: "Are pets allowed in the cabins?",
-    a: "Please call us at 800-332-3044 to discuss pet policies and availability before booking, as restrictions vary by unit.",
+    q: "Are dogs allowed in the cabins?",
+    a: "Yes — Silverthorn cabins are dog-friendly. Up to 2 dogs per cabin: the first dog stays free and the second is a one-time $50 fee. Dogs must be declared at booking and leashed on shore. See our pet policy page for full details.",
   },
   {
     q: "Is there an ADA-accessible cabin?",
