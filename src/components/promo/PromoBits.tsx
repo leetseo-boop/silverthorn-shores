@@ -14,10 +14,7 @@ export function PromoHeroStrip({ href = "/houseboats" }: { href?: string }) {
         <span className="uppercase tracking-wide">{PROMO.title}</span>
         <span className="hidden sm:inline" aria-hidden="true">·</span>
         <span>{PROMO.percentLabel} Queen, select boats &amp; cabins</span>
-        <span
-          className="rounded-full px-2.5 py-0.5 text-[11px] sm:text-xs font-bold tracking-wider"
-          className="rounded-full bg-navy px-2.5 py-0.5 text-[11px] font-bold tracking-wider text-fall-cream sm:text-xs"
-        >
+        <span className="rounded-full bg-navy px-2.5 py-0.5 text-[11px] font-bold tracking-wider text-fall-cream sm:text-xs">
           CODE {PROMO.code}
         </span>
       </span>
@@ -69,10 +66,7 @@ export function PromoBanner({
           <p className="mt-1 text-xs sm:text-sm text-white/80">{PROMO.fineprint}</p>
         </div>
         <div className="shrink-0">
-          <div
-            className="inline-flex items-center gap-2 rounded-xl px-4 py-3 font-black tracking-widest"
-            className="inline-flex items-center gap-2 rounded-lg bg-fall-cream px-4 py-3 font-black tracking-widest text-fall-forest"
-          >
+          <div className="inline-flex items-center gap-2 rounded-lg bg-fall-cream px-4 py-3 font-black tracking-widest text-fall-forest">
             <span className="text-[10px] font-semibold tracking-normal uppercase opacity-70">Code</span>
             <span className="text-lg">{PROMO.code}</span>
           </div>

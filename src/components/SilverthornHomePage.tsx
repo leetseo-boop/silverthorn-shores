@@ -26,7 +26,7 @@ import fleetSenator from "@/assets/fleet-senator.webp";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import { SocialLinks } from "@/components/SocialLinks";
 import { PromoHeroStrip, PromoBannerImage, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
-import { isPromoActive, PROMO } from "@/lib/promo";
+import { isPromoActive, isHouseboatIncluded, PROMO } from "@/lib/promo";
 import { houseboats as HOUSEBOAT_DATA } from "@/data/houseboats";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -586,6 +586,7 @@ function Hero() {
 }
 
 function FleetCard({ boat }: { boat: any }) {
+  const promo = isPromoActive() && isHouseboatIncluded(boat.id);
   return (
     <div
       className="rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-1"
@@ -610,7 +611,7 @@ function FleetCard({ boat }: { boat: any }) {
         >
           {boat.badge}
         </span>
-        <PromoBadge className="absolute top-2.5 right-2.5" />
+        {promo && <PromoBadge className="absolute top-2.5 right-2.5" />}
       </div>
 
       <div className="p-4">
@@ -645,7 +646,7 @@ function FleetCard({ boat }: { boat: any }) {
           return (
             <div className="mb-4 flex items-baseline gap-2">
               <span className="text-xs uppercase tracking-wide" style={{ color: "#7a8a9a" }}>From</span>
-              <PromoPrice price={data.priceFrom} />
+              {promo ? <PromoPrice price={data.priceFrom} /> : <span className="text-lg font-bold text-navy">${data.priceFrom.toLocaleString("en-US")}</span>}
             </div>
           );
         })()}
@@ -778,7 +779,9 @@ function FleetSection() {
                     className="text-xs font-semibold mb-3 text-center"
                     style={{ color: "#E8640A" }}
                   >
-                    {PROMO.percentLabel} with code {PROMO.code} · new reservations only
+                    {c.title === "Lake Cabins"
+                      ? `${PROMO.percentLabel} with code ${PROMO.code} · new reservations only`
+                      : `${PROMO.percentLabel} select pontoons, Party Cruiser, fishing boats & kayaks · code ${PROMO.code}`}
                   </p>
                 )}
                 <a

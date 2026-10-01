@@ -11,6 +11,7 @@ import {
 import type { Houseboat } from "@/data/houseboats";
 import { houseboats } from "@/data/houseboats";
 import { PromoBanner, PromoPrice, PromoBadge } from "@/components/promo/PromoBits";
+import { isHouseboatIncluded, isPromoActive } from "@/lib/promo";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -50,6 +51,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
   const prevHero = () => setHeroIdx((i) => (i - 1 + hero.length) % hero.length);
 
   const fleet = houseboats.filter((b) => b.id !== boat.id);
+  const promo = isPromoActive() && isHouseboatIncluded(boat.slug);
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: NAVY }}>
@@ -143,7 +145,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
             <div className="flex items-center gap-3">
               <div className="text-right hidden sm:block">
                 <div className="text-xs uppercase tracking-wide text-gray-500">From</div>
-                <div className="text-xl font-bold" style={{ color: NAVY }}><PromoPrice price={boat.priceFrom} /></div>
+                <div className="text-xl font-bold" style={{ color: NAVY }}>{promo ? <PromoPrice price={boat.priceFrom} /> : `$${boat.priceFrom.toLocaleString("en-US")}`}</div>
               </div>
               <a
                 href={boat.bookingUrl}
@@ -164,7 +166,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
       {/* Main content + sidebar */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <PromoBanner what={`the ${boat.name} houseboat`} className="mb-8" />
+          {promo && <PromoBanner what={`the ${boat.name} houseboat’s low-season rates`} className="mb-8" />}
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Left: tabs */}
             <div className="lg:col-span-2">
@@ -278,7 +280,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
                             <tr key={key} className="border-t border-gray-200" style={{ backgroundColor: i % 2 ? "#fff" : "#FAF7F1" }}>
                               <td className="py-4 px-4 font-medium">{label}</td>
                               <td className="py-4 px-4 text-center">
-                                <a href={boat.bookingUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">${p.low.toLocaleString()}</a>
+                                 <a href={boat.bookingUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">{promo ? <PromoPrice price={p.low} decimals size="sm" /> : `$${p.low.toLocaleString()}`}</a>
                               </td>
                               <td className="py-4 px-4 text-center">
                                 <a href={boat.bookingUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
@@ -311,7 +313,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
                         <a key={key} href={boat.bookingUrl} target="_blank" rel="noopener noreferrer" className="block rounded-xl p-4 border border-gray-200 hover:shadow-md transition" style={{ backgroundColor: "#FAF7F1" }}>
                           <div className="text-center font-semibold text-lg mb-3 pb-2 border-b" style={{ color: NAVY }}>{label}</div>
                           <div className="grid grid-cols-3 gap-2 text-sm text-center">
-                            <div><div className="text-xs text-gray-500 mb-1">Low</div><div className="font-bold">${p.low.toLocaleString()}</div></div>
+                             <div><div className="text-xs text-gray-500 mb-1">Low</div><div className="font-bold">{promo ? <PromoPrice price={p.low} decimals size="sm" /> : `$${p.low.toLocaleString()}`}</div></div>
                             <div><div className="text-xs text-gray-500 mb-1">May/Sept</div><div className="font-bold">${p.maySept.toLocaleString()}</div><div className="text-xs font-medium" style={{ color: ORANGE }}>${p.maySeptHoliday.toLocaleString()} hol</div></div>
                             <div><div className="text-xs text-gray-500 mb-1">High</div><div className="font-bold">${p.high.toLocaleString()}</div><div className="text-xs font-medium" style={{ color: ORANGE }}>${p.holiday.toLocaleString()} hol</div></div>
                           </div>
@@ -431,7 +433,7 @@ export function HouseboatDetail({ boat }: { boat: Houseboat }) {
                 <div className="rounded-2xl p-6 shadow-lg border border-gray-200 bg-white">
                   <div className="text-center mb-6">
                     <div className="text-xs uppercase tracking-wide text-gray-500">Starting From</div>
-                    <div className="mt-1 flex justify-center"><PromoPrice price={boat.priceFrom} size="lg" /></div>
+                    <div className="mt-1 flex justify-center">{promo ? <PromoPrice price={boat.priceFrom} decimals size="lg" /> : <span className="text-3xl font-bold text-navy">${boat.priceFrom.toLocaleString("en-US")}</span>}</div>
                     <div className="text-xs text-gray-500 italic mt-1">3 Nights Low Season</div>
                   </div>
                   <a
