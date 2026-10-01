@@ -59,7 +59,7 @@ WHAT SILVERTHORN IS
 - Family-run resort and marina on the Pit River Arm of Shasta Lake, operating since 1986 (40 years).
 - Address: 16250 Silverthorn Road, Redding, CA 96003.
 - Reservations: 800-332-3044. Email: reserve1@houseboats.com.
-- Marina store hours: Mon-Sun 8:00 AM - 6:30 PM (seasonal, may vary).
+- Current Fall/Winter hours: open 7 days a week, 8:00 AM - 4:30 PM (resort, marina store and rentals).
 - Sister marina: Jones Valley Resort (houseboats.com) — same team, same lake.
 
 WHAT WE OFFER (link to these pages when relevant)

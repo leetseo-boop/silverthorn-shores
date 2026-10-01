@@ -306,7 +306,7 @@ export function HouseboatsFleetPage() {
               <a href={`tel:${PHONE}`}><Phone className="mr-1.5 h-4 w-4" />Call {PHONE}</a>
             </Button>
           </div>
-          <p className="mt-6 text-sm text-primary-foreground/75">Open 7 days a week, 8am – 4:30pm • Summer until 6pm</p>
+          <p className="mt-6 text-sm text-primary-foreground/75">Fall / Winter hours: 7 days a week, 8am – 4:30pm</p>
         </div>
       </section>
 

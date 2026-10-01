@@ -89,7 +89,7 @@ export function DirectionsPage() {
                 <Clock className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                 <div>
                   <div className="font-semibold">Marina Hours</div>
-                  <div className="text-muted-foreground">Open 7 days a week, 8am – 4:30pm<br />Summer until 6pm</div>
+                  <div className="text-muted-foreground">Fall / Winter hours: 7 days a week, 8am – 4:30pm</div>
                 </div>
               </li>
             </ul>

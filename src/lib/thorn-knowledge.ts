@@ -100,7 +100,7 @@ export const POLICY_FACTS: PolicyFact[] = [
   },
   {
     id: "booking-contact",
-    text: "Reservations and availability: call 800-332-3044 or email reserve1@houseboats.com. Marina store hours are Mon–Sun 8:00 AM–6:30 PM (seasonal).",
+    text: "Reservations and availability: call 800-332-3044 or email reserve1@houseboats.com. Fall/Winter hours (current): open 7 days a week, 8:00 AM–4:30 PM.",
   },
 ];
 
