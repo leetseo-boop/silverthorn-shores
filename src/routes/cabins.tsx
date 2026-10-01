@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PromoBanner } from "@/components/promo/PromoBits";
-import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd } from "@/lib/promo";
+import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd, discounted } from "@/lib/promo";
 import {
   Users,
   BedDouble,
@@ -215,9 +215,9 @@ const AMENITIES = [
 const SITE = "https://silverthornresort.com";
 const PAGE_URL = `${SITE}/cabins`;
 const OG_IMAGE = `${SITE}${cabin8Img}`;
-const PAGE_TITLE = "Shasta Lake Cabin Rentals | Silverthorn Resort";
+const PAGE_TITLE = "Shasta Lake Cabin Rentals — Lakeside Cabins with Boat Slips | Silverthorn Resort";
 const PAGE_DESC =
-  "8 lakeside cabins on Shasta Lake sleeping 4–8. Full kitchens, BBQs, DirecTV, one boat slip per cabin. Bring your own boat or rent at the marina.";
+  "8 lakeside cabin rentals on Shasta Lake's Pit River Arm, sleeping 4–8. Full kitchens, BBQs, DirecTV and a free boat slip with every cabin. Dog-friendly, ADA unit, 20 min from Redding.";
 
 export const Route = createFileRoute("/cabins")({
   head: () => {
