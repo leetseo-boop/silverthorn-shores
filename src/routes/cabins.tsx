@@ -525,8 +525,16 @@ function CabinsPage() {
               <Link to="/pro-shop" className="text-[var(--lake)] underline underline-offset-2 hover:no-underline">
                 Silverthorn Pro Shop
               </Link>
-              . <strong>One boat slip is included</strong> with every cabin rental — additional slips
-              can be provided based on availability.
+               . <strong>One boat slip is included</strong> with every cabin rental — additional slips
+               can be provided based on availability. Bringing the dog? Our{" "}
+               <Link to="/pet-policy" className="text-[var(--lake)] underline underline-offset-2 hover:no-underline">
+                 dog-friendly pet policy
+               </Link>{" "}
+               welcomes up to two dogs per cabin, and our{" "}
+               <Link to="/shasta-lake" className="text-[var(--lake)] underline underline-offset-2 hover:no-underline">
+                 Shasta Lake guide
+               </Link>{" "}
+               covers the best coves, fishing and swimming near the resort.
             </p>
           </div>
 
@@ -549,10 +557,10 @@ function CabinsPage() {
                 <div className="text-muted-foreground">3-night minimum stay</div>
               </li>
               <li className="pt-3 border-t border-border text-xs text-muted-foreground">
-                Rates include all mandatory booking fees and 10% occupancy taxes. See{" "}
-                <Link to="/houseboats/policy" className="underline">
-                  rental policies
-                </Link>
+                 Rates include all mandatory booking fees and 10% occupancy taxes. See{" "}
+                 <Link to="/cabins/policy" className="underline">
+                   cabin rental policies
+                 </Link>
                 .
               </li>
             </ul>
