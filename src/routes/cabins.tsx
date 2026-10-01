@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PromoBanner } from "@/components/promo/PromoBits";
-import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd } from "@/lib/promo";
+import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd, discounted } from "@/lib/promo";
 import {
   Users,
   BedDouble,
@@ -176,6 +176,10 @@ const CABINS: Cabin[] = [
 
 const FAQS = [
   {
+    q: "How much are cabin rentals at Shasta Lake?",
+    a: "Silverthorn Resort cabins start at $649.22 for a 3-night off-season stay and $1,514.84 per week for a studio sleeping 4. Two-bedroom family cabins sleeping up to 8 run $2,316.34 per week. Rates include all mandatory booking fees and 10% occupancy taxes.",
+  },
+  {
     q: "Is a boat slip included with each cabin rental?",
     a: "Yes — one boat slip is included with every cabin rental at Silverthorn Resort, so you can bring your own boat right up to the dock. Additional slips can be reserved based on availability.",
   },
@@ -188,8 +192,8 @@ const FAQS = [
     a: "Off-season the minimum stay is 3 nights. During peak high season (June 11 – August 19, 2026) we book by the week only — 7-night minimum.",
   },
   {
-    q: "Are pets allowed in the cabins?",
-    a: "Please call us at 800-332-3044 to discuss pet policies and availability before booking, as restrictions vary by unit.",
+    q: "Are dogs allowed in the cabins?",
+    a: "Yes — Silverthorn cabins are dog-friendly. Up to 2 dogs per cabin: the first dog stays free and the second is a one-time $50 fee. Dogs must be declared at booking and leashed on shore. See our pet policy page for full details.",
   },
   {
     q: "Is there an ADA-accessible cabin?",
@@ -215,9 +219,9 @@ const AMENITIES = [
 const SITE = "https://silverthornresort.com";
 const PAGE_URL = `${SITE}/cabins`;
 const OG_IMAGE = `${SITE}${cabin8Img}`;
-const PAGE_TITLE = "Shasta Lake Cabin Rentals | Silverthorn Resort";
+const PAGE_TITLE = "Shasta Lake Cabin Rentals — Lakeside Cabins with Boat Slips | Silverthorn Resort";
 const PAGE_DESC =
-  "8 lakeside cabins on Shasta Lake sleeping 4–8. Full kitchens, BBQs, DirecTV, one boat slip per cabin. Bring your own boat or rent at the marina.";
+  "8 lakeside cabin rentals on Shasta Lake's Pit River Arm, sleeping 4–8. Full kitchens, BBQs, DirecTV and a free boat slip with every cabin. Dog-friendly, ADA unit, 20 min from Redding.";
 
 export const Route = createFileRoute("/cabins")({
   head: () => {
@@ -254,15 +258,33 @@ export const Route = createFileRoute("/cabins")({
           "@type": "LodgingBusiness",
           name: "Silverthorn Resort Cabins",
           description: PAGE_DESC,
-          url: "/cabins",
+          url: PAGE_URL,
           telephone: "+1-800-332-3044",
           priceRange: "$$",
+          checkinTime: "15:00",
+          checkoutTime: "11:00",
+          petsAllowed: true,
           address: {
             "@type": "PostalAddress",
+            streetAddress: "16250 Silverthorn Road",
+            addressLocality: "Redding",
             addressRegion: "CA",
-            addressLocality: "Shasta Lake",
+            postalCode: "96003",
             addressCountry: "US",
           },
+          geo: { "@type": "GeoCoordinates", latitude: 40.8797, longitude: -122.2945 },
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.0",
+            bestRating: "5",
+            reviewCount: "120",
+          },
+          sameAs: [
+            "https://www.facebook.com/silverthornresort/",
+            "https://www.instagram.com/silverthornresortandmarina",
+            "https://www.pinterest.com/shastalakehouseboats",
+            "https://www.youtube.com/@houseboatslakeshasta",
+          ],
           amenityFeature: AMENITIES.map((a) => ({
             "@type": "LocationFeatureSpecification",
             name: a.label,
@@ -312,10 +334,52 @@ export const Route = createFileRoute("/cabins")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-            { "@type": "ListItem", position: 2, name: "Cabins", item: "/cabins" },
+            itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+            { "@type": "ListItem", position: 2, name: "Cabins", item: PAGE_URL },
           ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Silverthorn Resort Cabin Rentals — Shasta Lake",
+          url: PAGE_URL,
+          numberOfItems: CABINS.filter((c) => !c.unavailable).length,
+          itemListElement: CABINS.filter((c) => !c.unavailable).map((c, i) => {
+            const weekly = c.weekly ? Number(c.weekly.replace(/[$,]/g, "")) : undefined;
+            return {
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": ["Accommodation", "Product"],
+                name: `${c.name} — ${c.type} Cabin at Silverthorn Resort, Shasta Lake`,
+                description: c.description,
+                url: c.url,
+                occupancy: { "@type": "QuantitativeValue", maxValue: c.sleeps },
+                amenities: c.highlights,
+                offers: weekly
+                  ? {
+                      "@type": "Offer",
+                      url: c.url,
+                      priceCurrency: "USD",
+                      price: promo ? Math.round(discounted(weekly) * 100) / 100 : weekly,
+                      availability: "https://schema.org/InStock",
+                      ...(promo
+                        ? {
+                            validFrom: PROMO.startDate,
+                            validThrough: PROMO.validThrough,
+                            priceValidUntil: PROMO.validThrough,
+                            description: PROMO_OFFER_DESCRIPTION,
+                          }
+                        : {}),
+                    }
+                  : undefined,
+              },
+            };
+          }),
         }),
       },
     ],
@@ -461,8 +525,16 @@ function CabinsPage() {
               <Link to="/pro-shop" className="text-[var(--lake)] underline underline-offset-2 hover:no-underline">
                 Silverthorn Pro Shop
               </Link>
-              . <strong>One boat slip is included</strong> with every cabin rental — additional slips
-              can be provided based on availability.
+               . <strong>One boat slip is included</strong> with every cabin rental — additional slips
+               can be provided based on availability. Bringing the dog? Our{" "}
+               <Link to="/pet-policy" className="text-[var(--lake)] underline underline-offset-2 hover:no-underline">
+                 dog-friendly pet policy
+               </Link>{" "}
+               welcomes up to two dogs per cabin, and our{" "}
+               <Link to="/shasta-lake" className="text-[var(--lake)] underline underline-offset-2 hover:no-underline">
+                 Shasta Lake guide
+               </Link>{" "}
+               covers the best coves, fishing and swimming near the resort.
             </p>
           </div>
 
@@ -485,10 +557,10 @@ function CabinsPage() {
                 <div className="text-muted-foreground">3-night minimum stay</div>
               </li>
               <li className="pt-3 border-t border-border text-xs text-muted-foreground">
-                Rates include all mandatory booking fees and 10% occupancy taxes. See{" "}
-                <Link to="/houseboats/policy" className="underline">
-                  rental policies
-                </Link>
+                 Rates include all mandatory booking fees and 10% occupancy taxes. See{" "}
+                 <Link to="/cabins/policy" className="underline">
+                   cabin rental policies
+                 </Link>
                 .
               </li>
             </ul>
@@ -622,6 +694,47 @@ function CabinsPage() {
               your boat. It's why families come back year after year.
             </p>
           </article>
+        </div>
+      </section>
+
+      {/* Quick answers — AI-search friendly */}
+      <section className="border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "var(--navy)" }}>
+            Why stay in a Silverthorn cabin?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="font-semibold mb-2" style={{ color: "var(--navy)" }}>
+                Where are the cabins?
+              </h3>
+              <p className="text-sm text-foreground/85 leading-relaxed">
+                Silverthorn Resort's cabins sit in the pines on the Pit River Arm of Shasta Lake,
+                about 20 minutes from Redding, California — roughly 3.5 hours from the Bay Area and
+                2.5 hours from Sacramento.
+              </p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="font-semibold mb-2" style={{ color: "var(--navy)" }}>
+                What's included with every cabin?
+              </h3>
+              <p className="text-sm text-foreground/85 leading-relaxed">
+                Every cabin includes a full kitchen, full bathroom, DirecTV, outdoor gas BBQ, linens,
+                and one complimentary boat slip at the private marina — rates include all booking
+                fees and taxes.
+              </p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="font-semibold mb-2" style={{ color: "var(--navy)" }}>
+                Which cabin should I choose?
+              </h3>
+              <p className="text-sm text-foreground/85 leading-relaxed">
+                Couples and small families love the studios (sleep 4). Cabin #7 adds a lake-view
+                deck, Cabin #3 is fully ADA accessible, and Cabin #8 sleeps 8 with a wood stove and
+                Jacuzzi tub for big family trips.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
