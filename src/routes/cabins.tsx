@@ -330,10 +330,52 @@ export const Route = createFileRoute("/cabins")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-            { "@type": "ListItem", position: 2, name: "Cabins", item: "/cabins" },
+            itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+            { "@type": "ListItem", position: 2, name: "Cabins", item: PAGE_URL },
           ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Silverthorn Resort Cabin Rentals — Shasta Lake",
+          url: PAGE_URL,
+          numberOfItems: CABINS.filter((c) => !c.unavailable).length,
+          itemListElement: CABINS.filter((c) => !c.unavailable).map((c, i) => {
+            const weekly = c.weekly ? Number(c.weekly.replace(/[$,]/g, "")) : undefined;
+            return {
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": ["Accommodation", "Product"],
+                name: `${c.name} — ${c.type} Cabin at Silverthorn Resort, Shasta Lake`,
+                description: c.description,
+                url: c.url,
+                occupancy: { "@type": "QuantitativeValue", maxValue: c.sleeps },
+                amenities: c.highlights,
+                offers: weekly
+                  ? {
+                      "@type": "Offer",
+                      url: c.url,
+                      priceCurrency: "USD",
+                      price: promo ? Math.round(discounted(weekly) * 100) / 100 : weekly,
+                      availability: "https://schema.org/InStock",
+                      ...(promo
+                        ? {
+                            validFrom: PROMO.startDate,
+                            validThrough: PROMO.validThrough,
+                            priceValidUntil: PROMO.validThrough,
+                            description: PROMO_OFFER_DESCRIPTION,
+                          }
+                        : {}),
+                    }
+                  : undefined,
+              },
+            };
+          }),
         }),
       },
     ],
