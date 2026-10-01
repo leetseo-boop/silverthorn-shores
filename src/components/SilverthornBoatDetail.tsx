@@ -7,7 +7,7 @@ import {
 import { Nav, Footer } from "@/components/SilverthornHomePage";
 import { BOATS, bookingUrl, type BoatConfig } from "@/data/silverthorn-boats";
 import { PromoBanner, PromoPrice } from "@/components/promo/PromoBits";
-import { isPromoActive, isBoatIncluded } from "@/lib/promo";
+import { discounted, isPromoActive, isBoatIncluded, PROMO, saleEventJsonLd } from "@/lib/promo";
 
 const NAVY = "#1B2B3A";
 const ORANGE = "#E8640A";
@@ -303,6 +303,7 @@ export function SilverthornBoatDetail({ boat }: { boat: BoatConfig }) {
 export function buildBoatHeadConfig(boat: BoatConfig) {
   const path = `/small-boats/${boat.slug}`;
   const url = bookingUrl(boat.bookingId);
+  const promo = isPromoActive() && isBoatIncluded(boat.slug);
   const graph = [
     {
       "@type": "Product",
@@ -315,12 +316,12 @@ export function buildBoatHeadConfig(boat: BoatConfig) {
       offers: {
         "@type": "AggregateOffer",
         priceCurrency: "USD",
-        lowPrice: boat.dailyPrice.toFixed(2),
-        highPrice: boat.weeklyPrice.toFixed(2),
+         lowPrice: (promo ? discounted(boat.dailyPrice) : boat.dailyPrice).toFixed(2),
+         highPrice: (promo ? discounted(boat.weeklyPrice) : boat.weeklyPrice).toFixed(2),
         offerCount: 2,
         offers: [
-          { "@type": "Offer", name: "Daily Rental", price: boat.dailyPrice.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url },
-          { "@type": "Offer", name: "Weekly Rental", price: boat.weeklyPrice.toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url },
+           { "@type": "Offer", name: "Daily Rental", price: (promo ? discounted(boat.dailyPrice) : boat.dailyPrice).toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url, ...(promo ? { validFrom: PROMO.startDate, priceValidUntil: PROMO.validThrough, description: `20% off with code ${PROMO.code}. New reservations only; restrictions apply.` } : {}) },
+           { "@type": "Offer", name: "Weekly Rental", price: (promo ? discounted(boat.weeklyPrice) : boat.weeklyPrice).toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock", url, ...(promo ? { validFrom: PROMO.startDate, priceValidUntil: PROMO.validThrough, description: `20% off with code ${PROMO.code}. New reservations only; restrictions apply.` } : {}) },
         ],
       },
     },
@@ -356,6 +357,7 @@ export function buildBoatHeadConfig(boat: BoatConfig) {
       openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "08:00", closes: "16:30" },
     },
   ];
+  if (promo) graph.push(saleEventJsonLd({ url: path, name: `${PROMO.title} — ${PROMO.percentLabel} ${boat.shortName}`, description: `${PROMO.percentLabel} the ${boat.shortName} at Silverthorn Resort with code ${PROMO.code}, October 1–31, 2026. New reservations only; restrictions apply.` }) as (typeof graph)[number]);
   const ld = { "@context": "https://schema.org", "@graph": graph };
   return {
     meta: [
