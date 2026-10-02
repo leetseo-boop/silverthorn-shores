@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { PromoBanner, PromoPrice } from "@/components/promo/PromoBits";
+import { PromoBanner, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
 import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd, discounted } from "@/lib/promo";
 import {
   Users,
@@ -399,10 +399,23 @@ export const Route = createFileRoute("/cabins")({
 });
 
 function CabinsPage() {
+  const promo = isPromoActive();
   return (
     <main className="bg-background text-foreground">
       {/* Header */}
-      <section className="bg-[var(--sand)] border-b border-border">
+      <section className="relative overflow-hidden bg-[var(--sand)] border-b border-border">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-6 top-6 hidden select-none text-4xl opacity-20 lg:block"
+        >
+          🍁🍂🍂
+        </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-6 left-6 hidden select-none text-3xl opacity-15 lg:block"
+        >
+          🍂
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
           <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground mb-4">
             <Link to="/" className="hover:text-foreground">Home</Link>
@@ -415,6 +428,22 @@ function CabinsPage() {
           >
             Shasta Lake Cabins at Silverthorn Resort
           </h1>
+          {promo && (
+            <a
+              href={BOOKING_ALL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-full bg-fall-rust px-4 py-2 text-sm font-bold text-fall-cream shadow transition-colors hover:bg-fall-rust/90"
+            >
+              <span aria-hidden="true">🍂</span>
+              <span>
+                Shasta Lake Fall Sale · {PROMO.percentLabel} every cabin with code {PROMO.code}
+              </span>
+              <span className="rounded-full bg-navy px-2 py-0.5 text-[11px] font-bold tracking-wider">
+                ENDS {PROMO.endsLabel}
+              </span>
+            </a>
+          )}
           <p className="mt-4 max-w-3xl text-base sm:text-lg text-muted-foreground">
             Eight lakeside cabins on Shasta Lake nestled in the pines — studios sleeping 4 up to a
             two-bedroom family cabin sleeping 8. Full kitchens, gas BBQs, DirecTV, and a complimentary
@@ -444,7 +473,19 @@ function CabinsPage() {
 
       {/* Shasta Lake Fall Sale */}
       <section className="border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 top-1/2 hidden -translate-y-1/2 select-none text-3xl opacity-40 xl:block"
+          >
+            🍂
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 select-none text-3xl opacity-40 xl:block"
+          >
+            🍁
+          </div>
           <PromoBanner what="all Silverthorn lakeside cabins" />
         </div>
       </section>
@@ -586,10 +627,17 @@ function CabinsPage() {
           <div className="flex items-end justify-between flex-wrap gap-4 mb-8">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: "var(--navy)" }}>
-                Choose your cabin
+                {promo && <span aria-hidden="true">🍁 </span>}Choose your cabin
               </h2>
               <p className="text-sm text-muted-foreground mt-2">
-                Starting rates include all mandatory booking fees and taxes.
+                {promo ? (
+                  <>
+                    Fall Sale: {PROMO.percentLabel} every cabin with code {PROMO.code} · new
+                    reservations only. Rates include all booking fees and taxes.
+                  </>
+                ) : (
+                  <>Starting rates include all mandatory booking fees and taxes.</>
+                )}
               </p>
             </div>
             <a
@@ -615,7 +663,7 @@ function CabinsPage() {
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h2 className="text-2xl sm:text-3xl font-bold mb-6" style={{ color: "var(--navy)" }}>
-            Cabin amenities at a glance
+            {promo && <span aria-hidden="true">🍂 </span>}Cabin amenities at a glance
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {AMENITIES.map((a) => (
@@ -713,7 +761,7 @@ function CabinsPage() {
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "var(--navy)" }}>
-            Why stay in a Silverthorn cabin?
+            {promo && <span aria-hidden="true">🍁 </span>}Why stay in a Silverthorn cabin?
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="rounded-xl border border-border bg-card p-6">
@@ -754,7 +802,7 @@ function CabinsPage() {
       <section className="border-b border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "var(--navy)" }}>
-            Shasta Lake cabin FAQs
+            {promo && <span aria-hidden="true">🍂 </span>}Shasta Lake cabin FAQs
           </h2>
           <dl className="space-y-5">
             {FAQS.map((f) => (
@@ -772,9 +820,13 @@ function CabinsPage() {
       {/* Final CTA */}
       <section style={{ backgroundColor: "var(--navy)" }} className="text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold">Plan your Shasta Lake getaway</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold">
+            {promo ? "Fall on Shasta Lake is calling 🍂" : "Plan your Shasta Lake getaway"}
+          </h2>
           <p className="mt-3 text-white/80 max-w-2xl mx-auto">
-            Book a cabin, bring your boat (we'll save you a slip), and unplug in the pines.
+            {promo
+              ? `Cozy cabins, quiet water, and ${PROMO.percentLabel} off every cabin with code ${PROMO.code} through October 31.`
+              : "Book a cabin, bring your boat (we'll save you a slip), and unplug in the pines."}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
@@ -801,6 +853,7 @@ function CabinsPage() {
 
 function CabinCard({ cabin }: { cabin: Cabin }) {
   const unavailable = cabin.unavailable;
+  const promo = isPromoActive();
   return (
     <article
       id={`cabin-${cabin.id}`}
@@ -842,8 +895,14 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
           C{cabin.id}
         </span>
 
+        {!unavailable && <PromoBadge className="absolute top-3 right-3" />}
+
         {cabin.badge && !unavailable && (
-          <span className="absolute top-3 right-3 inline-flex items-center rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-primary-foreground shadow">
+          <span
+            className={`absolute right-3 inline-flex items-center rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-primary-foreground shadow ${
+              promo ? "top-12" : "top-3"
+            }`}
+          >
             {cabin.badge}
           </span>
         )}
@@ -894,7 +953,7 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
 
         <div className="mt-auto pt-5">
           {!unavailable && (cabin.weekly || cabin.threeNight) ? (
-            <div className="grid grid-cols-2 gap-3 rounded-lg bg-[var(--sand)] p-3">
+            <div className={`grid grid-cols-2 gap-3 rounded-lg p-3 ${promo ? "bg-fall-cream" : "bg-[var(--sand)]"}`}>
               {cabin.weekly && (
                 <div>
                   <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
