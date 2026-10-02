@@ -9,157 +9,52 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ThornRouteImport } from './routes/thorn'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SmallBoatsRouteImport } from './routes/small-boats'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SitemapRouteImport } from './routes/sitemap'
-import { Route as ShastaVsLakePowellRouteImport } from './routes/shasta-vs-lake-powell'
-import { Route as ShastaLakeRouteImport } from './routes/shasta-lake'
-import { Route as ProShopRouteImport } from './routes/pro-shop'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PlanningRouteImport } from './routes/planning'
-import { Route as PetPolicyRouteImport } from './routes/pet-policy'
-import { Route as MoorageRouteImport } from './routes/moorage'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as GuestInfoRouteImport } from './routes/guest-info'
-import { Route as FaqRouteImport } from './routes/faq'
-import { Route as ExploringShastaLakeRouteImport } from './routes/exploring-shasta-lake'
-import { Route as EmploymentRouteImport } from './routes/employment'
-import { Route as DirectionsRouteImport } from './routes/directions'
-import { Route as CookieSettingsRouteImport } from './routes/cookie-settings'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CabinsRouteImport } from './routes/cabins'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as HouseboatsIndexRouteImport } from './routes/houseboats.index'
-import { Route as SmallBoatsSlugRouteImport } from './routes/small-boats_.$slug'
-import { Route as HouseboatsSenatorRouteImport } from './routes/houseboats.senator'
-import { Route as HouseboatsQueenIiRouteImport } from './routes/houseboats.queen-ii'
-import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
-import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
-import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy'
-import { Route as CabinsPolicyRouteImport } from './routes/cabins_.policy'
-import { Route as ApiChatRouteImport } from './routes/api/chat'
-import { Route as AboutHistoryRouteImport } from './routes/about.history'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as CabinsRouteImport } from './routes/cabins'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookieSettingsRouteImport } from './routes/cookie-settings'
+import { Route as DirectionsRouteImport } from './routes/directions'
+import { Route as EmploymentRouteImport } from './routes/employment'
+import { Route as ExploringShastaLakeRouteImport } from './routes/exploring-shasta-lake'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as GuestInfoRouteImport } from './routes/guest-info'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as MoorageRouteImport } from './routes/moorage'
+import { Route as PetPolicyRouteImport } from './routes/pet-policy'
+import { Route as PlanningRouteImport } from './routes/planning'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ProShopRouteImport } from './routes/pro-shop'
+import { Route as ShastaLakeRouteImport } from './routes/shasta-lake'
+import { Route as ShastaVsLakePowellRouteImport } from './routes/shasta-vs-lake-powell'
+import { Route as SitemapRouteImport } from './routes/sitemap'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SmallBoatsRouteImport } from './routes/small-boats'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ThornRouteImport } from './routes/thorn'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AboutHistoryRouteImport } from './routes/about.history'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as CabinsPolicyRouteImport } from './routes/cabins_.policy'
+import { Route as HouseboatsIndexRouteImport } from './routes/houseboats.index'
+import { Route as HouseboatsPolicyRouteImport } from './routes/houseboats.policy'
+import { Route as HouseboatsQueenRouteImport } from './routes/houseboats.queen'
+import { Route as HouseboatsQueenIRouteImport } from './routes/houseboats.queen-i'
+import { Route as HouseboatsQueenIiRouteImport } from './routes/houseboats.queen-ii'
+import { Route as HouseboatsSenatorRouteImport } from './routes/houseboats.senator'
+import { Route as SmallBoatsSlugRouteImport } from './routes/small-boats_.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
-import { Route as ApiPublicHooksThornLearnRouteImport } from './routes/api/public/hooks/thorn-learn'
-import { Route as ApiPublicHooksThornConditionsRouteImport } from './routes/api/public/hooks/thorn-conditions'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as ApiPublicGoogleReviewsRouteImport } from './routes/api/public/google-reviews'
 import { Route as ApiPublicHooksRefreshReviewsRouteImport } from './routes/api/public/hooks/refresh-reviews'
+import { Route as ApiPublicHooksThornConditionsRouteImport } from './routes/api/public/hooks/thorn-conditions'
+import { Route as ApiPublicHooksThornLearnRouteImport } from './routes/api/public/hooks/thorn-learn'
 
-const ThornRoute = ThornRouteImport.update({
-  id: '/thorn',
-  path: '/thorn',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SmallBoatsRoute = SmallBoatsRouteImport.update({
-  id: '/small-boats',
-  path: '/small-boats',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapRoute = SitemapRouteImport.update({
-  id: '/sitemap',
-  path: '/sitemap',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ShastaVsLakePowellRoute = ShastaVsLakePowellRouteImport.update({
-  id: '/shasta-vs-lake-powell',
-  path: '/shasta-vs-lake-powell',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ShastaLakeRoute = ShastaLakeRouteImport.update({
-  id: '/shasta-lake',
-  path: '/shasta-lake',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProShopRoute = ProShopRouteImport.update({
-  id: '/pro-shop',
-  path: '/pro-shop',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlanningRoute = PlanningRouteImport.update({
-  id: '/planning',
-  path: '/planning',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PetPolicyRoute = PetPolicyRouteImport.update({
-  id: '/pet-policy',
-  path: '/pet-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MoorageRoute = MoorageRouteImport.update({
-  id: '/moorage',
-  path: '/moorage',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GuestInfoRoute = GuestInfoRouteImport.update({
-  id: '/guest-info',
-  path: '/guest-info',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FaqRoute = FaqRouteImport.update({
-  id: '/faq',
-  path: '/faq',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExploringShastaLakeRoute = ExploringShastaLakeRouteImport.update({
-  id: '/exploring-shasta-lake',
-  path: '/exploring-shasta-lake',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmploymentRoute = EmploymentRouteImport.update({
-  id: '/employment',
-  path: '/employment',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DirectionsRoute = DirectionsRouteImport.update({
-  id: '/directions',
-  path: '/directions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CookieSettingsRoute = CookieSettingsRouteImport.update({
-  id: '/cookie-settings',
-  path: '/cookie-settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CabinsRoute = CabinsRouteImport.update({
-  id: '/cabins',
-  path: '/cabins',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccessibilityRoute = AccessibilityRouteImport.update({
@@ -167,49 +62,131 @@ const AccessibilityRoute = AccessibilityRouteImport.update({
   path: '/accessibility',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HouseboatsIndexRoute = HouseboatsIndexRouteImport.update({
-  id: '/houseboats/',
-  path: '/houseboats/',
+const CabinsRoute = CabinsRouteImport.update({
+  id: '/cabins',
+  path: '/cabins',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SmallBoatsSlugRoute = SmallBoatsSlugRouteImport.update({
-  id: '/small-boats_/$slug',
-  path: '/small-boats/$slug',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HouseboatsSenatorRoute = HouseboatsSenatorRouteImport.update({
-  id: '/houseboats/senator',
-  path: '/houseboats/senator',
+const CookieSettingsRoute = CookieSettingsRouteImport.update({
+  id: '/cookie-settings',
+  path: '/cookie-settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HouseboatsQueenIiRoute = HouseboatsQueenIiRouteImport.update({
-  id: '/houseboats/queen-ii',
-  path: '/houseboats/queen-ii',
+const DirectionsRoute = DirectionsRouteImport.update({
+  id: '/directions',
+  path: '/directions',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HouseboatsQueenIRoute = HouseboatsQueenIRouteImport.update({
-  id: '/houseboats/queen-i',
-  path: '/houseboats/queen-i',
+const EmploymentRoute = EmploymentRouteImport.update({
+  id: '/employment',
+  path: '/employment',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
-  id: '/houseboats/queen',
-  path: '/houseboats/queen',
+const ExploringShastaLakeRoute = ExploringShastaLakeRouteImport.update({
+  id: '/exploring-shasta-lake',
+  path: '/exploring-shasta-lake',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HouseboatsPolicyRoute = HouseboatsPolicyRouteImport.update({
-  id: '/houseboats/policy',
-  path: '/houseboats/policy',
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CabinsPolicyRoute = CabinsPolicyRouteImport.update({
-  id: '/cabins_/policy',
-  path: '/cabins/policy',
+const GuestInfoRoute = GuestInfoRouteImport.update({
+  id: '/guest-info',
+  path: '/guest-info',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MoorageRoute = MoorageRouteImport.update({
+  id: '/moorage',
+  path: '/moorage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PetPolicyRoute = PetPolicyRouteImport.update({
+  id: '/pet-policy',
+  path: '/pet-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanningRoute = PlanningRouteImport.update({
+  id: '/planning',
+  path: '/planning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProShopRoute = ProShopRouteImport.update({
+  id: '/pro-shop',
+  path: '/pro-shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShastaLakeRoute = ShastaLakeRouteImport.update({
+  id: '/shasta-lake',
+  path: '/shasta-lake',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShastaVsLakePowellRoute = ShastaVsLakePowellRouteImport.update({
+  id: '/shasta-vs-lake-powell',
+  path: '/shasta-vs-lake-powell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SmallBoatsRoute = SmallBoatsRouteImport.update({
+  id: '/small-boats',
+  path: '/small-boats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThornRoute = ThornRouteImport.update({
+  id: '/thorn',
+  path: '/thorn',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AboutHistoryRoute = AboutHistoryRouteImport.update({
+  id: '/about/history',
+  path: '/about/history',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -217,26 +194,49 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutHistoryRoute = AboutHistoryRouteImport.update({
-  id: '/about/history',
-  path: '/about/history',
+const CabinsPolicyRoute = CabinsPolicyRouteImport.update({
+  id: '/cabins_/policy',
+  path: '/cabins/policy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicGoogleReviewsRoute = ApiPublicGoogleReviewsRouteImport.update({
-  id: '/api/public/google-reviews',
-  path: '/api/public/google-reviews',
+const HouseboatsIndexRoute = HouseboatsIndexRouteImport.update({
+  id: '/houseboats/',
+  path: '/houseboats/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseboatsPolicyRoute = HouseboatsPolicyRouteImport.update({
+  id: '/houseboats/policy',
+  path: '/houseboats/policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseboatsQueenRoute = HouseboatsQueenRouteImport.update({
+  id: '/houseboats/queen',
+  path: '/houseboats/queen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseboatsQueenIRoute = HouseboatsQueenIRouteImport.update({
+  id: '/houseboats/queen-i',
+  path: '/houseboats/queen-i',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseboatsQueenIiRoute = HouseboatsQueenIiRouteImport.update({
+  id: '/houseboats/queen-ii',
+  path: '/houseboats/queen-ii',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseboatsSenatorRoute = HouseboatsSenatorRouteImport.update({
+  id: '/houseboats/senator',
+  path: '/houseboats/senator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SmallBoatsSlugRoute = SmallBoatsSlugRouteImport.update({
+  id: '/small-boats_/$slug',
+  path: '/small-boats/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
@@ -245,15 +245,15 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
+const ApiPublicGoogleReviewsRoute = ApiPublicGoogleReviewsRouteImport.update({
+  id: '/api/public/google-reviews',
+  path: '/api/public/google-reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicHooksThornLearnRoute =
-  ApiPublicHooksThornLearnRouteImport.update({
-    id: '/api/public/hooks/thorn-learn',
-    path: '/api/public/hooks/thorn-learn',
+const ApiPublicHooksRefreshReviewsRoute =
+  ApiPublicHooksRefreshReviewsRouteImport.update({
+    id: '/api/public/hooks/refresh-reviews',
+    path: '/api/public/hooks/refresh-reviews',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicHooksThornConditionsRoute =
@@ -262,10 +262,10 @@ const ApiPublicHooksThornConditionsRoute =
     path: '/api/public/hooks/thorn-conditions',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicHooksRefreshReviewsRoute =
-  ApiPublicHooksRefreshReviewsRouteImport.update({
-    id: '/api/public/hooks/refresh-reviews',
-    path: '/api/public/hooks/refresh-reviews',
+const ApiPublicHooksThornLearnRoute =
+  ApiPublicHooksThornLearnRouteImport.update({
+    id: '/api/public/hooks/thorn-learn',
+    path: '/api/public/hooks/thorn-learn',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -584,158 +584,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/thorn': {
-      id: '/thorn'
-      path: '/thorn'
-      fullPath: '/thorn'
-      preLoaderRoute: typeof ThornRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/small-boats': {
-      id: '/small-boats'
-      path: '/small-boats'
-      fullPath: '/small-boats'
-      preLoaderRoute: typeof SmallBoatsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap': {
-      id: '/sitemap'
-      path: '/sitemap'
-      fullPath: '/sitemap'
-      preLoaderRoute: typeof SitemapRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/shasta-vs-lake-powell': {
-      id: '/shasta-vs-lake-powell'
-      path: '/shasta-vs-lake-powell'
-      fullPath: '/shasta-vs-lake-powell'
-      preLoaderRoute: typeof ShastaVsLakePowellRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/shasta-lake': {
-      id: '/shasta-lake'
-      path: '/shasta-lake'
-      fullPath: '/shasta-lake'
-      preLoaderRoute: typeof ShastaLakeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pro-shop': {
-      id: '/pro-shop'
-      path: '/pro-shop'
-      fullPath: '/pro-shop'
-      preLoaderRoute: typeof ProShopRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/planning': {
-      id: '/planning'
-      path: '/planning'
-      fullPath: '/planning'
-      preLoaderRoute: typeof PlanningRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pet-policy': {
-      id: '/pet-policy'
-      path: '/pet-policy'
-      fullPath: '/pet-policy'
-      preLoaderRoute: typeof PetPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/moorage': {
-      id: '/moorage'
-      path: '/moorage'
-      fullPath: '/moorage'
-      preLoaderRoute: typeof MoorageRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/guest-info': {
-      id: '/guest-info'
-      path: '/guest-info'
-      fullPath: '/guest-info'
-      preLoaderRoute: typeof GuestInfoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faq': {
-      id: '/faq'
-      path: '/faq'
-      fullPath: '/faq'
-      preLoaderRoute: typeof FaqRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/exploring-shasta-lake': {
-      id: '/exploring-shasta-lake'
-      path: '/exploring-shasta-lake'
-      fullPath: '/exploring-shasta-lake'
-      preLoaderRoute: typeof ExploringShastaLakeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employment': {
-      id: '/employment'
-      path: '/employment'
-      fullPath: '/employment'
-      preLoaderRoute: typeof EmploymentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/directions': {
-      id: '/directions'
-      path: '/directions'
-      fullPath: '/directions'
-      preLoaderRoute: typeof DirectionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cookie-settings': {
-      id: '/cookie-settings'
-      path: '/cookie-settings'
-      fullPath: '/cookie-settings'
-      preLoaderRoute: typeof CookieSettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cabins': {
-      id: '/cabins'
-      path: '/cabins'
-      fullPath: '/cabins'
-      preLoaderRoute: typeof CabinsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/accessibility': {
@@ -745,88 +598,158 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccessibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/houseboats/': {
-      id: '/houseboats/'
-      path: '/houseboats'
-      fullPath: '/houseboats/'
-      preLoaderRoute: typeof HouseboatsIndexRouteImport
+    '/cabins': {
+      id: '/cabins'
+      path: '/cabins'
+      fullPath: '/cabins'
+      preLoaderRoute: typeof CabinsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/small-boats_/$slug': {
-      id: '/small-boats_/$slug'
-      path: '/small-boats/$slug'
-      fullPath: '/small-boats/$slug'
-      preLoaderRoute: typeof SmallBoatsSlugRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/houseboats/senator': {
-      id: '/houseboats/senator'
-      path: '/houseboats/senator'
-      fullPath: '/houseboats/senator'
-      preLoaderRoute: typeof HouseboatsSenatorRouteImport
+    '/cookie-settings': {
+      id: '/cookie-settings'
+      path: '/cookie-settings'
+      fullPath: '/cookie-settings'
+      preLoaderRoute: typeof CookieSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/houseboats/queen-ii': {
-      id: '/houseboats/queen-ii'
-      path: '/houseboats/queen-ii'
-      fullPath: '/houseboats/queen-ii'
-      preLoaderRoute: typeof HouseboatsQueenIiRouteImport
+    '/directions': {
+      id: '/directions'
+      path: '/directions'
+      fullPath: '/directions'
+      preLoaderRoute: typeof DirectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/houseboats/queen-i': {
-      id: '/houseboats/queen-i'
-      path: '/houseboats/queen-i'
-      fullPath: '/houseboats/queen-i'
-      preLoaderRoute: typeof HouseboatsQueenIRouteImport
+    '/employment': {
+      id: '/employment'
+      path: '/employment'
+      fullPath: '/employment'
+      preLoaderRoute: typeof EmploymentRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/houseboats/queen': {
-      id: '/houseboats/queen'
-      path: '/houseboats/queen'
-      fullPath: '/houseboats/queen'
-      preLoaderRoute: typeof HouseboatsQueenRouteImport
+    '/exploring-shasta-lake': {
+      id: '/exploring-shasta-lake'
+      path: '/exploring-shasta-lake'
+      fullPath: '/exploring-shasta-lake'
+      preLoaderRoute: typeof ExploringShastaLakeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/houseboats/policy': {
-      id: '/houseboats/policy'
-      path: '/houseboats/policy'
-      fullPath: '/houseboats/policy'
-      preLoaderRoute: typeof HouseboatsPolicyRouteImport
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cabins_/policy': {
-      id: '/cabins_/policy'
-      path: '/cabins/policy'
-      fullPath: '/cabins/policy'
-      preLoaderRoute: typeof CabinsPolicyRouteImport
+    '/guest-info': {
+      id: '/guest-info'
+      path: '/guest-info'
+      fullPath: '/guest-info'
+      preLoaderRoute: typeof GuestInfoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/chat': {
-      id: '/api/chat'
-      path: '/api/chat'
-      fullPath: '/api/chat'
-      preLoaderRoute: typeof ApiChatRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about/history': {
-      id: '/about/history'
-      path: '/about/history'
-      fullPath: '/about/history'
-      preLoaderRoute: typeof AboutHistoryRouteImport
+    '/moorage': {
+      id: '/moorage'
+      path: '/moorage'
+      fullPath: '/moorage'
+      preLoaderRoute: typeof MoorageRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/pet-policy': {
+      id: '/pet-policy'
+      path: '/pet-policy'
+      fullPath: '/pet-policy'
+      preLoaderRoute: typeof PetPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/planning': {
+      id: '/planning'
+      path: '/planning'
+      fullPath: '/planning'
+      preLoaderRoute: typeof PlanningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pro-shop': {
+      id: '/pro-shop'
+      path: '/pro-shop'
+      fullPath: '/pro-shop'
+      preLoaderRoute: typeof ProShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shasta-lake': {
+      id: '/shasta-lake'
+      path: '/shasta-lake'
+      fullPath: '/shasta-lake'
+      preLoaderRoute: typeof ShastaLakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shasta-vs-lake-powell': {
+      id: '/shasta-vs-lake-powell'
+      path: '/shasta-vs-lake-powell'
+      fullPath: '/shasta-vs-lake-powell'
+      preLoaderRoute: typeof ShastaVsLakePowellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/small-boats': {
+      id: '/small-boats'
+      path: '/small-boats'
+      fullPath: '/small-boats'
+      preLoaderRoute: typeof SmallBoatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thorn': {
+      id: '/thorn'
+      path: '/thorn'
+      fullPath: '/thorn'
+      preLoaderRoute: typeof ThornRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -836,18 +759,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/google-reviews': {
-      id: '/api/public/google-reviews'
-      path: '/api/public/google-reviews'
-      fullPath: '/api/public/google-reviews'
-      preLoaderRoute: typeof ApiPublicGoogleReviewsRouteImport
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+    '/about/history': {
+      id: '/about/history'
+      path: '/about/history'
+      fullPath: '/about/history'
+      preLoaderRoute: typeof AboutHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cabins_/policy': {
+      id: '/cabins_/policy'
+      path: '/cabins/policy'
+      fullPath: '/cabins/policy'
+      preLoaderRoute: typeof CabinsPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/': {
+      id: '/houseboats/'
+      path: '/houseboats'
+      fullPath: '/houseboats/'
+      preLoaderRoute: typeof HouseboatsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/policy': {
+      id: '/houseboats/policy'
+      path: '/houseboats/policy'
+      fullPath: '/houseboats/policy'
+      preLoaderRoute: typeof HouseboatsPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/queen': {
+      id: '/houseboats/queen'
+      path: '/houseboats/queen'
+      fullPath: '/houseboats/queen'
+      preLoaderRoute: typeof HouseboatsQueenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/queen-i': {
+      id: '/houseboats/queen-i'
+      path: '/houseboats/queen-i'
+      fullPath: '/houseboats/queen-i'
+      preLoaderRoute: typeof HouseboatsQueenIRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/queen-ii': {
+      id: '/houseboats/queen-ii'
+      path: '/houseboats/queen-ii'
+      fullPath: '/houseboats/queen-ii'
+      preLoaderRoute: typeof HouseboatsQueenIiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houseboats/senator': {
+      id: '/houseboats/senator'
+      path: '/houseboats/senator'
+      fullPath: '/houseboats/senator'
+      preLoaderRoute: typeof HouseboatsSenatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/small-boats_/$slug': {
+      id: '/small-boats_/$slug'
+      path: '/small-boats/$slug'
+      fullPath: '/small-boats/$slug'
+      preLoaderRoute: typeof SmallBoatsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.lovable/oauth/consent': {
@@ -857,11 +843,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/hooks/thorn-learn': {
-      id: '/api/public/hooks/thorn-learn'
-      path: '/api/public/hooks/thorn-learn'
-      fullPath: '/api/public/hooks/thorn-learn'
-      preLoaderRoute: typeof ApiPublicHooksThornLearnRouteImport
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/google-reviews': {
+      id: '/api/public/google-reviews'
+      path: '/api/public/google-reviews'
+      fullPath: '/api/public/google-reviews'
+      preLoaderRoute: typeof ApiPublicGoogleReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/refresh-reviews': {
+      id: '/api/public/hooks/refresh-reviews'
+      path: '/api/public/hooks/refresh-reviews'
+      fullPath: '/api/public/hooks/refresh-reviews'
+      preLoaderRoute: typeof ApiPublicHooksRefreshReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/hooks/thorn-conditions': {
@@ -871,11 +871,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksThornConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/hooks/refresh-reviews': {
-      id: '/api/public/hooks/refresh-reviews'
-      path: '/api/public/hooks/refresh-reviews'
-      fullPath: '/api/public/hooks/refresh-reviews'
-      preLoaderRoute: typeof ApiPublicHooksRefreshReviewsRouteImport
+    '/api/public/hooks/thorn-learn': {
+      id: '/api/public/hooks/thorn-learn'
+      path: '/api/public/hooks/thorn-learn'
+      fullPath: '/api/public/hooks/thorn-learn'
+      preLoaderRoute: typeof ApiPublicHooksThornLearnRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
