@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PromoBanner, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { BookWithThornButton } from "@/components/BookWithThornButton";
 import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd, discounted } from "@/lib/promo";
 import {
   Users,

@@ -7,6 +7,7 @@ import {
   Calendar, Home, ChevronDown, Zap, Waves,
 } from "lucide-react";
 import { PromoBanner, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { BookWithThornButton } from "@/components/BookWithThornButton";
 import { discounted, isPromoActive, isBoatIncluded, PROMO, saleEventJsonLd } from "@/lib/promo";
 
 const NAVY = "#1B2B3A";
