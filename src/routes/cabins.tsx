@@ -627,10 +627,17 @@ function CabinsPage() {
           <div className="flex items-end justify-between flex-wrap gap-4 mb-8">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: "var(--navy)" }}>
-                Choose your cabin
+                {promo && <span aria-hidden="true">🍁 </span>}Choose your cabin
               </h2>
               <p className="text-sm text-muted-foreground mt-2">
-                Starting rates include all mandatory booking fees and taxes.
+                {promo ? (
+                  <>
+                    Fall Sale: {PROMO.percentLabel} every cabin with code {PROMO.code} · new
+                    reservations only. Rates include all booking fees and taxes.
+                  </>
+                ) : (
+                  <>Starting rates include all mandatory booking fees and taxes.</>
+                )}
               </p>
             </div>
             <a
@@ -656,7 +663,7 @@ function CabinsPage() {
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h2 className="text-2xl sm:text-3xl font-bold mb-6" style={{ color: "var(--navy)" }}>
-            Cabin amenities at a glance
+            {promo && <span aria-hidden="true">🍂 </span>}Cabin amenities at a glance
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {AMENITIES.map((a) => (
@@ -754,7 +761,7 @@ function CabinsPage() {
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "var(--navy)" }}>
-            Why stay in a Silverthorn cabin?
+            {promo && <span aria-hidden="true">🍁 </span>}Why stay in a Silverthorn cabin?
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="rounded-xl border border-border bg-card p-6">
@@ -795,7 +802,7 @@ function CabinsPage() {
       <section className="border-b border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "var(--navy)" }}>
-            Shasta Lake cabin FAQs
+            {promo && <span aria-hidden="true">🍂 </span>}Shasta Lake cabin FAQs
           </h2>
           <dl className="space-y-5">
             {FAQS.map((f) => (
