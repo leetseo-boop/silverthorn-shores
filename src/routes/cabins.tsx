@@ -820,9 +820,13 @@ function CabinsPage() {
       {/* Final CTA */}
       <section style={{ backgroundColor: "var(--navy)" }} className="text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold">Plan your Shasta Lake getaway</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold">
+            {promo ? "Fall on Shasta Lake is calling 🍂" : "Plan your Shasta Lake getaway"}
+          </h2>
           <p className="mt-3 text-white/80 max-w-2xl mx-auto">
-            Book a cabin, bring your boat (we'll save you a slip), and unplug in the pines.
+            {promo
+              ? `Cozy cabins, quiet water, and ${PROMO.percentLabel} off every cabin with code ${PROMO.code} through October 31.`
+              : "Book a cabin, bring your boat (we'll save you a slip), and unplug in the pines."}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
@@ -849,6 +853,7 @@ function CabinsPage() {
 
 function CabinCard({ cabin }: { cabin: Cabin }) {
   const unavailable = cabin.unavailable;
+  const promo = isPromoActive();
   return (
     <article
       id={`cabin-${cabin.id}`}
