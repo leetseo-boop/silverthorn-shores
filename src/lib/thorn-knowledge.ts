@@ -81,6 +81,10 @@ export const POLICY_FACTS: PolicyFact[] = [
     text: "Cabin check-out is no later than 11:00 AM on the departure date, with the cabin left in the same general condition as on arrival.",
   },
   {
+    id: "cab-rates-fall-2026",
+    text: "Cabin rates (8 lakeside cabins, full kitchens, BBQ, DirecTV, a boat slip per cabin, pet friendly). Regular weekly / 3-night: Cabins #1, #3, #5 $1,514.84 / $649.22; Cabin #4 $1,755.29 / $752.27; Cabin #7 $1,835.44 / $786.62; Cabins #2, #8 $2,316.34 / $992.72. Shasta Lake Fall Sale (Oct 1–31, 2026, code fall26, new reservations only) takes 20% off every cabin: Cabins #1, #3, #5 $1,211.87 weekly / $519.38 3-night; Cabin #4 $1,404.23 / $601.82; Cabin #7 $1,468.35 / $629.30; Cabins #2, #8 $1,853.07 / $794.18. The cabins page shows slashed full prices with the sale price. Book at https://rentals.silverthornresort.com/category/15. Office hours Fall/Winter: 8:00 AM–4:30 PM, 7 days a week. Rentals are full-day or multi-day only — no half-day or hourly rentals.",
+  },
+  {
     id: "cab-pets",
     text: "Cabins are pet friendly: maximum 2 dogs — the 1st dog stays free and the 2nd dog is a non-refundable $50.00 paid before occupancy. Excessive cleaning is $95.00 per hour; damages at replacement cost.",
   },
