@@ -895,8 +895,14 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
           C{cabin.id}
         </span>
 
+        {!unavailable && <PromoBadge className="absolute top-3 right-3" />}
+
         {cabin.badge && !unavailable && (
-          <span className="absolute top-3 right-3 inline-flex items-center rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-primary-foreground shadow">
+          <span
+            className={`absolute right-3 inline-flex items-center rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-primary-foreground shadow ${
+              promo ? "top-12" : "top-3"
+            }`}
+          >
             {cabin.badge}
           </span>
         )}
@@ -947,7 +953,7 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
 
         <div className="mt-auto pt-5">
           {!unavailable && (cabin.weekly || cabin.threeNight) ? (
-            <div className="grid grid-cols-2 gap-3 rounded-lg bg-[var(--sand)] p-3">
+            <div className={`grid grid-cols-2 gap-3 rounded-lg p-3 ${promo ? "bg-fall-cream" : "bg-[var(--sand)]"}`}>
               {cabin.weekly && (
                 <div>
                   <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
