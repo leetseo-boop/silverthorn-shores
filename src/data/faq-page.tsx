@@ -74,6 +74,10 @@ export const FAQS: Faq[] = [
     a: "Yes! Silverthorn and Jones Valley Resort are sister marinas managed by the same team on Shasta Lake. If your preferred dates are unavailable at Silverthorn, we can point you to Jones Valley. Visit houseboats.com or call us at 800-332-3044.",
   },
   {
+    q: "Do you offer half-day or hourly boat rentals?",
+    a: "No. All small-boat rentals at Silverthorn Resort are full-day or multi-day rentals. We do not offer half-day or hourly rentals.",
+  },
+  {
     q: "What is there to do on Shasta Lake beyond the houseboat?",
     a: "Shasta Lake offers 365 miles of shoreline, world-class fishing, water skiing, wakeboarding, kayaking, and hiking. Nearby attractions include Shasta Dam, Shasta Caverns, and the town of Redding. See our Exploring Shasta Lake page for a full guide.",
   },

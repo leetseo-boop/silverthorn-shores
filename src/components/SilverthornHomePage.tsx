@@ -736,7 +736,7 @@ function FleetSection() {
               chip: "Day Boats",
               chipBg: "#1A6FA8",
               title: "Small Boat Rentals",
-              tagline: "Half or full day · Fishing gear · Pro Shop",
+              tagline: "Full-day rentals · Fishing gear · Pro Shop",
               cta: "Browse Boat Rentals →",
               learn: "/small-boats",
             },
