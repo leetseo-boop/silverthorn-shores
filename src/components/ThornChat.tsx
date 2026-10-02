@@ -182,7 +182,7 @@ export function ThornChat() {
     const onOpenThorn = (e: Event) => {
       const message = (e as CustomEvent<{ message?: string }>).detail?.message;
       setOpen(true);
-      setMood("happy");
+      setMood("celebrate");
       if (message) setInput(message);
     };
     window.addEventListener("str-open-thorn", onOpenThorn);

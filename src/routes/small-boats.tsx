@@ -213,6 +213,9 @@ function SmallBoatsPage() {
                 style={{ backgroundColor: ORANGE }}>
                 <Calendar className="w-5 h-5" /> Book a Boat
               </a>
+              <BookWithThornButton
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold bg-white/95 transition-all"
+                style={{ color: NAVY }} />
               <a href="tel:+18003323044"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold bg-white/95 transition-all"
                 style={{ color: NAVY }}>
@@ -360,6 +363,8 @@ function SmallBoatsPage() {
               style={{ color: NAVY }}>
               <Calendar className="w-5 h-5" /> Book Now
             </a>
+            <BookWithThornButton
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold border-2 border-white text-white" />
             <a href="tel:+18003323044"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold border-2 border-white text-white">
               <Phone className="w-5 h-5" /> Call 1-800-332-3044
