@@ -179,7 +179,17 @@ export function ThornChat() {
     setConsentDecided(getConsent() !== null);
     const onConsent = () => setConsentDecided(true);
     window.addEventListener("str-consent-change", onConsent);
-    return () => window.removeEventListener("str-consent-change", onConsent);
+    const onOpenThorn = (e: Event) => {
+      const message = (e as CustomEvent<{ message?: string }>).detail?.message;
+      setOpen(true);
+      setMood("celebrate");
+      if (message) setInput(message);
+    };
+    window.addEventListener("str-open-thorn", onOpenThorn);
+    return () => {
+      window.removeEventListener("str-consent-change", onConsent);
+      window.removeEventListener("str-open-thorn", onOpenThorn);
+    };
   }, []);
 
   useEffect(() => {

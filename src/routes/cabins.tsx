@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PromoBanner, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
+import { BookWithThornButton } from "@/components/BookWithThornButton";
 import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd, discounted } from "@/lib/promo";
 import {
   Users,
@@ -838,6 +839,7 @@ function CabinsPage() {
             >
               Book a cabin <ExternalLink className="h-4 w-4" />
             </a>
+            <BookWithThornButton className="inline-flex items-center gap-2 rounded-md border border-white/30 bg-transparent px-6 py-3 text-sm font-semibold text-white hover:bg-white/10" />
             <a
               href={`tel:${PHONE.replace(/-/g, "")}`}
               className="inline-flex items-center gap-2 rounded-md border border-white/30 bg-transparent px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"
