@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { PromoBanner, PromoPrice } from "@/components/promo/PromoBits";
+import { PromoBanner, PromoBadge, PromoPrice } from "@/components/promo/PromoBits";
 import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd, discounted } from "@/lib/promo";
 import {
   Users,
@@ -399,10 +399,23 @@ export const Route = createFileRoute("/cabins")({
 });
 
 function CabinsPage() {
+  const promo = isPromoActive();
   return (
     <main className="bg-background text-foreground">
       {/* Header */}
-      <section className="bg-[var(--sand)] border-b border-border">
+      <section className="relative overflow-hidden bg-[var(--sand)] border-b border-border">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-6 top-6 hidden select-none text-4xl opacity-20 lg:block"
+        >
+          🍁🍂🍂
+        </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-6 left-6 hidden select-none text-3xl opacity-15 lg:block"
+        >
+          🍂
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
           <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground mb-4">
             <Link to="/" className="hover:text-foreground">Home</Link>
@@ -415,6 +428,22 @@ function CabinsPage() {
           >
             Shasta Lake Cabins at Silverthorn Resort
           </h1>
+          {promo && (
+            <a
+              href={BOOKING_ALL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-full bg-fall-rust px-4 py-2 text-sm font-bold text-fall-cream shadow transition-colors hover:bg-fall-rust/90"
+            >
+              <span aria-hidden="true">🍂</span>
+              <span>
+                Shasta Lake Fall Sale · {PROMO.percentLabel} every cabin with code {PROMO.code}
+              </span>
+              <span className="rounded-full bg-navy px-2 py-0.5 text-[11px] font-bold tracking-wider">
+                ENDS {PROMO.endsLabel}
+              </span>
+            </a>
+          )}
           <p className="mt-4 max-w-3xl text-base sm:text-lg text-muted-foreground">
             Eight lakeside cabins on Shasta Lake nestled in the pines — studios sleeping 4 up to a
             two-bedroom family cabin sleeping 8. Full kitchens, gas BBQs, DirecTV, and a complimentary
@@ -444,7 +473,19 @@ function CabinsPage() {
 
       {/* Shasta Lake Fall Sale */}
       <section className="border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 top-1/2 hidden -translate-y-1/2 select-none text-3xl opacity-40 xl:block"
+          >
+            🍂
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 select-none text-3xl opacity-40 xl:block"
+          >
+            🍁
+          </div>
           <PromoBanner what="all Silverthorn lakeside cabins" />
         </div>
       </section>
