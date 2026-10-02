@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { PromoBanner } from "@/components/promo/PromoBits";
+import { PromoBanner, PromoPrice } from "@/components/promo/PromoBits";
 import { isPromoActive, PROMO, PROMO_OFFER_DESCRIPTION, saleEventJsonLd, discounted } from "@/lib/promo";
 import {
   Users,
@@ -900,9 +900,7 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
                   <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
                     Starting weekly
                   </div>
-                  <div className="text-sm font-bold" style={{ color: "var(--navy)" }}>
-                    {cabin.weekly}
-                  </div>
+                  <PromoPrice price={Number(cabin.weekly.replace(/[$,]/g, ""))} decimals size="sm" />
                 </div>
               )}
               {cabin.threeNight && (
@@ -910,9 +908,7 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
                   <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
                     3-night min
                   </div>
-                  <div className="text-sm font-bold" style={{ color: "var(--navy)" }}>
-                    {cabin.threeNight}
-                  </div>
+                  <PromoPrice price={Number(cabin.threeNight.replace(/[$,]/g, ""))} decimals size="sm" />
                 </div>
               )}
             </div>
